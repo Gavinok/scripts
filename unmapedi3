@@ -1,0 +1,3 @@
+#!/bin/bash
+
+less ~/.config/i3/unmaped.txt

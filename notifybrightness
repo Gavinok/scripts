@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#this script sends a notification stating the current brightness precentage
+
+xbacklight -get | while read OUTPUT; 
+do dunstify -r 1 "Brightness is $OUTPUT%"; done

@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# Feed script a url.
+# If an image, it will view in feh,
+# if a video or gif, it will view in mpv
+# if a music file or pdf, it will download,
+# otherwise it opens link in browser.
+
+# Sci-Hub's domain occasionally changes due to shutdowns:
+scihub="http://sci-hub.tw/"
+
+# If no url given. Opens browser. For using script as $BROWSER.
+[ -z "$1" ] && { "$TRUEBROWSER"; exit; }
+
+case "$1" in
+	*mkv|*webm|*mp4|*gif|*hooktube.com*)
+		setsid mpv -quiet "$1" >/dev/null 2>&1 & ;;
+	*youtube.com*|*youtu.be*) #limit the video quality
+		setsid mpv -quiet --ytdl-format=18 "$1" >/dev/null 2>&1 & ;;
+	*png|*jpg|*jpe|*jpeg)
+		setsid feh "$1" >/dev/null 2>&1 & ;;
+	# *mp3|*flac|*opus|*mp3?source)
+	# 	setsid tsp wget "$1" >/dev/null 2>&1 & ;;
+	*mp3|*flac|*opus|*mp3?source)
+		setsid st -e mpv "$1" >/dev/null 2>&1 & ;;
+    *imgur.com/*)
+         url=$(curl -s "$url" | sed -nE 's/^.*<link rel="image_src"[[:space:]]+href="([^"]+)".*$/\1/p')
+        /home/gavinok/.scripts/linkhandler $url;;	
+	*springer.com*)
+		setsid curl -sO "$(curl -s "$scihub$*" | grep -Po "(?<=location.href=').+.pdf")" >/dev/null 2>&1 & ;;
+	*) setsid "$TRUEBROWSER" "$1"  & ;;
+esac

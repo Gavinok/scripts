@@ -1,0 +1,14 @@
+#!/bin/sh
+# Feed this script a link and it will give dmenu
+# some choice programs to use to open it.
+
+x=$(printf "mpv\\nmpv (loop)\\nwget\\nfeh\\nbrowser\\nw3m\\nmpv (float)" | dmenu -i -p "Open link with what program?")
+case "$x" in
+	mpv) setsid mpv -quiet "$1" >/dev/null 2>&1 & ;;
+	"mpv (loop)") setsid mpv -quiet --loop "$1" >/dev/null 2>&1 & ;;
+	wget) wget "$1" >/dev/null 2>&1 ;;
+	browser) setsid "$TRUEBROWSER" "$1" & ;;
+	feh) setsid feh "$1" >/dev/null 2>&1 & ;;
+	w3m) w3m "$1" >/dev/null 2>&1 ;;
+	"mpv (float)") setsid mpv --geometry=+0-0 --autofit=30%  --title="mpvfloat" "$1" >/dev/null 2>&1 & ;;
+esac

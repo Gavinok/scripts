@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# A general audio interface for LARBS.
+
+
+[ -z "$2" ] && num="2" || num="$2"
+
+case "$1" in
+	# u*) pulsemixer --change-volume +"$num" ;;#Speakers and headphones SLOW
+	# u*) pactl set-sink-volume 0 +"$num"% ;pactl set-sink-volume 2 +"$num"% ;;#Speakers and headphones
+	# u*) pactl set-sink-volume 0 +"$num"% ;; #Speakers
+	# u*) pactl set-sink-volume 2 +"$num"% ;;#headphones 
+	u*) pactl set-sink-volume @DEFAULT_SINK@  +"$num"% ;;#change the default audio sync
+	# d*) pulsemixer --change-volume -"$num" ;;#Speakers and headphones SLOW
+	# d*) pactl set-sink-volume 0 -"$num"% ;pactl set-sink-volume 2 -"$num"% ;;#Speakers and headphones
+	# d*) pactl set-sink-volume 0 -"$num"% ;;#Speakers
+	# d*) pactl set-sink-volume 2 -"$num"% ;;#headphones
+	d*) pactl set-sink-volume @DEFAULT_SINK@  -"$num"% ;;#change the default audio sync
+	m*) pulsemixer --toggle-mute ;; 
+	m*) pulsemixer --toggle-mute ;; 
+	truemute) pulsemixer --mute ;;
+	play) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Play;;
+	n*) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next ;;
+	prev) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous ;;
+	t*) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause ;;
+	p*) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop ;;
+	f*) mpc seek +"$num" ;;
+	b*) mpc seek -"$num" ;;
+	r*) mpc seek 0\% ;;
+	*) cat << EOF
+lmc: cli music interface for mpd and pulse for those with divine intellect too
+grand to remember the mpc/pamixer commands.
+
+Allowed options:
+  up NUM	Increase volume (2 secs default)
+  down NUM	Decrease volume (2 secs default)
+  mute		Toggle mute
+  truemute	Mute
+  next		Next track
+  prev		Previous track
+  toggle	Toggle pause
+  truepause	Pause
+  foward NUM	Seek foward in song (2 secs default)
+  back NUM	Seek back in song (2 secs default)
+  restart	Restart current song
+  all else	Print this message
+
+All of these commands, except for \`truemute\`, \`prev\` and \`play\` can be truncated,
+i.e. \`lmc r\` for \`lmc restart\`.
+EOF
+esac

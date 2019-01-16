@@ -1,0 +1,35 @@
+#!/bin/sh
+vidlist="
+Bash script		https://www.youtube.com/watch?v=YOpeXETS2z0&t=192s
+Bash Script Full	https://www.youtube.com/watch?v=oxuRxtrO2Ag	
+dmenu script	https://www.youtube.com/watch?v=R9m723tAurA
+status bar	https://www.youtube.com/watch?v=gKumet6b-WY
+i3
+mutt		https://www.youtube.com/watch?v=2U3vRbF7v5A
+ncmpcpp		https://www.youtube.com/watch?v=sZIEdI9TS2U
+newsboat	https://www.youtube.com/watch?v=dUFCRqs822w
+ranger		https://www.youtube.com/watch?v=L6Vu7WPkoJo
+gpg keys	https://www.youtube.com/watch?v=DMGIlj7u7Eo
+calcurse	https://www.youtube.com/watch?v=hvc-pHjbhdE
+urlview		https://www.youtube.com/watch?v=IgzpAjFgbCw
+ncurses		https://www.youtube.com/watch?v=2tWN6ntNo4w
+SQL	https://www.youtube.com/watch?v=bEtnYWuo2Bw
+SQL	Full	https://www.youtube.com/watch?v=HXV3zeQKqGY&t=4342s
+C programming	https://www.youtube.com/watch?v=2NWeucMKrLI&index=1&list=PL6gx4Cwl9DGAKIXv8Yr6nhGJ9Vlcjyymq
+C File I/O	https://www.youtube.com/watch?v=-LqUMHoBo6o
+install latex	https://www.youtube.com/watch?v=NwnYHoNtfJ0
+Latex1		https://www.youtube.com/watch?v=mfRmmZ_84Mw&t=2s
+Latex2		https://www.youtube.com/watch?v=25LExaNtdF0 
+Latex3 bib	https://www.youtube.com/watch?v=46piog3Fzp4
+Latex Resume	https://www.youtube.com/watch?v=VjsX4tznW40&t=570s
+Latex Resume2	https://www.youtube.com/watch?v=o5-BZ7JmYWk	
+Latex Images	https://www.youtube.com/watch?v=zgThRPjy-vw
+Latex Macros	https://www.youtube.com/watch?v=rvgP7IMeUn8
+Latex and vim	https://www.youtube.com/watch?v=yNOkCYuPt3E
+Python			https://www.youtube.com/watch?v=rfscVS0vtbw&t=2s
+JSON	https://www.youtube.com/watch?v=wI1CWzNtE-M
+Golang Crash Course		https://www.youtube.com/watch?v=SqrbIlUwR0U&t=15s
+Go Programming	https://www.youtube.com/watch?v=CF9S4QZuV30&t=1009s
+"
+
+mpv "$(echo "$vidlist" | grep -P "^$(echo "$vidlist" | grep "https:" | sed 's/\t.*//g' | dmenu -i -p "Learn about what? (ESC to cancel)" -l 5)\\t" | sed 's/.*\t//')"

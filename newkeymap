@@ -1,0 +1,8 @@
+! add Mode_switch
+keycode 108 = NoSymbol NoSymbol
+keycode 108 = Mode_Switch
+
+keysym j = j J Down NoSymbol NoSymbol NoSymbol
+keysym k = k K Up NoSymbol NoSymbol NoSymbol
+keysym h = h H Left NoSymbol NoSymbol NoSymbol
+keysym l = l L Right NoSymbol lstroke Lstroke

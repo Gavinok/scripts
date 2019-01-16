@@ -1,0 +1,17 @@
+#!/bin/bash
+
+xmodmap -e "keysym y = Tab"
+xmodmap -e "keysym u = 7"
+xmodmap -e "keysym i = 8"
+xmodmap -e "keysym o = 9"
+xmodmap -e "keysym p = equal"
+xmodmap -e "keysym h = BackSpace"
+xmodmap -e "keysym j = 4"
+xmodmap -e "keysym k = 5"
+xmodmap -e "keysym l = 6"
+xmodmap -e "keysym semicolon = plus"
+xmodmap -e "keysym n = 1"
+xmodmap -e "keysym m = 2"
+xmodmap -e "keysym comma = 3"
+xmodmap -e "keysym b = 0"
+xmodmap -e "keysym period = minus"

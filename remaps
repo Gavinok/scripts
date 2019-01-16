@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# This script is called by i3 on startup.
+# Increase key speed via a rate change
+xset r rate 200 50
+# Map the caps lock key to super...
+setxkbmap -layout us -variant altgr-intl -option caps:ctrl_modifier
+# If you don't want a us international keyboard, rather whatever keyboard
+# you set in your installation, comment out the above line and uncomment
+# the one below.
+xmodmap -e "keycode 65 = Hyper_L"
+xmodmap -e "keycode 108 = Alt_L"
+xmodmap -e "keycode any = space"
+xmodmap -e "keysym Menu = Hyper_L"
+# But when it is pressed only once, treat it as escape.
+killall xcape ; xcape -e 'Caps_Lock=Escape'
+xcape -t 200 -e "Hyper_L=space"
+# xcape  -e "Hyper_L=space"
+

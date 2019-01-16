@@ -1,0 +1,11 @@
+#!/bin/sh
+# opout: "open output": A general handler for opening a file's intended output.
+# I find this useful especially running from vim.
+
+basename="${1%.*}"
+
+case "$1" in
+	*.tex|*.md|*.rmd) setsid zathura "$basename".pdf & ;;
+	*.html) setsid "$TRUEBROWSER" --new-window "$basename".html & ;;
+	*.sent) setsid sent "$1" & ;;
+esac

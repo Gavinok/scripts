@@ -1,0 +1,79 @@
+#!/bin/sh
+#description: dmenu for killall
+#usage: dmenu-killall is best suited for launching from a shortcut
+
+#example: dmenu-killall
+#a gui menu appears asking for which app to kill
+
+progname="$(expr "${0}" : '.*/\([^/]*\)')"
+
+#variables are impractical to save complex cmds because of shell expantion
+#therefore functions are required: http://mywiki.wooledge.org/BashFAQ/050
+DMENU() { dmenu -p 'Kill'; }
+#looks better on xft powered dmenu:
+#https://bugs.launchpad.net/ubuntu/+source/suckless-tools/+bug/1093745
+
+_usage() {
+    printf "%s\\n" "Usage: ${progname} [PATTERN]"
+    printf "%s\\n" "Dmenu window selector for i3-wm."
+    printf "%s\\n"
+    printf "%s\\n" "  -h, --help      show this message and exit"
+}
+
+_die() {
+    [ -n "${1}" ] && _die_msg="${1}" || exit 1
+    printf "%b%b\\n" "${_die_msg}" ", press <Enter> to exit" | DMENU
+    exit 1
+}
+
+_notify() {
+    [ -z "${1}" ] && return 1
+    kill -9 $(pgrep notify-osd) >/dev/null 2>&1
+    if ! DISPLAY=${DISPLAY:-:0} notify-send -t 1000 "${1}" "${2}"; then
+        if command -v "gxmessage" 2>/dev/null; then
+            font="Monaco 9"
+            DISPLAY=${DISPLAY:-:0} gxmessage "${font:+-fn "$font"}" "${1}" "ok"
+        elif command -v "xmessage" 2>/dev/null; then
+            font="fixed"
+            DISPLAY=${DISPLAY:-:0}  xmessage "${font:+-fn "$font"}" "${1}" "ok"
+        fi
+    fi
+}
+
+_get_process_names() {
+    printf "%s\\n" "$(command ps xo command= | sed \
+        -e "s: .*::; s:.*/::; s/:$//;"             \
+        -e "s:^\[.*\]$::" -e "/^$/d"               \
+        -e "s:^<defunct>$::")" | sort | uniq
+}
+
+if [ ! -t 0 ]; then
+    #add input comming from pipe or file to $@
+    set -- "${@}" $(cat)
+fi
+
+for arg in "${@}"; do #parse options
+    case "${arg}" in
+        -h|--help) _usage && exit ;;
+    esac
+done
+
+if [ -z "${1}" ]; then
+    if ! command -v "dmenu" >/dev/null 2>&1; then
+        printf "%s\\n" "${progname}: install 'dmenu' to run this program" >&2
+        exit 1
+    fi
+    process_name="$(_get_process_names | DMENU)"
+else
+    process_name="$(_get_process_names | grep -i "${@}" 2>/dev/null | head -1 )"
+fi
+
+if [ -z "${process_name}" ]; then
+    _die
+else
+    error_msg="$(kill -9 $(pgrep -x "${process_name}") 2>&1 1>/dev/null)"
+    if [ X"${?}" != X"0" ]; then
+        _notify "Error" "${error_msg}"
+        exit 1
+    fi
+fi

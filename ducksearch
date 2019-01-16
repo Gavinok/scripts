@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Gives a dmenu prompt to search DuckDuckGo.
+# Without input, will open DuckDuckGo.com.
+# Anything else, it search it.
+
+#  pgrep -x dmenu && exit
+
+choice=$(echo "🦆" | dmenu -i -p "Search DuckDuckGo:") || exit 1
+
+if [ "$choice" = "🦆"  ]; then
+	surf -npbS "https://duckduckgo.com"
+else
+	surf -npSb "$choice"
+fi
