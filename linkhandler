@@ -28,5 +28,5 @@ case "$1" in
         /home/gavinok/.scripts/linkhandler $url;;	
 	*springer.com*)
 		setsid curl -sO "$(curl -s "$scihub$*" | grep -Po "(?<=location.href=').+.pdf")" >/dev/null 2>&1 & ;;
-	*) setsid "$TRUEBROWSER" "$1"  & ;;
+	*) "chromium" "--app=$1"  & ;;
 esac

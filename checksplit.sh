@@ -14,8 +14,10 @@ if [ -f "/tmp/value.dat" ] ; then
 		if [[ $value == 1 ]];
 		then
 			echo "[V]"
+			i3-msg -q "split v"
 		else
 			echo "[>]"
+			i3-msg -q "split h"
 		fi
 		sleep 0.4
 	done
