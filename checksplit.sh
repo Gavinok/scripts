@@ -1,26 +1,36 @@
+#!/bin/bash
 
-#!/bin/sh
-
-if [ -f "/tmp/value.dat" ] ; then
+split_checker()
+{
 	while true
 	do
 		# if we don't have a file, start at zero
-		if [ ! -f "/tmp/value.dat" ] ; then
-		  value=0
+		# if [ ! -f "/tmp/value.dat" ] ; then
+		#   value=0
 		# otherwise read the value from the file
-		else
+		# else
 		  value=`cat /tmp/value.dat`
-		fi
+		# fi
 		if [[ $value == 1 ]];
 		then
 			echo "[V]"
-			i3-msg -q "split v"
+			# i3-msg -q "split v"
 		else
 			echo "[>]"
-			i3-msg -q "split h"
+			# i3-msg -q "split h"
 		fi
 		sleep 0.4
 	done
+}
+
+
+if [ -f "/tmp/value.dat" ] ; then
+	split_checker
 else
-  echo "[x]"
+	value=0
+	echo "[>]"
+	i3-msg -q "split h"
+	# and save it for next time
+	echo "${value}" > /tmp/value.dat
+	split_checker
 fi

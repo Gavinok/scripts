@@ -19,14 +19,13 @@ case "$1" in
 		setsid mpv -quiet --ytdl-format=18 "$1" >/dev/null 2>&1 & ;;
 	*png|*jpg|*jpe|*jpeg)
 		setsid feh "$1" >/dev/null 2>&1 & ;;
-	# *mp3|*flac|*opus|*mp3?source)
-	# 	setsid tsp wget "$1" >/dev/null 2>&1 & ;;
 	*mp3|*flac|*opus|*mp3?source)
-		setsid st -e mpv "$1" >/dev/null 2>&1 & ;;
+		setsid tsp wget "$1" >/dev/null 2>&1 & ;;
+	# *mp3|*flac|*opus|*mp3?source)
+	# 	setsid st -e mpv "$1" >/dev/null 2>&1 & ;;
     *imgur.com/*)
-         url=$(curl -s "$url" | sed -nE 's/^.*<link rel="image_src"[[:space:]]+href="([^"]+)".*$/\1/p')
-        /home/gavinok/.scripts/linkhandler $url;;	
+		setsid "surf" "$1" >/dev/null 2>&1 & ;;
 	*springer.com*)
 		setsid curl -sO "$(curl -s "$scihub$*" | grep -Po "(?<=location.href=').+.pdf")" >/dev/null 2>&1 & ;;
-	*) "chromium" "--app=$1"  & ;;
+	*) "chromium" "--app=$1" >/dev/null 2>&1 & ;;
 esac
