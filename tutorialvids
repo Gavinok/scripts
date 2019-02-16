@@ -1,10 +1,9 @@
 #!/bin/sh
 vidlist="
 Bash script		https://www.youtube.com/watch?v=YOpeXETS2z0&t=192s
-Bash Script Full	https://www.youtube.com/watch?v=oxuRxtrO2Ag	
+Bash script full	 https://www.youtube.com/watch?v=oxuRxtrO2Ag	
 dmenu script	https://www.youtube.com/watch?v=R9m723tAurA
 status bar	https://www.youtube.com/watch?v=gKumet6b-WY
-i3
 mutt		https://www.youtube.com/watch?v=2U3vRbF7v5A
 ncmpcpp		https://www.youtube.com/watch?v=sZIEdI9TS2U
 newsboat	https://www.youtube.com/watch?v=dUFCRqs822w
