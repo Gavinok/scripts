@@ -18,7 +18,7 @@ case "$1" in
 	*youtube.com*|*youtu.be*) #limit the video quality
 		setsid mpv -quiet --ytdl-format=18 "$1" >/dev/null 2>&1 & ;;
 	*png|*jpg|*jpe|*jpeg)
-		setsid feh "$1" >/dev/null 2>&1 & ;;
+		setsid feh -g 800x600 -. "$1" >/dev/null 2>&1 & ;;
 	*mp3|*flac|*opus|*mp3?source)
 		setsid tsp wget "$1" >/dev/null 2>&1 & ;;
 	# *mp3|*flac|*opus|*mp3?source)

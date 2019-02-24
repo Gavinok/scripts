@@ -25,12 +25,11 @@ Can I install these & is it safe	Bash-Snippets/extras/README.md	/^## Can I insta
 Changes	Bash-Snippets/changelog.md	/^# Changes$/;"	c
 Changes	Bash-Snippets/changelog.md	/^## Changes$/;"	s
 Changes	Bash-Snippets/changelog.md	/^### Changes$/;"	S
-Clock	bar.sh	/^Clock() {$/;"	f
 Contributing	Bash-Snippets/CONTRIBUTING.md	/^# Contributing$/;"	c
 Contributor Covenant Code of Conduct	Bash-Snippets/CODE_OF_CONDUCT.md	/^# Contributor Covenant Code of Conduct$/;"	c
 Contributors	Bash-Snippets/bash-snippets.1	/^.SH "Contributors"$/;"	s	title:BASH\\-SNIPPETS
 CvimServer	cvim_server.py	/^class CvimServer(BaseHTTPRequestHandler):$/;"	c
-DMENU	dmenu-killall	/^DMENU() { dmenu -p 'Kill'; }$/;"	f
+DMENU	dmenu/dmenu-killall	/^DMENU() { dmenu -p 'Kill'; }$/;"	f
 Dependent tools	Bash-Snippets/extras/README.md	/^## Dependent tools$/;"	s
 Directory of Scripts	SCRIPTS.md	/^# Directory of Scripts$/;"	c
 Donate	Bash-Snippets/README.md	/^## Donate$/;"	s
@@ -143,10 +142,10 @@ Version 1.8.0	Bash-Snippets/changelog.md	/^## Version 1.8.0$/;"	s
 Version 1.9.0	Bash-Snippets/changelog.md	/^## Version 1.9.0$/;"	s
 Where do I go from here?	Bash-Snippets/CONTRIBUTING.md	/^#### Where do I go from here?$/;"	t
 Why are these here?	Bash-Snippets/extras/README.md	/^## Why are these here?$/;"	s
-_die	dmenu-killall	/^_die() {$/;"	f
-_get_process_names	dmenu-killall	/^_get_process_names() {$/;"	f
-_notify	dmenu-killall	/^_notify() {$/;"	f
-_usage	dmenu-killall	/^_usage() {$/;"	f
+_die	dmenu/dmenu-killall	/^_die() {$/;"	f
+_get_process_names	dmenu/dmenu-killall	/^_get_process_names() {$/;"	f
+_notify	dmenu/dmenu-killall	/^_notify() {$/;"	f
+_usage	dmenu/dmenu-killall	/^_usage() {$/;"	f
 `audio`	SCRIPTS.md	/^## `audio`$/;"	s
 `bottomleft`	SCRIPTS.md	/^## `bottomleft`$/;"	s
 `camtoggle`	SCRIPTS.md	/^## `camtoggle`$/;"	s
@@ -200,12 +199,12 @@ args	spotify-status.py	/^args = parser.parse_args()$/;"	v
 artist	spotify-status.py	/^    artist = fix_string(metadata['xesam:artist'][0])$/;"	v
 askInstall	Bash-Snippets/install.sh	/^askInstall()$/;"	f
 askUninstall	Bash-Snippets/uninstall.sh	/^askUninstall()$/;"	f
-askrecording	dmenurecord	/^askrecording() { \\$/;"	f
-asktoend	dmenurecord	/^asktoend() { \\$/;"	f
-asktype	dmenumount	/^asktype() { \\$/;"	f
-asktype	dmenuumount	/^asktype() { \\$/;"	f
-audioalsa	dmenurecord	/^audioalsa() { \\$/;"	f
-audiopulse	dmenurecord	/^audiopulse() { \\$/;"	f
+askrecording	dmenu/dmenurecord	/^askrecording() { \\$/;"	f
+asktoend	dmenu/dmenurecord	/^asktoend() { \\$/;"	f
+asktype	dmenu/dmenumount	/^asktype() { \\$/;"	f
+asktype	dmenu/dmenuumount	/^asktype() { \\$/;"	f
+audioalsa	dmenu/dmenurecord	/^audioalsa() { \\$/;"	f
+audiopulse	dmenu/dmenurecord	/^audiopulse() { \\$/;"	f
 backupRepo	Bash-Snippets/cloudup/cloudup	/^backupRepo()$/;"	f
 bm_tree_walk	importer.py	/^        def bm_tree_walk(bm, template):$/;"	f	function:import_chrome	file:
 browser_default_input_format	importer.py	/^browser_default_input_format = {$/;"	v
@@ -264,7 +263,7 @@ eof	unix	/^cat << 'eof'$/;"	h
 expandURL	Bash-Snippets/short/short	/^expandURL()$/;"	f
 extraUpdateTool	Bash-Snippets/install.sh	/^extraUpdateTool()$/;"	f
 fatal	i3-wm-scripts/i3-exec	/^fatal() {$/;"	f
-filter	i3mpd	/^filter() {$/;"	f
+filter	i3-wm-scripts/i3mpd	/^filter() {$/;"	f
 fix_string	spotify-status.py	/^def fix_string(string):$/;"	f
 focus_window	i3-wm-scripts/common.py	/^def focus_window(id):$/;"	f
 geodata_search	Bash-Snippets/geo/geo	/^geodata_search() {$/;"	f
@@ -332,7 +331,7 @@ get_bookmark_lines	i3-wm-scripts/vimb-bookmark	/^def get_bookmark_lines(filename
 get_named_windows	i3-wm-scripts/common.py	/^def get_named_windows():$/;"	f
 get_tree	i3-wm-scripts/common.py	/^def get_tree():$/;"	f
 getconfiguredUploadClient	Bash-Snippets/transfer/transfer	/^getconfiguredUploadClient()$/;"	f
-getmount	dmenumount	/^getmount() { \\$/;"	f
+getmount	dmenu/dmenumount	/^getmount() { \\$/;"	f
 grablatestversion	Bash-Snippets/bash-snippets/bash-snippets	/^grablatestversion()$/;"	f
 handle_option	i3-wm-scripts/i3-exec	/^handle_option() {$/;"	f
 header	Bash-Snippets/bash-snippets/bash-snippets	/^header()$/;"	f
@@ -369,31 +368,33 @@ import_netscape_bookmarks	importer.py	/^def import_netscape_bookmarks(bookmarks_
 init_server	cvim_server.py	/^def init_server(server_class=HTTPServer, handler_class=BaseHTTPRequestHandler):$/;"	f
 installationcheck	Bash-Snippets/bash-snippets/bash-snippets	/^installationcheck()$/;"	f
 iter_plus	i3-wm-scripts/nextfind	/^def iter_plus(it, extra):$/;"	f
-iter_plus	nextfind	/^def iter_plus(it, extra):$/;"	f
+iter_plus	i3-wm-scripts/nextfind_	/^def iter_plus(it, extra):$/;"	f
+iter_plus	i3-wm-scripts/nextfind_0	/^def iter_plus(it, extra):$/;"	f
 joinlines	i3-wm-scripts/nextfind	/^def joinlines(L):$/;"	f
-joinlines	nextfind	/^def joinlines(L):$/;"	f
+joinlines	i3-wm-scripts/nextfind_	/^def joinlines(L):$/;"	f
+joinlines	i3-wm-scripts/nextfind_0	/^def joinlines(L):$/;"	f
 kb_light_set	kb-lights.py	/^def kb_light_set(delta):$/;"	f
-killrecording	dmenurecord	/^killrecording() {$/;"	f
+killrecording	dmenu/dmenurecord	/^killrecording() {$/;"	f
 lan_search	Bash-Snippets/geo/geo	/^lan_search() {$/;"	f
 mac_search	Bash-Snippets/geo/geo	/^mac_search() {$/;"	f
 main	Bash-Snippets/meme/meme	/^main(){$/;"	f
 main	i3-wm-scripts/nextfind	/^def main(args):$/;"	f
+main	i3-wm-scripts/nextfind_	/^def main(args):$/;"	f
+main	i3-wm-scripts/nextfind_0	/^def main(args):$/;"	f
 main	i3-wm-scripts/nextmatch	/^def main(args):$/;"	f
 main	i3-wm-scripts/vimb-bookmark	/^def main(args):$/;"	f
 main	importer.py	/^def main():$/;"	f
-main	nextfind	/^def main(args):$/;"	f
-main	nextmatch	/^def main(args):$/;"	f
 makeMultiLineQr	Bash-Snippets/qrify/qrify	/^makeMultiLineQr()$/;"	f
 makeQRFile	Bash-Snippets/qrify/qrify	/^makeQRFile() {$/;"	f
 makeqr	Bash-Snippets/qrify/qrify	/^makeqr()$/;"	f
 mark/goto/unmark	i3-wm-scripts/README.md	/^### mark\/goto\/unmark$/;"	S
 menu	Bash-Snippets/bash-snippets/bash-snippets	/^menu()$/;"	f
 metadata	spotify-status.py	/^    metadata = spotify_properties.Get('org.mpris.MediaPlayer2.Player', 'Metadata')$/;"	v
-morescreen	displayselect	/^morescreen() { # If multi-monitor is selected and there are more than two screens.$/;"	f
-mountandroid	dmenumount	/^mountandroid() { \\$/;"	f
-mountusb	dmenumount	/^mountusb() { \\$/;"	f
-moveChoice	i3resize	/^moveChoice() {$/;"	f
-multimon	displayselect	/^multimon() { # Multi-monitor handler.$/;"	f
+morescreen	dmenu/displayselect	/^morescreen() { # If multi-monitor is selected and there are more than two screens.$/;"	f
+mountandroid	dmenu/dmenumount	/^mountandroid() { \\$/;"	f
+mountusb	dmenu/dmenumount	/^mountusb() { \\$/;"	f
+moveChoice	i3-wm-scripts/i3resize	/^moveChoice() {$/;"	f
+multimon	dmenu/displayselect	/^multimon() { # Multi-monitor handler.$/;"	f
 nextfind	i3-wm-scripts/README.md	/^### nextfind$/;"	S
 nextmatch	i3-wm-scripts/README.md	/^### nextmatch$/;"	S
 onetimeUpload	Bash-Snippets/transfer/transfer	/^onetimeUpload()$/;"	f
@@ -435,16 +436,16 @@ python	Bash-Snippets/taste/taste	/^  python()$/;"	f
 removeManpage	Bash-Snippets/uninstall.sh	/^removeManpage()$/;"	f
 removeTool	Bash-Snippets/uninstall.sh	/^removeTool()$/;"	f
 router_search	Bash-Snippets/geo/geo	/^router_search() {$/;"	f
-screencastalsa	dmenurecord	/^screencastalsa() { \\$/;"	f
-screencastpulse	dmenurecord	/^screencastpulse() { \\$/;"	f
+screencastalsa	dmenu/dmenurecord	/^screencastalsa() { \\$/;"	f
+screencastpulse	dmenu/dmenurecord	/^screencastpulse() { \\$/;"	f
 scripts	README.md	/^# scripts$/;"	c
 search_conv	importer.py	/^    def search_conv(url):$/;"	f	function:import_moz_places	file:
 search_escape	importer.py	/^def search_escape(url):$/;"	f
 search_window	i3-wm-scripts/nextmatch	/^def search_window(windows, expr):$/;"	f
-search_window	nextmatch	/^def search_window(windows, expr):$/;"	f
 searchview	Bash-Snippets/ytview/ytview	/^searchview()$/;"	f
 select_window	i3-wm-scripts/nextfind	/^def select_window(windows, dmenu_args):$/;"	f
-select_window	nextfind	/^def select_window(windows, dmenu_args):$/;"	f
+select_window	i3-wm-scripts/nextfind_	/^def select_window(windows, dmenu_args):$/;"	f
+select_window	i3-wm-scripts/nextfind_0	/^def select_window(windows, dmenu_args):$/;"	f
 shebangtest	compiler	/^shebangtest() {$/;"	f
 shortenURL	Bash-Snippets/short/short	/^shortenURL()$/;"	f
 singleDownload	Bash-Snippets/transfer/transfer	/^singleDownload()$/;"	f
@@ -453,7 +454,7 @@ singleUpload	Bash-Snippets/transfer/transfer	/^singleUpload()$/;"	f
 song	spotify-status.py	/^        song = song[0:trunclen]$/;"	v
 song	spotify-status.py	/^    song = fix_string(metadata['xesam:title'])$/;"	v
 specific_geo	Bash-Snippets/geo/geo	/^specific_geo() {$/;"	f
-split_checker	checksplit.sh	/^split_checker()$/;"	f
+split_checker	i3-wm-scripts/checksplit.sh	/^split_checker()$/;"	f
 spotify_bus	spotify-status.py	/^    spotify_bus = session_bus.get_object($/;"	v
 spotify_properties	spotify-status.py	/^    spotify_properties = dbus.Interface($/;"	v
 status	spotify-status.py	/^    status = spotify_properties.Get('org.mpris.MediaPlayer2.Player', 'PlaybackStatus')$/;"	v
@@ -462,9 +463,9 @@ toolMenu	Bash-Snippets/bash-snippets/bash-snippets	/^toolMenu()$/;"	f
 transformBase	Bash-Snippets/cryptocurrency/cryptocurrency	/^transformBase()$/;"	f
 trunclen	spotify-status.py	/^    trunclen = args.trunclen$/;"	v
 trunclen	spotify-status.py	/^trunclen = 25$/;"	v
-twoscreen	displayselect	/^twoscreen() { # If multi-monitor is selected and there are two screens.$/;"	f
-unmountandroid	dmenuumount	/^unmountandroid() { \\$/;"	f
-unmountusb	dmenuumount	/^unmountusb() {$/;"	f
+twoscreen	dmenu/displayselect	/^twoscreen() { # If multi-monitor is selected and there are two screens.$/;"	f
+unmountandroid	dmenu/dmenuumount	/^unmountandroid() { \\$/;"	f
+unmountusb	dmenu/dmenuumount	/^unmountusb() {$/;"	f
 update	Bash-Snippets/cheat/cheat	/^update()$/;"	f
 update	Bash-Snippets/cloudup/cloudup	/^update()$/;"	f
 update	Bash-Snippets/crypt/crypt	/^update()$/;"	f
@@ -488,7 +489,7 @@ update	Bash-Snippets/transfer/transfer	/^update()$/;"	f
 update	Bash-Snippets/weather/weather	/^update()$/;"	f
 update	Bash-Snippets/ytview/ytview	/^update()$/;"	f
 updateTool	Bash-Snippets/install.sh	/^updateTool()$/;"	f
-updateicon	dmenurecord	/^updateicon() { \\$/;"	f
+updateicon	dmenu/dmenurecord	/^updateicon() { \\$/;"	f
 usage	Bash-Snippets/cheat/cheat	/^usage()$/;"	f
 usage	Bash-Snippets/cloudup/cloudup	/^usage()$/;"	f
 usage	Bash-Snippets/crypt/crypt	/^usage()$/;"	f
@@ -511,11 +512,11 @@ usage	Bash-Snippets/taste/taste	/^usage()$/;"	f
 usage	Bash-Snippets/transfer/transfer	/^usage()$/;"	f
 usage	Bash-Snippets/weather/weather	/^usage()$/;"	f
 usage	Bash-Snippets/ytview/ytview	/^usage()$/;"	f
-usage	calc.sh	/^usage() {$/;"	f
+usage	dmenu/calc.sh	/^usage() {$/;"	f
 validTools=	Bash-Snippets/bash-snippets/bash-snippets	/^  validTools=()$/;"	f
 validTools=	Bash-Snippets/bash-snippets/bash-snippets	/^declare -a validTools=()$/;"	f
 validateExpression	Bash-Snippets/newton/newton	/^validateExpression()$/;"	f
 validateOperation	Bash-Snippets/newton/newton	/^validateOperation()$/;"	f
 version	Bash-Snippets/geo/geo	/^version() {$/;"	f
-video	dmenurecord	/^video() { ffmpeg \\$/;"	f
+video	dmenu/dmenurecord	/^video() { ffmpeg \\$/;"	f
 wan_search	Bash-Snippets/geo/geo	/^wan_search() {$/;"	f
