@@ -21,8 +21,6 @@ case "$1" in
 		setsid feh -g 800x600 -. "$1" >/dev/null 2>&1 & ;;
 	*mp3|*flac|*opus|*mp3?source)
 		setsid tsp wget "$1" >/dev/null 2>&1 & ;;
-	# *mp3|*flac|*opus|*mp3?source)
-	# 	setsid st -e mpv "$1" >/dev/null 2>&1 & ;;
     *imgur.com/*)
 		setsid "surf" "$1" >/dev/null 2>&1 & ;;
 	*springer.com*)

@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# A general audio interface for LARBS.
-
+# A general backlight interface
 
 [ -z "$2" ] && num="2" || num="$2"
 

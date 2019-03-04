@@ -246,8 +246,12 @@ checkSpecialPage	Bash-Snippets/cheat/cheat	/^checkSpecialPage()$/;"	f
 checkTargetCurrency	Bash-Snippets/cryptocurrency/cryptocurrency	/^checkTargetCurrency()$/;"	f
 checkValidCurrency	Bash-Snippets/cryptocurrency/cryptocurrency	/^checkValidCurrency()$/;"	f
 checkValidCurrency	Bash-Snippets/currency/currency	/^checkValidCurrency()$/;"	f
-chex	tpb	/^chex() {$/;"	f
+checkbluetooth	autostart.sh	/^checkbluetooth(){ \\$/;"	f
+checkcompton	autostart.sh	/^checkcompton(){ \\$/;"	f
+checkwificonnect	autostart.sh	/^checkwificonnect(){ \\$/;"	f
 cloneGitHubRepo	Bash-Snippets/cloudup/cloudup	/^cloneGitHubRepo()$/;"	f
+compilec	compiler	/^compilec(){$/;"	f
+compilec	executor	/^compilec(){$/;"	f
 convertCurrency	Bash-Snippets/cryptocurrency/cryptocurrency	/^convertCurrency()$/;"	f
 convertCurrency	Bash-Snippets/currency/currency	/^convertCurrency()$/;"	f
 copyManpage	Bash-Snippets/install.sh	/^copyManpage()$/;"	f
@@ -425,7 +429,6 @@ print_bat	dwmbar.sh	/^print_bat(){$/;"	f
 print_date	dwmbar.sh	/^print_date(){$/;"	f
 print_date	windowshot.sh	/^print_date(){$/;"	f
 print_temp	dwmbar.sh	/^print_temp(){$/;"	f
-printhelp	tpb	/^printhelp() {$/;"	f
 python	Bash-Snippets/lyrics/lyrics	/^  python()$/;"	f
 python	Bash-Snippets/movies/movies	/^  python()$/;"	f
 python	Bash-Snippets/movies/tmdb	/^  python()$/;"	f
@@ -447,6 +450,7 @@ select_window	i3-wm-scripts/nextfind	/^def select_window(windows, dmenu_args):$/
 select_window	i3-wm-scripts/nextfind_	/^def select_window(windows, dmenu_args):$/;"	f
 select_window	i3-wm-scripts/nextfind_0	/^def select_window(windows, dmenu_args):$/;"	f
 shebangtest	compiler	/^shebangtest() {$/;"	f
+shebangtest	executor	/^shebangtest() {$/;"	f
 shortenURL	Bash-Snippets/short/short	/^shortenURL()$/;"	f
 singleDownload	Bash-Snippets/transfer/transfer	/^singleDownload()$/;"	f
 singleInstall	Bash-Snippets/install.sh	/^singleInstall()$/;"	f
@@ -459,6 +463,7 @@ spotify_bus	spotify-status.py	/^    spotify_bus = session_bus.get_object($/;"	v
 spotify_properties	spotify-status.py	/^    spotify_properties = dbus.Interface($/;"	v
 status	spotify-status.py	/^    status = spotify_properties.Get('org.mpris.MediaPlayer2.Player', 'PlaybackStatus')$/;"	v
 textype	compiler	/^textype() { \\$/;"	f
+textype	executor	/^textype() { \\$/;"	f
 toolMenu	Bash-Snippets/bash-snippets/bash-snippets	/^toolMenu()$/;"	f
 transformBase	Bash-Snippets/cryptocurrency/cryptocurrency	/^transformBase()$/;"	f
 trunclen	spotify-status.py	/^    trunclen = args.trunclen$/;"	v

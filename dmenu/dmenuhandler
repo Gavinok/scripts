@@ -2,8 +2,9 @@
 # Feed this script a link and it will give dmenu
 # some choice programs to use to open it.
 
-x=$(printf "mpv\\ncast\\nmpv (loop)\\nwget\\nfeh\\nbrowser\\nw3m\\nmpv (float)" | dmenu -i -p "Open link with what program?")
+x=$(printf "linkhandler\\nmpv\\ncast\\nmpv (loop)\\nwget\\nfeh\\nbrowser\\nw3m\\nmpv (float)" | dmenu -i -p "Open link with what program?")
 case "$x" in
+	linkhandler) linkhandler "$1" >/dev/null 2>&1 & ;;
 	mpv) setsid mpv -quiet "$1" >/dev/null 2>&1 & ;;
 	"mpv (loop)") setsid mpv -quiet --loop "$1" >/dev/null 2>&1 & ;;
 	wget) wget "$1" >/dev/null 2>&1 ;;

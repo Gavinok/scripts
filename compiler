@@ -35,18 +35,27 @@ shebangtest() {
 		*) sent "$file" 2>/dev/null & ;;
 	esac
 }
+compilec(){
+	if find $dir -name Makefile; then
+		make
+	else
+		cc "$file" -o "$base" && "$base" 
+	fi
+}
 
 # If there is a global $REFBIB variable/file for `refer`, use it.
 [ -f "$REFBIB" ] && groffbib="-p $REFBIB"
 
 case "$file" in
 	*\.ms) refer -PS -e $groffbib "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
+	*\.groff) refer -PS -e $groffbib "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
 	*\.rmd) echo "require(rmarkdown); render('$file')" | R --vanilla && mv "$base".pdf "$dir"/pdfs;;
 	*\.tex) textype "$file" ;;
 	*\.md) md2pdf "$file" ;;
 	*config.h) make && sudo make install ;;
-        *\.c) cc "$file" -o "$base" && "$base" ;;
+    *\.c) compilec ;;
 	*\.py) python "$file" ;;
-	*\.go) go run "$file" ;;
+	*\.sh) chmod +x "$file"; shebangtest;; 
+	*\.go) go build "$file" ;;
 	*) shebangtest ;;
 esac

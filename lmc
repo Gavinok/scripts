@@ -2,7 +2,6 @@
 
 # A general audio interface for LARBS.
 
-
 [ -z "$2" ] && num="2" || num="$2"
 
 case "$1" in
