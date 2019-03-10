@@ -5,143 +5,14 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
-1. Fork & Clone The Repository	Bash-Snippets/CONTRIBUTING.md	/^#### 1. Fork & Clone The Repository$/;"	t
-2. Implement your fix, feature or new component	Bash-Snippets/CONTRIBUTING.md	/^#### 2. Implement your fix, feature or new component$/;"	t
-3. Check The Script Runtime	Bash-Snippets/CONTRIBUTING.md	/^#### 3. Check The Script Runtime$/;"	t
-4. Create A Pull Request	Bash-Snippets/CONTRIBUTING.md	/^#### 4. Create A Pull Request$/;"	t
-5. Bask In All The Glory Of Adding To A FOSS Application	Bash-Snippets/CONTRIBUTING.md	/^#### 5. Bask In All The Glory Of Adding To A FOSS Application$/;"	t
-A collection of small bash scripts for heavy terminal users with no dependencies	Bash-Snippets/README.md	/^##### A collection of small bash scripts for heavy terminal users with no dependencies$/;"	T
-API's Used	Bash-Snippets/README.md	/^## API's Used$/;"	s
-AUTHOR	Bash-Snippets/bash-snippets.1	/^.SH "AUTHOR"$/;"	s	title:BASH\\-SNIPPETS
-All of these scripts have been heavily tested on macOS and Linux	Bash-Snippets/README.md	/^### All of these scripts have been heavily tested on macOS and Linux$/;"	S
-Attribution	Bash-Snippets/CODE_OF_CONDUCT.md	/^## Attribution$/;"	s
-BASH\\-SNIPPETS	Bash-Snippets/bash-snippets.1	/^.TH "BASH\\-SNIPPETS" "1" "December 2017" "ff" ""$/;"	t
-BTC: 38Q5VbH63MtouxHu8BuPNLzfY5B5RNVMDn	Bash-Snippets/README.md	/^###### BTC: 38Q5VbH63MtouxHu8BuPNLzfY5B5RNVMDn$/;"	u
-Bash-Snippets	Bash-Snippets/README.md	/^# Bash-Snippets$/;"	c
-Bash-Snippets Changelog	Bash-Snippets/changelog.md	/^# Bash-Snippets Changelog$/;"	c
-Bash-Snippets Extras	Bash-Snippets/extras/README.md	/^# Bash-Snippets Extras$/;"	c
-Bugfixes	Bash-Snippets/changelog.md	/^### Bugfixes$/;"	S
-Can I install these & is it safe	Bash-Snippets/extras/README.md	/^## Can I install these & is it safe$/;"	s
-Changes	Bash-Snippets/changelog.md	/^# Changes$/;"	c
-Changes	Bash-Snippets/changelog.md	/^## Changes$/;"	s
-Changes	Bash-Snippets/changelog.md	/^### Changes$/;"	S
-Contributing	Bash-Snippets/CONTRIBUTING.md	/^# Contributing$/;"	c
-Contributor Covenant Code of Conduct	Bash-Snippets/CODE_OF_CONDUCT.md	/^# Contributor Covenant Code of Conduct$/;"	c
-Contributors	Bash-Snippets/bash-snippets.1	/^.SH "Contributors"$/;"	s	title:BASH\\-SNIPPETS
 CvimServer	cvim_server.py	/^class CvimServer(BaseHTTPRequestHandler):$/;"	c
 DMENU	dmenu/dmenu-killall	/^DMENU() { dmenu -p 'Kill'; }$/;"	f
-Dependent tools	Bash-Snippets/extras/README.md	/^## Dependent tools$/;"	s
 Directory of Scripts	SCRIPTS.md	/^# Directory of Scripts$/;"	c
-Donate	Bash-Snippets/README.md	/^## Donate$/;"	s
-EOF	Bash-Snippets/cheat/cheat	/^cat <<EOF$/;"	h
-EOF	Bash-Snippets/cloudup/cloudup	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/crypt/crypt	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/cryptocurrency/cryptocurrency	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/currency/currency	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/extras/Linux/maps/maps	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/geo/geo	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/lyrics/lyrics	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/meme/meme	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/movies/movies	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/movies/tmdb	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/newton/newton	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/pwned/pwned	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/qrify/qrify	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/short/short	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/siteciphers/siteciphers	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/skeleton	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/stocks/stocks	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/taste/taste	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/transfer/transfer	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/weather/weather	/^  cat <<EOF$/;"	h
-EOF	Bash-Snippets/ytview/ytview	/^  cat <<EOF$/;"	h
 EOF	llc.sh	/^	*) cat << EOF$/;"	h
 EOF	lmc	/^	*) cat << EOF$/;"	h
-ETH: 0xf7c60C06D298FF954917eA45206426f79d40Ac9D	Bash-Snippets/README.md	/^###### ETH: 0xf7c60C06D298FF954917eA45206426f79d40Ac9D$/;"	u
-Encryption Details	Bash-Snippets/README.md	/^#### Encryption Details$/;"	t
-Enforcement	Bash-Snippets/CODE_OF_CONDUCT.md	/^## Enforcement$/;"	s
-First off, thank you for considering contributing to Bash-Snippets.	Bash-Snippets/CONTRIBUTING.md	/^### First off, thank you for considering contributing to Bash-Snippets.$/;"	S
-Fix/Feature	Bash-Snippets/CONTRIBUTING.md	/^###### Fix\/Feature$/;"	u
-Initial Release	Bash-Snippets/changelog.md	/^### Initial Release$/;"	S
-Inspired by: [Ruby-Scripts](https://github.com/jakewmeyer/Ruby-Scripts)	Bash-Snippets/README.md	/^#### Inspired by: [Ruby-Scripts](https:\/\/github.com\/jakewmeyer\/Ruby-Scripts)$/;"	t
-Install	Bash-Snippets/extras/README.md	/^## Install$/;"	s
 Install	i3-wm-scripts/README.md	/^### Install$/;"	S
-Installing	Bash-Snippets/README.md	/^## Installing$/;"	s
-LTC: LWZ3T19YUk66dgkczN7dRhiXDMqSYrXUV4	Bash-Snippets/README.md	/^###### LTC: LWZ3T19YUk66dgkczN7dRhiXDMqSYrXUV4$/;"	u
-License	Bash-Snippets/README.md	/^## License$/;"	s
-License	Bash-Snippets/bash-snippets.1	/^.SH "License"$/;"	s	title:BASH\\-SNIPPETS
-License	Bash-Snippets/extras/README.md	/^## License$/;"	s
-Linux	Bash-Snippets/extras/README.md	/^### Linux$/;"	S
-Looking for maintainers: I have been and probably will forever be too busy to maintain this properly on my own. I am looking for a few others to help out, if you want to be a maintainer either email me or raise an issue. I will probably only accept maintainers who have made a few contributions (no matter how small) and seem to understand the vision of this project.	Bash-Snippets/README.md	/^#### Looking for maintainers: I have been and probably will forever be too busy to maintain this/;"	t
-Maps	Bash-Snippets/extras/README.md	/^#### Maps$/;"	t
-Most of these scripts have been tested on Windows 10 and the official developer bash instance. Does not work with Cygwin or Mysys2.	Bash-Snippets/README.md	/^### Most of these scripts have been tested on Windows 10 and the official developer bash instanc/;"	S
-NAME	Bash-Snippets/bash-snippets.1	/^.SH "NAME"$/;"	s	title:BASH\\-SNIPPETS
-Needs an API Key (don't worry it's free)	Bash-Snippets/README.md	/^### Needs an API Key (don't worry it's free)$/;"	S
-New Component	Bash-Snippets/CONTRIBUTING.md	/^###### New Component$/;"	u
-OSX	Bash-Snippets/extras/README.md	/^### OSX$/;"	S
-Otherwise if implementing a fix, feature or new component go through these steps	Bash-Snippets/CONTRIBUTING.md	/^#### Otherwise if implementing a fix, feature or new component go through these steps$/;"	t
-Our Pledge	Bash-Snippets/CODE_OF_CONDUCT.md	/^## Our Pledge$/;"	s
-Our Responsibilities	Bash-Snippets/CODE_OF_CONDUCT.md	/^## Our Responsibilities$/;"	s
-Our Standards	Bash-Snippets/CODE_OF_CONDUCT.md	/^## Our Standards$/;"	s
 PORT	cvim_server.py	/^PORT = 8001$/;"	v
-Platform Specific Tools	Bash-Snippets/extras/README.md	/^## Platform Specific Tools$/;"	s
-Scope	Bash-Snippets/CODE_OF_CONDUCT.md	/^## Scope$/;"	s
-To go through a guided uninstall	Bash-Snippets/README.md	/^#### To go through a guided uninstall$/;"	t
-To uninstall all installed bash-snippets	Bash-Snippets/README.md	/^#### To uninstall all installed bash-snippets$/;"	t
-Tools	Bash-Snippets/README.md	/^## Tools$/;"	s
-Tools	Bash-Snippets/bash-snippets.1	/^.SH "Tools"$/;"	s	title:BASH\\-SNIPPETS
-Uninstall	Bash-Snippets/extras/README.md	/^## Uninstall$/;"	s
-Uninstalling	Bash-Snippets/README.md	/^## Uninstalling$/;"	s
-Uninstalling	Bash-Snippets/bash-snippets.1	/^.SH "Uninstalling"$/;"	s	title:BASH\\-SNIPPETS
-Updating	Bash-Snippets/README.md	/^## Updating$/;"	s
-Updating	Bash-Snippets/bash-snippets.1	/^.SH "Updating"$/;"	s	title:BASH\\-SNIPPETS
 VIM_COMMAND	cvim_server.py	/^VIM_COMMAND = 'st -e vim'$/;"	v
-Version 1.0.0	Bash-Snippets/changelog.md	/^## Version 1.0.0$/;"	s
-Version 1.1.0	Bash-Snippets/changelog.md	/^## Version 1.1.0$/;"	s
-Version 1.1.1	Bash-Snippets/changelog.md	/^## Version 1.1.1$/;"	s
-Version 1.10.0	Bash-Snippets/changelog.md	/^## Version 1.10.0$/;"	s
-Version 1.10.1	Bash-Snippets/changelog.md	/^## Version 1.10.1$/;"	s
-Version 1.11.0	Bash-Snippets/changelog.md	/^## Version 1.11.0$/;"	s
-Version 1.11.1	Bash-Snippets/changelog.md	/^## Version 1.11.1$/;"	s
-Version 1.12.0	Bash-Snippets/changelog.md	/^## Version 1.12.0$/;"	s
-Version 1.13.0	Bash-Snippets/changelog.md	/^## Version 1.13.0$/;"	s
-Version 1.13.1	Bash-Snippets/changelog.md	/^## Version 1.13.1$/;"	s
-Version 1.13.2	Bash-Snippets/changelog.md	/^## Version 1.13.2$/;"	s
-Version 1.14.0	Bash-Snippets/changelog.md	/^## Version 1.14.0$/;"	s
-Version 1.14.1	Bash-Snippets/changelog.md	/^## Version 1.14.1$/;"	s
-Version 1.14.2	Bash-Snippets/changelog.md	/^## Version 1.14.2$/;"	s
-Version 1.14.3	Bash-Snippets/changelog.md	/^## Version 1.14.3$/;"	s
-Version 1.15.0	Bash-Snippets/changelog.md	/^## Version 1.15.0$/;"	s
-Version 1.15.1	Bash-Snippets/changelog.md	/^## Version 1.15.1$/;"	s
-Version 1.15.2	Bash-Snippets/changelog.md	/^## Version 1.15.2$/;"	s
-Version 1.16.0	Bash-Snippets/changelog.md	/^## Version 1.16.0$/;"	s
-Version 1.16.1	Bash-Snippets/changelog.md	/^## Version 1.16.1$/;"	s
-Version 1.16.2	Bash-Snippets/changelog.md	/^## Version 1.16.2$/;"	s
-Version 1.17.0	Bash-Snippets/changelog.md	/^## Version 1.17.0$/;"	s
-Version 1.17.1	Bash-Snippets/changelog.md	/^## Version 1.17.1$/;"	s
-Version 1.17.2	Bash-Snippets/changelog.md	/^## Version 1.17.2$/;"	s
-Version 1.17.3	Bash-Snippets/changelog.md	/^## Version 1.17.3$/;"	s
-Version 1.18.0	Bash-Snippets/changelog.md	/^## Version 1.18.0$/;"	s
-Version 1.18.1	Bash-Snippets/changelog.md	/^## Version 1.18.1$/;"	s
-Version 1.19.0	Bash-Snippets/changelog.md	/^## Version 1.19.0$/;"	s
-Version 1.19.1	Bash-Snippets/changelog.md	/^## Version 1.19.1$/;"	s
-Version 1.19.2	Bash-Snippets/changelog.md	/^## Version 1.19.2$/;"	s
-Version 1.2.0	Bash-Snippets/changelog.md	/^## Version 1.2.0$/;"	s
-Version 1.2.1	Bash-Snippets/changelog.md	/^## Version 1.2.1$/;"	s
-Version 1.20.0	Bash-Snippets/changelog.md	/^## Version 1.20.0$/;"	s
-Version 1.21.0	Bash-Snippets/changelog.md	/^## Version 1.21.0$/;"	s
-Version 1.22.0	Bash-Snippets/changelog.md	/^## Version 1.22.0$/;"	s
-Version 1.22.1	Bash-Snippets/changelog.md	/^## Version 1.22.1$/;"	s
-Version 1.3.0	Bash-Snippets/changelog.md	/^## Version 1.3.0$/;"	s
-Version 1.3.1	Bash-Snippets/changelog.md	/^## Version 1.3.1$/;"	s
-Version 1.4.0	Bash-Snippets/changelog.md	/^## Version 1.4.0$/;"	s
-Version 1.5.0	Bash-Snippets/changelog.md	/^## Version 1.5.0$/;"	s
-Version 1.6.0	Bash-Snippets/changelog.md	/^## Version 1.6.0$/;"	s
-Version 1.7.0	Bash-Snippets/changelog.md	/^## Version 1.7.0$/;"	s
-Version 1.8.0	Bash-Snippets/changelog.md	/^## Version 1.8.0$/;"	s
-Version 1.9.0	Bash-Snippets/changelog.md	/^## Version 1.9.0$/;"	s
-Where do I go from here?	Bash-Snippets/CONTRIBUTING.md	/^#### Where do I go from here?$/;"	t
-Why are these here?	Bash-Snippets/extras/README.md	/^## Why are these here?$/;"	s
 _die	dmenu/dmenu-killall	/^_die() {$/;"	f
 _get_process_names	dmenu/dmenu-killall	/^_get_process_names() {$/;"	f
 _notify	dmenu/dmenu-killall	/^_notify() {$/;"	f
@@ -194,183 +65,44 @@ _usage	dmenu/dmenu-killall	/^_usage() {$/;"	f
 `tpb`	SCRIPTS.md	/^## `tpb`$/;"	s
 `tutorialvids`	SCRIPTS.md	/^## `tutorialvids`$/;"	s
 `video`	SCRIPTS.md	/^## `video`$/;"	s
-addFileExt	Bash-Snippets/qrify/qrify	/^addFileExt() {$/;"	f
 args	spotify-status.py	/^args = parser.parse_args()$/;"	v
 artist	spotify-status.py	/^    artist = fix_string(metadata['xesam:artist'][0])$/;"	v
-askInstall	Bash-Snippets/install.sh	/^askInstall()$/;"	f
-askUninstall	Bash-Snippets/uninstall.sh	/^askUninstall()$/;"	f
 askrecording	dmenu/dmenurecord	/^askrecording() { \\$/;"	f
 asktoend	dmenu/dmenurecord	/^asktoend() { \\$/;"	f
 asktype	dmenu/dmenumount	/^asktype() { \\$/;"	f
 asktype	dmenu/dmenuumount	/^asktype() { \\$/;"	f
 audioalsa	dmenu/dmenurecord	/^audioalsa() { \\$/;"	f
 audiopulse	dmenu/dmenurecord	/^audiopulse() { \\$/;"	f
-backupRepo	Bash-Snippets/cloudup/cloudup	/^backupRepo()$/;"	f
 bm_tree_walk	importer.py	/^        def bm_tree_walk(bm, template):$/;"	f	function:import_chrome	file:
 browser_default_input_format	importer.py	/^browser_default_input_format = {$/;"	v
-channelview	Bash-Snippets/ytview/ytview	/^channelview()$/;"	f
-checkAmount	Bash-Snippets/cryptocurrency/cryptocurrency	/^checkAmount()$/;"	f
-checkAmount	Bash-Snippets/currency/currency	/^checkAmount()$/;"	f
-checkBase	Bash-Snippets/cryptocurrency/cryptocurrency	/^checkBase()$/;"	f
-checkBase	Bash-Snippets/currency/currency	/^checkBase()$/;"	f
-checkCiphers	Bash-Snippets/siteciphers/siteciphers	/^checkCiphers()$/;"	f
-checkExchangeTo	Bash-Snippets/cryptocurrency/cryptocurrency	/^checkExchangeTo()$/;"	f
-checkExchangeTo	Bash-Snippets/currency/currency	/^checkExchangeTo()$/;"	f
-checkImagemagick	Bash-Snippets/extras/Linux/maps/maps	/^checkImagemagick()$/;"	f
-checkInternet	Bash-Snippets/bash-snippets/bash-snippets	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/cheat/cheat	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/cloudup/cloudup	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/crypt/crypt	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/cryptocurrency/cryptocurrency	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/currency/currency	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/extras/Linux/maps/maps	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/geo/geo	/^checkInternet() {$/;"	f
-checkInternet	Bash-Snippets/lyrics/lyrics	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/meme/meme	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/movies/movies	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/movies/tmdb	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/newton/newton	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/pwned/pwned	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/qrify/qrify	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/short/short	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/siteciphers/siteciphers	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/skeleton	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/stocks/stocks	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/taste/taste	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/transfer/transfer	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/weather/weather	/^checkInternet()$/;"	f
-checkInternet	Bash-Snippets/ytview/ytview	/^checkInternet()$/;"	f
-checkOpenSSL	Bash-Snippets/crypt/crypt	/^checkOpenSSL()$/;"	f
-checkOpenSSL	Bash-Snippets/siteciphers/siteciphers	/^checkOpenSSL()$/;"	f
-checkSpecialPage	Bash-Snippets/cheat/cheat	/^checkSpecialPage()$/;"	f
-checkTargetCurrency	Bash-Snippets/cryptocurrency/cryptocurrency	/^checkTargetCurrency()$/;"	f
-checkValidCurrency	Bash-Snippets/cryptocurrency/cryptocurrency	/^checkValidCurrency()$/;"	f
-checkValidCurrency	Bash-Snippets/currency/currency	/^checkValidCurrency()$/;"	f
 checkbluetooth	autostart.sh	/^checkbluetooth(){ \\$/;"	f
 checkcompton	autostart.sh	/^checkcompton(){ \\$/;"	f
 checkwificonnect	autostart.sh	/^checkwificonnect(){ \\$/;"	f
-cloneGitHubRepo	Bash-Snippets/cloudup/cloudup	/^cloneGitHubRepo()$/;"	f
 compilec	compiler	/^compilec(){$/;"	f
 compilec	executor	/^compilec(){$/;"	f
-convertCurrency	Bash-Snippets/cryptocurrency/cryptocurrency	/^convertCurrency()$/;"	f
-convertCurrency	Bash-Snippets/currency/currency	/^convertCurrency()$/;"	f
-copyManpage	Bash-Snippets/install.sh	/^copyManpage()$/;"	f
 cycle_selected	i3-wm-scripts/common.py	/^def cycle_selected(current, selected):$/;"	f
-decodeQR	Bash-Snippets/qrify/qrify	/^decodeQR() {$/;"	f
-decrypt	Bash-Snippets/crypt/crypt	/^decrypt()$/;"	f
-dns_search	Bash-Snippets/geo/geo	/^dns_search() {$/;"	f
 do_POST	cvim_server.py	/^    def do_POST(self):$/;"	m	class:CvimServer
+ebay	dmenu/cabl	/^ebay() { "$BROWSER" "https:\/\/www.ebay.com\/sch\/$@" ;}$/;"	f
 edit_file	cvim_server.py	/^def edit_file(content):$/;"	f
-encodeEquation	Bash-Snippets/newton/newton	/^encodeEquation()$/;"	f
-encrypt	Bash-Snippets/crypt/crypt	/^encrypt()$/;"	f
+email	dmenu/cabl	/^echo "$prim" | grep "^.*@.*\\.[A-Za-z]\\+$" >\/dev\/null && email() { xdg-email "$@" ;}$/;"	f
 eof	unix	/^cat << 'eof'$/;"	h
-expandURL	Bash-Snippets/short/short	/^expandURL()$/;"	f
-extraUpdateTool	Bash-Snippets/install.sh	/^extraUpdateTool()$/;"	f
 fatal	i3-wm-scripts/i3-exec	/^fatal() {$/;"	f
 filter	i3-wm-scripts/i3mpd	/^filter() {$/;"	f
 fix_string	spotify-status.py	/^def fix_string(string):$/;"	f
 focus_window	i3-wm-scripts/common.py	/^def focus_window(id):$/;"	f
-geodata_search	Bash-Snippets/geo/geo	/^geodata_search() {$/;"	f
-getAmount	Bash-Snippets/cryptocurrency/cryptocurrency	/^getAmount()$/;"	f
-getAmount	Bash-Snippets/currency/currency	/^getAmount()$/;"	f
-getBase	Bash-Snippets/cryptocurrency/cryptocurrency	/^getBase()$/;"	f
-getBase	Bash-Snippets/currency/currency	/^getBase()$/;"	f
-getBitbucketInfo	Bash-Snippets/cloudup/cloudup	/^getBitbucketInfo()$/;"	f
-getCheatSheet	Bash-Snippets/cheat/cheat	/^getCheatSheet()$/;"	f
-getConfiguredClient	Bash-Snippets/bash-snippets/bash-snippets	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/cheat/cheat	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/cloudup/cloudup	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/crypt/crypt	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/cryptocurrency/cryptocurrency	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/currency/currency	/^  getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/extras/Linux/maps/maps	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/geo/geo	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/lyrics/lyrics	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/meme/meme	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/movies/movies	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/movies/tmdb	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/newton/newton	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/pwned/pwned	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/qrify/qrify	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/short/short	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/siteciphers/siteciphers	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/skeleton	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/stocks/stocks	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/taste/taste	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/transfer/transfer	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/weather/weather	/^getConfiguredClient()$/;"	f
-getConfiguredClient	Bash-Snippets/ytview/ytview	/^getConfiguredClient()$/;"	f
-getConfiguredDownloadClient	Bash-Snippets/transfer/transfer	/^getConfiguredDownloadClient()$/;"	f
-getConfiguredPlayer	Bash-Snippets/ytview/ytview	/^getConfiguredPlayer()$/;"	f
-getConfiguredPython	Bash-Snippets/lyrics/lyrics	/^getConfiguredPython()$/;"	f
-getConfiguredPython	Bash-Snippets/movies/movies	/^getConfiguredPython()$/;"	f
-getConfiguredPython	Bash-Snippets/movies/tmdb	/^getConfiguredPython()$/;"	f
-getConfiguredPython	Bash-Snippets/pwned/pwned	/^getConfiguredPython()$/;"	f
-getConfiguredPython	Bash-Snippets/short/short	/^getConfiguredPython()$/;"	f
-getConfiguredPython	Bash-Snippets/stocks/stocks	/^getConfiguredPython()$/;"	f
-getConfiguredPython	Bash-Snippets/taste/taste	/^getConfiguredPython()$/;"	f
-getDirections	Bash-Snippets/extras/Linux/maps/maps	/^getDirections()$/;"	f
-getDirectionsMap	Bash-Snippets/extras/Linux/maps/maps	/^getDirectionsMap()$/;"	f
-getExchangeTo	Bash-Snippets/cryptocurrency/cryptocurrency	/^getExchangeTo()$/;"	f
-getExchangeTo	Bash-Snippets/currency/currency	/^getExchangeTo()$/;"	f
-getGitHubRepoInfo	Bash-Snippets/cloudup/cloudup	/^getGitHubRepoInfo()$/;"	f
-getGitHubUserInfo	Bash-Snippets/cloudup/cloudup	/^getGitHubUserInfo()$/;"	f
-getGithubRepoNames	Bash-Snippets/cloudup/cloudup	/^getGithubRepoNames()$/;"	f
-getIPWeather	Bash-Snippets/weather/weather	/^getIPWeather()$/;"	f
-getInfo	Bash-Snippets/taste/taste	/^getInfo()$/;"	f
-getLocationWeather	Bash-Snippets/weather/weather	/^getLocationWeather()$/;"	f
-getLocations	Bash-Snippets/extras/Linux/maps/maps	/^getLocations()$/;"	f
-getLyrics	Bash-Snippets/lyrics/lyrics	/^getLyrics()$/;"	f
-getMapLocation	Bash-Snippets/extras/Linux/maps/maps	/^getMapLocation()$/;"	f
-getMovieInfo	Bash-Snippets/movies/movies	/^getMovieInfo()$/;"	f
-getMovieInfo	Bash-Snippets/movies/tmdb	/^getMovieInfo()$/;"	f
-getPwned	Bash-Snippets/pwned/pwned	/^getPwned()$/;"	f
-getSimilar	Bash-Snippets/taste/taste	/^getSimilar()$/;"	f
-getSimpleResponse	Bash-Snippets/newton/newton	/^getSimpleResponse()$/;"	f
-getStaticMap	Bash-Snippets/extras/Linux/maps/maps	/^getStaticMap()$/;"	f
-getStockInformation	Bash-Snippets/stocks/stocks	/^getStockInformation()$/;"	f
-getTicker	Bash-Snippets/stocks/stocks	/^getTicker()$/;"	f
 get_args	importer.py	/^def get_args():$/;"	f
 get_bookmark_lines	i3-wm-scripts/vimb-bookmark	/^def get_bookmark_lines(filename):$/;"	f
 get_named_windows	i3-wm-scripts/common.py	/^def get_named_windows():$/;"	f
 get_tree	i3-wm-scripts/common.py	/^def get_tree():$/;"	f
-getconfiguredUploadClient	Bash-Snippets/transfer/transfer	/^getconfiguredUploadClient()$/;"	f
 getmount	dmenu/dmenumount	/^getmount() { \\$/;"	f
-grablatestversion	Bash-Snippets/bash-snippets/bash-snippets	/^grablatestversion()$/;"	f
+gotourl	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && gotourl() { "$BROWSER" "$@" ;}$/;"	f
 handle_option	i3-wm-scripts/i3-exec	/^handle_option() {$/;"	f
-header	Bash-Snippets/bash-snippets/bash-snippets	/^header()$/;"	f
-httpDownload	Bash-Snippets/transfer/transfer	/^httpDownload()$/;"	f
-httpGet	Bash-Snippets/bash-snippets/bash-snippets	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/cheat/cheat	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/cloudup/cloudup	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/crypt/crypt	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/cryptocurrency/cryptocurrency	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/currency/currency	/^  httpGet()$/;"	f
-httpGet	Bash-Snippets/extras/Linux/maps/maps	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/geo/geo	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/lyrics/lyrics	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/meme/meme	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/movies/movies	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/movies/tmdb	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/newton/newton	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/pwned/pwned	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/qrify/qrify	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/short/short	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/siteciphers/siteciphers	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/skeleton	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/stocks/stocks	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/taste/taste	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/transfer/transfer	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/weather/weather	/^httpGet()$/;"	f
-httpGet	Bash-Snippets/ytview/ytview	/^httpGet()$/;"	f
-httpSingleUpload	Bash-Snippets/transfer/transfer	/^httpSingleUpload()$/;"	f
 i3-wm-scripts	i3-wm-scripts/README.md	/^i3-wm-scripts$/;"	c
 i3_exec_quote	i3-wm-scripts/i3-exec	/^i3_exec_quote() {$/;"	f
 import_chrome	importer.py	/^def import_chrome(profile, bookmark_types, output_format):$/;"	f
 import_moz_places	importer.py	/^def import_moz_places(profile, bookmark_types, output_format):$/;"	f
 import_netscape_bookmarks	importer.py	/^def import_netscape_bookmarks(bookmarks_file, bookmark_types, output_format):$/;"	f
 init_server	cvim_server.py	/^def init_server(server_class=HTTPServer, handler_class=BaseHTTPRequestHandler):$/;"	f
-installationcheck	Bash-Snippets/bash-snippets/bash-snippets	/^installationcheck()$/;"	f
 iter_plus	i3-wm-scripts/nextfind	/^def iter_plus(it, extra):$/;"	f
 iter_plus	i3-wm-scripts/nextfind_	/^def iter_plus(it, extra):$/;"	f
 iter_plus	i3-wm-scripts/nextfind_0	/^def iter_plus(it, extra):$/;"	f
@@ -379,20 +111,15 @@ joinlines	i3-wm-scripts/nextfind_	/^def joinlines(L):$/;"	f
 joinlines	i3-wm-scripts/nextfind_0	/^def joinlines(L):$/;"	f
 kb_light_set	kb-lights.py	/^def kb_light_set(delta):$/;"	f
 killrecording	dmenu/dmenurecord	/^killrecording() {$/;"	f
-lan_search	Bash-Snippets/geo/geo	/^lan_search() {$/;"	f
-mac_search	Bash-Snippets/geo/geo	/^mac_search() {$/;"	f
-main	Bash-Snippets/meme/meme	/^main(){$/;"	f
 main	i3-wm-scripts/nextfind	/^def main(args):$/;"	f
 main	i3-wm-scripts/nextfind_	/^def main(args):$/;"	f
 main	i3-wm-scripts/nextfind_0	/^def main(args):$/;"	f
 main	i3-wm-scripts/nextmatch	/^def main(args):$/;"	f
 main	i3-wm-scripts/vimb-bookmark	/^def main(args):$/;"	f
 main	importer.py	/^def main():$/;"	f
-makeMultiLineQr	Bash-Snippets/qrify/qrify	/^makeMultiLineQr()$/;"	f
-makeQRFile	Bash-Snippets/qrify/qrify	/^makeQRFile() {$/;"	f
-makeqr	Bash-Snippets/qrify/qrify	/^makeqr()$/;"	f
+manual	dmenu/cabl	/^man -k "^$prim$" >\/dev\/null && manual() { man -Tpdf "$prim" | zathura - ;}$/;"	f
+maps	dmenu/cabl	/^maps() { "$BROWSER" "https:\/\/www.openstreetmap.org\/search?query=$@" ;}$/;"	f
 mark/goto/unmark	i3-wm-scripts/README.md	/^### mark\/goto\/unmark$/;"	S
-menu	Bash-Snippets/bash-snippets/bash-snippets	/^menu()$/;"	f
 metadata	spotify-status.py	/^    metadata = spotify_properties.Get('org.mpris.MediaPlayer2.Player', 'Metadata')$/;"	v
 morescreen	dmenu/displayselect	/^morescreen() { # If multi-monitor is selected and there are more than two screens.$/;"	f
 mountandroid	dmenu/dmenumount	/^mountandroid() { \\$/;"	f
@@ -401,7 +128,6 @@ moveChoice	i3-wm-scripts/i3resize	/^moveChoice() {$/;"	f
 multimon	dmenu/displayselect	/^multimon() { # Multi-monitor handler.$/;"	f
 nextfind	i3-wm-scripts/README.md	/^### nextfind$/;"	S
 nextmatch	i3-wm-scripts/README.md	/^### nextmatch$/;"	S
-onetimeUpload	Bash-Snippets/transfer/transfer	/^onetimeUpload()$/;"	f
 opensearch_convert	importer.py	/^def opensearch_convert(url):$/;"	f
 output	spotify-status.py	/^    output = args.custom_format$/;"	v
 output	spotify-status.py	/^output = fix_string(u'{play_pause} {artist}: {song}')$/;"	v
@@ -412,116 +138,38 @@ play_pause	spotify-status.py	/^    play_pause = args.play_pause$/;"	v
 play_pause	spotify-status.py	/^    play_pause = play_pause.split(',')$/;"	v
 play_pause	spotify-status.py	/^play_pause = fix_string(u'\\u25B6,') # first character is play, second is paused$/;"	v
 popen	i3-wm-scripts/vimb-bookmark	/^def popen(*args, **kwds):$/;"	f
-printAnswer	Bash-Snippets/newton/newton	/^printAnswer()$/;"	f
-printDirections	Bash-Snippets/extras/Linux/maps/maps	/^printDirections()$/;"	f
-printInfo	Bash-Snippets/taste/taste	/^printInfo()$/;"	f
-printLyrics	Bash-Snippets/lyrics/lyrics	/^printLyrics()$/;"	f
-printMovieInfo	Bash-Snippets/movies/movies	/^printMovieInfo()$/;"	f
-printMovieInfo	Bash-Snippets/movies/tmdb	/^printMovieInfo()$/;"	f
-printOntimeUpload	Bash-Snippets/transfer/transfer	/^printOntimeUpload()$/;"	f
-printPwned	Bash-Snippets/pwned/pwned	/^printPwned()$/;"	f
-printResults	Bash-Snippets/short/short	/^printResults()$/;"	f
-printResults	Bash-Snippets/taste/taste	/^printResults()$/;"	f
-printShortenedResults	Bash-Snippets/short/short	/^printShortenedResults()$/;"	f
-printStockInformation	Bash-Snippets/stocks/stocks	/^printStockInformation()$/;"	f
-printUploadResponse	Bash-Snippets/transfer/transfer	/^printUploadResponse()$/;"	f
 print_bat	dwmbar.sh	/^print_bat(){$/;"	f
 print_date	dwmbar.sh	/^print_date(){$/;"	f
 print_date	windowshot.sh	/^print_date(){$/;"	f
 print_temp	dwmbar.sh	/^print_temp(){$/;"	f
-python	Bash-Snippets/lyrics/lyrics	/^  python()$/;"	f
-python	Bash-Snippets/movies/movies	/^  python()$/;"	f
-python	Bash-Snippets/movies/tmdb	/^  python()$/;"	f
-python	Bash-Snippets/pwned/pwned	/^  python()$/;"	f
-python	Bash-Snippets/short/short	/^  python()$/;"	f
-python	Bash-Snippets/stocks/stocks	/^  python()$/;"	f
-python	Bash-Snippets/taste/taste	/^  python()$/;"	f
-removeManpage	Bash-Snippets/uninstall.sh	/^removeManpage()$/;"	f
-removeTool	Bash-Snippets/uninstall.sh	/^removeTool()$/;"	f
-router_search	Bash-Snippets/geo/geo	/^router_search() {$/;"	f
+qrcode	dmenu/cabl	/^command -v qrencode >\/dev\/null && qrcode() { qrencode "$@" -s 10 -o \/tmp\/qr.png && xdg-open /;"	f
 screencastalsa	dmenu/dmenurecord	/^screencastalsa() { \\$/;"	f
 screencastpulse	dmenu/dmenurecord	/^screencastpulse() { \\$/;"	f
 scripts	README.md	/^# scripts$/;"	c
 search_conv	importer.py	/^    def search_conv(url):$/;"	f	function:import_moz_places	file:
 search_escape	importer.py	/^def search_escape(url):$/;"	f
 search_window	i3-wm-scripts/nextmatch	/^def search_window(windows, expr):$/;"	f
-searchview	Bash-Snippets/ytview/ytview	/^searchview()$/;"	f
 select_window	i3-wm-scripts/nextfind	/^def select_window(windows, dmenu_args):$/;"	f
 select_window	i3-wm-scripts/nextfind_	/^def select_window(windows, dmenu_args):$/;"	f
 select_window	i3-wm-scripts/nextfind_0	/^def select_window(windows, dmenu_args):$/;"	f
 shebangtest	compiler	/^shebangtest() {$/;"	f
 shebangtest	executor	/^shebangtest() {$/;"	f
-shortenURL	Bash-Snippets/short/short	/^shortenURL()$/;"	f
-singleDownload	Bash-Snippets/transfer/transfer	/^singleDownload()$/;"	f
-singleInstall	Bash-Snippets/install.sh	/^singleInstall()$/;"	f
-singleUpload	Bash-Snippets/transfer/transfer	/^singleUpload()$/;"	f
 song	spotify-status.py	/^        song = song[0:trunclen]$/;"	v
 song	spotify-status.py	/^    song = fix_string(metadata['xesam:title'])$/;"	v
-specific_geo	Bash-Snippets/geo/geo	/^specific_geo() {$/;"	f
 split_checker	i3-wm-scripts/checksplit.sh	/^split_checker()$/;"	f
 spotify_bus	spotify-status.py	/^    spotify_bus = session_bus.get_object($/;"	v
 spotify_properties	spotify-status.py	/^    spotify_properties = dbus.Interface($/;"	v
 status	spotify-status.py	/^    status = spotify_properties.Get('org.mpris.MediaPlayer2.Player', 'PlaybackStatus')$/;"	v
 textype	compiler	/^textype() { \\$/;"	f
 textype	executor	/^textype() { \\$/;"	f
-toolMenu	Bash-Snippets/bash-snippets/bash-snippets	/^toolMenu()$/;"	f
-transformBase	Bash-Snippets/cryptocurrency/cryptocurrency	/^transformBase()$/;"	f
 trunclen	spotify-status.py	/^    trunclen = args.trunclen$/;"	v
 trunclen	spotify-status.py	/^trunclen = 25$/;"	v
 twoscreen	dmenu/displayselect	/^twoscreen() { # If multi-monitor is selected and there are two screens.$/;"	f
 unmountandroid	dmenu/dmenuumount	/^unmountandroid() { \\$/;"	f
 unmountusb	dmenu/dmenuumount	/^unmountusb() {$/;"	f
-update	Bash-Snippets/cheat/cheat	/^update()$/;"	f
-update	Bash-Snippets/cloudup/cloudup	/^update()$/;"	f
-update	Bash-Snippets/crypt/crypt	/^update()$/;"	f
-update	Bash-Snippets/cryptocurrency/cryptocurrency	/^update()$/;"	f
-update	Bash-Snippets/currency/currency	/^update()$/;"	f
-update	Bash-Snippets/extras/Linux/maps/maps	/^update()$/;"	f
-update	Bash-Snippets/geo/geo	/^update()$/;"	f
-update	Bash-Snippets/lyrics/lyrics	/^update()$/;"	f
-update	Bash-Snippets/meme/meme	/^update()$/;"	f
-update	Bash-Snippets/movies/movies	/^update()$/;"	f
-update	Bash-Snippets/movies/tmdb	/^update()$/;"	f
-update	Bash-Snippets/newton/newton	/^update()$/;"	f
-update	Bash-Snippets/pwned/pwned	/^update()$/;"	f
-update	Bash-Snippets/qrify/qrify	/^update()$/;"	f
-update	Bash-Snippets/short/short	/^update()$/;"	f
-update	Bash-Snippets/siteciphers/siteciphers	/^update()$/;"	f
-update	Bash-Snippets/skeleton	/^update()$/;"	f
-update	Bash-Snippets/stocks/stocks	/^update()$/;"	f
-update	Bash-Snippets/taste/taste	/^update()$/;"	f
-update	Bash-Snippets/transfer/transfer	/^update()$/;"	f
-update	Bash-Snippets/weather/weather	/^update()$/;"	f
-update	Bash-Snippets/ytview/ytview	/^update()$/;"	f
-updateTool	Bash-Snippets/install.sh	/^updateTool()$/;"	f
 updateicon	dmenu/dmenurecord	/^updateicon() { \\$/;"	f
-usage	Bash-Snippets/cheat/cheat	/^usage()$/;"	f
-usage	Bash-Snippets/cloudup/cloudup	/^usage()$/;"	f
-usage	Bash-Snippets/crypt/crypt	/^usage()$/;"	f
-usage	Bash-Snippets/cryptocurrency/cryptocurrency	/^usage()$/;"	f
-usage	Bash-Snippets/currency/currency	/^usage()$/;"	f
-usage	Bash-Snippets/extras/Linux/maps/maps	/^usage()$/;"	f
-usage	Bash-Snippets/geo/geo	/^usage() {$/;"	f
-usage	Bash-Snippets/lyrics/lyrics	/^usage()$/;"	f
-usage	Bash-Snippets/meme/meme	/^usage()$/;"	f
-usage	Bash-Snippets/movies/movies	/^usage()$/;"	f
-usage	Bash-Snippets/movies/tmdb	/^usage()$/;"	f
-usage	Bash-Snippets/newton/newton	/^usage()$/;"	f
-usage	Bash-Snippets/pwned/pwned	/^usage()$/;"	f
-usage	Bash-Snippets/qrify/qrify	/^usage()$/;"	f
-usage	Bash-Snippets/short/short	/^usage()$/;"	f
-usage	Bash-Snippets/siteciphers/siteciphers	/^usage()$/;"	f
-usage	Bash-Snippets/skeleton	/^usage()$/;"	f
-usage	Bash-Snippets/stocks/stocks	/^usage()$/;"	f
-usage	Bash-Snippets/taste/taste	/^usage()$/;"	f
-usage	Bash-Snippets/transfer/transfer	/^usage()$/;"	f
-usage	Bash-Snippets/weather/weather	/^usage()$/;"	f
-usage	Bash-Snippets/ytview/ytview	/^usage()$/;"	f
 usage	dmenu/calc.sh	/^usage() {$/;"	f
-validTools=	Bash-Snippets/bash-snippets/bash-snippets	/^  validTools=()$/;"	f
-validTools=	Bash-Snippets/bash-snippets/bash-snippets	/^declare -a validTools=()$/;"	f
-validateExpression	Bash-Snippets/newton/newton	/^validateExpression()$/;"	f
-validateOperation	Bash-Snippets/newton/newton	/^validateOperation()$/;"	f
-version	Bash-Snippets/geo/geo	/^version() {$/;"	f
 video	dmenu/dmenurecord	/^video() { ffmpeg \\$/;"	f
-wan_search	Bash-Snippets/geo/geo	/^wan_search() {$/;"	f
+websearch	dmenu/cabl	/^websearch() { "$BROWSER" "https:\/\/duckduckgo.com\/?q=$@" ;}$/;"	f
+wikipedia	dmenu/cabl	/^wikipedia() { "$BROWSER" "https:\/\/en.wikipedia.org\/wiki\/$@" ;}$/;"	f
+wiktionary	dmenu/cabl	/^wiktionary() { "$BROWSER" "https:\/\/en.wiktionary.org\/wiki\/$@" ;}$/;"	f
