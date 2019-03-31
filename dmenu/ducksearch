@@ -4,12 +4,15 @@
 # Without input, will open DuckDuckGo.com.
 # Anything else, it search it.
 
-#  pgrep -x dmenu && exit
-
-choice=$(echo "🦆" | dmenu -i -p "Search DuckDuckGo:") || exit 1
+ pgrep -x dmenu && exit
+if [ -f ~/.surf/bookmarks ]; then
+	 choice=$( (echo "🦆" && cat ~/.surf/bookmarks) | dmenu -l 5 -i -p "Search:") || exit 1
+else 
+	choice=$(echo "🦆" | dmenu -i -p "Search DuckDuckGo:") || exit 1
+fi
 
 if [ "$choice" = "🦆"  ]; then
-	surf -npbS "https://duckduckgo.com"
+	surf  "https://duckduckgo.com" > ~/.surf/log 2>&1
 else
-	surf -npSb "$choice"
+	surf "$choice" > ~/.surf/log 2>&1
 fi
