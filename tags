@@ -7,11 +7,15 @@
 !_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
 CvimServer	cvim_server.py	/^class CvimServer(BaseHTTPRequestHandler):$/;"	c
 DMENU	dmenu/dmenu-killall	/^DMENU() { dmenu -p 'Kill'; }$/;"	f
+Details	tty/dwm.tmux/README.md	/^## Details$/;"	s
 Directory of Scripts	SCRIPTS.md	/^# Directory of Scripts$/;"	c
 EOF	llc.sh	/^	*) cat << EOF$/;"	h
 EOF	lmc	/^	*) cat << EOF$/;"	h
+EOF	nnn/imgur	/^  cat <<EOF > "${2}"$/;"	h
 Install	i3-wm-scripts/README.md	/^### Install$/;"	S
 PORT	cvim_server.py	/^PORT = 8001$/;"	v
+Setup	tty/dwm.tmux/README.md	/^## Setup$/;"	s
+Usage	tty/dwm.tmux/README.md	/^## Usage$/;"	s
 VIM_COMMAND	cvim_server.py	/^VIM_COMMAND = 'st -e vim'$/;"	v
 _die	dmenu/dmenu-killall	/^_die() {$/;"	f
 _get_process_names	dmenu/dmenu-killall	/^_get_process_names() {$/;"	f
@@ -65,8 +69,8 @@ _usage	dmenu/dmenu-killall	/^_usage() {$/;"	f
 `tpb`	SCRIPTS.md	/^## `tpb`$/;"	s
 `tutorialvids`	SCRIPTS.md	/^## `tutorialvids`$/;"	s
 `video`	SCRIPTS.md	/^## `video`$/;"	s
-args	spotify-status.py	/^args = parser.parse_args()$/;"	v
-artist	spotify-status.py	/^    artist = fix_string(metadata['xesam:artist'][0])$/;"	v
+acquire_access_token	nnn/imgur	/^function acquire_access_token() {$/;"	f
+archwiki	dmenu/cabl	/^archwiki() { "surf" "https:\/\/wiki.archlinux.org\/index.php?search=$@" ;}$/;"	f
 askrecording	dmenu/dmenurecord	/^askrecording() { \\$/;"	f
 asktoend	dmenu/dmenurecord	/^asktoend() { \\$/;"	f
 asktype	dmenu/dmenumount	/^asktype() { \\$/;"	f
@@ -75,20 +79,24 @@ audioalsa	dmenu/dmenurecord	/^audioalsa() { \\$/;"	f
 audiopulse	dmenu/dmenurecord	/^audiopulse() { \\$/;"	f
 bm_tree_walk	importer.py	/^        def bm_tree_walk(bm, template):$/;"	f	function:import_chrome	file:
 browser_default_input_format	importer.py	/^browser_default_input_format = {$/;"	v
+check_for_update	nnn/imgur	/^function check_for_update() {$/;"	f
+check_oauth2_client_secrets	nnn/imgur	/^function check_oauth2_client_secrets() {$/;"	f
 checkbluetooth	autostart.sh	/^checkbluetooth(){ \\$/;"	f
-checkcompton	autostart.sh	/^checkcompton(){ \\$/;"	f
 checkwificonnect	autostart.sh	/^checkwificonnect(){ \\$/;"	f
 compilec	compiler	/^compilec(){$/;"	f
 compilec	executor	/^compilec(){$/;"	f
+createtodo	dmenu/dmenu_todo.sh	/^createtodo(){$/;"	f
 cycle_selected	i3-wm-scripts/common.py	/^def cycle_selected(current, selected):$/;"	f
+delete_image	nnn/imgur	/^function delete_image() {$/;"	f
 do_POST	cvim_server.py	/^    def do_POST(self):$/;"	m	class:CvimServer
-ebay	dmenu/cabl	/^ebay() { "$BROWSER" "https:\/\/www.ebay.com\/sch\/$@" ;}$/;"	f
+dwm.tmux	tty/dwm.tmux/README.md	/^dwm.tmux$/;"	c
+ebay	dmenu/cabl	/^ebay() { "surf" "https:\/\/www.ebay.com\/sch\/$@" ;}$/;"	f
 edit_file	cvim_server.py	/^def edit_file(content):$/;"	f
 email	dmenu/cabl	/^echo "$prim" | grep "^.*@.*\\.[A-Za-z]\\+$" >\/dev\/null && email() { xdg-email "$@" ;}$/;"	f
 eof	unix	/^cat << 'eof'$/;"	h
 fatal	i3-wm-scripts/i3-exec	/^fatal() {$/;"	f
+fetch_account_info	nnn/imgur	/^function fetch_account_info() {$/;"	f
 filter	i3-wm-scripts/i3mpd	/^filter() {$/;"	f
-fix_string	spotify-status.py	/^def fix_string(string):$/;"	f
 focus_window	i3-wm-scripts/common.py	/^def focus_window(id):$/;"	f
 get_args	importer.py	/^def get_args():$/;"	f
 get_bookmark_lines	i3-wm-scripts/vimb-bookmark	/^def get_bookmark_lines(filename):$/;"	f
@@ -96,13 +104,18 @@ get_named_windows	i3-wm-scripts/common.py	/^def get_named_windows():$/;"	f
 get_tree	i3-wm-scripts/common.py	/^def get_tree():$/;"	f
 getmount	dmenu/dmenumount	/^getmount() { \\$/;"	f
 gotourl	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && gotourl() { "$BROWSER" "$@" ;}$/;"	f
+handle_album_creation_error	nnn/imgur	/^function handle_album_creation_error() {$/;"	f
+handle_album_creation_success	nnn/imgur	/^function handle_album_creation_success() {$/;"	f
 handle_option	i3-wm-scripts/i3-exec	/^handle_option() {$/;"	f
+handle_upload_error	nnn/imgur	/^function handle_upload_error() {$/;"	f
+handle_upload_success	nnn/imgur	/^function handle_upload_success() {$/;"	f
 i3-wm-scripts	i3-wm-scripts/README.md	/^i3-wm-scripts$/;"	c
 i3_exec_quote	i3-wm-scripts/i3-exec	/^i3_exec_quote() {$/;"	f
 import_chrome	importer.py	/^def import_chrome(profile, bookmark_types, output_format):$/;"	f
 import_moz_places	importer.py	/^def import_moz_places(profile, bookmark_types, output_format):$/;"	f
 import_netscape_bookmarks	importer.py	/^def import_netscape_bookmarks(bookmarks_file, bookmark_types, output_format):$/;"	f
 init_server	cvim_server.py	/^def init_server(server_class=HTTPServer, handler_class=BaseHTTPRequestHandler):$/;"	f
+is_mac	nnn/imgur	/^function is_mac() {$/;"	f
 iter_plus	i3-wm-scripts/nextfind	/^def iter_plus(it, extra):$/;"	f
 iter_plus	i3-wm-scripts/nextfind_	/^def iter_plus(it, extra):$/;"	f
 iter_plus	i3-wm-scripts/nextfind_0	/^def iter_plus(it, extra):$/;"	f
@@ -111,6 +124,7 @@ joinlines	i3-wm-scripts/nextfind_	/^def joinlines(L):$/;"	f
 joinlines	i3-wm-scripts/nextfind_0	/^def joinlines(L):$/;"	f
 kb_light_set	kb-lights.py	/^def kb_light_set(delta):$/;"	f
 killrecording	dmenu/dmenurecord	/^killrecording() {$/;"	f
+load_access_token	nnn/imgur	/^function load_access_token() {$/;"	f
 main	i3-wm-scripts/nextfind	/^def main(args):$/;"	f
 main	i3-wm-scripts/nextfind_	/^def main(args):$/;"	f
 main	i3-wm-scripts/nextfind_0	/^def main(args):$/;"	f
@@ -118,9 +132,8 @@ main	i3-wm-scripts/nextmatch	/^def main(args):$/;"	f
 main	i3-wm-scripts/vimb-bookmark	/^def main(args):$/;"	f
 main	importer.py	/^def main():$/;"	f
 manual	dmenu/cabl	/^man -k "^$prim$" >\/dev\/null && manual() { man -Tpdf "$prim" | zathura - ;}$/;"	f
-maps	dmenu/cabl	/^maps() { "$BROWSER" "https:\/\/www.openstreetmap.org\/search?query=$@" ;}$/;"	f
+maps	dmenu/cabl	/^maps() { "surf" "https:\/\/maps.google.com\/?q=$@" ;}$/;"	f
 mark/goto/unmark	i3-wm-scripts/README.md	/^### mark\/goto\/unmark$/;"	S
-metadata	spotify-status.py	/^    metadata = spotify_properties.Get('org.mpris.MediaPlayer2.Player', 'Metadata')$/;"	v
 morescreen	dmenu/displayselect	/^morescreen() { # If multi-monitor is selected and there are more than two screens.$/;"	f
 mountandroid	dmenu/dmenumount	/^mountandroid() { \\$/;"	f
 mountusb	dmenu/dmenumount	/^mountusb() { \\$/;"	f
@@ -128,21 +141,16 @@ moveChoice	i3-wm-scripts/i3resize	/^moveChoice() {$/;"	f
 multimon	dmenu/displayselect	/^multimon() { # Multi-monitor handler.$/;"	f
 nextfind	i3-wm-scripts/README.md	/^### nextfind$/;"	S
 nextmatch	i3-wm-scripts/README.md	/^### nextmatch$/;"	S
+notify	nnn/imgur	/^function notify() {$/;"	f
 opensearch_convert	importer.py	/^def opensearch_convert(url):$/;"	f
-output	spotify-status.py	/^    output = args.custom_format$/;"	v
-output	spotify-status.py	/^output = fix_string(u'{play_pause} {artist}: {song}')$/;"	v
-parser	spotify-status.py	/^parser = argparse.ArgumentParser()$/;"	v
-play_pause	spotify-status.py	/^        play_pause = play_pause[0]$/;"	v
-play_pause	spotify-status.py	/^        play_pause = play_pause[1]$/;"	v
-play_pause	spotify-status.py	/^    play_pause = args.play_pause$/;"	v
-play_pause	spotify-status.py	/^    play_pause = play_pause.split(',')$/;"	v
-play_pause	spotify-status.py	/^play_pause = fix_string(u'\\u25B6,') # first character is play, second is paused$/;"	v
 popen	i3-wm-scripts/vimb-bookmark	/^def popen(*args, **kwds):$/;"	f
 print_bat	dwmbar.sh	/^print_bat(){$/;"	f
 print_date	dwmbar.sh	/^print_date(){$/;"	f
 print_date	windowshot.sh	/^print_date(){$/;"	f
 print_temp	dwmbar.sh	/^print_temp(){$/;"	f
 qrcode	dmenu/cabl	/^command -v qrencode >\/dev\/null && qrcode() { qrencode "$@" -s 10 -o \/tmp\/qr.png && xdg-open /;"	f
+refresh_access_token	nnn/imgur	/^function refresh_access_token() {$/;"	f
+save_access_token	nnn/imgur	/^function save_access_token() {$/;"	f
 screencastalsa	dmenu/dmenurecord	/^screencastalsa() { \\$/;"	f
 screencastpulse	dmenu/dmenurecord	/^screencastpulse() { \\$/;"	f
 scripts	README.md	/^# scripts$/;"	c
@@ -154,22 +162,17 @@ select_window	i3-wm-scripts/nextfind_	/^def select_window(windows, dmenu_args):$
 select_window	i3-wm-scripts/nextfind_0	/^def select_window(windows, dmenu_args):$/;"	f
 shebangtest	compiler	/^shebangtest() {$/;"	f
 shebangtest	executor	/^shebangtest() {$/;"	f
-song	spotify-status.py	/^        song = song[0:trunclen]$/;"	v
-song	spotify-status.py	/^    song = fix_string(metadata['xesam:title'])$/;"	v
 split_checker	i3-wm-scripts/checksplit.sh	/^split_checker()$/;"	f
-spotify_bus	spotify-status.py	/^    spotify_bus = session_bus.get_object($/;"	v
-spotify_properties	spotify-status.py	/^    spotify_properties = dbus.Interface($/;"	v
-status	spotify-status.py	/^    status = spotify_properties.Get('org.mpris.MediaPlayer2.Player', 'PlaybackStatus')$/;"	v
+take_screenshot	nnn/imgur	/^function take_screenshot() {$/;"	f
 textype	compiler	/^textype() { \\$/;"	f
 textype	executor	/^textype() { \\$/;"	f
-trunclen	spotify-status.py	/^    trunclen = args.trunclen$/;"	v
-trunclen	spotify-status.py	/^trunclen = 25$/;"	v
 twoscreen	dmenu/displayselect	/^twoscreen() { # If multi-monitor is selected and there are two screens.$/;"	f
 unmountandroid	dmenu/dmenuumount	/^unmountandroid() { \\$/;"	f
 unmountusb	dmenu/dmenuumount	/^unmountusb() {$/;"	f
 updateicon	dmenu/dmenurecord	/^updateicon() { \\$/;"	f
+upload_anonymous_image	nnn/imgur	/^function upload_anonymous_image() {$/;"	f
+upload_authenticated_image	nnn/imgur	/^function upload_authenticated_image() {$/;"	f
 usage	dmenu/calc.sh	/^usage() {$/;"	f
 video	dmenu/dmenurecord	/^video() { ffmpeg \\$/;"	f
-websearch	dmenu/cabl	/^websearch() { "$BROWSER" "https:\/\/duckduckgo.com\/?q=$@" ;}$/;"	f
-wikipedia	dmenu/cabl	/^wikipedia() { "$BROWSER" "https:\/\/en.wikipedia.org\/wiki\/$@" ;}$/;"	f
-wiktionary	dmenu/cabl	/^wiktionary() { "$BROWSER" "https:\/\/en.wiktionary.org\/wiki\/$@" ;}$/;"	f
+websearch	dmenu/cabl	/^websearch() { "surf" "https:\/\/duckduckgo.com\/?q=$@" ;}$/;"	f
+youtube	dmenu/cabl	/^youtube() { "surf" "https:\/\/www.youtube.com\/results?search_query=$@" ;}$/;"	f
