@@ -1,5 +1,4 @@
 #!/bin/bash
-
 checkwificonnect(){ \
 	test=$(ip addr | grep "state UP")
 	test2=$(wifi | grep "on")
@@ -17,17 +16,7 @@ checkbluetooth(){ \
 	fi
 	blueman-applet&
 }
-checkcompton(){ \
-	test=$(pgrep "compton")
-	if [ -z "$test" ] 
-	then
-		return
-	fi
-	flashfocus &
-}
 
-
-xautolock -time 15 -locker '~/.script/savebat.sh' &
 ~/.scripts/remaps &
 ~/.fehbg &
 compton &
@@ -37,7 +26,7 @@ clipmenud &
 ~/.scripts/rldkeynav &
 redshift &
 pulsemixer --set-volume 50 &
-checkcompton
+flashfocus &
 sleep 10
 checkwifi
 checkbluetooth
