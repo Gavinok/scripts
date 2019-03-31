@@ -31,10 +31,11 @@ textype() { \
 
 shebangtest() {
 	case "$shebang" in
-		\#\!*) "$file" ;;
+		\#\!*) chmod +x "$file"; "$file" ;;
 		*) sent "$file" 2>/dev/null & ;;
 	esac
 }
+
 compilec(){
 	if find $dir -name Makefile; then
 		make
@@ -54,6 +55,7 @@ case "$file" in
 	*\.md) md2pdf "$file" ;;
 	*config.h) make && sudo make install ;;
     *\.c) compilec ;;
+    *\.h) make ;;
 	*\.py) python "$file" ;;
 	*\.sh) chmod +x "$file"; shebangtest;; 
 	*\.go) go build "$file" ;;
