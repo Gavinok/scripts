@@ -10,13 +10,17 @@ fi
 #check if it can be edited
 isFile=$(file -0 "$target" | cut -d $'\0' -f2)
 case "$isFile" in
-   (*text*)
-	  echo "$attachment is a text file"
-	  exec st -e $EDITOR "$target" &
-	  ;;
-   (*)
-	  echo "$target is not a text file, please use a different file"
-	  exec xdg-open "${target}" &
-	  ;;
+	(*text*)
+		echo "$attachment is a text file"
+		exec st -e $EDITOR "$target" &
+		;;
+	(*)
+		echo "$target is not a text file, please use a different file"
+		if command -V rifle; then
+			exec rifle "${target}"&
+		else
+			exec xdg-open "${target}" &
+		fi
+		;;
 esac
 
