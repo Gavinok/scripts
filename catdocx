@@ -1,0 +1,16 @@
+#!/bin/sh
+
+filename="$1"
+extension=${filename##*.}
+
+if [ ${extension} = "doc" ]
+then
+# Use cat doc for older document formats
+catdoc "$filename"
+else
+# Unzip the docx file, and grab just the text with sed
+# This also replaces opening <w:r> tags with newlines
+# The final `sed G` double spaces the output
+unzip -p "$filename" | grep --text '<w:r' | sed 's/<w:p[^<\/]*>/ \
+/g' | sed 's/<[^<]*>//g' | grep -v '^[[:space:]]*$' | sed G
+fi

@@ -1,0 +1,16 @@
+10System:    10Host gavin-pc 10Kernel 4.20.11-1-MANJARO x86_64 10bits 64 10Desktop dwm 6.1 
+           10Distro Manjaro Linux 
+10Machine:   10Type Laptop 10System LENOVO 10product 7465CTO 10v ThinkPad X200s 10serial <filter> 
+           10Mobo LENOVO 10model 7465CTO 10serial <filter> 10BIOS LENOVO 10v 6DET72WW (3.22 ) 
+           10date 10/25/2012 
+10Battery:   10ID-1 BAT0 10charge 47.0 Wh 10condition 73.5/84.2 Wh (87%) 
+10CPU:       10Dual Core Intel Core2 Duo L9400 10type MCP 10speed 1865 MHz 10min/max 800/1867 MHz 
+10Graphics:  10Device-1 Intel Mobile 4 Series Integrated Graphics 10driver i915 10v kernel 
+           10Display tty 10server X.Org 1.20.3 10driver intel 10unloaded modesetting 
+           10resolution 1440x900~50Hz 
+           10OpenGL 10renderer Mesa DRI Mobile Intel GM45 Express 10v 2.1 Mesa 18.3.3 
+10Network:   10Device-1 Intel 82567LM Gigabit Network 10driver e1000e 
+           10Device-2 Intel Ultimate N WiFi Link 5300 10driver iwlwifi 
+10Drives:    10Local Storage 10total 111.79 GiB 10used 39.74 GiB (35.5%) 
+10Info:      10Processes 162 10Uptime 3h 36m 10Memory 3.75 GiB 10used 697.3 MiB (18.2%) 10Client shell wrapper 
+           10inxi 3.0.30 
