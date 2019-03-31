@@ -2,15 +2,19 @@
 # Feed this script a link and it will give dmenu
 # some choice programs to use to open it.
 
-x=$(printf "chrome\\nsurf\\nmpv\\nQR\\ncast\\nwget\\nfeh\\nbrowser\\nw3m" | dmenu -i -p "Open link with what program?")
+x=$(printf "chrome\\nsurf\\ndownload\\nQR\\ncast\\nmpv\\nfeh\\nw3m" | dmenu -i -p "Open link with what program?")
 case "$x" in
 	chrome) "chromium" "--app=$1" >/dev/null 2>&1 & ;;
 	surf) "surf $1" >/dev/null 2>&1 & ;;
 	mpv) setsid mpv -quiet "$1" >/dev/null 2>&1 & ;;
 	wget) wget "$1" >/dev/null 2>&1 ;;
-	cast) setsid youtube-dl -o - "$1" 2>/dev/null | setsid castnow --quiet - >/dev/null 2>&1 & ;;
+	cast) setsid cast "$1" 2>&1 ;;
 	QR)  qrencode "$1" -s 10 -o /tmp/QR.png  "$1"; xdg-open /tmp/QR.png >/dev/null 2>&1 &;;
-	# browser) setsid "$TRUEBROWSER" "$1" & ;;
 	feh) setsid feh "$1" >/dev/null 2>&1 & ;;
-	w3m) w3m "$1" >/dev/null 2>&1 ;;
+	download) 
+		case "$1" in 
+			*youtube.com*|*youtu.be*) #limit the video quality
+				setsid youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s' "$1" 2>&1 ;;
+			*) wget "$1" >/dev/null 2>&1 ;;
+		esac
 esac
