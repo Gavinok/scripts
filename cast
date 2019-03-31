@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+[ -z "$1" ] && { exit; }
+
+case "$1" in
+	*mkv|*avi)
+		setsid castnow ./"$1" --quiet --tomp4 >/dev/null 2>&1 & ;;
+	*youtube.com*|*youtu.be*) #limit the video quality
+		setsid youtube-dl --format=18 -o - "$1" 2>/dev/null | setsid castnow --quiet - >/dev/null 2>&1 & ;;
+	*) 
+		setsid castnow ./"$1" --quiet >/dev/null 2>&1 & ;;
+esac
