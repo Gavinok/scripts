@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Feed script a url.
-# If an image, it will view in feh,
+# If an image, it will view in sxiv,
 # if a video or gif, it will view in mpv
 # if a music file or pdf, it will download,
 # otherwise it opens link in browser.

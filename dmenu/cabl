@@ -11,17 +11,17 @@ cd "$(readlink /proc/"$PID"/cwd)"
 [ -f "$prim" ] && xdg-open "$prim" && exit
 [ -d "$prim" ] && "$TERMINAL" "$prim" && exit
 
-websearch() { "$BROWSER" "https://duckduckgo.com/?q=$@" ;}
-wikipedia() { "$BROWSER" "https://en.wikipedia.org/wiki/$@" ;}
-wiktionary() { "$BROWSER" "https://en.wiktionary.org/wiki/$@" ;}
-maps() { "$BROWSER" "https://www.openstreetmap.org/search?query=$@" ;}
-ebay() { "$BROWSER" "https://www.ebay.com/sch/$@" ;}
+websearch() { "surf" "https://duckduckgo.com/?q=$@" ;}
+youtube() { "surf" "https://www.youtube.com/results?search_query=$@" ;}
+archwiki() { "surf" "https://wiki.archlinux.org/index.php?search=$@" ;}
+maps() { "surf" "https://maps.google.com/?q=$@" ;}
+ebay() { "surf" "https://www.ebay.com/sch/$@" ;}
 
 echo "$prim" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && gotourl() { "$BROWSER" "$@" ;}
 echo "$prim" | grep "^.*@.*\.[A-Za-z]\+$" >/dev/null && email() { xdg-email "$@" ;}
 command -v qrencode >/dev/null && qrcode() { qrencode "$@" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png ;}
 man -k "^$prim$" >/dev/null && manual() { man -Tpdf "$prim" | zathura - ;}
 
-func="$(declare -F | awk '{print $3}' | dmenu -p "Plumb $prim to?" -i -l 15)"
+func="$(declare -F | awk '{print $3}' | dmenu -p "Plumb to?" -i -l 15)"
 
 [ -z "$func" ] || "$func" "$prim"
