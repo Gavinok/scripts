@@ -85,6 +85,7 @@ checkbluetooth	autostart.sh	/^checkbluetooth(){ \\$/;"	f
 checkwificonnect	autostart.sh	/^checkwificonnect(){ \\$/;"	f
 compilec	compiler	/^compilec(){$/;"	f
 compilec	executor	/^compilec(){$/;"	f
+createtodo	dmenu/dmenu_googletasks.sh	/^createtodo(){$/;"	f
 createtodo	dmenu/dmenu_todo.sh	/^createtodo(){$/;"	f
 cycle_selected	i3-wm-scripts/common.py	/^def cycle_selected(current, selected):$/;"	f
 delete_image	nnn/imgur	/^function delete_image() {$/;"	f
