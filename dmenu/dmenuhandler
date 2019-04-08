@@ -1,8 +1,9 @@
 #!/bin/sh
 # Feed this script a link and it will give dmenu
 # some choice programs to use to open it.
-
-x=$(printf "chrome\\nsurf\\ndownload\\nQR\\ncast\\nmpv\\nfeh\\nw3m" | dmenu -i -p "Open link with what program?")
+# TODO
+	# 1. check if a program is installed before offering the option
+x=$(printf "chrome\\nsurf\\ndownload\\nkdeconnect\\nQR\\ncast\\nmpv\\nfeh\\nw3m" | dmenu -i -p "Open link with what program?")
 case "$x" in
 	chrome) "chromium" "--app=$1" >/dev/null 2>&1 & ;;
 	surf) "surf $1" >/dev/null 2>&1 & ;;
