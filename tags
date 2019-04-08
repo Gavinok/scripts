@@ -13,6 +13,7 @@ EOF	llc.sh	/^	*) cat << EOF$/;"	h
 EOF	lmc	/^	*) cat << EOF$/;"	h
 EOF	nnn/imgur	/^  cat <<EOF > "${2}"$/;"	h
 Install	i3-wm-scripts/README.md	/^### Install$/;"	S
+Notification_menu	dmenu/dmenu_kdeconnect.sh	/^Notification_menu () {$/;"	f
 PORT	cvim_server.py	/^PORT = 8001$/;"	v
 Setup	tty/dwm.tmux/README.md	/^## Setup$/;"	s
 Usage	tty/dwm.tmux/README.md	/^## Usage$/;"	s
@@ -82,7 +83,6 @@ browser_default_input_format	importer.py	/^browser_default_input_format = {$/;"	
 check_for_update	nnn/imgur	/^function check_for_update() {$/;"	f
 check_oauth2_client_secrets	nnn/imgur	/^function check_oauth2_client_secrets() {$/;"	f
 checkbluetooth	autostart.sh	/^checkbluetooth(){ \\$/;"	f
-checkwificonnect	autostart.sh	/^checkwificonnect(){ \\$/;"	f
 compilec	compiler	/^compilec(){$/;"	f
 compilec	executor	/^compilec(){$/;"	f
 createtodo	dmenu/dmenu_googletasks.sh	/^createtodo(){$/;"	f
@@ -101,6 +101,8 @@ filter	i3-wm-scripts/i3mpd	/^filter() {$/;"	f
 focus_window	i3-wm-scripts/common.py	/^def focus_window(id):$/;"	f
 get_args	importer.py	/^def get_args():$/;"	f
 get_bookmark_lines	i3-wm-scripts/vimb-bookmark	/^def get_bookmark_lines(filename):$/;"	f
+get_colors	dmenu/dmenu_kdeconnect.sh	/^get_colors () {$/;"	f
+get_icon	dmenu/dmenu_kdeconnect.sh	/^get_icon () {$/;"	f
 get_named_windows	i3-wm-scripts/common.py	/^def get_named_windows():$/;"	f
 get_tree	i3-wm-scripts/common.py	/^def get_tree():$/;"	f
 getmount	dmenu/dmenumount	/^getmount() { \\$/;"	f
@@ -163,10 +165,14 @@ select_window	i3-wm-scripts/nextfind_	/^def select_window(windows, dmenu_args):$
 select_window	i3-wm-scripts/nextfind_0	/^def select_window(windows, dmenu_args):$/;"	f
 shebangtest	compiler	/^shebangtest() {$/;"	f
 shebangtest	executor	/^shebangtest() {$/;"	f
+show_devices	dmenu/dmenu_kdeconnect.sh	/^show_devices (){$/;"	f
+show_menu	dmenu/dmenu_kdeconnect.sh	/^show_menu () {$/;"	f
+show_pmenu	dmenu/dmenu_kdeconnect.sh	/^show_pmenu () {$/;"	f
 split_checker	i3-wm-scripts/checksplit.sh	/^split_checker()$/;"	f
 take_screenshot	nnn/imgur	/^function take_screenshot() {$/;"	f
 textype	compiler	/^textype() { \\$/;"	f
 textype	executor	/^textype() { \\$/;"	f
+toggle	dmenu/dmenu_googletasks.sh	/^toggle(){$/;"	f
 twoscreen	dmenu/displayselect	/^twoscreen() { # If multi-monitor is selected and there are two screens.$/;"	f
 unmountandroid	dmenu/dmenuumount	/^unmountandroid() { \\$/;"	f
 unmountusb	dmenu/dmenuumount	/^unmountusb() {$/;"	f
