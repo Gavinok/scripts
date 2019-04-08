@@ -11,6 +11,7 @@ case "$x" in
 	wget) wget "$1" >/dev/null 2>&1 ;;
 	cast) setsid cast "$1" 2>&1 ;;
 	QR)  qrencode "$1" -s 10 -o /tmp/QR.png  "$1"; xdg-open /tmp/QR.png >/dev/null 2>&1 &;;
+	kdeconnect)  kdeconnect-handler "$1" >/dev/null 2>&1 &;;
 	feh) setsid feh "$1" >/dev/null 2>&1 & ;;
 	download) 
 		case "$1" in 
