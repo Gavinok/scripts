@@ -4,7 +4,6 @@
 # Without input, will open DuckDuckGo.com.
 # Anything else, it search it.
 
- pgrep -x dmenu && exit
 if [ -f ~/.surf/bookmarks ]; then
 	 choice=$( (echo "🦆" && cat ~/.surf/bookmarks) | dmenu -l 5 -i -p "Search:") || exit 1
 else 
