@@ -86,7 +86,8 @@ Notification_menu () {
 		optionNum=$((optionNum+1))
 	fi
 	ticker1=`qdbus org.kde.kdeconnect /modules/kdeconnect/devices/$2/notifications/$1 org.kde.kdeconnect.device.notifications.notification.ticker`
-    menu=$(echo $options | dmenu -i -p $ticker1 -l $optionNum )
+        prompt=$(echo $ticker1 | cut -c 1-100)
+    menu=$(echo $options | dmenu -i -p "$prompt" -l $optionNum )
 	case "$menu" in
 		*'View' ) 
 			ticker1=`qdbus org.kde.kdeconnect /modules/kdeconnect/devices/$2/notifications/$1 org.kde.kdeconnect.device.notifications.notification.ticker`
