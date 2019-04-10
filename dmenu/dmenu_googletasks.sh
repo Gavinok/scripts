@@ -28,8 +28,9 @@ mkdir "/tmp/dmenu_todo/"
 touch "/tmp/dmenu_todo/tmp.txt"
 echo "New Todo" > /tmp/dmenu_todo/tmp.txt
 $EXECUTABLE -l | sed 's/\x1b\[[0-9;]*[a-zA-Z]//g' | tail -n +2 >> /tmp/dmenu_todo/tmp.txt
+linenumber=$(wc -l < /tmp/dmenu_todo/tmp.txt)
 echo "clear" >> /tmp/dmenu_todo/tmp.txt
-completed=$(cat /tmp/dmenu_todo/tmp.txt | dmenu -l 10 -p "$PROMPT" |  sed 's/[0-9]. //g')
+completed=$(cat /tmp/dmenu_todo/tmp.txt | dmenu -l $linenumber -p "$PROMPT" |  sed 's/[0-9]. //g')
 [ -z "$completed" ] &&  exit
 #create a new task
 [ "$completed" = "New Todo" ] && createtodo
