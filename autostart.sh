@@ -18,6 +18,7 @@ kdeconnect-cli &
 redshift &
 pulsemixer --set-volume 50 &
 flashfocus &
+podentr
 sleep 10
 checkwifi
 checkbluetooth
