@@ -16,7 +16,11 @@ case "$x" in
 	download) 
 		case "$1" in 
 			*youtube.com*|*youtu.be*) #limit the video quality
-				setsid youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s' "$1" 2>&1 ;;
+				setsid youtube-dl --add-metadata -i -o '~/Downloads/%(title)s.%(ext)s' "$1" 2>&1 ;;
+			*github.com*) #limit the video quality
+				url=$1
+                                url+=".git"
+                                setsid git -C "~/Downloads/" clone "$url" 2>&1;;
 			*) wget "$1" >/dev/null 2>&1 ;;
 		esac
 esac
