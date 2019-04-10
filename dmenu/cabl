@@ -18,6 +18,7 @@ maps() { "surf" "https://maps.google.com/?q=$@" ;}
 ebay() { "surf" "https://www.ebay.com/sch/$@" ;}
 
 echo "$prim" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && gotourl() { "$BROWSER" "$@" ;}
+echo "$prim" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && kdeconnect() { "kdeconnect-handler" "$@" ;}
 echo "$prim" | grep "^.*@.*\.[A-Za-z]\+$" >/dev/null && email() { xdg-email "$@" ;}
 command -v qrencode >/dev/null && qrcode() { qrencode "$@" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png ;}
 man -k "^$prim$" >/dev/null && manual() { man -Tpdf "$prim" | zathura - ;}
