@@ -126,6 +126,7 @@ joinlines	i3-wm-scripts/nextfind	/^def joinlines(L):$/;"	f
 joinlines	i3-wm-scripts/nextfind_	/^def joinlines(L):$/;"	f
 joinlines	i3-wm-scripts/nextfind_0	/^def joinlines(L):$/;"	f
 kb_light_set	kb-lights.py	/^def kb_light_set(delta):$/;"	f
+kdeconnect	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && kdeconnect() { "kdeconnect-handler" "$/;"	f
 killrecording	dmenu/dmenurecord	/^killrecording() {$/;"	f
 load_access_token	nnn/imgur	/^function load_access_token() {$/;"	f
 main	i3-wm-scripts/nextfind	/^def main(args):$/;"	f
