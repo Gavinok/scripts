@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 # dmenu_kdeconnect.sh is a script based off of these scripts
 # [polybar-kdeconnect] https://github.com/HackeSta/polybar-kdeconnect 
 # [polybar-kdeconnect-scripts] https://github.com/witty91/polybar-kdeconnect-scripts
