@@ -31,13 +31,13 @@ textype() { \
 
 shebangtest() {
 	case "$shebang" in
-		\#\!*) chmod +x "$file"; "$file" ;;
+		\#\!*) chmod +x "$file";  "$file" ; shellcheck "$file";;
 		*) sent "$file" 2>/dev/null & ;;
 	esac
 }
 
 compilec(){
-	if find $dir -name Makefile; then
+	if find "$dir" -name Makefile; then
 		make
 	else
 		cc "$file" -o "$base" && "$base" 
@@ -48,8 +48,8 @@ compilec(){
 [ -f "$REFBIB" ] && groffbib="-p $REFBIB"
 
 case "$file" in
-	*\.ms) refer -PS -e $groffbib "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
-	*\.groff) refer -PS -e $groffbib "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
+	*\.ms) refer -PS -e "$groffbib" "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
+	*\.groff) refer -PS -e "$groffbib" "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
 	*\.rmd) echo "require(rmarkdown); render('$file')" | R --vanilla && mv "$base".pdf "$dir"/pdfs;;
 	*\.tex) textype "$file" ;;
 	*\.md) md2pdf "$file" ;;
@@ -57,7 +57,7 @@ case "$file" in
     *\.c) compilec ;;
     *\.h) make ;;
 	*\.py) python "$file" ;;
-	*\.sh) chmod +x "$file"; shebangtest;; 
+	*\.sh) chmod +x "$file"; shellcheck "file"; shebangtest;; 
 	*\.go) go build "$file" ;;
 	*) shebangtest ;;
 esac
