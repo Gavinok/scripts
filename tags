@@ -83,6 +83,7 @@ browser_default_input_format	importer.py	/^browser_default_input_format = {$/;"	
 check_for_update	nnn/imgur	/^function check_for_update() {$/;"	f
 check_oauth2_client_secrets	nnn/imgur	/^function check_oauth2_client_secrets() {$/;"	f
 checkbluetooth	autostart.sh	/^checkbluetooth(){ \\$/;"	f
+clone	dmenu/cabl	/^echo "$prim" | grep "^.*git*" >\/dev\/null && clone() { notify-send "cloning started"; git -C "$/;"	f
 compilec	compiler	/^compilec(){$/;"	f
 compilec	executor	/^compilec(){$/;"	f
 createtodo	dmenu/dmenu_googletasks.sh	/^createtodo(){$/;"	f
@@ -106,7 +107,6 @@ get_icon	dmenu/dmenu_kdeconnect.sh	/^get_icon () {$/;"	f
 get_named_windows	i3-wm-scripts/common.py	/^def get_named_windows():$/;"	f
 get_tree	i3-wm-scripts/common.py	/^def get_tree():$/;"	f
 getmount	dmenu/dmenumount	/^getmount() { \\$/;"	f
-gotourl	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && gotourl() { "$BROWSER" "$@" ;}$/;"	f
 handle_album_creation_error	nnn/imgur	/^function handle_album_creation_error() {$/;"	f
 handle_album_creation_success	nnn/imgur	/^function handle_album_creation_success() {$/;"	f
 handle_option	i3-wm-scripts/i3-exec	/^handle_option() {$/;"	f
@@ -126,7 +126,7 @@ joinlines	i3-wm-scripts/nextfind	/^def joinlines(L):$/;"	f
 joinlines	i3-wm-scripts/nextfind_	/^def joinlines(L):$/;"	f
 joinlines	i3-wm-scripts/nextfind_0	/^def joinlines(L):$/;"	f
 kb_light_set	kb-lights.py	/^def kb_light_set(delta):$/;"	f
-kdeconnect	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && kdeconnect() { "kdeconnect-handler" "$/;"	f
+kdeconnect	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconne/;"	f
 killrecording	dmenu/dmenurecord	/^killrecording() {$/;"	f
 load_access_token	nnn/imgur	/^function load_access_token() {$/;"	f
 main	i3-wm-scripts/nextfind	/^def main(args):$/;"	f
@@ -180,6 +180,7 @@ unmountusb	dmenu/dmenuumount	/^unmountusb() {$/;"	f
 updateicon	dmenu/dmenurecord	/^updateicon() { \\$/;"	f
 upload_anonymous_image	nnn/imgur	/^function upload_anonymous_image() {$/;"	f
 upload_authenticated_image	nnn/imgur	/^function upload_authenticated_image() {$/;"	f
+url	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconne/;"	f
 usage	dmenu/calc.sh	/^usage() {$/;"	f
 video	dmenu/dmenurecord	/^video() { ffmpeg \\$/;"	f
 websearch	dmenu/cabl	/^websearch() { "surf" "https:\/\/duckduckgo.com\/?q=$@" ;}$/;"	f
