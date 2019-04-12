@@ -2,25 +2,29 @@
 # Feed this script a link and it will give dmenu
 # some choice programs to use to open it.
 # TODO
-	# 1. check if a program is installed before offering the option
-x=$(printf "chrome\\nsurf\\ndownload\\nkdeconnect\\nQR\\ncast\\nmpv\\nfeh\\nw3m" | dmenu -i -p "Open link with what program?")
+	# 1. Check if a program is installed before offering the option
+x=$(printf "chrome\\nsurf\\ndownload\\nkdeconnect\\nQR\\ncast" | dmenu -i -p "Open link with what program?")
 case "$x" in
 	chrome) "chromium" "--app=$1" >/dev/null 2>&1 & ;;
 	surf) "surf $1" >/dev/null 2>&1 & ;;
-	mpv) setsid mpv -quiet "$1" >/dev/null 2>&1 & ;;
-	wget) wget "$1" >/dev/null 2>&1 ;;
 	cast) setsid cast "$1" 2>&1 ;;
 	QR)  qrencode "$1" -s 10 -o /tmp/QR.png  "$1"; xdg-open /tmp/QR.png >/dev/null 2>&1 &;;
 	kdeconnect)  kdeconnect-handler "$1" >/dev/null 2>&1 &;;
-	feh) setsid feh "$1" >/dev/null 2>&1 & ;;
 	download) 
 		case "$1" in 
-			*youtube.com*|*youtu.be*) #limit the video quality
-				setsid youtube-dl --add-metadata -i -o '~/Downloads/%(title)s.%(ext)s' "$1" 2>&1 ;;
-			*github.com*) #limit the video quality
+			*youtube.com*|*youtu.be*) 
+				notify-send "downloading video"
+				setsid youtube-dl --add-metadata -i -o '~/Downloads/%(title)s.%(ext)s' "$1"
+				notify-send "finished downloading";;
+			*github.com*) 
+				notify-send "cloning repository"
 				url=$1
                                 url+=".git"
-                                setsid git -C "~/Downloads/" clone "$url" 2>&1;;
-			*) wget "$1" >/dev/null 2>&1 ;;
+                                git -C "~/Downloads/" clone "$url"
+				notify-send "finished cloning";;
+			*) 
+				notify-send "downloading page"
+				wget "$1" 
+				notify-send "finished downloading";;
 		esac
 esac
