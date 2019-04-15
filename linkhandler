@@ -5,9 +5,9 @@
 # if a video or gif, it will view in mpv
 # if a music file or pdf, it will download,
 # otherwise it opens link in browser.
-
+# cant use environmental variables
 # If no url given. Opens browser. For using script as $BROWSER.
-[ -z "$1" ] && { "$TRUEBROWSER"; exit; }
+[ -z "$1" ] && { surf "https://duckduckgo.com"; exit; }
 
 case "$1" in
 	*mkv|*webm|*mp4|*gif|*hooktube.com*)
@@ -20,7 +20,11 @@ case "$1" in
 		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv -a "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
 	*mp3|*m4a|*flac|*opus|*mp3?source)
 		setsid st -e mpv "$1" >/dev/null 2>&1 & ;;
-    *imgur.com/*)
-		setsid "surf" "$1" >/dev/null 2>&1 & ;;
-	*) "chromium" "--app=$1" >/dev/null 2>&1 & ;;
+	*imgur.com/*)
+		setsid surf "$1" >/dev/null 2>&1 & ;;
+	*diff|*md|*txt|*c|*h|*cpp|*hs|*py|*sh)
+		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && st -t popup -e nvim "/tmp/$(echo "$1" | sed "s/.*\///")"   & ;;
+	*) 
+		if [ -f "$1" ]; then surf -e "nvim $1"
+		else setsid surf "$1" >/dev/null 2>&1 & fi ;;
 esac
