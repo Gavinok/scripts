@@ -3,7 +3,7 @@
 # some choice programs to use to open it.
 # TODO
 	# 1. Check if a program is installed before offering the option
-x=$(printf "chrome\\nsurf\\ndownload\\nkdeconnect\\nQR\\ncast" | dmenu -i -p "Open link with what program?")
+x="$(printf "chrome\\nsurf\\ndownload\\nkdeconnect\\nQR\\ncast" | dmenu -i -p "Open link with what program?")"
 case "$x" in
 	chrome) "chromium" "--app=$1" >/dev/null 2>&1 & ;;
 	surf) "surf $1" >/dev/null 2>&1 & ;;
@@ -14,13 +14,15 @@ case "$x" in
 		case "$1" in 
 			*youtube.com*|*youtu.be*) 
 				notify-send "downloading video"
-				setsid youtube-dl --add-metadata -i -o '~/Downloads/%(title)s.%(ext)s' "$1"
+				setsid youtube-dl --add-metadata -i -o "$HOME/Downloads/%(title)s.%(ext)s" "$1"
 				notify-send "finished downloading";;
 			*github.com*) 
 				notify-send "cloning repository"
-				url=$1
-                                url+=".git"
-                                git -C "~/Downloads/" clone "$url"
+                                git -C "$HOME/Downloads/" clone "${1}.git"
+				notify-send "finished cloning";;
+			*gitlab.com*) 
+				notify-send "cloning repository"
+                                git -C "$HOME/Downloads/" clone "${1}.git"
 				notify-send "finished cloning";;
 			*) 
 				notify-send "downloading page"
