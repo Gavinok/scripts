@@ -31,7 +31,7 @@ textype() { \
 
 shebangtest() {
 	case "$shebang" in
-		\#\!*) chmod +x "$file";  "$file" ; shellcheck "$file";;
+		\#\!*) chmod +x "$file";  "$file" ;;
 		*) sent "$file" 2>/dev/null & ;;
 	esac
 }
@@ -57,7 +57,7 @@ case "$file" in
     *\.c) compilec ;;
     *\.h) make ;;
 	*\.py) python "$file" ;;
-	*\.sh) chmod +x "$file"; shellcheck "file"; shebangtest;; 
-	*\.go) go build "$file" ;;
+	*\.sh) chmod +x "$file"; shebangtest;; 
+	*\.go) go run "$file" ;;
 	*) shebangtest ;;
 esac
