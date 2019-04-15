@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 checkbluetooth(){ \
 	test=$(bluetooth | grep "on")
 	if [ -z "$test" ] 
@@ -18,7 +18,6 @@ kdeconnect-cli &
 redshift &
 pulsemixer --set-volume 50 &
 flashfocus &
-podentr
+# podentr &
 sleep 10
-checkwifi
-checkbluetooth
+checkbluetooth &
