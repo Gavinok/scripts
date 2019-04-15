@@ -2,6 +2,7 @@
 # uses castthis for different formats
 [ -z "$1" ] && { exit; }
 
+notify-send "casting video"
 case "$1" in
 	*mkv|*avi)
 		setsid castnow ./"$1" --quiet --tomp4 >/dev/null 2>&1 & ;;
@@ -10,3 +11,4 @@ case "$1" in
 	*) 
 		setsid castnow ./"$1" --quiet >/dev/null 2>&1 & ;;
 esac
+notify-send "casting video"
