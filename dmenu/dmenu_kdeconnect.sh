@@ -111,7 +111,7 @@ Notification_menu () {
 #displays a menu for the connected device
 show_menu () {
 	optionNum=5
-	options=$(printf "Send SMS\\nSend File\\nFind Device\\nPing\\nUnpair\\n")
+	options=$(printf "Send SMS\\nSend File\\nFind Device\\nPing\\nUnpair\\nkeys\\n")
 	notification1=`dbus-send --session --print-reply --dest="org.kde.kdeconnect" /modules/kdeconnect/devices/$2 org.kde.kdeconnect.device.notifications.activeNotifications|tr '\n' ' ' | awk '{print $12}'| sed s/\"//g`
 	if [ $notification1 ]; then
 		options+=$(printf "\\nNotification")
@@ -140,6 +140,8 @@ show_menu () {
 						kdeconnect-cli --refresh;;
                     *'Notification' ) 
 						Notification_menu $notification1 $2;;
+                    *'keys' ) 
+			    SendKeys "$2";;
                 esac
 }
 
@@ -150,19 +152,19 @@ show_pmenu () {
                 esac
 }
 #still a work in progress
-get_colors () {
-	case $1 in
-	"-1")     colors="-nb \"$COLOR_DISCONNECTED\" -nf \"#000\" " ;;   
-	"-2")     colors="-nb \"$COLOR_NEWDEVICE\"	-nf \"#000\" ";;   
-	5*)     	colors="-nb \"$COLOR_BATTERY_50\"	-nf \"#000\" ";;
-	6*)		colors="-nb \"$COLOR_BATTERY_60\"	-nf \"#000\" ";;
-	7*)    	colors="-nb \"$COLOR_BATTERY_70\"	-nf \"#000\" ";;
-	8*)     	colors="-nb \"$COLOR_BATTERY_80\"	-nf \"#000\" ";;
-	*)      	colors="-nb \"$COLOR_BATTERY_LOW\" -nf \"#000\" ";; 
-	9*|100) 	colors="-nb \"$COLOR_BATTERY_90\"	-nf \"#000\" ";;
-	esac
-	echo $colors
-}
+# get_colors () {
+# 	case $1 in
+# 	"-1")     colors="-nb \"$COLOR_DISCONNECTED\" -nf \"#000\" " ;;   
+# 	"-2")     colors="-nb \"$COLOR_NEWDEVICE\"	-nf \"#000\" ";;   
+# 	5*)     	colors="-nb \"$COLOR_BATTERY_50\"	-nf \"#000\" ";;
+# 	6*)		colors="-nb \"$COLOR_BATTERY_60\"	-nf \"#000\" ";;
+# 	7*)    	colors="-nb \"$COLOR_BATTERY_70\"	-nf \"#000\" ";;
+# 	8*)     	colors="-nb \"$COLOR_BATTERY_80\"	-nf \"#000\" ";;
+# 	*)      	colors="-nb \"$COLOR_BATTERY_LOW\" -nf \"#000\" ";; 
+# 	9*|100) 	colors="-nb \"$COLOR_BATTERY_90\"	-nf \"#000\" ";;
+# 	esac
+# 	echo $colors
+# }
 
 get_icon () {
     if [ "$2" = "tablet" ]
