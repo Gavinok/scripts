@@ -26,7 +26,7 @@ case "$x" in
 				notify-send "finished cloning";;
 			*) 
 				notify-send "downloading page"
-				wget "$1" 
+				wget -P ~/Downloads/ "$1" 
 				notify-send "finished downloading";;
 		esac
 esac
