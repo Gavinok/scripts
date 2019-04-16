@@ -3,7 +3,6 @@ file=$(readlink -f "$1")
 dir=$(dirname "$file")
 # base="${file%.*}"
 # shebang=$(sed -n 1p "$file")
-[ -n "$2" ] && echo xxx; 
 keyword=$2
 cd "$dir" || exit
 
@@ -20,5 +19,6 @@ case "$file" in
 	*\.h)  curl cheat.sh/c/"$keyword";;
 	*\.py)  curl cheat.sh/python/"$keyword";;
 	*\.go) curl cheat.sh/go/"$keyword";;
+	*\.vimrc) curl cheat.sh/vim/"$keyword";;
 	*) curl cheat.sh/"$*";;
 esac
