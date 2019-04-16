@@ -76,6 +76,15 @@ show_devices (){
     done
 }
 
+SendKeys(){
+	output="?"
+	while [ $output != "DISCONNECT" ]; do
+		output=$( echo ? | dmenu -p "keys to send")
+		kdeconnect-cli --device "$*" -k "$output"
+	done
+
+}
+
 #used to interact with notifications if they are avalable
 Notification_menu () {
 	replyable=`qdbus org.kde.kdeconnect /modules/kdeconnect/devices/$2/notifications/$1 org.kde.kdeconnect.device.notifications.notification.replyId`
