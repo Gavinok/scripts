@@ -24,7 +24,7 @@ error() { clear; printf "ERROR:\\n%s\\n" "$1"; exit;}
 
 putgitrepo() { # Downlods a gitrepo $1 and places the files in $2 only overwriting conflicts
 	echo "Downloading and installing config files..." 4 60
-	dir=$(mkdir $HOME/tmper)
+	dir=$(mktemp -d)
 	[ ! -d "$2" ] && mkdir -p "$2" && chown -R "$name:wheel" "$2"
 	chown -R "$name:wheel" "$dir"
 	git clone --depth 1 "$1" "$dir/gitrepo" >/dev/null 2>&1 &&
