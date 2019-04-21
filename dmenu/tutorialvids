@@ -25,10 +25,11 @@ Latex Resume2	https://www.youtube.com/watch?v=o5-BZ7JmYWk
 Latex Images	https://www.youtube.com/watch?v=zgThRPjy-vw
 Latex Macros	https://www.youtube.com/watch?v=rvgP7IMeUn8
 Latex and vim	https://www.youtube.com/watch?v=yNOkCYuPt3E
-Python			https://www.youtube.com/watch?v=rfscVS0vtbw&t=2s
+Python		https://www.youtube.com/watch?v=rfscVS0vtbw&t=2s
 JSON	https://www.youtube.com/watch?v=wI1CWzNtE-M
+JavaScript	https://www.youtube.com/watch?v=fju9ii8YsGs&t=433s
 Golang Crash Course		https://www.youtube.com/watch?v=SqrbIlUwR0U&t=15s
 Go Programming	https://www.youtube.com/watch?v=CF9S4QZuV30&t=1009s
 "
 
-mpv "$(echo "$vidlist" | grep -P "^$(echo "$vidlist" | grep "https:" | sed 's/\t.*//g' | dmenu -i -p "Learn about what? (ESC to cancel)" -l 5)\\t" | sed 's/.*\t//')"
+echo "$vidlist" | grep -P "^$(echo "$vidlist" | grep "https:" | sed 's/\t.*//g' | dmenu -i -p "Learn about what? (ESC to cancel)" -l 20 | awk '{print $1}')\s" | sed 's/.*\t//' | xargs -r mpv
