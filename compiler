@@ -37,7 +37,7 @@ shebangtest() {
 }
 
 compilec(){
-	if find "$dir" -name Makefile; then
+	if [ -f "${dir}/Makefile" ]; then
 		make
 	else
 		cc "$file" -o "$base" && "$base" 
@@ -54,8 +54,8 @@ case "$file" in
 	*\.tex) textype "$file" ;;
 	*\.md) md2pdf "$file" ;;
 	*config.h) make && sudo make install ;;
-    *\.c) compilec ;;
-    *\.h) make ;;
+        *\.c) compilec ;;
+        *\.h) make ;;
 	*\.py) python "$file" ;;
 	*\.sh) chmod +x "$file"; shebangtest;; 
 	*\.go) go run "$file" ;;
