@@ -7,24 +7,22 @@
 # otherwise it opens link in browser.
 # cant use environmental variables
 # If no url given. Opens browser. For using script as $BROWSER.
-[ -z "$1" ] && { surf "https://duckduckgo.com"; exit; }
-
+[ -z "$1" ] && { $TRUEBROWSER "https://duckduckgo.com"; exit; }
 case "$1" in
 	*mkv|*webm|*mp4|*gif|*hooktube.com*)
 		setsid mpv -quiet "$1" >/dev/null 2>&1 &
 		/usr/bin/dunstify -t 500 "Playing Video";;
 	*youtube.com*|*youtu.be*) #limit the video quality
-		setsid mpv -quiet --ytdl-format=18 "$1" >/dev/null 2>&1 & 
+		setsid tsp mpv -quiet --ytdl-format=18 "$1" >/dev/null 2>&1 & 
 		/usr/bin/dunstify -t 500 "Playing from Youtube";;
 	*png|*jpg|*jpe|*jpeg)
 		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv -a "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
 	*mp3|*m4a|*flac|*opus|*mp3?source)
-		setsid st -e mpv "$1" >/dev/null 2>&1 & ;;
+		setsid "$TERMINAL" -e mpv "$1" >/dev/null 2>&1 & ;;
 	*imgur.com/*)
-		setsid surf "$1" >/dev/null 2>&1 & ;;
-	*diff|*md|*txt|*c|*h|*cpp|*hs|*py|*sh)
-		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && st -t popup -e nvim "/tmp/$(echo "$1" | sed "s/.*\///")"   & ;;
+		setsid "$TRUEBROWSER" "$1" >/dev/null 2>&1 & ;;
+	*diff|*md|*txt|*c|*h|*cpp|*hs|*py|*raw*)
+		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && "$TERMINAL" -t popup -e "$EDITOR" "/tmp/$(echo "$1" | sed "s/.*\///")"   & ;;
 	*) 
-		if [ -f "$1" ]; then surf -e "nvim $1"
-		else setsid surf "$1" >/dev/null 2>&1 & fi ;;
+		setsid "$TRUEBROWSER" "$1" >/dev/null 2>&1 & ;;
 esac
