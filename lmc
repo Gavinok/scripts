@@ -15,14 +15,13 @@ case "$1" in
 	# d*) pactl set-sink-volume 0 -"$num"% ;;#Speakers
 	# d*) pactl set-sink-volume 2 -"$num"% ;;#headphones
 	d*) pactl set-sink-volume @DEFAULT_SINK@  -"$num"% ; volumechecker.sh;;#change the default audio sync
-	m*) pulsemixer --toggle-mute ;; 
-	m*) pulsemixer --toggle-mute ;; 
+	m*) pulsemixer --toggle-mute ; volumechecker.sh;;
 	truemute) pulsemixer --mute ;;
 	play) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Play;;
 	n*) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next ;;
 	prev) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous ;;
 	t*) 
-            [ -z $(pgrep spotify) ] && spotify
+            [ -z "$(pgrep spotify)" ] && spotify
             dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause ;;
 	p*) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop ;;
 	f*) mpc seek +"$num" ;;
