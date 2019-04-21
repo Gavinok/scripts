@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 # uses castthis for different formats
 [ -z "$1" ] && { exit; }
-
+pgrep -x node && killall node
 case "$1" in
 	*mkv|*avi)
 		setsid castnow ./"$1" --quiet --tomp4 >/dev/null 2>&1 & ;;
