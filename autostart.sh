@@ -14,7 +14,7 @@ unclutter &
 sudo powertop --auto-tune &
 clipmenud &
 kdeconnect-cli &
-~/.scripts/rldkeynav &
+# ~/.scripts/rldkeynav &
 redshift &
 pulsemixer --set-volume 50 &
 flashfocus &
