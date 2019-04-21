@@ -26,7 +26,7 @@ putgitrepo() { # Downlods a gitrepo $1 and places the files in $2 only overwriti
 	echo "Downloading and installing config files..." 4 60
 	dir=$(mktemp -d)
 	[ ! -d "$2" ] && mkdir -p "$2" && chown -R "$name:wheel" "$2"
-	chown -R "$name:wheel" "$dir"
+	# chown -R "$name:wheel" "$dir"
 	git clone --depth 1 "$1" "$dir/gitrepo" >/dev/null 2>&1 &&
 	cp -rfT "$dir/gitrepo" "$2"
 	}
@@ -37,8 +37,8 @@ putgitrepo() { # Downlods a gitrepo $1 and places the files in $2 only overwriti
 ### This is how everything happens in an intuitive format and order.
 
 # Install the dotfiles in the user's home directory
-putgitrepo "$dotfilesrepo" "/home/$name"
-rm -f "/home/$name/README.md" "/home/$name/LICENSE"
+putgitrepo "$dotfilesrepo" "$HOME"
+rm -f "$HOME/README.md" "$HOME/LICENSE"
 
 # This line, overwriting the `newperms` command above will allow the user to run
 # serveral important commands, `shutdown`, `reboot`, updating, etc. without a password.
