@@ -11,18 +11,20 @@ cd "$(readlink /proc/"$PID"/cwd)"
 [ -f "$prim" ] && xdg-open "$prim" && exit
 [ -d "$prim" ] && "$TERMINAL" "$prim" && exit
 
-websearch() { "surf" "https://duckduckgo.com/?q=$@" ;}
-youtube() { "surf" "https://www.youtube.com/results?search_query=$@" ;}
-archwiki() { "surf" "https://wiki.archlinux.org/index.php?search=$@" ;}
-maps() { "surf" "https://maps.google.com/?q=$@" ;}
-ebay() { "surf" "https://www.ebay.com/sch/$@" ;}
+websearch() { "$BROWSER" "https://duckduckgo.com/?q=$*" ;}
+youtube() { "$BROWSER" "https://www.youtube.com/results?search_query=$*" ;}
+archwiki() { "$BROWSER" "https://wiki.archlinux.org/index.php?search=$*" ;}
+maps() { "$BROWSER" "https://maps.google.com/?q=$*" ;}
+ebay() { "$BROWSER" "https://www.ebay.com/sch/$*" ;}
 
 echo "$prim" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && url() { "$BROWSER" "$@" ;} && kdeconnect() { "kdeconnect-handler" "$@" ;}
 echo "$prim" | grep "^.*@.*\.[A-Za-z]\+$" >/dev/null && email() { xdg-email "$@" ;}
 echo "$prim" | grep "^.*git*" >/dev/null && clone() { notify-send "cloning started"; git -C "$HOME/Downloads/" clone "$@"; notify-send "completed cloning";}
 command -v qrencode >/dev/null && qrcode() { qrencode "$@" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png ;}
-man -k "^$prim$" >/dev/null && manual() { man -Tpdf "$prim" | zathura - ;}
+read() { pico2wave -w=/tmp/test.wav "$*"; aplay /tmp/test.wav -D 'pulse'; rm /tmp/test.wav;}
+man -k "^$prim$" >/dev/null && manual() { man -Tpdf "$prim" | $READER - ;}
 
-func="$(declare -F | awk '{print $3}' | dmenu -p "Plumb to?" -i -l 15)"
+prompt="$(echo "$prim" | cut -c 1-20 )"
+func="$(declare -F | awk '{print $3}' | dmenu -p "$prompt" -i -l 15)"
 
 [ -z "$func" ] || "$func" "$prim"
