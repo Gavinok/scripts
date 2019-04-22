@@ -3,7 +3,13 @@
 # qrencode required for qrcode generation.
 # groff/zathura required for man pages.
 
-prim="$(xclip -o)"; [ -z "$prim" ] && exit
+while getopts ":c" o; do case "$o" in
+	c) prim="$(xclip -o)" ;;
+	*) printf "Invalid option: -%s\\n" "$o" && exit ;;
+esac done
+
+[ -z "$prim" ] && prim="$*"
+[ -z "$prim" ] && exit
 
 PID=$(xprop -id "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" | grep -m 1 PID | cut -d " " -f 3)
 PID=$(echo "$(pstree -lpA "$PID" | tail -n 1)" | awk -F'---' '{print $NF}' | sed -re 's/[^0-9]//g')
