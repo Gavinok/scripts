@@ -7,12 +7,15 @@
 # otherwise it opens link in browser.
 # cant use environmental variables
 # If no url given. Opens browser. For using script as $BROWSER.
-OS="$(uname -o)"
+
+
+OS="$(uname -o)" # this is for use with termux
 if [ "$OS" = 'Android' ];then
     [ -z "$1" ] && { xdg-open "https://duckduckgo.com"; exit; }
      xdg-open "$1"
      exit
 fi
+
 [ -z "$1" ] && { $TRUEBROWSER "https://duckduckgo.com"; exit; }
 case "$1" in
 	*mkv|*webm|*mp4|*gif|*hooktube.com*)
