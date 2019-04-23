@@ -1,4 +1,3 @@
-
 k() {
   if [ $TMUX ]; then
     clear
@@ -151,5 +150,16 @@ vs() {
     return 2
   fi
   find -H $BIN_BOOKMARKS -type f -not -path '*/.git/*' | fzf --query="$1" | sed "s|~|$HOME|" | xargs -r $EDITOR
+}
+
+export NNN_TMPFILE="/tmp/nnn"
+r()
+{
+        nnn "$@" -l
+
+        if [ -f $NNN_TMPFILE ]; then
+                . $NNN_TMPFILE
+                rm $NNN_TMPFILE
+        fi
 }
 # vim:ft=sh
