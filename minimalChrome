@@ -1,4 +1,0 @@
-#!/bin/bash
-# chromium --app="https://varvy.com/pagespeed/wicked-fast.html"
-# chromium --kiosk
-/bin/chromium --start-fullscreen 
