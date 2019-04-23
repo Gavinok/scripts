@@ -1,0 +1,16 @@
+#!/bin/bash
+# credit to the original auther:
+# Nathan Wallace
+# https://github.com/nwallace/dotfiles.git
+
+old_ip="$(grep 'Me:' ~/ip-addresses.note | cut -d ' ' -f 2)"
+current_ip="$(curl -s ipv4.icanhazip.com)"
+red="$(tput setaf 1)"
+green="$(tput setaf 2)"
+reset="$(tput sgr0)"
+
+if [[ "$old_ip" == "$current_ip" ]]; then
+  echo "${green}✓${reset} IP is still ${green}${current_ip}${reset}"
+else
+  echo -e "${red}✗${reset} IP has changed!\n  Was: ${red}${old_ip}${reset}\n  Is:  ${green}${current_ip}${reset}"
+fi

@@ -1,0 +1,155 @@
+
+k() {
+  if [ $TMUX ]; then
+    clear
+    tmux clear-history
+  elif [ $ITERM_SESSION_ID ]; then
+    printf '\e]50;ClearScrollback\a'
+  else
+    tput reset
+  fi
+}
+
+work() {
+  if [ $1 ] || [ $ACTIVE_PROJ ]; then
+    local proj_dir=$HOME/projects
+    if [ $1 ]; then
+      local targ=$1
+    else
+      local targ=$ACTIVE_PROJ
+    fi
+    if [ -d $proj_dir/$targ ]; then
+      cd $proj_dir/$targ
+      k
+      if git rev-parse --is-inside-work-tree &> /dev/null; then
+        git status
+      fi
+    else
+      echo "could not find project $targ in $proj_dir"
+      return 2
+    fi
+  else
+    echo "ACTIVE_PROJ not defined"
+    return 1
+  fi
+}
+
+cukes-after() {
+  if [ $1 ]; then
+    find features/**/*.feature | grep -A5000 "$1" | xargs cucumber
+  else
+    echo "Usage: cukes-after [filename pattern]"
+    return 1
+  fi
+}
+
+cukes-before() {
+  if [ $1 ]; then
+    find features/**/*.feature | grep -B5000 "$1" | xargs cucumber
+  else
+    echo "Usage: cukes-before [filename pattern]"
+    return 1
+  fi
+}
+
+_list_projects() {
+  _files -W $HOME/projects -/;
+}
+
+compdef _list_projects work
+
+tw() {
+  if [[ "$1" == "add" ]]; then
+    context="$(task context show | cut -d "'" -f 4)"
+    if ! [[ "$context" =~ ^No\ context.* ]]; then
+      task $context $@
+      return
+    fi
+  fi
+  task $@
+}
+
+# Fuzzy search password store
+fp() {
+  local dir="${PASSWORD_STORE_DIR:-$HOME/.password-store/}"
+  find "$dir" -not -path '*/.git/*' -type f | grep '\.gpg$' | sed "s:$dir\(.*\)\.gpg$:\1:" | fzf | xargs pass $@
+}
+
+# Fuzzy search shell command history
+fh() {
+  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
+
+# Fuzzy open files
+#   - CTRL-O to open with `xdg-open` command,
+#   - CTRL-E or Enter to open with the $EDITOR
+fo() {
+  local out candidates files key prog
+  prog="${EDITOR:-vim}"
+  git rev-parse --show-toplevel 2>&1 > /dev/null
+  if [  $? -eq 0 ]; then
+    candidates="$(git ls-files ${1:-.} --exclude-standard --others --cached)"
+  else
+    candidates="$(find ${1:-.} -path '*/\.*' -prune -o -type f -print 2> /dev/null)"
+  fi
+  out=($(fzf --query="$1" --multi --exit-0 --expect=ctrl-o,ctrl-e <<< ${candidates}))
+  key=$(head -1 <<< "$out")
+  if [ "$key" = ctrl-o ] || [ "$key" = ctrl-e ]; then
+    files="$(tail +2 <<< "$out")"
+    if [ "$key" = ctrl-o ]; then
+      prog=xdg-open
+      # xdg-open can only open one file at a time
+      files="$(head -1 <<< "$files")"
+    fi
+  else
+    files="$out"
+    key=""
+  fi
+  [ -n "$files" ] && echo "$files" | xargs -d '\n' "$prog"
+}
+
+# Fuzzy cd
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
+# Fuzzy SSH
+fssh() {
+  local user_prefix
+  if [ -n "$1" ]; then
+    user_prefix="${1}@"
+  fi
+  ssh "$user_prefix$(grep '^host\b' $HOME/.ssh/config | awk '{print $2}' | fzf)"
+}
+
+# Fuzzy Tmux attach
+ft() {
+  session="$(tmux ls -F '#{session_name}' | fzf)"
+  if [[ -n "$session" ]]; then
+    tmux a -t "$session"
+  else
+    return 1
+  fi
+}
+
+# Edit common config files
+vc() {
+  if [ -z $CONFIG_BOOKMARKS ]; then
+    echo '$CONFIG_BOOKMARKS not defined'
+    return 2
+  fi
+  echo $CONFIG_BOOKMARKS | fzf --query="$1" | sed "s|~|$HOME|" | xargs -r $EDITOR
+}
+
+# Edit common scripts
+vs() {
+  if [ -z $BIN_BOOKMARKS ]; then
+    echo '$BIN_BOOKMARKS not defined'
+    return 2
+  fi
+  find -H $BIN_BOOKMARKS -type f -not -path '*/.git/*' | fzf --query="$1" | sed "s|~|$HOME|" | xargs -r $EDITOR
+}
+# vim:ft=sh
