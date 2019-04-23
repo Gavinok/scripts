@@ -30,7 +30,7 @@ case "$1" in
 		setsid "$TERMINAL" -e mpv "$1" >/dev/null 2>&1 & ;;
 	*imgur.com/*)
 		setsid "$TRUEBROWSER" "$1" >/dev/null 2>&1 & ;;
-	*diff|*md|*txt|*c|*h|*cpp|*hs|*py|*raw*)
+	*.diff|*.md|*.txt|*.c|*.h|*.cpp|*.hs|*.py|*raw*)
 		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && "$TERMINAL" -t popup -e "$EDITOR" "/tmp/$(echo "$1" | sed "s/.*\///")"   & ;;
 	*) 
 		setsid "$TRUEBROWSER" "$1" >/dev/null 2>&1 & ;;
