@@ -56,7 +56,7 @@ case "$file" in
 	*\.tex) textype "$file" ;;
 	*\.md) md2pdf "$file" ;;
 	*config.h) make && sudo make install ;;
-    *\.c) compilec ;;
+	*\.c) compilec ;;
 	*\.py) python "$file" ;;
 	*\.sh) chmod +x "$file"; shebangtest;; 
 	*\.go) go run "$file" ;;
