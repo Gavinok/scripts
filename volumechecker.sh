@@ -11,6 +11,6 @@ getvolume() {
     [ -n "$volume" ] &&  /usr/bin/dunstify -r 798 -t 500 "🔈 MUTE" && exit
 
     volume=$(pacmd list-sinks | awk '/^\svolume:/{i++} i=='"$(getsink)"'{print $5; exit}')
-    /usr/bin/dunstify -r 798 -t 500 "🔊 ${volume}"
+    /usr/bin/dunstify -r 798 -t 500 "🔊  ${volume}"
 }
 getvolume
