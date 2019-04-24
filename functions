@@ -55,7 +55,6 @@ _list_projects() {
   _files -W $HOME/projects -/;
 }
 
-compdef _list_projects work
 
 tw() {
   if [[ "$1" == "add" ]]; then
