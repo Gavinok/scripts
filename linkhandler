@@ -26,12 +26,17 @@ case "$1" in
 		/usr/bin/dunstify -t 500 "Playing from Youtube";;
 	*png|*jpg|*jpe|*jpeg)
 		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv -a "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
+	*pdf)
+		#for use with pdf viewers that donot support urls uncomment these lines
+		# curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && \ 
+		#   $READER "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
+		setsid "$READER" "$1" >/dev/null 2>&1 & ;;
 	*mp3|*m4a|*flac|*opus|*mp3?source)
 		setsid "$TERMINAL" -e mpv "$1" >/dev/null 2>&1 & ;;
 	*imgur.com/*)
 		setsid "$TRUEBROWSER" "$1" >/dev/null 2>&1 & ;;
 	*.diff|*.md|*.txt|*.c|*.h|*.cpp|*.hs|*.py|*raw*)
-		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && "$TERMINAL" -t popup -e "$EDITOR" "/tmp/$(echo "$1" | sed "s/.*\///")"   & ;;
+		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && setsid "$TERMINAL" -t popup -e "$EDITOR" "/tmp/$(echo "$1" | sed "s/.*\///")"   & ;;
 	*) 
 		setsid "$TRUEBROWSER" "$1" >/dev/null 2>&1 & ;;
 esac
