@@ -1,6 +1,13 @@
-#!/bin/bash
+#!/bin/sh
 
-choice=$(printf "Bluetooth\\nNetwork" | dmenu -i -p 'Connect:'  ) 
+WIFI=$(nmcli connection show --active | sed '1d'  | awk '{print $1}')
+
+if [ -n "$WIFI" ]; then
+   choice=$(printf "Bluetooth\\nNetwork" | dmenu -i -p "wifi: $WIFI"  ) 
+else 
+    choice=$(printf "Bluetooth\\nNetwork" | dmenu -i -p 'Connect:'  ) 
+fi
+
 
 if [ $choice = "Bluetooth" ]; then
 	[ -z $(pgrep blueman) ] && blueman-applet&
