@@ -15,19 +15,27 @@ case "$x" in
 		case "$1" in 
 			*youtube.com*|*youtu.be*) 
 				notify-send "downloading video"
-				setsid youtube-dl --add-metadata -i -o "$HOME/Downloads/%(title)s.%(ext)s" "$1"
-				notify-send "finished downloading";;
+				setsid youtube-dl --add-metadata -i -o "$HOME/Downloads/%(title)s.%(ext)s" "$1" \
+				    && notify-send "finished cloning" && exit
+				notify-send "failed downloading";;
 			*github.com*) 
-				notify-send "cloning repository"
-                                git -C "$HOME/Downloads/" clone "${1}.git"
-				notify-send "finished cloning";;
+				repo=$(echo "$1" | cut -d# -f1)
+				repo=${repo}.git
+				notify-send "cloning repository $repo"
+                                git -C "$HOME/Downloads/" clone "$repo" \
+                                    && notify-send "finished cloning" && exit
+				notify-send "failed cloning";;
 			*gitlab.com*) 
 				notify-send "cloning repository"
-                                git -C "$HOME/Downloads/" clone "${1}.git"
-				notify-send "finished cloning";;
+				repo=$(echo "$1" | cut -d# -f1)
+				repo=${repo}.git
+                                git -C "$HOME/Downloads/" clone "${1}.git"  \
+                                    && notify-send "finished cloning" && exit
+				notify-send "failed cloning";;
 			*) 
 				notify-send "downloading page"
-				wget -P ~/Downloads/ "$1" 
-				notify-send "finished downloading";;
+				wget -P ~/Downloads/ "$1"   \
+				    && notify-send "finished cloning" && exit
+				notify-send "failed downloading";;
 		esac
 esac
