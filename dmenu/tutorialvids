@@ -13,7 +13,7 @@ calcurse	https://www.youtube.com/watch?v=hvc-pHjbhdE
 urlview		https://www.youtube.com/watch?v=IgzpAjFgbCw
 ncurses		https://www.youtube.com/watch?v=2tWN6ntNo4w
 SQL	https://www.youtube.com/watch?v=bEtnYWuo2Bw
-SQL	Full	https://www.youtube.com/watch?v=HXV3zeQKqGY&t=4342s
+SQL Full	https://www.youtube.com/watch?v=HXV3zeQKqGY&t=4342s
 C programming	https://www.youtube.com/watch?v=2NWeucMKrLI&index=1&list=PL6gx4Cwl9DGAKIXv8Yr6nhGJ9Vlcjyymq
 C File I/O	https://www.youtube.com/watch?v=-LqUMHoBo6o
 install latex	https://www.youtube.com/watch?v=NwnYHoNtfJ0
@@ -30,6 +30,8 @@ JSON	https://www.youtube.com/watch?v=wI1CWzNtE-M
 JavaScript	https://www.youtube.com/watch?v=fju9ii8YsGs&t=433s
 Golang Crash Course		https://www.youtube.com/watch?v=SqrbIlUwR0U&t=15s
 Go Programming	https://www.youtube.com/watch?v=CF9S4QZuV30&t=1009s
+Regex	https://www.youtube.com/watch?v=vcRPNhLbhoc
+Game Dev in C	https://www.youtube.com/watch?v=yFLa3ln16w0&t=556s
 "
 
 echo "$vidlist" | grep -P "^$(echo "$vidlist" | grep "https:" | sed 's/\t.*//g' | dmenu -i -p "Learn about what? (ESC to cancel)" -l 20 | awk '{print $1}')\s" | sed 's/.*\t//' | xargs -r mpv
