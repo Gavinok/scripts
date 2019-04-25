@@ -8,10 +8,9 @@
 CvimServer	cvim_server.py	/^class CvimServer(BaseHTTPRequestHandler):$/;"	c
 DMENU	dmenu/dmenu-killall	/^DMENU() { dmenu -p 'Kill'; }$/;"	f
 Details	tty/dwm.tmux/README.md	/^## Details$/;"	s
-Directory of Scripts	SCRIPTS.md	/^# Directory of Scripts$/;"	c
 EOF	llc.sh	/^	*) cat << EOF$/;"	h
 EOF	lmc	/^	*) cat << EOF$/;"	h
-EOF	nnn/imgur	/^  cat <<EOF > "${2}"$/;"	h
+HELP	pkgsearch	/^  LESS=-FEXR less <<HELP$/;"	h
 Install	i3-wm-scripts/README.md	/^### Install$/;"	S
 Notification_menu	dmenu/dmenu_kdeconnect.sh	/^Notification_menu () {$/;"	f
 PORT	cvim_server.py	/^PORT = 8001$/;"	v
@@ -23,55 +22,7 @@ _die	dmenu/dmenu-killall	/^_die() {$/;"	f
 _get_process_names	dmenu/dmenu-killall	/^_get_process_names() {$/;"	f
 _notify	dmenu/dmenu-killall	/^_notify() {$/;"	f
 _usage	dmenu/dmenu-killall	/^_usage() {$/;"	f
-`audio`	SCRIPTS.md	/^## `audio`$/;"	s
-`bottomleft`	SCRIPTS.md	/^## `bottomleft`$/;"	s
-`camtoggle`	SCRIPTS.md	/^## `camtoggle`$/;"	s
-`compiler`	SCRIPTS.md	/^## `compiler`$/;"	s
-`crontog`	SCRIPTS.md	/^## `crontog`$/;"	s
-`displayselect`	SCRIPTS.md	/^## `displayselect`$/;"	s
-`dmenuarchwiki`	SCRIPTS.md	/^## `dmenuarchwiki`$/;"	s
-`dmenuhandler`	SCRIPTS.md	/^## `dmenuhandler`$/;"	s
-`dmenumount`	SCRIPTS.md	/^## `dmenumount`$/;"	s
-`dmenurecord`	SCRIPTS.md	/^## `dmenurecord`$/;"	s
-`dmenuumount`	SCRIPTS.md	/^## `dmenuumount`$/;"	s
-`dropdowncalc`	SCRIPTS.md	/^## `dropdowncalc`$/;"	s
-`ducksearch`	SCRIPTS.md	/^## `ducksearch`$/;"	s
-`extract`	SCRIPTS.md	/^## `extract`$/;"	s
-`getbib`	SCRIPTS.md	/^## `getbib`$/;"	s
-`getkeys`	SCRIPTS.md	/^## `getkeys`$/;"	s
-`i3battery`	SCRIPTS.md	/^## `i3battery`$/;"	s
-`i3mail`	SCRIPTS.md	/^## `i3mail`$/;"	s
-`i3mpd`	SCRIPTS.md	/^## `i3mpd`$/;"	s
-`i3mpdupdate`	SCRIPTS.md	/^## `i3mpdupdate`$/;"	s
-`i3pacman`	SCRIPTS.md	/^## `i3pacman`$/;"	s
-`i3resize`	SCRIPTS.md	/^## `i3resize`$/;"	s
-`i3torrent`	SCRIPTS.md	/^## `i3torrent`$/;"	s
-`i3volume`	SCRIPTS.md	/^## `i3volume`$/;"	s
-`i3weather`	SCRIPTS.md	/^## `i3weather`$/;"	s
-`i3wifi`	SCRIPTS.md	/^## `i3wifi`$/;"	s
-`kb-lights.py`	SCRIPTS.md	/^## `kb-lights.py`$/;"	s
-`killrecording`	SCRIPTS.md	/^## `killrecording`$/;"	s
-`linkhandler`	SCRIPTS.md	/^## `linkhandler`$/;"	s
-`lmc`	SCRIPTS.md	/^## `lmc`$/;"	s
-`lockscreen`	SCRIPTS.md	/^## `lockscreen`$/;"	s
-`musstuff`	SCRIPTS.md	/^## `musstuff`$/;"	s
-`note`	SCRIPTS.md	/^## `note`$/;"	s
-`opout`	SCRIPTS.md	/^## `opout`$/;"	s
-`pauseallmpv`	SCRIPTS.md	/^## `pauseallmpv`$/;"	s
-`polybar_launch`	SCRIPTS.md	/^## `polybar_launch`$/;"	s
-`popweather`	SCRIPTS.md	/^## `popweather`$/;"	s
-`prompt`	SCRIPTS.md	/^## `prompt`$/;"	s
-`remaps`	SCRIPTS.md	/^## `remaps`$/;"	s
-`samedir`	SCRIPTS.md	/^## `samedir`$/;"	s
-`screencast`	SCRIPTS.md	/^## `screencast`$/;"	s
-`shortcuts.sh`	SCRIPTS.md	/^## `shortcuts.sh`$/;"	s
-`texclear`	SCRIPTS.md	/^## `texclear`$/;"	s
-`tmuxinit`	SCRIPTS.md	/^## `tmuxinit`$/;"	s
-`toggletouchpad`	SCRIPTS.md	/^## `toggletouchpad`$/;"	s
-`tpb`	SCRIPTS.md	/^## `tpb`$/;"	s
-`tutorialvids`	SCRIPTS.md	/^## `tutorialvids`$/;"	s
-`video`	SCRIPTS.md	/^## `video`$/;"	s
-acquire_access_token	nnn/imgur	/^function acquire_access_token() {$/;"	f
+arch	pkgsearch	/^arch() {$/;"	f
 archwiki	dmenu/cabl	/^archwiki() { "$BROWSER" "https:\/\/wiki.archlinux.org\/index.php?search=$*" ;}$/;"	f
 askrecording	dmenu/dmenurecord	/^askrecording() { \\$/;"	f
 asktoend	dmenu/dmenurecord	/^asktoend() { \\$/;"	f
@@ -81,46 +32,57 @@ audioalsa	dmenu/dmenurecord	/^audioalsa() { \\$/;"	f
 audiopulse	dmenu/dmenurecord	/^audiopulse() { \\$/;"	f
 bm_tree_walk	importer.py	/^        def bm_tree_walk(bm, template):$/;"	f	function:import_chrome	file:
 browser_default_input_format	importer.py	/^browser_default_input_format = {$/;"	v
-check_for_update	nnn/imgur	/^function check_for_update() {$/;"	f
-check_oauth2_client_secrets	nnn/imgur	/^function check_oauth2_client_secrets() {$/;"	f
 checkbluetooth	autostart.sh	/^checkbluetooth(){ \\$/;"	f
 clone	dmenu/cabl	/^echo "$prim" | grep "^.*git*" >\/dev\/null && clone() { notify-send "cloning started"; git -C "$/;"	f
 compilec	compiler	/^compilec(){$/;"	f
 createtodo	dmenu/dmenu_googletasks.sh	/^createtodo(){$/;"	f
 createtodo	dmenu/dmenu_todo.sh	/^createtodo(){$/;"	f
 cycle_selected	i3-wm-scripts/common.py	/^def cycle_selected(current, selected):$/;"	f
-delete_image	nnn/imgur	/^function delete_image() {$/;"	f
+debian	pkgsearch	/^debian() {$/;"	f
+decrypt	pwd.sh	/^decrypt () {$/;"	f
+die	fzf/fv	/^die() {$/;"	f
+die	pkgrm	/^die() {$/;"	f
+die	pkgsearch	/^die() {$/;"	f
 do_POST	cvim_server.py	/^    def do_POST(self):$/;"	m	class:CvimServer
 dwm.tmux	tty/dwm.tmux/README.md	/^dwm.tmux$/;"	c
 ebay	dmenu/cabl	/^ebay() { "$BROWSER" "https:\/\/www.ebay.com\/sch\/$*" ;}$/;"	f
 edit_file	cvim_server.py	/^def edit_file(content):$/;"	f
 email	dmenu/cabl	/^echo "$prim" | grep "^.*@.*\\.[A-Za-z]\\+$" >\/dev\/null && email() { xdg-email "$@" ;}$/;"	f
+encrypt	pwd.sh	/^encrypt () {$/;"	f
 eof	unix	/^cat << 'eof'$/;"	h
+err	fzf/fv	/^err() {$/;"	f
+err	pkgrm	/^err() {$/;"	f
+err	pkgsearch	/^err() {$/;"	f
 error	updatedotfiles.sh	/^error() { clear; printf "ERROR:\\\\n%s\\\\n" "$1"; exit;}$/;"	f
+fail	pwd.sh	/^fail () {$/;"	f
 fatal	i3-wm-scripts/i3-exec	/^fatal() {$/;"	f
-fetch_account_info	nnn/imgur	/^function fetch_account_info() {$/;"	f
+fedora	pkgsearch	/^fedora() {$/;"	f
 filter	i3-wm-scripts/i3mpd	/^filter() {$/;"	f
 focus_window	i3-wm-scripts/common.py	/^def focus_window(id):$/;"	f
+fzf	fzf/fv	/^fzf() {$/;"	f
+fzf	pkgrm	/^fzf() {$/;"	f
+fzf	pkgsearch	/^fzf() {$/;"	f
+gen_pass	pwd.sh	/^gen_pass () {$/;"	f
 get_args	importer.py	/^def get_args():$/;"	f
 get_bookmark_lines	i3-wm-scripts/vimb-bookmark	/^def get_bookmark_lines(filename):$/;"	f
 get_icon	dmenu/dmenu_kdeconnect.sh	/^get_icon () {$/;"	f
 get_named_windows	i3-wm-scripts/common.py	/^def get_named_windows():$/;"	f
+get_pass	pwd.sh	/^get_pass () {$/;"	f
 get_tree	i3-wm-scripts/common.py	/^def get_tree():$/;"	f
 getmount	dmenu/dmenumount	/^getmount() { \\$/;"	f
 getsink	volumechecker.sh	/^getsink() {$/;"	f
 getvolume	volumechecker.sh	/^getvolume() {$/;"	f
-handle_album_creation_error	nnn/imgur	/^function handle_album_creation_error() {$/;"	f
-handle_album_creation_success	nnn/imgur	/^function handle_album_creation_success() {$/;"	f
 handle_option	i3-wm-scripts/i3-exec	/^handle_option() {$/;"	f
-handle_upload_error	nnn/imgur	/^function handle_upload_error() {$/;"	f
-handle_upload_success	nnn/imgur	/^function handle_upload_success() {$/;"	f
+has	fzf/fv	/^has() {$/;"	f
+has	pkgrm	/^has() {$/;"	f
+has	pkgsearch	/^has() {$/;"	f
 i3-wm-scripts	i3-wm-scripts/README.md	/^i3-wm-scripts$/;"	c
 i3_exec_quote	i3-wm-scripts/i3-exec	/^i3_exec_quote() {$/;"	f
 import_chrome	importer.py	/^def import_chrome(profile, bookmark_types, output_format):$/;"	f
 import_moz_places	importer.py	/^def import_moz_places(profile, bookmark_types, output_format):$/;"	f
 import_netscape_bookmarks	importer.py	/^def import_netscape_bookmarks(bookmarks_file, bookmark_types, output_format):$/;"	f
 init_server	cvim_server.py	/^def init_server(server_class=HTTPServer, handler_class=BaseHTTPRequestHandler):$/;"	f
-is_mac	nnn/imgur	/^function is_mac() {$/;"	f
+install	pkgsearch	/^install() {$/;"	f
 iter_plus	i3-wm-scripts/nextfind	/^def iter_plus(it, extra):$/;"	f
 iter_plus	i3-wm-scripts/nextfind_	/^def iter_plus(it, extra):$/;"	f
 iter_plus	i3-wm-scripts/nextfind_0	/^def iter_plus(it, extra):$/;"	f
@@ -129,7 +91,6 @@ joinlines	i3-wm-scripts/nextfind_	/^def joinlines(L):$/;"	f
 joinlines	i3-wm-scripts/nextfind_0	/^def joinlines(L):$/;"	f
 kdeconnect	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$TRUEBROWSER" "$@" ;} && kdec/;"	f
 killrecording	dmenu/dmenurecord	/^killrecording() {$/;"	f
-load_access_token	nnn/imgur	/^function load_access_token() {$/;"	f
 main	i3-wm-scripts/nextfind	/^def main(args):$/;"	f
 main	i3-wm-scripts/nextfind_	/^def main(args):$/;"	f
 main	i3-wm-scripts/nextfind_0	/^def main(args):$/;"	f
@@ -144,23 +105,27 @@ mountandroid	dmenu/dmenumount	/^mountandroid() { \\$/;"	f
 mountusb	dmenu/dmenumount	/^mountusb() { \\$/;"	f
 moveChoice	i3-wm-scripts/i3resize	/^moveChoice() {$/;"	f
 multimon	dmenu/displayselect	/^multimon() { # Multi-monitor handler.$/;"	f
+new_entry	pwd.sh	/^new_entry () {$/;"	f
 nextfind	i3-wm-scripts/README.md	/^### nextfind$/;"	S
 nextmatch	i3-wm-scripts/README.md	/^### nextmatch$/;"	S
-notify	nnn/imgur	/^function notify() {$/;"	f
 opensearch_convert	importer.py	/^def opensearch_convert(url):$/;"	f
+pick_destination	fzf/fv	/^pick_destination() {$/;"	f
+pick_files	fzf/fv	/^pick_files() {$/;"	f
 popen	i3-wm-scripts/vimb-bookmark	/^def popen(*args, **kwds):$/;"	f
 print_date	windowshot.sh	/^print_date(){$/;"	f
+print_help	pwd.sh	/^print_help () {$/;"	f
 putgitrepo	updatedotfiles.sh	/^putgitrepo() { # Downlods a gitrepo $1 and places the files in $2 only overwriting conflicts$/;"	f
 qrcode	dmenu/cabl	/^command -v qrencode >\/dev\/null && qrcode() { qrencode "$@" -s 10 -o \/tmp\/qr.png && xdg-open /;"	f
 read	dmenu/cabl	/^read() { pico2wave -w=\/tmp\/test.wav "$*"; aplay \/tmp\/test.wav -D 'pulse'; rm \/tmp\/test.wav/;"	f
-refresh_access_token	nnn/imgur	/^function refresh_access_token() {$/;"	f
-save_access_token	nnn/imgur	/^function save_access_token() {$/;"	f
+read_pass	pwd.sh	/^read_pass () {$/;"	f
 screencastalsa	dmenu/dmenurecord	/^screencastalsa() { \\$/;"	f
 screencastpulse	dmenu/dmenurecord	/^screencastpulse() { \\$/;"	f
 scripts	README.md	/^# scripts$/;"	c
 search_conv	importer.py	/^    def search_conv(url):$/;"	f	function:import_moz_places	file:
 search_escape	importer.py	/^def search_escape(url):$/;"	f
 search_window	i3-wm-scripts/nextmatch	/^def search_window(windows, expr):$/;"	f
+select_from	pkgrm	/^select_from() {$/;"	f
+select_from	pkgsearch	/^select_from() {$/;"	f
 select_window	i3-wm-scripts/nextfind	/^def select_window(windows, dmenu_args):$/;"	f
 select_window	i3-wm-scripts/nextfind_	/^def select_window(windows, dmenu_args):$/;"	f
 select_window	i3-wm-scripts/nextfind_0	/^def select_window(windows, dmenu_args):$/;"	f
@@ -169,17 +134,17 @@ show_devices	dmenu/dmenu_kdeconnect.sh	/^show_devices (){$/;"	f
 show_menu	dmenu/dmenu_kdeconnect.sh	/^show_menu () {$/;"	f
 show_pmenu	dmenu/dmenu_kdeconnect.sh	/^show_pmenu () {$/;"	f
 split_checker	i3-wm-scripts/checksplit.sh	/^split_checker()$/;"	f
-take_screenshot	nnn/imgur	/^function take_screenshot() {$/;"	f
 textype	compiler	/^textype() { \\$/;"	f
 toggle	dmenu/dmenu_googletasks.sh	/^toggle(){$/;"	f
 twoscreen	dmenu/displayselect	/^twoscreen() { # If multi-monitor is selected and there are two screens.$/;"	f
 unmountandroid	dmenu/dmenuumount	/^unmountandroid() { \\$/;"	f
 unmountusb	dmenu/dmenuumount	/^unmountusb() {$/;"	f
 updateicon	dmenu/dmenurecord	/^updateicon() { \\$/;"	f
-upload_anonymous_image	nnn/imgur	/^function upload_anonymous_image() {$/;"	f
-upload_authenticated_image	nnn/imgur	/^function upload_authenticated_image() {$/;"	f
 url	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$TRUEBROWSER" "$@" ;} && kdec/;"	f
 usage	dmenu/calc.sh	/^usage() {$/;"	f
+usage	pkgsearch	/^usage() {$/;"	f
 video	dmenu/dmenurecord	/^video() { ffmpeg \\$/;"	f
+void	pkgsearch	/^void() {$/;"	f
 websearch	dmenu/cabl	/^websearch() { "$BROWSER" "https:\/\/duckduckgo.com\/?q=$*" ;}$/;"	f
+write_pass	pwd.sh	/^write_pass () {$/;"	f
 youtube	dmenu/cabl	/^youtube() { "$BROWSER" "https:\/\/www.youtube.com\/results?search_query=$*" ;}$/;"	f
