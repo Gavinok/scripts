@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
+# Quickly search cheat.sh dependint on 
+# the inserted file type (used in my vimrc)
 file=$(readlink -f "$1")
 dir=$(dirname "$file")
 # base="${file%.*}"

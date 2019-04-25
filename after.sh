@@ -1,4 +1,5 @@
 #!/bin/bash
+# This script is used to execute a program after the first specified time and before the second time
 pgrep -x $1 && exit
 echo "$1"
 H=$(date +%k)

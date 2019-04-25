@@ -86,7 +86,6 @@ check_oauth2_client_secrets	nnn/imgur	/^function check_oauth2_client_secrets() {
 checkbluetooth	autostart.sh	/^checkbluetooth(){ \\$/;"	f
 clone	dmenu/cabl	/^echo "$prim" | grep "^.*git*" >\/dev\/null && clone() { notify-send "cloning started"; git -C "$/;"	f
 compilec	compiler	/^compilec(){$/;"	f
-compilec	executor	/^compilec(){$/;"	f
 createtodo	dmenu/dmenu_googletasks.sh	/^createtodo(){$/;"	f
 createtodo	dmenu/dmenu_todo.sh	/^createtodo(){$/;"	f
 cycle_selected	i3-wm-scripts/common.py	/^def cycle_selected(current, selected):$/;"	f
@@ -166,14 +165,12 @@ select_window	i3-wm-scripts/nextfind	/^def select_window(windows, dmenu_args):$/
 select_window	i3-wm-scripts/nextfind_	/^def select_window(windows, dmenu_args):$/;"	f
 select_window	i3-wm-scripts/nextfind_0	/^def select_window(windows, dmenu_args):$/;"	f
 shebangtest	compiler	/^shebangtest() {$/;"	f
-shebangtest	executor	/^shebangtest() {$/;"	f
 show_devices	dmenu/dmenu_kdeconnect.sh	/^show_devices (){$/;"	f
 show_menu	dmenu/dmenu_kdeconnect.sh	/^show_menu () {$/;"	f
 show_pmenu	dmenu/dmenu_kdeconnect.sh	/^show_pmenu () {$/;"	f
 split_checker	i3-wm-scripts/checksplit.sh	/^split_checker()$/;"	f
 take_screenshot	nnn/imgur	/^function take_screenshot() {$/;"	f
 textype	compiler	/^textype() { \\$/;"	f
-textype	executor	/^textype() { \\$/;"	f
 toggle	dmenu/dmenu_googletasks.sh	/^toggle(){$/;"	f
 twoscreen	dmenu/displayselect	/^twoscreen() { # If multi-monitor is selected and there are two screens.$/;"	f
 unmountandroid	dmenu/dmenuumount	/^unmountandroid() { \\$/;"	f

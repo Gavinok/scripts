@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Infinitely restart dwm so no programs close
 while true; do
     # Log stderror to a file 
     dwm 2> ~/.dwm.log

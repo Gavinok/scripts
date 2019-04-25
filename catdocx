@@ -1,5 +1,5 @@
 #!/bin/sh
-
+# Print docx files to the terminal
 filename="$1"
 extension=${filename##*.}
 

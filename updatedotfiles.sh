@@ -4,7 +4,7 @@
 # License: GNU GPLv3
 
 # Notes from Gavin
-# I am making a persional version of this script it is still a work in program
+# I am making a personal version of this script it is still a work in progress
 ### OPTIONS AND VARIABLES ###
 
 while getopts ":r:h:s" o; do case "${o}" in
