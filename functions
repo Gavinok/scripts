@@ -33,44 +33,11 @@ work() {
   fi
 }
 
-cukes-after() {
-  if [ $1 ]; then
-    find features/**/*.feature | grep -A5000 "$1" | xargs cucumber
-  else
-    echo "Usage: cukes-after [filename pattern]"
-    return 1
-  fi
-}
-
-cukes-before() {
-  if [ $1 ]; then
-    find features/**/*.feature | grep -B5000 "$1" | xargs cucumber
-  else
-    echo "Usage: cukes-before [filename pattern]"
-    return 1
-  fi
-}
-
-_list_projects() {
-  _files -W $HOME/projects -/;
-}
-
-
-tw() {
-  if [[ "$1" == "add" ]]; then
-    context="$(task context show | cut -d "'" -f 4)"
-    if ! [[ "$context" =~ ^No\ context.* ]]; then
-      task $context $@
-      return
-    fi
-  fi
-  task $@
-}
-
-# Fuzzy search password store
-fp() {
-  local dir="${PASSWORD_STORE_DIR:-$HOME/.password-store/}"
-  find "$dir" -not -path '*/.git/*' -type f | grep '\.gpg$' | sed "s:$dir\(.*\)\.gpg$:\1:" | fzf | xargs pass $@
+fd(){
+    file=$(du -a ~/.scripts/* ~/.config/* | awk '{print $2}' | fzf)
+    dir=${file%/*}
+    cd $dir
+    $EDITOR $file
 }
 
 # Fuzzy search shell command history
@@ -84,34 +51,29 @@ fh() {
 fo() {
   local out candidates files key prog
   prog="${EDITOR:-vim}"
-  git rev-parse --show-toplevel 2>&1 > /dev/null
-  if [  $? -eq 0 ]; then
-    candidates="$(git ls-files ${1:-.} --exclude-standard --others --cached)"
-  else
-    candidates="$(find ${1:-.} -path '*/\.*' -prune -o -type f -print 2> /dev/null)"
-  fi
+  candidates="$(ls -a | fzf)"
   out=($(fzf --query="$1" --multi --exit-0 --expect=ctrl-o,ctrl-e <<< ${candidates}))
   key=$(head -1 <<< "$out")
   if [ "$key" = ctrl-o ] || [ "$key" = ctrl-e ]; then
     files="$(tail +2 <<< "$out")"
-    if [ "$key" = ctrl-o ]; then
-      prog=xdg-open
-      # xdg-open can only open one file at a time
-      files="$(head -1 <<< "$files")"
-    fi
-  else
-    files="$out"
-    key=""
+    case "$key" in
+    ctrl-o)
+	prog=ranger
+	# xdg-open can only open one file at a time
+	files="$(head -1 <<< "$files")";;
+    ctrl-e)
+	files="$out"
+	key="";;
+    esac
   fi
   [ -n "$files" ] && echo "$files" | xargs -d '\n' "$prog"
 }
 
 # Fuzzy cd
-fd() {
-  local dir
-  dir=$(find ${1:-.} -path '*/\.*' -prune \
-                  -o -type d -print 2> /dev/null | fzf +m) &&
-  cd "$dir"
+fc() {
+    local dir
+    dir=$(ls -a | fzf +m)
+    cd "$dir"
 }
 
 # Fuzzy SSH
