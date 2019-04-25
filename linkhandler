@@ -22,7 +22,7 @@ case "$1" in
 		setsid mpv -quiet "$1" >/dev/null 2>&1 &
 		/usr/bin/dunstify -t 500 "Playing Video";;
 	*youtube.com*|*youtu.be*) #limit the video quality
-		setsid tsp mpv -quiet --ytdl-format=18 "$1" >/dev/null 2>&1 & 
+		setsid mpv -quiet --ytdl-format=18 "$1" >/dev/null 2>&1 & 
 		/usr/bin/dunstify -t 500 "Playing from Youtube";;
 	*png|*jpg|*jpe|*jpeg)
 		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv -a "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
