@@ -12,32 +12,35 @@
 OS="$(uname -o)" # this is for use with termux
 if [ "$OS" = 'Android' ];then
     [ -z "$1" ] && { xdg-open "https://duckduckgo.com"; exit; }
-     xdg-open "$1"
-     exit
+    xdg-open "$1"
+    exit
 fi
 
 [ -z "$1" ] && { $TRUEBROWSER "https://duckduckgo.com"; exit; }
 case "$1" in
-	*mkv|*webm|*mp4|*gif|*hooktube.com*)
-		setsid mpv -quiet "$1" >/dev/null 2>&1 &
-		/usr/bin/dunstify -t 500 "Playing Video";;
-	*youtube.com*|*youtu.be*) #limit the video quality
-		setsid mpv -quiet --ytdl-format=18 "$1" >/dev/null 2>&1 & 
-		/usr/bin/dunstify -t 500 "Playing from Youtube";;
-	*png|*jpg|*jpe|*jpeg)
-		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv -a "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
-	*pdf)
-		setsid "$READER" "$1" >/dev/null 2>&1 & ;;
+    *mkv|*webm|*mp4|*gif|*hooktube.com*)
+	setsid mpv -quiet "$1" >/dev/null 2>&1 &
+	/usr/bin/dunstify -t 500 "Playing Video";;
+    *youtube.com*|*youtu.be*) #limit the video quality
+	setsid mpv -quiet --ytdl-format=22 "$1" >/dev/null 2>&1 & 
+	/usr/bin/dunstify -t 500 "Playing from Youtube";;
+    # *vimeo*|*cv.phncdn.com*|*pornhub*) #limit the video quality
+    # 	setsid mpv -quiet "$1" >/dev/null 2>&1 & 
+    # 	/usr/bin/dunstify -t 500 "Playing from Youtube";;
+    *png|*jpg|*jpe|*jpeg)
+	curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv -a "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
+    *pdf)
+	setsid "$READER" "$1" >/dev/null 2>&1 & ;;
 
-		#for use with pdf viewers that donot support urls uncomment these lines
-		# curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && \ 
-		#   $READER "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
-	*mp3|*m4a|*flac|*opus|*mp3?source)
-		setsid "$TERMINAL" -n "mp3" -e mpv --video=no "$1" >/dev/null 2>&1 & ;;
-	*imgur.com/*)
-		setsid "$TRUEBROWSER" "$1" >/dev/null 2>&1 & ;;
-	*.diff|*.md|*.txt|*.c|*.h|*.cpp|*.hs|*.py|*raw*)
-		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && setsid "$TERMINAL" -n popup -e "$EDITOR" "/tmp/$(echo "$1" | sed "s/.*\///")"   & ;;
-	*) 
-		setsid "$TRUEBROWSER" "$1" >/dev/null 2>&1 & ;;
+    #for use with pdf viewers that donot support urls uncomment these lines
+    # curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && \ 
+    #   $READER "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
+    *mp3|*m4a|*flac|*opus|*mp3?source|*soundcloud*)
+	setsid "$TERMINAL" -n "mp3" -e mpv --video=no "$1" >/dev/null 2>&1 & ;;
+    *imgur.com/*)
+	setsid "$TRUEBROWSER" "$1" >/dev/null 2>&1 & ;;
+    *.diff|*.md|*.txt|*.c|*.h|*.cpp|*.hs|*.py|*raw*)
+	curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && setsid "$TERMINAL" -n popup -e "$EDITOR" "/tmp/$(echo "$1" | sed "s/.*\///")"   & ;;
+    *) 
+	setsid "$TRUEBROWSER" "$1" >/dev/null 2>&1 & ;;
 esac

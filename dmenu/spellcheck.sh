@@ -5,11 +5,11 @@
 word=$(echo "?" | dmenu -i -p 'spell')
 
 if [ "$word" != "?" ]; then
-	selection=$(echo "$word" | aspell pipe --suggest | sed -e '1d' |sed 's/^[^:]*://g' | sed -e $'s/,/\\\n/g' | dmenu -p 'copy')
-	[ -z "$selection" ] || [ "$selection" == "*" ] && exit
- 	echo $selection | xclip -selection clipboard
- 	echo $selection | xclip -selection primary
-	pgrep -x dunst >/dev/null && notify-send "$(xclip -o -selection clipboard) copied to clipboard."
+    selection=$(echo "$word" | aspell pipe --suggest | sed -e '1d' |sed 's/^[^:]*://g' | sed -e $'s/,/\\\n/g' | dmenu -p 'copy')
+    [ -z "$selection" ] || [ "$selection" == "*" ] && exit
+    echo "$selection" | xclip -selection clipboard
+    echo "$selection" | xclip -selection primary
+    pgrep -x dunst >/dev/null && notify-send "$(xclip -o -selection clipboard) copied to clipboard."
 fi
 exit
 

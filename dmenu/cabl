@@ -17,13 +17,13 @@ cd "$(readlink /proc/"$PID"/cwd)"
 [ -f "$prim" ] && xdg-open "$prim" && exit
 [ -d "$prim" ] && "$TERMINAL" "$prim" && exit
 
-websearch() { "$BROWSER" "https://duckduckgo.com/?q=$*" ;}
-youtube() { "$BROWSER" "https://www.youtube.com/results?search_query=$*" ;}
-archwiki() { "$BROWSER" "https://wiki.archlinux.org/index.php?search=$*" ;}
+search() { 
+    fullsearch=$(echo "$*" | dmenu -p "Enter !Bang prefix:")
+    "$BROWSER" "https://duckduckgo.com/?q=$fullsearch"
+}
 maps() { "$BROWSER" "https://maps.google.com/?q=$*" ;}
-ebay() { "$BROWSER" "https://www.ebay.com/sch/$*" ;}
 
-echo "$prim" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && url() { "$TRUEBROWSER" "$@" ;} && kdeconnect() { "kdeconnect-handler" "$@" ;}
+echo "$prim" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && url() { "$BROWSER" "$@" ;} && kdeconnect() { "kdeconnect-handler" "$@" ;} && chrome() { Chromium "$@" ;}
 echo "$prim" | grep "^.*@.*\.[A-Za-z]\+$" >/dev/null && email() { xdg-email "$@" ;}
 echo "$prim" | grep "^.*git*" >/dev/null && clone() { notify-send "cloning started"; git -C "$HOME/Downloads/" clone "$@"; notify-send "completed cloning";}
 command -v qrencode >/dev/null && qrcode() { qrencode "$@" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png ;}

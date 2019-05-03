@@ -24,7 +24,6 @@ _get_process_names	dmenu/dmenu-killall	/^_get_process_names() {$/;"	f
 _notify	dmenu/dmenu-killall	/^_notify() {$/;"	f
 _usage	dmenu/dmenu-killall	/^_usage() {$/;"	f
 arch	pkgsearch	/^arch() {$/;"	f
-archwiki	dmenu/cabl	/^archwiki() { "$BROWSER" "https:\/\/wiki.archlinux.org\/index.php?search=$*" ;}$/;"	f
 askrecording	dmenu/dmenurecord	/^askrecording() { \\$/;"	f
 asktoend	dmenu/dmenurecord	/^asktoend() { \\$/;"	f
 asktype	dmenu/dmenumount	/^asktype() { \\$/;"	f
@@ -35,6 +34,7 @@ bm_tree_walk	importer.py	/^        def bm_tree_walk(bm, template):$/;"	f	functio
 browser_default_input_format	importer.py	/^browser_default_input_format = {$/;"	v
 checkbluetooth	autostart.sh	/^checkbluetooth(){ \\$/;"	f
 chex	tpb.sh	/^chex() {$/;"	f
+chrome	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconne/;"	f
 clone	dmenu/cabl	/^echo "$prim" | grep "^.*git*" >\/dev\/null && clone() { notify-send "cloning started"; git -C "$/;"	f
 compilec	compiler	/^compilec(){$/;"	f
 createtodo	dmenu/dmenu_googletasks.sh	/^createtodo(){$/;"	f
@@ -47,7 +47,6 @@ die	pkgrm	/^die() {$/;"	f
 die	pkgsearch	/^die() {$/;"	f
 do_POST	cvim_server.py	/^    def do_POST(self):$/;"	m	class:CvimServer
 dwm.tmux	tty/dwm.tmux/README.md	/^dwm.tmux$/;"	c
-ebay	dmenu/cabl	/^ebay() { "$BROWSER" "https:\/\/www.ebay.com\/sch\/$*" ;}$/;"	f
 edit_file	cvim_server.py	/^def edit_file(content):$/;"	f
 email	dmenu/cabl	/^echo "$prim" | grep "^.*@.*\\.[A-Za-z]\\+$" >\/dev\/null && email() { xdg-email "$@" ;}$/;"	f
 encrypt	pwd.sh	/^encrypt () {$/;"	f
@@ -91,7 +90,7 @@ iter_plus	i3-wm-scripts/nextfind_0	/^def iter_plus(it, extra):$/;"	f
 joinlines	i3-wm-scripts/nextfind	/^def joinlines(L):$/;"	f
 joinlines	i3-wm-scripts/nextfind_	/^def joinlines(L):$/;"	f
 joinlines	i3-wm-scripts/nextfind_0	/^def joinlines(L):$/;"	f
-kdeconnect	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$TRUEBROWSER" "$@" ;} && kdec/;"	f
+kdeconnect	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconne/;"	f
 killrecording	dmenu/dmenurecord	/^killrecording() {$/;"	f
 main	i3-wm-scripts/nextfind	/^def main(args):$/;"	f
 main	i3-wm-scripts/nextfind_	/^def main(args):$/;"	f
@@ -124,6 +123,7 @@ read_pass	pwd.sh	/^read_pass () {$/;"	f
 screencastalsa	dmenu/dmenurecord	/^screencastalsa() { \\$/;"	f
 screencastpulse	dmenu/dmenurecord	/^screencastpulse() { \\$/;"	f
 scripts	README.md	/^# scripts$/;"	c
+search	dmenu/cabl	/^search() { $/;"	f
 search_conv	importer.py	/^    def search_conv(url):$/;"	f	function:import_moz_places	file:
 search_escape	importer.py	/^def search_escape(url):$/;"	f
 search_window	i3-wm-scripts/nextmatch	/^def search_window(windows, expr):$/;"	f
@@ -143,11 +143,9 @@ twoscreen	dmenu/displayselect	/^twoscreen() { # If multi-monitor is selected and
 unmountandroid	dmenu/dmenuumount	/^unmountandroid() { \\$/;"	f
 unmountusb	dmenu/dmenuumount	/^unmountusb() {$/;"	f
 updateicon	dmenu/dmenurecord	/^updateicon() { \\$/;"	f
-url	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$TRUEBROWSER" "$@" ;} && kdec/;"	f
+url	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconne/;"	f
 usage	dmenu/calc.sh	/^usage() {$/;"	f
 usage	pkgsearch	/^usage() {$/;"	f
 video	dmenu/dmenurecord	/^video() { ffmpeg \\$/;"	f
 void	pkgsearch	/^void() {$/;"	f
-websearch	dmenu/cabl	/^websearch() { "$BROWSER" "https:\/\/duckduckgo.com\/?q=$*" ;}$/;"	f
 write_pass	pwd.sh	/^write_pass () {$/;"	f
-youtube	dmenu/cabl	/^youtube() { "$BROWSER" "https:\/\/www.youtube.com\/results?search_query=$*" ;}$/;"	f
