@@ -32,7 +32,7 @@ case "$1" in
 		#   $READER "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
 		setsid "$READER" "$1" >/dev/null 2>&1 & ;;
 	*mp3|*m4a|*flac|*opus|*mp3?source)
-		setsid "$TERMINAL" -e mpv "$1" >/dev/null 2>&1 & ;;
+		setsid "$TERMINAL" -t "mp3" -e mpv "$1" >/dev/null 2>&1 & ;;
 	*imgur.com/*)
 		setsid "$TRUEBROWSER" "$1" >/dev/null 2>&1 & ;;
 	*.diff|*.md|*.txt|*.c|*.h|*.cpp|*.hs|*.py|*raw*)
