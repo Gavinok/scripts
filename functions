@@ -112,15 +112,22 @@ vs() {
   fi
   find -H $BIN_BOOKMARKS -type f -not -path '*/.git/*' | fzf --query="$1" | sed "s|~|$HOME|" | xargs -r $EDITOR
 }
-
-export NNN_TMPFILE="/tmp/nnn"
-r()
-{
-        nnn "$@" -l
-
-        if [ -f $NNN_TMPFILE ]; then
-                . $NNN_TMPFILE
-                rm $NNN_TMPFILE
-        fi
+ranger() {
+    if [ -z "$RANGER_LEVEL" ]; then
+        /usr/bin/ranger "$@"
+    else
+        exit
+    fi
 }
+
+# export NNN_TMPFILE="/tmp/nnn"
+# r()
+# {
+#         nnn "$@" -l
+#
+#         if [ -f $NNN_TMPFILE ]; then
+#                 . $NNN_TMPFILE
+#                 rm $NNN_TMPFILE
+#         fi
+# }
 # vim:ft=sh
