@@ -15,7 +15,7 @@ sudo powertop --auto-tune &
 clipmenud &
 kdeconnect-cli &
 # ~/.scripts/rldkeynav &
-dropbox start &
+dropbox-cli start
 redshift &
 pulsemixer --set-volume 50 &
 flashfocus &

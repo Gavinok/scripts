@@ -10,7 +10,6 @@ DMENU	dmenu/dmenu-killall	/^DMENU() { dmenu -p 'Kill'; }$/;"	f
 Details	tty/dwm.tmux/README.md	/^## Details$/;"	s
 EOF	llc.sh	/^	*) cat << EOF$/;"	h
 EOF	lmc	/^	*) cat << EOF$/;"	h
-EOF	notes	/^cat << EOF$/;"	h
 HELP	pkgsearch	/^  LESS=-FEXR less <<HELP$/;"	h
 Ifinstalled	compiler	/^Ifinstalled(){$/;"	f
 Install	i3-wm-scripts/README.md	/^### Install$/;"	S
@@ -73,7 +72,6 @@ get_named_windows	i3-wm-scripts/common.py	/^def get_named_windows():$/;"	f
 get_pass	pwd.sh	/^get_pass () {$/;"	f
 get_tree	i3-wm-scripts/common.py	/^def get_tree():$/;"	f
 getmount	dmenu/dmenumount	/^getmount() { \\$/;"	f
-getnotes	notes	/^getnotes() {$/;"	f
 getsink	volumechecker.sh	/^getsink() {$/;"	f
 getvolume	volumechecker.sh	/^getvolume() {$/;"	f
 handle_option	i3-wm-scripts/i3-exec	/^handle_option() {$/;"	f
@@ -101,10 +99,6 @@ main	i3-wm-scripts/nextfind_0	/^def main(args):$/;"	f
 main	i3-wm-scripts/nextmatch	/^def main(args):$/;"	f
 main	i3-wm-scripts/vimb-bookmark	/^def main(args):$/;"	f
 main	importer.py	/^def main():$/;"	f
-main	notes	/^main() {$/;"	f
-makehtml	notes	/^makehtml() {$/;"	f
-makenotes	notes	/^makenotes() {$/;"	f
-makepdf	notes	/^makepdf() {$/;"	f
 manual	dmenu/cabl	/^man -k "^$prim$" >\/dev\/null && manual() { man -Tpdf "$prim" | $READER - ;}$/;"	f
 maps	dmenu/cabl	/^maps() { "$BROWSER" "https:\/\/maps.google.com\/?q=$*" ;}$/;"	f
 mark/goto/unmark	i3-wm-scripts/README.md	/^### mark\/goto\/unmark$/;"	S
@@ -151,7 +145,6 @@ unmountusb	dmenu/dmenuumount	/^unmountusb() {$/;"	f
 updateicon	dmenu/dmenurecord	/^updateicon() { \\$/;"	f
 url	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$TRUEBROWSER" "$@" ;} && kdec/;"	f
 usage	dmenu/calc.sh	/^usage() {$/;"	f
-usage	notes	/^usage() {$/;"	f
 usage	pkgsearch	/^usage() {$/;"	f
 video	dmenu/dmenurecord	/^video() { ffmpeg \\$/;"	f
 void	pkgsearch	/^void() {$/;"	f

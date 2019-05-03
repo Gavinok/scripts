@@ -1,6 +1,9 @@
-if  pgrep -x $1 ;
-then
-	killall $1
+# a simple script for starting a program 
+# kill it if it is already running
+if  pgrep -x "$1" ;then
+	killall "$1"
+	# for program that dont imediatly close
+	xdotool windowclose "$(xdotool search --name "$1")"
 	exit
 fi
-exec $1
+exec "$1"
