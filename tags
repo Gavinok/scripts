@@ -10,7 +10,9 @@ DMENU	dmenu/dmenu-killall	/^DMENU() { dmenu -p 'Kill'; }$/;"	f
 Details	tty/dwm.tmux/README.md	/^## Details$/;"	s
 EOF	llc.sh	/^	*) cat << EOF$/;"	h
 EOF	lmc	/^	*) cat << EOF$/;"	h
+EOF	notes	/^cat << EOF$/;"	h
 HELP	pkgsearch	/^  LESS=-FEXR less <<HELP$/;"	h
+Ifinstalled	compiler	/^Ifinstalled(){$/;"	f
 Install	i3-wm-scripts/README.md	/^### Install$/;"	S
 Notification_menu	dmenu/dmenu_kdeconnect.sh	/^Notification_menu () {$/;"	f
 PORT	cvim_server.py	/^PORT = 8001$/;"	v
@@ -33,6 +35,7 @@ audiopulse	dmenu/dmenurecord	/^audiopulse() { \\$/;"	f
 bm_tree_walk	importer.py	/^        def bm_tree_walk(bm, template):$/;"	f	function:import_chrome	file:
 browser_default_input_format	importer.py	/^browser_default_input_format = {$/;"	v
 checkbluetooth	autostart.sh	/^checkbluetooth(){ \\$/;"	f
+chex	tpb.sh	/^chex() {$/;"	f
 clone	dmenu/cabl	/^echo "$prim" | grep "^.*git*" >\/dev\/null && clone() { notify-send "cloning started"; git -C "$/;"	f
 compilec	compiler	/^compilec(){$/;"	f
 createtodo	dmenu/dmenu_googletasks.sh	/^createtodo(){$/;"	f
@@ -70,6 +73,7 @@ get_named_windows	i3-wm-scripts/common.py	/^def get_named_windows():$/;"	f
 get_pass	pwd.sh	/^get_pass () {$/;"	f
 get_tree	i3-wm-scripts/common.py	/^def get_tree():$/;"	f
 getmount	dmenu/dmenumount	/^getmount() { \\$/;"	f
+getnotes	notes	/^getnotes() {$/;"	f
 getsink	volumechecker.sh	/^getsink() {$/;"	f
 getvolume	volumechecker.sh	/^getvolume() {$/;"	f
 handle_option	i3-wm-scripts/i3-exec	/^handle_option() {$/;"	f
@@ -97,6 +101,10 @@ main	i3-wm-scripts/nextfind_0	/^def main(args):$/;"	f
 main	i3-wm-scripts/nextmatch	/^def main(args):$/;"	f
 main	i3-wm-scripts/vimb-bookmark	/^def main(args):$/;"	f
 main	importer.py	/^def main():$/;"	f
+main	notes	/^main() {$/;"	f
+makehtml	notes	/^makehtml() {$/;"	f
+makenotes	notes	/^makenotes() {$/;"	f
+makepdf	notes	/^makepdf() {$/;"	f
 manual	dmenu/cabl	/^man -k "^$prim$" >\/dev\/null && manual() { man -Tpdf "$prim" | $READER - ;}$/;"	f
 maps	dmenu/cabl	/^maps() { "$BROWSER" "https:\/\/maps.google.com\/?q=$*" ;}$/;"	f
 mark/goto/unmark	i3-wm-scripts/README.md	/^### mark\/goto\/unmark$/;"	S
@@ -114,6 +122,7 @@ pick_files	fzf/fv	/^pick_files() {$/;"	f
 popen	i3-wm-scripts/vimb-bookmark	/^def popen(*args, **kwds):$/;"	f
 print_date	windowshot.sh	/^print_date(){$/;"	f
 print_help	pwd.sh	/^print_help () {$/;"	f
+printhelp	tpb.sh	/^printhelp() {$/;"	f
 putgitrepo	updatedotfiles.sh	/^putgitrepo() { # Downlods a gitrepo $1 and places the files in $2 only overwriting conflicts$/;"	f
 qrcode	dmenu/cabl	/^command -v qrencode >\/dev\/null && qrcode() { qrencode "$@" -s 10 -o \/tmp\/qr.png && xdg-open /;"	f
 read	dmenu/cabl	/^read() { pico2wave -w=\/tmp\/test.wav "$*"; aplay \/tmp\/test.wav -D 'pulse'; rm \/tmp\/test.wav/;"	f
@@ -142,6 +151,7 @@ unmountusb	dmenu/dmenuumount	/^unmountusb() {$/;"	f
 updateicon	dmenu/dmenurecord	/^updateicon() { \\$/;"	f
 url	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$TRUEBROWSER" "$@" ;} && kdec/;"	f
 usage	dmenu/calc.sh	/^usage() {$/;"	f
+usage	notes	/^usage() {$/;"	f
 usage	pkgsearch	/^usage() {$/;"	f
 video	dmenu/dmenurecord	/^video() { ffmpeg \\$/;"	f
 void	pkgsearch	/^void() {$/;"	f
