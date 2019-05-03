@@ -18,46 +18,61 @@ base="${file%.*}"
 shebang=$(sed -n 1p "$file")
 
 cd "$dir" || exit
+Ifinstalled(){
+    command -v "$1" >/dev/null || { notify-send "📦 <b>$1</b> must be installed for this function." && exit 1 ;}
+}
 
 textype() { \
 	command="pdflatex"
-	( sed 5q "$file" | grep -i -q 'xelatex' ) && command="xelatex"
-	$command --output-directory="$dir" "$base" &&
-	grep -i addbibresource "$file" >/dev/null &&
-	biber --input-directory "$dir" "$base" &&
-	$command --output-directory="$dir" "$base" &&
-	$command --output-directory="$dir" "$base"
-	}
+    ( sed 5q "$file" | grep -i -q 'xelatex' ) && command="xelatex"
+    $command --output-directory="$dir" "$base" &&
+    grep -i addbibresource "$file" >/dev/null &&
+    biber --input-directory "$dir" "$base" &&
+    $command --output-directory="$dir" "$base" &&
+    $command --output-directory="$dir" "$base"
+}
 
 shebangtest() {
-	case "$shebang" in
-		\#\!*) chmod +x "$file";  "$file" ;;
-		*) sent "$file" 2>/dev/null & ;;
-	esac
+    case "$shebang" in
+	\#\!*) chmod +x "$file";  "$file" ;;
+	*) sent "$file" 2>/dev/null & ;;
+    esac
 }
 
 compilec(){
-	if [ -f "${dir}/Makefile" ]; then
-		make
-	else
-		cc "$file" -o "$base" && "$base" 
-	fi
+    if [ -f "${dir}/Makefile" ]; then
+	make
+    else
+	cc "$file" -o "$base" && "$base" 
+    fi
 }
 
 # If there is a global $REFBIB variable/file for `refer`, use it.
 [ -f "$REFBIB" ] && groffbib="-p $REFBIB"
 
 case "$file" in
-	*\.ms) refer -PS -e "$groffbib" "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
-	*\.groff) refer -PS -e "$groffbib" "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
-	*\.rmd) echo "require(rmarkdown); render('$file')" | R --vanilla && mv "$base".pdf "$dir"/pdfs;;
-	*\.tex) textype "$file" ;;
-	*\.md) md2pdf "$file" ;;
-	*config.h) make && sudo make install ;;
-        *\.c) compilec ;;
-        *\.h) make ;;
-	*\.py) python "$file" ;;
-	*\.sh) chmod +x "$file"; shebangtest;; 
-	*\.go) go run "$file" ;;
-	*) shebangtest ;;
+    *\.ms) refer -PS -e "$groffbib" "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
+    *\.groff) refer -PS -e "$groffbib" "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
+    *\.rmd) echo "require(rmarkdown); render('$file')" | R --vanilla && mv "$base".pdf "$dir"/pdfs;;
+    *\.tex) textype "$file" ;;
+    *\.md)  
+    	# for github flared Markdown
+	if Ifinstalled grip && Ifinstalled wkhtmltopdf;then
+	    grip --export "$file" && wkhtmltopdf "$base".html "$base".pdf
+	    exit
+	fi
+	Ifinstalled md2pdf && md2pdf "$file" && exit
+	Ifinstalled pandoc && pandoc "$file" --pdf-engine=xelatex -o "$base".pdf && exit
+	;;
+    *config.h) make && sudo make install ;;
+    *\.c) compilec ;;
+    *\.h) compilec ;;
+    *\.py) python "$file" ;;
+    *\.docx|*\.doc) 
+	Ifinstalled libreoffice && lowriter --convert-to pdf "$file" && exit
+	Ifinstalled pandoc && pandoc "$file" --pdf-engine=xelatex -o "$base".pdf && exit
+	    ;;
+    *\.sh) chmod +x "$file"; shebangtest;; 
+    *\.go) go run "$file" ;;
+    *) shebangtest ;;
 esac
