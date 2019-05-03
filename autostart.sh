@@ -15,10 +15,9 @@ sudo powertop --auto-tune &
 clipmenud &
 kdeconnect-cli &
 # ~/.scripts/rldkeynav &
-# checkfordl &
+dropbox start &
 redshift &
 pulsemixer --set-volume 50 &
 flashfocus &
-# podentr &
 sleep 10
 checkbluetooth &
