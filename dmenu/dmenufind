@@ -1,3 +1,0 @@
-#!/bin/bash
-
-find ~ | sed -e "s/'/\\\'/g" -e 's/\ /\\ /g' | dmenu -p 'Open:' -l 13 | xargs -r xdg-open
