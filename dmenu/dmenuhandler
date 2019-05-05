@@ -10,7 +10,7 @@ case "$x" in
     cast) setsid cast "$1" 2>&1 ;;
     QR)  qrencode "$1" -s 10 -o /tmp/QR.png  "$1"; xdg-open /tmp/QR.png >/dev/null 2>&1 &;;
     kdeconnect)  kdeconnect-handler "$1" >/dev/null 2>&1 &;;
-    *hq*) setsid mpv -quiet "$1" >/dev/null 2>&1 &;;
+    *hq*) setsid mpv --really-quiet "$1" >/dev/null 2>&1 &;;
     download) 
 	case "$1" in 
 	    *youtube.com*|*youtu.be*) 
