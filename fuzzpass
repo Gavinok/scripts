@@ -1,0 +1,13 @@
+#!/bin/bash
+lpath=$(find ~/.password-store/ -name "*.gpg"  | \
+ sed -r 's,(.*)\.password-store/(.*)\.gpg,\2,'   | \
+ fzf +m);
+[[ -z "$lpath" ]] && exit
+pass show -c "$lpath"
+truepass=$(pass show "$lpath")
+pass=$(echo "$truepass" | awk 'NR!=1')
+notify-send "$pass"
+echo "$pass"
+read -r
+pass=$( echo "$truepass" | awk 'NR==1')
+clipdel -d "$pass"
