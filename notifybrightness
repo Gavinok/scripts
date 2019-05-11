@@ -8,4 +8,4 @@
 
 OUTPUT="$(xbacklight -get)"
 ROUNDED=${OUTPUT%.*}
-dunstify -t 500 -r 325 "💡  [$ROUNDED%]"
+dunstify -t 500 -r 325 "Light: $ROUNDED%"
