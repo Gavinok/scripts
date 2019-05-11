@@ -1,0 +1,27 @@
+#!/bin/bash
+# touch  "/tmp/rotate"
+if [ ! -f "/tmp/rotate" ];then
+    touch  "/tmp/rotate" 
+    echo 0 > "/tmp/rotate"
+else
+    lastmod=$(stat --printf="%X\n" /tmp/rotate)
+    timenow=$(date +%s)
+    timelim=$(( lastmod + 1 ))
+    echo $timelim
+    echo $lastmod
+    [ $timelim -gt $timenow ] && exit
+    touch /tmp/rotate
+fi
+if  grep 0 /tmp/rotate ; then
+    xrandr --output LVDS1 --rotate left
+    xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen stylus" Rotate ccw
+    xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Finger touch" Rotate ccw
+    xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen eraser" Rotate ccw
+    echo "1" >/tmp/rotate
+else
+    xrandr --output LVDS1 --rotate normal
+    xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen stylus" Rotate none
+    xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Finger touch" Rotate none
+    xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen eraser" Rotate none
+    echo "0" >/tmp/rotate
+fi
