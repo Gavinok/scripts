@@ -11,13 +11,13 @@ checkbluetooth(){ \
 ~/.fehbg &
 compton &
 unclutter &
-sudo powertop --auto-tune &
 clipmenud &
 kdeconnect-cli &
 # ~/.scripts/rldkeynav &
-dropbox-cli start
+dropbox-cli start &
 redshift &
 pulsemixer --set-volume 50 &
 flashfocus &
+sudo powertop --auto-tune --quiet &
 sleep 10
 checkbluetooth &
