@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 # a simple todo script that integrates with calcurse
-EXECUTABLE='python2.7 /home/gavinok/tasky/src/tasky.py'
+EXECUTABLE='python2.7 /home/gavinok/tasky/tasky.py'
 PROMPT='to do:'
 # function: createtodo 
 # description: used to create a new task
