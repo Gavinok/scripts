@@ -3,6 +3,8 @@
 # qrencode required for qrcode generation.
 # groff/zathura required for man pages.
 
+LAUNCER="dmenu"
+
 while getopts ":c" o; do case "$o" in
 	c) prim="$(xclip -o)" ;;
 	*) printf "Invalid option: -%s\\n" "$o" && exit ;;
@@ -18,7 +20,7 @@ cd "$(readlink /proc/"$PID"/cwd)"
 [ -d "$prim" ] && "$TERMINAL" "$prim" && exit
 
 search() { 
-    fullsearch=$(echo "$*" | dmenu -p "Enter !Bang prefix:")
+    fullsearch=$(echo "$*" | $LAUNCER -p "Enter !Bang prefix:")
     "$BROWSER" "https://duckduckgo.com/?q=$fullsearch"
 }
 maps() { "$BROWSER" "https://maps.google.com/?q=$*" ;}
@@ -31,6 +33,6 @@ read() { pico2wave -w=/tmp/test.wav "$*"; aplay /tmp/test.wav -D 'pulse'; rm /tm
 man -k "^$prim$" >/dev/null && manual() { man -Tpdf "$prim" | $READER - ;}
 
 prompt="$(echo "$prim" | awk 'NR==1{print $1, $2, $3}')"
-func="$(declare -F | awk '{print $3}' | dmenu -p "$prompt" -i -l 15)"
+func="$(declare -F | awk '{print $3}' | $LAUNCER -p "$prompt" -i -l 15)"
 
 [ -z "$func" ] || "$func" "$prim"

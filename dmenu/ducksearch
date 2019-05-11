@@ -4,10 +4,12 @@
 # Without input, will open DuckDuckGo.com.
 # Anything else, it search it.
 
+LAUNCER="dmenu"
+
 if [ -f ~/.surf/bookmarks ]; then
-	 choice=$( (echo "🦆" && cat ~/.surf/bookmarks) | dmenu -l 5 -i -p "Search:") || exit 1
+	 choice=$( (echo "🦆" && cat ~/.surf/bookmarks) | $LAUNCER -l 5 -i -p "Search:") || exit 1
 else 
-	choice=$(echo "🦆" | dmenu -i -p "Search DuckDuckGo:") || exit 1
+	choice=$(echo "🦆" | $LAUNCER -i -p "Search DuckDuckGo:") || exit 1
 fi
 
 if [ "$choice" = "🦆"  ]; then

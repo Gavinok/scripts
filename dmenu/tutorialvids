@@ -1,4 +1,7 @@
 #!/bin/sh
+
+LAUNCER="dmenu"
+
 vidlist="
 Bash script		https://www.youtube.com/watch?v=YOpeXETS2z0&t=192s
 Bash script full	 https://www.youtube.com/watch?v=oxuRxtrO2Ag	
@@ -34,4 +37,4 @@ Regex	https://www.youtube.com/watch?v=vcRPNhLbhoc
 Game Dev in C	https://www.youtube.com/watch?v=yFLa3ln16w0&t=556s
 "
 
-echo "$vidlist" | grep -P "^$(echo "$vidlist" | grep "https:" | sed 's/\t.*//g' | dmenu -i -p "Learn about what? (ESC to cancel)" -l 20 | awk '{print $1}')\s" | sed 's/.*\t//' | xargs -r mpv
+echo "$vidlist" | grep -P "^$(echo "$vidlist" | grep "https:" | sed 's/\t.*//g' | $LAUNCER -i -p "Learn about what? (ESC to cancel)" -l 20 | awk '{print $1}')\s" | sed 's/.*\t//' | xargs -r mpv

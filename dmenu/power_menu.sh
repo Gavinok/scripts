@@ -1,7 +1,9 @@
 #!/bin/bash
 # Simple dmenu based program that utilizes systemd 
 
-res=$(printf "shutdown\\nreboot\\nhibernate" | dmenu -i -p 'Power Menu:'  ) 
+LAUNCER="dmenu"
+
+res=$(printf "shutdown\\nreboot\\nhibernate" | $LAUNCER -i -p 'Power Menu:'  ) 
 if [ $res = "reboot" ]; then
     systemctl reboot
 fi
