@@ -45,7 +45,14 @@ OS="$(uname -o)" # this is for use with termux
 if [ "$OS" = 'Android' ];then
     [ -f "$HOME/.config/termuxlocalprofile" ] && mv -i  $HOME/.config/termuxlocalprofile $HOME/.config/localprofile
     [ -f "$HOME/.config/termuxvimlocal" ] && mv -i $HOME/.config/termuxvimlocal $HOME/.config/vimlocal
+else
+    sudo mv -i /etc/hosts /etc/hosts-
+    sudo curl -fo https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts /etc/hosts
+    #update hosts file
+    #check all programs are installed
+    #allow all sudo privleges
 fi
+
 
 finalize
 clear
