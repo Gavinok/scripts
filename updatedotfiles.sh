@@ -41,5 +41,11 @@ putgitrepo "$dotfilesrepo" "$HOME"
 rm -f "$HOME/README.md" "$HOME/LICENSE"
 putgitrepo "$scriptrepo" "$HOME/.scripts"
 
+OS="$(uname -o)" # this is for use with termux
+if [ "$OS" = 'Android' ];then
+    [ -f "$HOME/.config/termuxlocalprofile" ] && mv -i  $HOME/.config/termuxlocalprofile $HOME/.config/localprofile
+    [ -f "$HOME/.config/termuxvimlocal" ] && mv -i $HOME/.config/termuxvimlocal $HOME/.config/vimlocal
+fi
+
 finalize
 clear
