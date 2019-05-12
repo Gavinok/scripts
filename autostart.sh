@@ -19,5 +19,5 @@ redshift &
 pulsemixer --set-volume 50 &
 flashfocus &
 sudo powertop --auto-tune --quiet &
-sleep 10
+sleep 1
 checkbluetooth &
