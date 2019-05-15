@@ -45,7 +45,7 @@ OS="$(uname -o)" # this is for use with termux
 if [ "$OS" = 'Android' ];then
     [ -f "$HOME/.config/termuxlocalprofile" ] && mv -i  "$HOME/.config/termuxlocalprofile" "$HOME/.config/localprofile"
     [ -f "$HOME/.config/termuxvimlocal" ] && mv -i "$HOME/.config/termuxvimlocal" "$HOME/.config/vimlocal"
-    pkg install curl git python python-dev
+    pkg install curl git python python-dev zsh wget ranger nnn 
 else
     sudo mv -i /etc/hosts /etc/hosts-
     sudo curl -fo https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts /etc/hosts
