@@ -43,12 +43,14 @@ putgitrepo "$scriptrepo" "$HOME/.scripts"
 
 OS="$(uname -o)" # this is for use with termux
 if [ "$OS" = 'Android' ];then
-    [ -f "$HOME/.config/termuxlocalprofile" ] && mv -i  $HOME/.config/termuxlocalprofile $HOME/.config/localprofile
-    [ -f "$HOME/.config/termuxvimlocal" ] && mv -i $HOME/.config/termuxvimlocal $HOME/.config/vimlocal
+    [ -f "$HOME/.config/termuxlocalprofile" ] && mv -i  "$HOME/.config/termuxlocalprofile" "$HOME/.config/localprofile"
+    [ -f "$HOME/.config/termuxvimlocal" ] && mv -i "$HOME/.config/termuxvimlocal" "$HOME/.config/vimlocal"
+    pkg install curl git python python-dev
 else
     sudo mv -i /etc/hosts /etc/hosts-
     sudo curl -fo https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts /etc/hosts
     #update hosts file
+    #pacman -Syyu
     #check all programs are installed
     #allow all sudo privleges
 fi
