@@ -1,12 +1,13 @@
 #!/bin/sh
 
 # This script will compile or run another finishing operation on a document. I
-# have this script run via vim.
+# have this script run via Vim.
 #
 # tex files: Compiles to pdf, including bibliography if necessary
 # md files: Compiles to pdf via pandoc
 # rmd files: Compiles via R Markdown
-# c files: Compiles via whatever compiler is set to cc. Usually gcc.
+# c files: Compiles via whatever compiler is set to cc. Usually gcc. 
+#	   Use make if Makefile exists.
 # py files: runs via python command
 # go files: compiles and runs with "go run"
 # config.h files: (For suckless utils) recompiles and installs program.
