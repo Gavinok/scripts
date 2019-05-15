@@ -7,8 +7,8 @@ checkbluetooth(){ \
 	fi
 	blueman-applet&
 }
-~/.scripts/remaps &
 ~/.fehbg &
+~/.scripts/remaps &
 compton &
 unclutter &
 clipmenud &
