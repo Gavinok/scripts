@@ -13,7 +13,7 @@ else
 fi
 
 if [ "$choice" = "🦆"  ]; then
-	surf  "https://duckduckgo.com" > ~/.surf/log 2>&1
+	surf -PS  "https://duckduckgo.com" > ~/.surf/log 2>&1
 else
-	surf "$choice" > ~/.surf/log 2>&1
+	surf -PS "$choice" > ~/.surf/log 2>&1
 fi
