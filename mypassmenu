@@ -17,11 +17,12 @@ password=$(printf '%s\n' "${password_files[@]}" | uniq  | dmenu -l 5 "$@" )
 
 [[ -n $password ]] || exit
 
+#copy username to clipboard
+pass show "$password" | grep login: | sed 's/login: //' | xclip 
 if [[ $typeit -eq 0 ]]; then
 	pass show -c "$password" 2>/dev/null
 else
 	pass show "$password" | { IFS= read -r pass; printf %s "$pass"; } |
 		xdotool type --clearmodifiers --file -
-	pass show --clip=2 "$password" 2>/dev/null
 fi
 

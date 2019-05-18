@@ -5,7 +5,7 @@
 # 1. Check if a program is installed before offering the option
 x="$(printf "chrome\\nsurf\\ndownload\\nmpv(hq)\\nkdeconnect\\nQR\\ncast" | dmenu -i -p "Open link with what program?")"
 case "$x" in
-    chrome) setsid chromium --app="$1" >/dev/null 2>&1 & ;;
+    chrome) setsid google-chrome-stable --app="$1" >/dev/null 2>&1 & ;;
     surf) "surf $1" >/dev/null 2>&1 & ;;
     cast) setsid cast "$1" 2>&1 ;;
     QR)  qrencode "$1" -s 10 -o /tmp/QR.png  "$1"; xdg-open /tmp/QR.png >/dev/null 2>&1 &;;
