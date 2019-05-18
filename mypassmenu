@@ -13,15 +13,15 @@ password_files=( "$prefix"/**/*.gpg )
 password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
-password=$(printf '%s\n' "$@" "${password_files[@]}" | uniq  | dmenu -l 5)
+password=$(printf '%s\n' "${password_files[@]}" | uniq  | dmenu -l 5 "$@" )
 
 [[ -n $password ]] || exit
 
 if [[ $typeit -eq 0 ]]; then
 	pass show -c "$password" 2>/dev/null
-	echo hello
 else
 	pass show "$password" | { IFS= read -r pass; printf %s "$pass"; } |
 		xdotool type --clearmodifiers --file -
+	pass show --clip=2 "$password" 2>/dev/null
 fi
 
