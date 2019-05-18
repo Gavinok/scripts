@@ -35,6 +35,7 @@ clone	dmenu/cabl	/^echo "$prim" | grep "^.*git*" >\/dev\/null && clone() { notif
 compilec	compiler	/^compilec(){$/;"	f
 createtodo	dmenu/dmenu_googletasks.sh	/^createtodo(){$/;"	f
 createtodo	dmenu/dmenu_todo.sh	/^createtodo(){$/;"	f
+ctrl_c	pomodoro	/^function ctrl_c() {$/;"	f
 cycle_selected	i3-wm-scripts/common.py	/^def cycle_selected(current, selected):$/;"	f
 debian	pkgsearch	/^debian() {$/;"	f
 dhandler	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconne/;"	f
