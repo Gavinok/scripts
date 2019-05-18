@@ -1,6 +1,0 @@
-#!/bin/bash
-
-rm ~/Downloads/gavinfreeborn@gmail.com.ical.zip
-rm ~/Downloads/gavinfreeborn@gmail.com.ics
-
-google-chrome-stable https://calendar.google.com/calendar/r/settings/export
