@@ -7,7 +7,7 @@ checkbluetooth(){ \
 	fi
 	blueman-applet&
 }
-~/.fehbg &
+~/.scripts/setbg &
 ~/.scripts/remaps &
 compton &
 unclutter &
@@ -19,6 +19,6 @@ redshift &
 pulsemixer --set-volume 50 &
 xbacklight -set 50 &
 flashfocus &
-sudo powertop --auto-tune --quiet &
+# sudo powertop --auto-tune --quiet &
 # sleep 1
 # checkbluetooth &

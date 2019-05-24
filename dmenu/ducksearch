@@ -12,8 +12,14 @@ else
 	choice=$(echo "🦆" | $LAUNCER -i -p "Search DuckDuckGo:") || exit 1
 fi
 
-if [ "$choice" = "🦆"  ]; then
-	surf -PS  "https://duckduckgo.com" > ~/.surf/log 2>&1
-else
-	surf -PS "$choice" > ~/.surf/log 2>&1
-fi
+case "$choice" in 
+  *🦆*)
+    $BROWSER  "https://duckduckgo.com" > ~/.surf/log 2>&1 && exit
+    ;;
+  http*)
+    $BROWSER  "$choice" > ~/.surf/log 2>&1 && exit
+    ;;
+  *)
+    $BROWSER  "https://duckduckgo.com/?q=$choice" > ~/.surf/log 2>&1 && exit
+    ;;
+esac
