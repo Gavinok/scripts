@@ -17,7 +17,7 @@
 	# -dmenu
 	# -kdeconnect
 	# -zenity, nnn, or ranger
-	# -qt5tools
+	# -qt5-tools
 	# -dbus
 	# -dunst
 
@@ -25,7 +25,7 @@
 # nnn
 # zenity
 # ranger
-Picker='nnn'
+Picker='zenity'
 
 # Color Settings of dmenu 
 COLOR_DISCONNECTED='#000'       # Device Disconnected
