@@ -20,6 +20,14 @@ case "$choice" in
     $BROWSER  "$choice" > ~/.surf/log 2>&1 && exit
     ;;
   *)
-    $BROWSER  "https://duckduckgo.com/?q=$choice" > ~/.surf/log 2>&1 && exit
+    if [ $TRUEBROWSER = "surf" ];then
+	setsid surf -w "https://duckduckgo.com/?q=$choice"  > /tmp/sur &
+	sleep 0.5
+	winid=$(cat sur | head -n 1)
+	xprop -id "$winid" -f "_SURF_SEARCH" 8s -set  "_SURF_SEARCH" "$choice"
+	exit
+    else 
+	$BROWSER  "https://duckduckgo.com/?q=$choice" > ~/.surf/log 2>&1 && exit
+    fi
     ;;
 esac

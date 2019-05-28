@@ -36,6 +36,7 @@ Go Programming	https://www.youtube.com/watch?v=CF9S4QZuV30&t=1009s
 Regex	https://www.youtube.com/watch?v=vcRPNhLbhoc
 Game Dev in C	https://www.youtube.com/watch?v=yFLa3ln16w0&t=556s
 Red Hat Linux Course complete	https://www.youtube.com/watch?v=oflN6WZOzxw
+Full ArchLinux Install	    https://www.youtube.com/watch?v=4PBqpX0_UOc&t=1473s
 "
 
 echo "$vidlist" | grep -P "^$(echo "$vidlist" | grep "https:" | sed 's/\t.*//g' | $LAUNCER -i -p "Learn about what? (ESC to cancel)" -l 20 | awk '{print $1}')\s" | sed 's/.*\t//' | xargs -r mpv
