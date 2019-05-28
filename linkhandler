@@ -25,8 +25,8 @@ case "$1" in
 	setsid mpv --really-quiet --ytdl-format=22 "$1" >/dev/null 2>&1 & 
 	/usr/bin/dunstify -t 500 "Playing from Youtube";;
     *png|*jpg|*jpe|*jpeg)
-	# curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && imv "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
-	curl "$1" | imv - ;;
+	curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && imv "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
+	# curl "$1" | imv - ;;
     *pdf)
 	setsid "$READER" "$1" >/dev/null 2>&1 & ;;
     *mp3|*m4a|*flac|*opus|*mp3?source|*soundcloud*)
