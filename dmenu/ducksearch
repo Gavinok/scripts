@@ -6,6 +6,9 @@
 
 LAUNCER="dmenu"
 
+localBROWSER="$BROWSER "
+[ ! -z "$*" ] && localBROWSER="$*"
+
 if [ -f ~/.surf/bookmarks ]; then
 	 choice=$( (echo "🦆" && cat ~/.surf/bookmarks) | $LAUNCER -l 5 -i -p "Search:") || exit 1
 else 
@@ -14,20 +17,28 @@ fi
 
 case "$choice" in 
   *🦆*)
-    $BROWSER  "https://duckduckgo.com" > ~/.surf/log 2>&1 && exit
+    $localBROWSER"https://duckduckgo.com" > ~/.surf/log 2>&1 && exit
     ;;
   http*)
-    $BROWSER  "$choice" > ~/.surf/log 2>&1 && exit
+    $localBROWSER"$choice" > ~/.surf/log 2>&1 && exit
     ;;
   *)
-    if [ $TRUEBROWSER = "surf" ];then
-	setsid surf -w "https://duckduckgo.com/?q=$choice"  > /tmp/sur &
-	sleep 0.5
-	winid=$(cat sur | head -n 1)
+    if [ "$TRUEBROWSER" = "surf" ] && [ -z "$*" ];then
+	TMPFILE="/tmp/ducksearch"
+	rm "$TMPFILE"
+	setsid surf -w > "$TMPFILE" &
+	wordcount=$(wc -l $TMPFILE) # check if the file exists and if it has more then one line
+	while [ ! -f "$TMPFILE" ] || [ "$wordcount" != "1 $TMPFILE" ]
+	do
+	    wordcount=$(wc -l $TMPFILE)
+	    echo "wait"
+	done
+	winid=$(cat "$TMPFILE" | head -n 1)
 	xprop -id "$winid" -f "_SURF_SEARCH" 8s -set  "_SURF_SEARCH" "$choice"
+	rm "$TMPFILE"
 	exit
     else 
-	$BROWSER  "https://duckduckgo.com/?q=$choice" > ~/.surf/log 2>&1 && exit
+	$localBROWSER"https://duckduckgo.com/?q=$choice" > ~/.surf/log 2>&1 && exit
     fi
     ;;
 esac
