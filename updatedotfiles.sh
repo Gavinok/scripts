@@ -56,16 +56,6 @@ if [ "$OS" = 'Android' ];then
     [ -f "$HOME/.config/termuxvimlocal" ] && mv -i "$HOME/.config/termuxvimlocal" "$HOME/.config/vimlocal"
     pkg install curl git python python-dev zsh wget ranger nnn nvim
 else
-    
-    manualinstall "$aurhelper" || error "Failed to install AUR helper."
-
-    # The command that does all the installing. Reads the progs.csv file and
-    # installs each needed program the way required. Be sure to run this only after
-    # the user has been created and has priviledges to run sudo without a password
-    # and all build dependencies are installed.
-
-    # installationloop
-
     # Install the dotfiles in the user's home directory
     putgitrepo "$dotfilesrepo" "$HOME"
     rm -f "$HOME/README.md" "$HOME/LICENSE"
