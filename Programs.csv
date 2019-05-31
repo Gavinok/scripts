@@ -1,12 +1,16 @@
-,transmission,"for torrenting backend"
-,stig,for visual interfacing with torrents
+,nvim,
+,transmission-cli,"for torrenting backend"
+A,stig,for visual interfacing with torrents
 A,grabc,
-A,networkmanager-dmenu,
+,networkmanager-dmenu,
 A,flashfocus,
 ,ctags,
 ,zathura,
+,zathura-ps,
+,zathura-pdf-mupdf,
 ,trash-cli,
 ,kdeconnect,
+,qt5-tools,
 ,xdotool,
 ,xorg-xwininfo,
 ,youtube-dl, 
@@ -69,22 +73,26 @@ A,spotify,
 ,aspell-en,
 ,fish,
 A,siji-git,"font for Unicode"
+,adobe-source-code-pro-fonts,"font for term"
 ,timeshift,
 ,svox,"used for pico2wave (text to speech)"
 ,the_silversearcher_searcher,
 ,gdb,"fixes issued with surf"
 ,dash,"fast sh replacment"
-,aria2c,"download anything"
+,aria2,"download anything"
 ,texlive-most,"latex installation"
 ,pandoc,"reformat file formats"
 ,gtk-engine-murrine,"gtk engine needed"
 ,imv,"image viewer for X and Way"
 ,gcalcli,"google calender for cli"
+A,google-chrome,"google calender for cli"
 ,notmuch,"email searching"
 ,xournalpp,"handwriting Notetaking software"
-g,xournalpp,"handwriting Notetaking software"
+,redshift,
+,clipmenu,
+A,surf-git,"used for surf dependancies"
 G,https://github.com/lukesmithxyz/st.git,"is my custom build of suckless's terminal emulator."
 G,https://github.com/Gavinok/dmenu/releases,
-,nvim,
 G,https://github.com/Gavinok/DWMIM,
 G,https://github.com/Gavinok/Gsurfing,
+G,https://github.com/Gavinok/slstatus,

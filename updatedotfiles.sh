@@ -11,11 +11,9 @@ while getopts ":r:h:s:p" o; do case "${o}" in
 	h) printf "Optional arguments for custom use:\\n  -r: Dotfiles repository (local file or url)\\n  -p: Dependencies and programs csv (local file or url)\\n  -a: AUR helper (must have pacman-like syntax)\\n  -h: Show this message\\n" && exit ;;
 	r) dotfilesrepo=${OPTARG} && git ls-remote "$dotfilesrepo" || exit ;;
 	s) scriptrepo=${OPTARG} && git ls-remote "$scriptrepo" || exit ;;
-	p) progsfile=${OPTARG} ;;
 	*) printf "Invalid option: -%s\\n" "$OPTARG" && exit ;;
 esac done
 
-[ -z "$progsfile" ] && progsfile="https://raw.githubusercontent.com/LukeSmithxyz/LARBS/master/archi3/progs.csv"
 name=$(whoami)
 
 # DEFAULTS:
@@ -26,41 +24,6 @@ name=$(whoami)
 
 error() { clear; printf "ERROR:\\n%s\\n" "$1"; exit;}
 
-# Program Installation ====================
-refreshkeys() { \
-	pacman --noconfirm -Sy archlinux-keyring >/dev/null 2>&1
-}
-# if -x 
-gitmakeinstall() {
-	echo 'gitmakeinstall'
-	dir=$(mktemp -d)
-	git clone --depth 1 "$1" "$dir" >/dev/null 2>&1
-	cd "$dir" || exit
-	make >/dev/null 2>&1
-	make install >/dev/null 2>&1
-	cd /tmp || return ;
-}
-
-manualinstall() { # Installs $1 manually if not installed. Used only for AUR helper here.
-	[ -f "/usr/bin/$1" ] || (
-	cd /tmp || exit
-	rm -rf /tmp/"$1"*
-	curl -sO https://aur.archlinux.org/cgit/aur.git/snapshot/"$1".tar.gz &&
-	sudo -u "$name" tar -xvf "$1".tar.gz >/dev/null 2>&1 &&
-	cd "$1" &&
-	sudo -u "$name" makepkg --noconfirm -si >/dev/null 2>&1
-	cd /tmp || return) ;
-}
-
-aurinstall() { \
-	echo "$aurinstalled" | grep "^$1$" >/dev/null 2>&1 && return
-	sudo -u "$name" $aurhelper -S --noconfirm "$1" >/dev/null 2>&1
-}
-
-pipinstall() { \
-	command -v pip || pacman -S --noconfirm --needed python-pip >/dev/null 2>&1
-	yes | pip install "$1"
-}
 ### THE ACTUAL SCRIPT ###
 
 ### This is how everything happens in an intuitive format and order.
@@ -93,27 +56,7 @@ if [ "$OS" = 'Android' ];then
     [ -f "$HOME/.config/termuxvimlocal" ] && mv -i "$HOME/.config/termuxvimlocal" "$HOME/.config/vimlocal"
     pkg install curl git python python-dev zsh wget ranger nnn nvim
 else
-    # Check if user is root on Arch distro. Install dialog.
-    # pacman -Syu --noconfirm  ||  error "Are you sure you're running this as the root user? Are you sure you're using an Arch-based distro? ;-) Are you sure you have an internet connection?"
-    #
-    # # Refresh Arch keyrings.
-    # refreshkeys || error "Error automatically refreshing Arch keyring. Consider doing so manually."
-    #
-    # pacman --noconfirm --needed -S base-devel git >/dev/null 2>&1
-    # [ -f /etc/sudoers.pacnew ] && cp /etc/sudoers.pacnew /etc/sudoers # Just in case
-    #
-    # # Allow user to run sudo without password. Since AUR programs must be installed
-    # # in a fakeroot environment, this is required for all builds with AUR.
-
-    # newperms "%wheel ALL=(ALL) NOPASSWD: ALL"
-
-    # Make pacman and yay colorful and adds eye candy on the progress bar because why not.
-    grep "^Color" /etc/pacman.conf >/dev/null || sed -i "s/^#Color/Color/" /etc/pacman.conf
-    grep "ILoveCandy" /etc/pacman.conf >/dev/null || sed -i "/#VerbosePkgLists/a ILoveCandy" /etc/pacman.conf
-
-    # Use all cores for compilation.
-    sed -i "s/-j2/-j$(nproc)/;s/^#MAKEFLAGS/MAKEFLAGS/" /etc/makepkg.conf
-
+    
     manualinstall "$aurhelper" || error "Failed to install AUR helper."
 
     # The command that does all the installing. Reads the progs.csv file and
@@ -127,15 +70,6 @@ else
     putgitrepo "$dotfilesrepo" "$HOME"
     rm -f "$HOME/README.md" "$HOME/LICENSE"
     putgitrepo "$scriptrepo" "$HOME/.scripts"
-
-    # Pulseaudio, if/when initially installed, often needs a restart to work immediately.
-    [ -f /usr/bin/pulseaudio ] && resetpulse
-
-    # Enable services here.
-    serviceinit NetworkManager cronie
-    #check all programs are installed
-    #allow all sudo privleges
-    systembeepoff
 
     sudo mv -i /etc/hosts /etc/hosts-
     sudo curl -fo https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts /etc/hosts
