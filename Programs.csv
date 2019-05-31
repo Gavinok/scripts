@@ -1,14 +1,14 @@
 ,transmission,"for torrenting backend"
-,stig -for visual interfacing with torrents
-A,grabc
-A,networkmanager-dmenu
-A,flashfocus
-,ctags
-,zathura
-,trash-cli
-,kdeconnect
-,xdotool
-,xorg-xwininfo
+,stig,for visual interfacing with torrents
+A,grabc,
+A,networkmanager-dmenu,
+A,flashfocus,
+,ctags,
+,zathura,
+,trash-cli,
+,kdeconnect,
+,xdotool,
+,xorg-xwininfo,
 ,youtube-dl, 
 ,pulsemixer,
 ,ranger,
