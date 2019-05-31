@@ -90,9 +90,12 @@ A,google-chrome,"google calender for cli"
 ,xournalpp,"handwriting Notetaking software"
 ,redshift,
 ,clipmenu,
+,nerd-fonts-terminus,"used for ranger"
+A,mutt-wizard-git,
+,pass,
 A,surf-git,"used for surf dependancies"
 G,https://github.com/lukesmithxyz/st.git,"is my custom build of suckless's terminal emulator."
-G,https://github.com/Gavinok/dmenu/releases,
-G,https://github.com/Gavinok/DWMIM,
-G,https://github.com/Gavinok/Gsurfing,
-G,https://github.com/Gavinok/slstatus,
+G,https://github.com/Gavinok/dmenu.git,
+G,https://github.com/Gavinok/DWMIM.git,
+G,https://github.com/Gavinok/Gsurfing.git,
+G,https://github.com/Gavinok/slstatus.git,
