@@ -38,6 +38,7 @@ Game Dev in C	https://www.youtube.com/watch?v=yFLa3ln16w0&t=556s
 Red Hat Linux Course complete	https://www.youtube.com/watch?v=oflN6WZOzxw
 Full ArchLinux Install	    https://www.youtube.com/watch?v=4PBqpX0_UOc&t=1473s
 Power of Unix	https://www.youtube.com/watch?v=7uwW20odwEk
+Manjaro Architect   https://www.youtube.com/watch?v=530O4InhR3A
 "
 
 echo "$vidlist" | grep -P "^$(echo "$vidlist" | grep "https:" | sed 's/\t.*//g' | $LAUNCER -i -p "Learn about what? (ESC to cancel)" -l 20 | awk '{print $1}')\s" | sed 's/.*\t//' | xargs -r mpv
