@@ -25,6 +25,7 @@ search() {
 }
 maps() { "$BROWSER" "https://maps.google.com/?q=$*" ;}
 
+echo "$prim" | grep "^http" >/dev/null && "$BROWSER" "$prim" && exit
 echo "$prim" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && url() { "$BROWSER" "$@" ;} && kdeconnect() { "kdeconnect-handler" "$@" ;} && dhandler() { dmenuhandler "$@" ;}
 echo "$prim" | grep "^.*@.*\.[A-Za-z]\+$" >/dev/null && email() { xdg-email "$@" ;}
 echo "$prim" | grep "^.*git*" >/dev/null && clone() { notify-send "cloning started"; git -C "$HOME/Downloads/" clone "$@"; notify-send "completed cloning";}

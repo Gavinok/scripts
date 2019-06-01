@@ -1,16 +1,20 @@
 #!/bin/bash
-if grep -q '1' /sys/devices/platform/dock.2/docked; then
+monitors=$(printf "1\\n2" | dmenu -p "Number of Monitors" )
+if [ "$monitors" = 2 ]; then
     # x200s
     # xrandr --output VIRTUAL1 --off --output DP3 --off --output DP2 --off --output DP1 --off --output HDMI2 --mode 1280x1024 --pos 1584x0 --rotate normal --output HDMI1 --off --output LVDS1 --primary --mode 1440x900 --pos 0x0 --rotate normal --output VGA1 --off
 
     # x200 tablet
-xrandr --output LVDS1 --primary --mode 1280x800 --pos 0x0 --rotate normal --output DP1 --off --output DP2 --off --output DP3 --off --output HDMI1 --off --output HDMI2 --mode 1024x768 --pos 1280x0 --rotate normal --output VGA1 --off --output VIRTUAL1 --off
+    xrandr --output LVDS1 --primary --mode 1280x800 --pos 0x0 --rotate normal --output DP1 --off --output DP2 --off --output DP3 --off --output HDMI1 --off --output HDMI2 --mode 1024x768 --pos 1280x0 --rotate normal --output VGA1 --off --output VIRTUAL1 --off
+
 else
     # x200s
     # xrandr --output VIRTUAL1 --off --output DP3 --off --output DP2 --off --output DP1 --off --output HDMI2 --off --output HDMI1 --off --output LVDS1 --primary --mode 1440x900 --pos 0x0 --rotate normal --output VGA1 --off
 
     # x200 tablet
-    xrandr --output VIRTUAL1 --off --output DP3 --off --output DP2 --off --output DP1 --off --output HDMI2 --off --output HDMI1 --off --output LVDS1 --primary --mode 1280x900 --pos 0x0 --rotate normal --output VGA1 --off
+    xrandr --output LVDS1 --primary --mode 1280x800 --pos 0x0 --rotate normal --output DP1 --off --output DP2 --off --output DP3 --off --output HDMI1 --off --output HDMI2 --off --output VGA1 --off --output VIRTUAL1 --off
 fi
+
 ~/.scripts/setbg
 ~/.scripts/remaps
+xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen stylus" MapToOutput LVDS1
