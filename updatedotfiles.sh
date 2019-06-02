@@ -62,7 +62,8 @@ else
     putgitrepo "$scriptrepo" "$HOME/.scripts"
 
     sudo mv -i /etc/hosts /etc/hosts-
-    sudo curl -fo http://sbc.io/hosts/hosts /etc/hosts
+    curl -fo https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts > /tmp/hosts 
+    sudo mv /tmp/hosts /etc/hosts
 fi
 
 
