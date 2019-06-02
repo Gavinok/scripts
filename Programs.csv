@@ -72,10 +72,10 @@ A,spotify,
 ,aspell,
 ,aspell-en,
 ,fish,
-A,siji-git,"font for Unicode"
+,ttf-dejavu,"font used in dwm an dmenu"
 ,adobe-source-code-pro-fonts,"font for term"
 ,timeshift,
-,svox,"used for pico2wave (text to speech)"
+A,svox-pico-bin,"used for pico2wave (text to speech)"
 ,the_silversearcher_searcher,
 ,gdb,"fixes issued with surf"
 ,dash,"fast sh replacment"
@@ -94,8 +94,7 @@ A,google-chrome,"google calender for cli"
 A,mutt-wizard-git,
 ,pass,
 A,surf-git,"used for surf dependancies"
-G,https://github.com/lukesmithxyz/st.git,"is my custom build of suckless's terminal emulator."
-G,https://github.com/Gavinok/dmenu.git,
-G,https://github.com/Gavinok/DWMIM.git,
-G,https://github.com/Gavinok/Gsurfing.git,
-G,https://github.com/Gavinok/slstatus.git,
+G,https://github.com/Gavinok/st.git,"is my custom build of suckless's terminal emulator."
+G,https://github.com/Gavinok/dmenu.git,"fork of dmenu"
+G,https://github.com/Gavinok/DWMIM.git,"fork of dwm"
+G,https://github.com/Gavinok/Gsurfing.git,"fork of surf"
