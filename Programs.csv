@@ -91,6 +91,7 @@ A,google-chrome,"google calender for cli"
 ,redshift,
 ,clipmenu,
 ,nerd-fonts-terminus,"used for ranger"
+,clang,"c compiler"
 A,mutt-wizard-git,
 ,pass,
 A,surf-git,"used for surf dependancies"
