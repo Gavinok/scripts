@@ -21,7 +21,7 @@ case "$1" in
     *mkv|*webm|*mp4|*gif|*hooktube.com*|*v.redd.it*)
 	setsid mpv --really-quiet "$1" >/dev/null 2>&1 &
 	/usr/bin/dunstify -t 500 "Playing Video";;
-    *youtube.com*|*youtu.be*) #limit the video quality
+  *youtube.com/watch*|*youtube.com/playlist*|*youtu.be*) #limit the video quality
 	setsid mpv --really-quiet --ytdl-format=22 "$1" >/dev/null 2>&1 & 
 	/usr/bin/dunstify -t 500 "Playing from Youtube";;
     *png|*jpg|*jpe|*jpeg)

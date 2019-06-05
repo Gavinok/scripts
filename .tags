@@ -5,7 +5,6 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
-CvimServer	cvim_server.py	/^class CvimServer(BaseHTTPRequestHandler):$/;"	c
 DMENU	dmenu/dmenu-killall	/^DMENU() { dmenu -p 'Kill'; }$/;"	f
 EOF	llc.sh	/^	*) cat << EOF$/;"	h
 EOF	lmc	/^	*) cat << EOF$/;"	h
@@ -13,15 +12,13 @@ HELP	pkgsearch	/^  LESS=-FEXR less <<HELP$/;"	h
 Ifinstalled	compiler	/^Ifinstalled(){$/;"	f
 Install	i3-wm-scripts/README.md	/^### Install$/;"	S
 Notification_menu	dmenu/dmenu_kdeconnect.sh	/^Notification_menu () {$/;"	f
-PORT	cvim_server.py	/^PORT = 8001$/;"	v
 SendKeys	dmenu/dmenu_kdeconnect.sh	/^SendKeys(){$/;"	f
-VIM_COMMAND	cvim_server.py	/^VIM_COMMAND = 'st -e vim'$/;"	v
 _die	dmenu/dmenu-killall	/^_die() {$/;"	f
 _get_process_names	dmenu/dmenu-killall	/^_get_process_names() {$/;"	f
 _notify	dmenu/dmenu-killall	/^_notify() {$/;"	f
 _usage	dmenu/dmenu-killall	/^_usage() {$/;"	f
 adduserandpass	garbs.sh	/^adduserandpass() { \\$/;"	f
-adduserandpass	larbs.sh	/^adduserandpass() { \\$/;"	f
+adduserandpass	garbs/garbs.sh	/^adduserandpass() { \\$/;"	f
 arch	pkgsearch	/^arch() {$/;"	f
 askrecording	dmenu/dmenurecord	/^askrecording() { \\$/;"	f
 asktoend	dmenu/dmenurecord	/^asktoend() { \\$/;"	f
@@ -30,9 +27,7 @@ asktype	dmenu/dmenuumount	/^asktype() { \\$/;"	f
 audioalsa	dmenu/dmenurecord	/^audioalsa() { \\$/;"	f
 audiopulse	dmenu/dmenurecord	/^audiopulse() { \\$/;"	f
 aurinstall	garbs.sh	/^aurinstall() { \\$/;"	f
-aurinstall	larbs.sh	/^aurinstall() { \\$/;"	f
-bm_tree_walk	importer.py	/^        def bm_tree_walk(bm, template):$/;"	f	function:import_chrome	file:
-browser_default_input_format	importer.py	/^browser_default_input_format = {$/;"	v
+aurinstall	garbs/garbs.sh	/^aurinstall() { \\$/;"	f
 checkbluetooth	autostart.sh	/^checkbluetooth(){ \\$/;"	f
 chex	tpb	/^chex() {$/;"	f
 clone	dmenu/cabl	/^echo "$prim" | grep "^.*git*" >\/dev\/null && clone() { notify-send "cloning started"; git -C "$/;"	f
@@ -44,63 +39,57 @@ dhandler	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && 
 die	fzf/fv	/^die() {$/;"	f
 die	pkgrm	/^die() {$/;"	f
 die	pkgsearch	/^die() {$/;"	f
-do_POST	cvim_server.py	/^    def do_POST(self):$/;"	m	class:CvimServer
-edit_file	cvim_server.py	/^def edit_file(content):$/;"	f
+dump_links_with_titles	surf/surf_linkselect.sh	/^dump_links_with_titles() {$/;"	f
 email	dmenu/cabl	/^echo "$prim" | grep "^.*@.*\\.[A-Za-z]\\+$" >\/dev\/null && email() { xdg-email "$@" ;}$/;"	f
-eof	unix	/^cat << 'eof'$/;"	h
 err	fzf/fv	/^err() {$/;"	f
 err	pkgrm	/^err() {$/;"	f
 err	pkgsearch	/^err() {$/;"	f
 error	garbs.sh	/^error() { clear; printf "ERROR:\\\\n%s\\\\n" "$1"; exit;}$/;"	f
-error	larbs.sh	/^error() { clear; printf "ERROR:\\\\n%s\\\\n" "$1"; exit;}$/;"	f
-error	updatedotfiles.sh	/^error() { clear; printf "ERROR:\\\\n%s\\\\n" "$1"; exit;}$/;"	f
+error	garbs/garbs.sh	/^error() { clear; printf "ERROR:\\\\n%s\\\\n" "$1"; exit;}$/;"	f
+error	garbs/updatedotfiles.sh	/^error() { clear; printf "ERROR:\\\\n%s\\\\n" "$1"; exit;}$/;"	f
 fatal	i3-wm-scripts/i3-exec	/^fatal() {$/;"	f
 fedora	pkgsearch	/^fedora() {$/;"	f
 filter	i3-wm-scripts/i3mpd	/^filter() {$/;"	f
 finalize	garbs.sh	/^finalize(){ \\$/;"	f
-finalize	larbs.sh	/^finalize(){ \\$/;"	f
+finalize	garbs/garbs.sh	/^finalize(){ \\$/;"	f
 focus_window	i3-wm-scripts/common.py	/^def focus_window(id):$/;"	f
 fzf	fzf/fv	/^fzf() {$/;"	f
 fzf	pkgrm	/^fzf() {$/;"	f
 fzf	pkgsearch	/^fzf() {$/;"	f
-get_args	importer.py	/^def get_args():$/;"	f
 get_bookmark_lines	i3-wm-scripts/vimb-bookmark	/^def get_bookmark_lines(filename):$/;"	f
 get_icon	dmenu/dmenu_kdeconnect.sh	/^get_icon () {$/;"	f
 get_named_windows	i3-wm-scripts/common.py	/^def get_named_windows():$/;"	f
 get_tree	i3-wm-scripts/common.py	/^def get_tree():$/;"	f
 getmount	dmenu/dmenumount	/^getmount() { \\$/;"	f
-getsink	volumechecker.sh	/^getsink() {$/;"	f
+getsink	dwm/volumechecker.sh	/^getsink() {$/;"	f
 getuserandpass	garbs.sh	/^getuserandpass() { \\$/;"	f
-getuserandpass	larbs.sh	/^getuserandpass() { \\$/;"	f
-getvolume	volumechecker.sh	/^getvolume() {$/;"	f
+getuserandpass	garbs/garbs.sh	/^getuserandpass() { \\$/;"	f
+getvolume	dwm/volumechecker.sh	/^getvolume() {$/;"	f
 gitmakeinstall	garbs.sh	/^gitmakeinstall() {$/;"	f
-gitmakeinstall	larbs.sh	/^gitmakeinstall() {$/;"	f
+gitmakeinstall	garbs/garbs.sh	/^gitmakeinstall() {$/;"	f
 handle_option	i3-wm-scripts/i3-exec	/^handle_option() {$/;"	f
 has	fzf/fv	/^has() {$/;"	f
 has	pkgrm	/^has() {$/;"	f
 has	pkgsearch	/^has() {$/;"	f
 i3-wm-scripts	i3-wm-scripts/README.md	/^i3-wm-scripts$/;"	c
 i3_exec_quote	i3-wm-scripts/i3-exec	/^i3_exec_quote() {$/;"	f
-import_chrome	importer.py	/^def import_chrome(profile, bookmark_types, output_format):$/;"	f
-import_moz_places	importer.py	/^def import_moz_places(profile, bookmark_types, output_format):$/;"	f
-import_netscape_bookmarks	importer.py	/^def import_netscape_bookmarks(bookmarks_file, bookmark_types, output_format):$/;"	f
-init_server	cvim_server.py	/^def init_server(server_class=HTTPServer, handler_class=BaseHTTPRequestHandler):$/;"	f
 install	pkgsearch	/^install() {$/;"	f
 installationloop	garbs.sh	/^installationloop() { \\$/;"	f
-installationloop	larbs.sh	/^installationloop() { \\$/;"	f
+installationloop	garbs/garbs.sh	/^installationloop() { \\$/;"	f
 iter_plus	i3-wm-scripts/nextfind	/^def iter_plus(it, extra):$/;"	f
 joinlines	i3-wm-scripts/nextfind	/^def joinlines(L):$/;"	f
 kdeconnect	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconne/;"	f
 killrecording	dmenu/dmenurecord	/^killrecording() {$/;"	f
+link_normalize	surf/surf_linkselect.sh	/^link_normalize() {$/;"	f
+link_select	surf/surf_linkselect.sh	/^link_select() {$/;"	f
 main	i3-wm-scripts/nextfind	/^def main(args):$/;"	f
 main	i3-wm-scripts/nextmatch	/^def main(args):$/;"	f
 main	i3-wm-scripts/vimb-bookmark	/^def main(args):$/;"	f
-main	importer.py	/^def main():$/;"	f
 maininstall	garbs.sh	/^maininstall() { # Installs all needed programs from main repo.$/;"	f
-maininstall	larbs.sh	/^maininstall() { # Installs all needed programs from main repo.$/;"	f
+maininstall	garbs/garbs.sh	/^maininstall() { # Installs all needed programs from main repo.$/;"	f
 manual	dmenu/cabl	/^man -k "^$prim$" >\/dev\/null && manual() { man -Tpdf "$prim" | $READER - ;}$/;"	f
 manualinstall	garbs.sh	/^manualinstall() { # Installs $1 manually if not installed. Used only for AUR helper here.$/;"	f
-manualinstall	larbs.sh	/^manualinstall() { # Installs $1 manually if not installed. Used only for AUR helper here.$/;"	f
+manualinstall	garbs/garbs.sh	/^manualinstall() { # Installs $1 manually if not installed. Used only for AUR helper here.$/;"	f
 maps	dmenu/cabl	/^maps() { "$BROWSER" "https:\/\/maps.google.com\/?q=$*" ;}$/;"	f
 mark/goto/unmark	i3-wm-scripts/README.md	/^### mark\/goto\/unmark$/;"	S
 morescreen	dmenu/displayselect	/^morescreen() { # If multi-monitor is selected and there are more than two screens.$/;"	f
@@ -109,48 +98,43 @@ mountusb	dmenu/dmenumount	/^mountusb() { \\$/;"	f
 moveChoice	i3-wm-scripts/i3resize	/^moveChoice() {$/;"	f
 multimon	dmenu/displayselect	/^multimon() { # Multi-monitor handler.$/;"	f
 newperms	garbs.sh	/^newperms() { # Set special sudoers settings for install (or after).$/;"	f
-newperms	larbs.sh	/^newperms() { # Set special sudoers settings for install (or after).$/;"	f
+newperms	garbs/garbs.sh	/^newperms() { # Set special sudoers settings for install (or after).$/;"	f
 nextfind	i3-wm-scripts/README.md	/^### nextfind$/;"	S
 nextmatch	i3-wm-scripts/README.md	/^### nextmatch$/;"	S
-opensearch_convert	importer.py	/^def opensearch_convert(url):$/;"	f
 pick_destination	fzf/fv	/^pick_destination() {$/;"	f
 pick_files	fzf/fv	/^pick_files() {$/;"	f
 pipinstall	garbs.sh	/^pipinstall() { \\$/;"	f
-pipinstall	larbs.sh	/^pipinstall() { \\$/;"	f
+pipinstall	garbs/garbs.sh	/^pipinstall() { \\$/;"	f
 popen	i3-wm-scripts/vimb-bookmark	/^def popen(*args, **kwds):$/;"	f
 preinstallmsg	garbs.sh	/^preinstallmsg() { \\$/;"	f
-preinstallmsg	larbs.sh	/^preinstallmsg() { \\$/;"	f
+preinstallmsg	garbs/garbs.sh	/^preinstallmsg() { \\$/;"	f
 print_date	windowshot.sh	/^print_date(){$/;"	f
 printhelp	tpb	/^printhelp() {$/;"	f
 putgitrepo	garbs.sh	/^putgitrepo() { # Downlods a gitrepo $1 and places the files in $2 only overwriting conflicts$/;"	f
-putgitrepo	larbs.sh	/^putgitrepo() { # Downlods a gitrepo $1 and places the files in $2 only overwriting conflicts$/;"	f
-putgitrepo	updatedotfiles.sh	/^putgitrepo() { # Downlods a gitrepo $1 and places the files in $2 only overwriting conflicts$/;"	f
+putgitrepo	garbs/garbs.sh	/^putgitrepo() { # Downlods a gitrepo $1 and places the files in $2 only overwriting conflicts$/;"	f
+putgitrepo	garbs/updatedotfiles.sh	/^putgitrepo() { # Downlods a gitrepo $1 and places the files in $2 only overwriting conflicts$/;"	f
 qrcode	dmenu/cabl	/^command -v qrencode >\/dev\/null && qrcode() { qrencode "$@" -s 10 -o \/tmp\/qr.png && xdg-open /;"	f
 read	dmenu/cabl	/^read() { pico2wave -w=\/tmp\/test.wav "$*"; aplay \/tmp\/test.wav -D 'pulse'; rm \/tmp\/test.wav/;"	f
 refreshkeys	garbs.sh	/^refreshkeys() { \\$/;"	f
-refreshkeys	larbs.sh	/^refreshkeys() { \\$/;"	f
+refreshkeys	garbs/garbs.sh	/^refreshkeys() { \\$/;"	f
 resetpulse	garbs.sh	/^resetpulse() { dialog --infobox "Reseting Pulseaudio..." 4 50$/;"	f
-resetpulse	larbs.sh	/^resetpulse() { dialog --infobox "Reseting Pulseaudio..." 4 50$/;"	f
+resetpulse	garbs/garbs.sh	/^resetpulse() { dialog --infobox "Reseting Pulseaudio..." 4 50$/;"	f
 screencastalsa	dmenu/dmenurecord	/^screencastalsa() { \\$/;"	f
 screencastpulse	dmenu/dmenurecord	/^screencastpulse() { \\$/;"	f
-scripts	README.md	/^# scripts$/;"	c
 search	dmenu/cabl	/^search() { $/;"	f
-search_conv	importer.py	/^    def search_conv(url):$/;"	f	function:import_moz_places	file:
-search_escape	importer.py	/^def search_escape(url):$/;"	f
 search_window	i3-wm-scripts/nextmatch	/^def search_window(windows, expr):$/;"	f
 select_from	pkgrm	/^select_from() {$/;"	f
 select_from	pkgsearch	/^select_from() {$/;"	f
 select_window	i3-wm-scripts/nextfind	/^def select_window(windows, dmenu_args):$/;"	f
 serviceinit	garbs.sh	/^serviceinit() { for service in "$@"; do$/;"	f
-serviceinit	larbs.sh	/^serviceinit() { for service in "$@"; do$/;"	f
-serviceinit	updatedotfiles.sh	/^serviceinit() { for service in "$@"; do$/;"	f
-shebangtest	compiler	/^shebangtest() {$/;"	f
+serviceinit	garbs/garbs.sh	/^serviceinit() { for service in "$@"; do$/;"	f
+serviceinit	garbs/updatedotfiles.sh	/^serviceinit() { for service in "$@"; do$/;"	f
 show_devices	dmenu/dmenu_kdeconnect.sh	/^show_devices (){$/;"	f
 show_menu	dmenu/dmenu_kdeconnect.sh	/^show_menu () {$/;"	f
 show_pmenu	dmenu/dmenu_kdeconnect.sh	/^show_pmenu () {$/;"	f
 split_checker	i3-wm-scripts/checksplit.sh	/^split_checker()$/;"	f
 systembeepoff	garbs.sh	/^systembeepoff() { dialog --infobox "Getting rid of that retarded error beep sound..." 10 50$/;"	f
-systembeepoff	larbs.sh	/^systembeepoff() { dialog --infobox "Getting rid of that retarded error beep sound..." 10 50$/;"	f
+systembeepoff	garbs/garbs.sh	/^systembeepoff() { dialog --infobox "Getting rid of that retarded error beep sound..." 10 50$/;"	f
 textype	compiler	/^textype() { \\$/;"	f
 toggle	dmenu/dmenu_googletasks.sh	/^toggle(){$/;"	f
 twoscreen	dmenu/displayselect	/^twoscreen() { # If multi-monitor is selected and there are two screens.$/;"	f
@@ -161,8 +145,8 @@ url	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url()
 usage	dmenu/calc.sh	/^usage() {$/;"	f
 usage	pkgsearch	/^usage() {$/;"	f
 usercheck	garbs.sh	/^usercheck() { \\$/;"	f
-usercheck	larbs.sh	/^usercheck() { \\$/;"	f
+usercheck	garbs/garbs.sh	/^usercheck() { \\$/;"	f
 video	dmenu/dmenurecord	/^video() { ffmpeg \\$/;"	f
 void	pkgsearch	/^void() {$/;"	f
 welcomemsg	garbs.sh	/^welcomemsg() { \\$/;"	f
-welcomemsg	larbs.sh	/^welcomemsg() { \\$/;"	f
+welcomemsg	garbs/garbs.sh	/^welcomemsg() { \\$/;"	f
