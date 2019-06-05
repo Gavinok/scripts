@@ -25,6 +25,10 @@ esac done
 [ -z "$aurhelper" ] && aurhelper="yay"
 [ -z "$repobranch" ] && repobranch="master"
 
+[ -z "$st" ],https://github.com/gavinok/st,"is my custom build of suckless's terminal emulator."
+[ -z "$dmenu" ],https://github.com/gavinok/dmenu,
+[ -z "$dwm" ],https://github.com/gavinok/dwmim,
+[ -z "$surf" ],https://github.com/gavinok/gsurfing,
 ### FUNCTIONS ###
 
 error() { clear; printf "ERROR:\\n%s\\n" "$1"; exit;}
@@ -210,13 +214,18 @@ rm -f "/home/$name/README.md" "/home/$name/LICENSE"
 putgitrepo "$scriptrepo" "/home/$name/.scripts" "$repobranch"
 putgitrepo "$wallpapers" "/home/$name/Pictures/wallpapers" "$repobranch"
 putgitrepo "$passripo" "/home/$name/.password-store" "$repobranch"
-
+putgitrepo "$st" "/home/$name/.config/st" "$repobranch"
+putgitrepo "$dmenu" "/home/$name/.config/dmenu" "$repobranch"
+putgitrepo "$dwm" "/home/$name/.config/dwm" "$repobranch"
+putgitrepo "$surf" "/home/$name/.config/surf" "$repobranch"
 
 # Pulseaudio, if/when initially installed, often needs a restart to work immediately.
 [ -f /usr/bin/pulseaudio ] && resetpulse
 
+gpasswd -a "$name" sys
+
 # Enable services here.
-serviceinit NetworkManager cronie
+serviceinit NetworkManager cronie bluetooth "org.cups.cupsd" tlp tlp-sleep
 
 # Most important command! Get rid of the beep!
 systembeepoff
