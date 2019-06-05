@@ -9,8 +9,8 @@ LAUNCER="dmenu"
 localBROWSER="$BROWSER "
 [ ! -z "$*" ] && localBROWSER="$*"
 
-if [ -f ~/.surf/bookmarks ]; then
-	 choice=$( (echo "🦆" && cat ~/.surf/bookmarks) | $LAUNCER -l 5 -i -p "Search:") || exit 1
+if [ -f ~/.config/bookmarks ]; then
+	 choice=$( (echo "🦆" && cat ~/.config/bookmarks) | $LAUNCER -l 5 -i -p "Search:") || exit 1
 else 
 	choice=$(echo "🦆" | $LAUNCER -i -p "Search DuckDuckGo:") || exit 1
 fi
