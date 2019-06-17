@@ -218,11 +218,16 @@ putgitrepo "$st" "/home/$name/.config/st" "$repobranch"
 putgitrepo "$dmenu" "/home/$name/.config/dmenu" "$repobranch"
 putgitrepo "$dwm" "/home/$name/.config/dwm" "$repobranch"
 putgitrepo "$surf" "/home/$name/.config/surf" "$repobranch"
+git clone --bare "$dotfilesrepo" "/home/$name/.dotfiles" 
 
 # Pulseaudio, if/when initially installed, often needs a restart to work immediately.
 [ -f /usr/bin/pulseaudio ] && resetpulse
 
 gpasswd -a "$name" sys
+
+echo "AutoEnable=true" >> /etc/bluetooth/main.conf
+
+mv /home/$name/.scripts/dropstart.sh /etc/NetworkManager/dispatcher.d/10-dropbox.sh
 
 # Enable services here.
 serviceinit NetworkManager cronie bluetooth "org.cups.cupsd" tlp tlp-sleep
@@ -233,6 +238,7 @@ systembeepoff
 # This line, overwriting the `newperms` command above will allow the user to run
 # serveral important commands, `shutdown`, `reboot`, updating, etc. without a password.
 newperms "%wheel ALL=(ALL) NOPASSWD: ALL"
+
 
 # Last message! Install complete!
 finalize
