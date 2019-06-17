@@ -1,3 +1,5 @@
+#!/bin/dash
+
 # a simple script for starting a program 
 # kill it if it is already running
 if  pgrep -x "$1" ;then

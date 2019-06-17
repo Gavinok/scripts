@@ -1,8 +1,11 @@
-#!/usr/bin/env zsh
+#!/usr/bin/dash
 eval `xdotool getmouselocation --shell`
 prim="$(xclip -o)"
+
 #file
-[ -f "$prim" ] && 9menu -bg black -fg white -warp -popup -geometry 100x100+${X}+${Y} -popup  "vim:st -e $EDITOR $prim" && exit
+[ -f "$prim" ] && printf "vim:st -e $EDITOR $prim\\n open:xdg-open $prim\\n hide:exit" | 9menu \
+    -bg black -fg white -warp -popup -geometry 100x100+${X}+${Y} -popup -file - && exit
+
 #url
 if echo "$prim" | grep "^.*\.[A-Za-z]\+.*" >/dev/null; then
     func=$(9menu -bg black -fg white -warp -popup \
@@ -29,5 +32,15 @@ if echo "$prim" | grep "^.*\.[A-Za-z]\+.*" >/dev/null; then
     esac
     exit
 fi
+
 #etc
-9menu -bg black -fg white -warp -popup -geometry 100x100+${X}+${Y} -popup "search:$BROWSER https://duckduckgo.com/?q=$prim" 
+func=$(9menu -bg black -fg white -warp -popup -geometry 100x100+${X}+${Y} -popup "search:echo search" "hide:exit")
+case $func in
+    search) 
+	setsid $BROWSER "https://duckduckgo.com/?q=$prim" &
+	exit
+    ;;
+    *) echo fail
+esac
+exit
+#vim:ft=sh

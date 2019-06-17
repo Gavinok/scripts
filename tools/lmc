@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/dash
 
 # A general audio interface for LARBS.
 

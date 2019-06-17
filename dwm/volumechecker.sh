@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/dash
 # utilises dunstify ant amixer to notify the 
 # user of the volume as well as chang it
 # Get the index of the selected sink:

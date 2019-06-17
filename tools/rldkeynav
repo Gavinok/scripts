@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/dash
 # script used to restart keynav
 killall keynav
 keynav daemonize

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/dash
 #description: dmenu for killall
 #usage: dmenu-killall is best suited for launching from a shortcut
 

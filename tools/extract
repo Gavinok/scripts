@@ -29,11 +29,12 @@ if [ -f "$archive" ] ; then
 		*.rar) unrar x -ad "$archive" ;;
 		*.gz) gunzip "$archive" ;;
 		*.tar) tar xvf "$archive" ;;
-		*.zip) unzip "$archive" ;;
+		*.zip|*.jar|*.war) unzip "$archive" ;;
 		*.Z) uncompress "$archive" ;;
 		*.7z) 7z x "$archive" ;;
 		*.xz) unxz "$archive" ;;
 		*.exe) cabextract "$archive" ;;
+		*.ace) unace x "$archive" ;;
 		*) printf "extract: '%s' - unknown archive method\\n" "$archive" ;;
 	esac
 else

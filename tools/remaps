@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/dash
 
 # This script is called by i3 on startup.
 # Increase key speed via a rate change

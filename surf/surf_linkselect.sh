@@ -68,7 +68,7 @@ link_select() {
     uniq |
     dmenu -p "$DMENU_PROMPT" -l 10 -i -w "$SURF_WINDOW" |
     awk -F' ' '{print $NF}' | 
-    sed 's/^\/\//https:\/\//' |
+    # sed 's/^\/\//https:\/\//' |
     link_normalize "$(xprop -id "$SURF_WINDOW" _SURF_URI | cut -d '"' -f 2)"
 }
 

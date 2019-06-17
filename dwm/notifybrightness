@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/dash
 
 #this script sends a notification stating the current brightness precentage
 

@@ -1,0 +1,49 @@
+#!/usr/bin/dash
+get_id_interactive() {
+    xid=$(xwininfo | grep 'Window id: ')
+    echo "${xid}" | cut -d':' -f3 | cut -d' ' -f2
+}
+
+menu="rofi -dmenu -p Menu -location 3 -yoffset +20 -width 20 -me-select-entry MouseSecondary -me-accept-entry MousePrimary -no-click-to-exit"
+ 
+
+# func=$(9menu -bg "#131313" -fg "#7D8FA3" -geometry 30x4-0+0 -popup -warp "Resize:echo resize" "Spawn:echo spawn" "Kill:echo kill" "Hide:exit")
+func=$(printf "Resize\\nSpawn\\nKill" | $menu -lines 3)
+[ -z "$func" ] && exit
+case $func in
+    Resize ) 
+	id=$(get_id_interactive)
+	[ -z "$id" ] && exit
+	geo=$(hacksaw -n )
+	[ -z "$geo" ] && exit
+	xsize=$(echo "$geo" | cut -dx -f1)
+	echo "$xsize"
+	ysize=$(echo "$geo" | cut -dx -f2 | cut -d+ -f1)
+	echo "$ysize"
+	xlocal=$(echo "$geo" | cut -d+ -f2)
+	echo "$xlocal"
+	ylocal=$(echo "$geo" | cut -d+ -f3)
+	echo "$ylocal"
+	xdotool windowsize "${id}" "$xsize" "$ysize"
+	xdotool windowmove "${id}" "$xlocal" "$ylocal"
+	exit ;;
+    Spawn ) 
+	prog=$(printf "Term\\nBrowser\\nVol" | $menu -lines 3)
+    	[ -z "$prog" ] && exit
+    	case "$prog" in
+    	    Term )
+		setsid "$TERMINAL" & ;;
+    	    Browser )
+    	    	setsid "$BROWSER" "https://duckduckgo.com" & ;;
+    	    Vol )
+    	    	setsid st -e pulsemixer & ;;
+    	esac
+	;;
+    Kill )
+	id=$(get_id_interactive)
+    	[ -z "$id" ] && exit
+	xdotool Windowclose ${id} ;;
+    *) echo fail ;;
+esac
+exit
+#vim:ft=sh

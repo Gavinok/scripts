@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/dash
 checkbluetooth(){ \
 	test=$(bluetooth | grep "on")
 	if [ -z "$test" ] 
@@ -7,8 +7,7 @@ checkbluetooth(){ \
 	fi
 	blueman-applet&
 }
-~/.scripts/setbg &
-~/.scripts/remaps &
+dock_monitor 
 compton &
 unclutter &
 clipmenud &

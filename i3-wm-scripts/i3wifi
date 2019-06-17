@@ -4,7 +4,7 @@ case $BLOCK_BUTTON in
 	1) $TERMINAL -e sudo -A wifi-menu ;;
 esac
 
-INTERFACE="${BLOCK_INSTANCE:-wlan0}"
+INTERFACE="${BLOCK_INSTANCE:-wls1}"
 
 [[ "$(cat /sys/class/net/$INTERFACE/operstate)" = 'down' ]] && echo 📡 && exit
 

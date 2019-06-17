@@ -37,3 +37,4 @@ prompt="$(echo "$prim" | awk 'NR==1{print $1, $2, $3}')"
 func="$(declare -F | awk '{print $3}' | $LAUNCER -p "$prompt" -i -l 15)"
 
 [ -z "$func" ] || "$func" "$prim"
+#vim:ft=sh

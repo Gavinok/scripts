@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/dash
 
 WIFI=$(nmcli connection show --active | sed '1d'  | awk '{print $1}')
 

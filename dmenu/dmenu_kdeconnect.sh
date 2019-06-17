@@ -78,10 +78,13 @@ show_devices (){
 
 SendKeys(){
 	output="?"
-	while [ $output != "DISCONNECT" ]; do
-		output=$( echo ? | dmenu -p "keys to send")
-		kdeconnect-cli --device "$*" -k "$output"
-	done
+	TEMPFILE=/tmp/VimFloat
+	> $TEMPFILE
+	st -t "vim-anywhere" -n 'popup' -e "$EDITOR" -c 'startinsert' $TEMPFILE
+	xsel -i < $TEMPFILE
+	output=$(xsel -o)
+	notify-send "$output"
+	kdeconnect-cli --device "$*" -k "$output"
 
 }
 
