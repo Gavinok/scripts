@@ -15,10 +15,13 @@ while getopts ":r:h:s:p" o; do case "${o}" in
 esac done
 
 name=$(whoami)
-
 # DEFAULTS:
 [ -z "$dotfilesrepo" ] && dotfilesrepo="https://github.com/Gavinok/dotfiles.git"
 [ -z "$scriptrepo" ] && scriptrepo="https://github.com/Gavinok/scripts.git"
+
+### Double check ###
+echo "are you sure you want to update dot files"
+read
 
 ### FUNCTIONS ###
 
