@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# convert documents to pdf using the doc2pdf.net service
+# depends: curl
+
+if test -z "$1"; then
+    echo usage: $(basename $0) document && exit 1
+fi
+
+SRV=http://www.doc2pdf.net/convert/document.pdf
+
+curl -F "inputDocument=@$1" $SRV > "${1%.*}.pdf"

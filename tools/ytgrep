@@ -1,0 +1,31 @@
+#!/bin/sh
+#depends: jq
+#usage:
+# ytgrep [-n nresults] terms...
+
+KEY="AIzaSyAa5gAarPnuu9zTVjpp6mPyStbY17uuhSE"
+NRES=10	
+
+search() {
+  sstr=""
+  if [ ${#} -ne 1 ]; then #make a list
+      for arg in $@; do 
+          sstr=$sstr"$arg|"
+      done
+  else 
+      sstr=$1
+  fi
+  curl -s -G "https://www.googleapis.com/youtube/v3/search" -d part="snippet" -d q=$sstr -d maxResults=$NRES -d key=$KEY | jq '[.items[] | {"title":.snippet.title, "url": ["https://www.youtube.com/watch?v=" + .id.videoId] }]' -
+}
+
+command -v jq >/dev/null || {
+        echo jq is not installed 1>&2
+        exit 1
+}
+
+case $1 in
+  -n ) NRES=$2; shift 2; search $@
+  ;;
+  * ) search $@
+  ;;
+esac
