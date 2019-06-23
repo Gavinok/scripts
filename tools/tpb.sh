@@ -12,7 +12,7 @@
 # magnet link to torrent will be appended
 # you can add -- at the end to indicate end of options
 # (if your program supports it, most do)
-program='/home/gavinok/.scripts/transadd'
+program='/home/gavinok/.scripts/tools/transadd'
 TPB="https://proxtpb.art/"
 
 # show N first matches by default
