@@ -2,11 +2,16 @@
 intern=LVDS1
 extern=HDMI2
 
+while getopts ":i" o; do case "$o" in
+	i) initial=1 ;;
+esac done
+
 if xrandr | grep "$extern disconnected"; then
     xrandr --output "$extern" --off --output "$intern" --auto
 else
     xrandr --output "$intern" --primary --auto --output "$extern" --right-of "$intern" --auto
 fi
+[ ! -z $initial ] && exit
 setbg &
 remaps &
 # xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen stylus" MapToOutput LVDS1
