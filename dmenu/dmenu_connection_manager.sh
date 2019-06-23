@@ -11,8 +11,9 @@ fi
 
 if [ $choice = "Bluetooth" ]; then
 	[ -z $(pgrep blueman) ] && blueman-applet&
-	choice2=$(printf "Connect\\nManage" | dmenu -i -p 'Bluetooth:'  ) 
-	[ $choice2 = 'Connect' ] && blueman-assistant
+	choice2=$(printf "Connect\\nNew\\nManage" | dmenu -i -p 'Bluetooth:'  ) 
+	[ $choice2 = 'Connect' ] && btmenu
+	[ $choice2 = 'New' ] && blueman-assistant
         [ $choice2 = 'Manage' ] && blueman-manager
 fi
 if [ $choice = "Network" ]; then
