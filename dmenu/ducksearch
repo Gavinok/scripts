@@ -14,7 +14,6 @@ if [ -f ~/.config/bookmarks ]; then
 else 
 	choice=$(echo "🦆" | $LAUNCER -i -p "Search DuckDuckGo:") || exit 1
 fi
-
 case "$choice" in 
   *🦆*)
     $localBROWSER"https://duckduckgo.com" > ~/.surf/log 2>&1 && exit
