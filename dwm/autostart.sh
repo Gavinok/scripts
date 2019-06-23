@@ -12,12 +12,11 @@ compton &
 unclutter &
 clipmenud &
 kdeconnect-cli &
-# ~/.scripts/rldkeynav &
 dropbox-cli start &
 redshift &
 pulsemixer --set-volume 50 &
 xbacklight -set 50 &
 flashfocus &
-# sudo powertop --auto-tune --quiet &
+sudo powertop --auto-tune --quiet &
 # sleep 1
 # checkbluetooth &
