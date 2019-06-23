@@ -1,7 +1,6 @@
 #!/bin/bash
 # Dependencies are xclip and xorg-xprop.
 # qrencode required for qrcode generation.
-# groff/zathura required for man pages.
 
 LAUNCER="dmenu"
 
@@ -25,13 +24,11 @@ search() {
 }
 maps() { "$BROWSER" "https://maps.google.com/?q=$*" ;}
 
-echo "$prim" | grep "^http" >/dev/null && "$BROWSER" "$prim" && exit
-echo "$prim" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && url() { "$BROWSER" "$@" ;} && kdeconnect() { "kdeconnect-handler" "$@" ;} && dhandler() { dmenuhandler "$@" ;}
-echo "$prim" | grep "^.*@.*\.[A-Za-z]\+$" >/dev/null && email() { xdg-email "$@" ;}
-echo "$prim" | grep "^.*git*" >/dev/null && clone() { notify-send "cloning started"; git -C "$HOME/Downloads/" clone "$@"; notify-send "completed cloning";}
-command -v qrencode >/dev/null && qrcode() { qrencode "$@" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png ;}
+echo "$prim" | ag "^http" >/dev/null && "$BROWSER" "$prim" && exit
+echo "$prim" | ag "^.*\.[A-Za-z]\+.*" >/dev/null && url() { "$BROWSER" "$@" ;} && kdeconnect() { "kdeconnect-handler" "$@" ;} && dhandler() { dmenuhandler "$@" ;}
+echo "$prim" | ag "^.*@.*\.[A-Za-z]\+$" >/dev/null && email() { xdg-email "$@" ;}
+qrcode() { qrencode "$@" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png ;}
 read() { pico2wave -w=/tmp/test.wav "$*"; aplay /tmp/test.wav -D 'pulse'; rm /tmp/test.wav;}
-man -k "^$prim$" >/dev/null && manual() { man -Tpdf "$prim" | $READER - ;}
 
 prompt="$(echo "$prim" | awk 'NR==1{print $1, $2, $3}')"
 func="$(declare -F | awk '{print $3}' | $LAUNCER -p "$prompt" -i -l 15)"
