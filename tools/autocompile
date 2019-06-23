@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/dash
 # automaticaly run compiler on the specified file file
 pkill -f "entr compiler" && exit
 echo "$1" | entr compiler "$1"
