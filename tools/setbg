@@ -1,4 +1,5 @@
 #!/bin/sh
 # Sets the background. If given an argument, will set file as background.
 [ ! -z "$1" ] && cp "$1" ~/.config/wall.png && notify-send -i "Wallpaper changed."
-xwallpaper --stretch ~/.config/wall.png
+xsetroot -grey
+# xwallpaper --stretch ~/.config/wall.png
