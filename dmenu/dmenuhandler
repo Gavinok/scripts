@@ -41,3 +41,4 @@ case "$x" in
 		notify-send "failed downloading";;
 	esac
 esac
+#vim:ft=sh
