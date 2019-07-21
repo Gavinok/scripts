@@ -66,9 +66,9 @@ A,task-spooler,
 A,simple-mtpfs,
 A,spotify,
 ,nnn,
-,vidir - for nnn,
+,vidir,"for nnn"
 ,arc-gtk-theme,
-,qrencode - QR code generator,
+,qrencode,"QR code generator"
 ,aspell,
 ,aspell-en,
 ,fish,
