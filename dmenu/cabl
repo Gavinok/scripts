@@ -16,7 +16,7 @@ PID=$(xprop -id "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}'
 PID=$(echo "$(pstree -lpA "$PID" | tail -n 1)" | awk -F'---' '{print $NF}' | sed -re 's/[^0-9]//g')
 cd "$(readlink /proc/"$PID"/cwd)"
 [ -f "$prim" ] && xdg-open "$prim" && exit
-[ -d "$prim" ] && "$TERMINAL" "$prim" && exit
+# [ -d "$prim" ] && "$TERMINAL" "$prim" && exit
 
 search() { 
     fullsearch=$(echo "$*" | $LAUNCER -p "Enter !Bang prefix:")
