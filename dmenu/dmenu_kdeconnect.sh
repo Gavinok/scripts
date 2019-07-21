@@ -44,6 +44,8 @@ SEPERATOR='|'
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+ping -q -c 1 1.1.1.1 > /dev/null || exit
+
 show_devices (){
     IFS=$','
     devices=""
