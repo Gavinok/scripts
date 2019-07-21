@@ -1,4 +1,5 @@
 #!/bin/dash
+#vim:ft=sh
 # Feed this script a link and it will give dmenu
 # some choice programs to use to open it.
 # TODO
@@ -9,7 +10,7 @@ case "$x" in
     surf) "surf $1" >/dev/null 2>&1 & ;;
     cast) setsid cast "$1" 2>&1 ;;
     QR)  qrencode "$1" -s 10 -o /tmp/QR.png  "$1"; xdg-open /tmp/QR.png >/dev/null 2>&1 &;;
-    mpv) notify-send "playing video" && mpv "$1" >/dev/null 2>&1 &;;
+    mpv) notify-send "playing video" && mpv "$1" >/dev/null 2>&1 || notify-send "failed to play video" ;;
     kdeconnect)  kdeconnect-handler "$1" >/dev/null 2>&1 &;;
     download) 
 	case "$1" in 
