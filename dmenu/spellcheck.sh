@@ -9,9 +9,9 @@ LAUNCER="dmenu"
 
 word=$(echo "?" | $LAUNCER -i -p 'spell')
 
-if [ "$word" != "?" ]; then
-    selection=$(echo "$word" | aspell pipe --suggest | sed -e '1d' |sed 's/^[^:]*://g' | sed -e 's/, /\n/g' | sed -e 's/^ //' | $LAUNCER -p 'copy' )
-    [ -z "$selection" ] || [ "$selection" == "*" ] && exit
+if [ -n "$word" ] && [ "$word" != "?" ]; then
+    selection=$(echo "$word" | aspell pipe --suggest | sed -e '1d; s/^[^:]*://g; s/, /\n/g; s/^ //' | $LAUNCER -p 'copy' )
+    [ -z "$selection" ] || [ "$selection" = "*" ] && exit
     printf "$selection" | xclip -selection clipboard
     printf "$selection" | xclip -selection primary
     pgrep -x dunst >/dev/null && notify-send "$(xclip -o -selection clipboard) copied to clipboard."
