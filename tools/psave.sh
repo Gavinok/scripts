@@ -27,4 +27,3 @@ cpugov(){
 
 wifiman
 cpugov
-echo now > /home/gavinok/tmp
