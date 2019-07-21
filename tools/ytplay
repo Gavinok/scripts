@@ -1,0 +1,4 @@
+#!/usr/bin/dash
+notify-send "Playing from Youtube"
+setsid mpv --really-quiet --ytdl-format=22 "$*" >/dev/null 2>&1 ||  notify-send "Failed to play Video"
+#vim:ft=sh
