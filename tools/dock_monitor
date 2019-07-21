@@ -15,3 +15,4 @@ fi
 setbg &
 remaps &
 # xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen stylus" MapToOutput LVDS1
+# vim:ft=sh
