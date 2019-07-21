@@ -65,6 +65,8 @@ adduserandpass() { \
 	dialog --infobox "Adding user \"$name\"..." 4 50
 	useradd -m -g wheel -s /bin/bash "$name" >/dev/null 2>&1 ||
 	usermod -a -G wheel "$name" && mkdir -p /home/"$name" && chown "$name":wheel /home/"$name"
+	usermod -a -G uucp "$name" 
+	usermod -a -G lock "$name" 
 	echo "$name:$pass1" | chpasswd
 	unset pass1 pass2 ;}
 
