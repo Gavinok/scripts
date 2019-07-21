@@ -8,7 +8,6 @@
 # cant use environmental variables
 # If no url given. Opens browser. For using script as $BROWSER.
 
-
 OS="$(uname -o)" # this is for use with termux
 if [ "$OS" = 'Android' ];then
     [ -z "$1" ] && { xdg-open "https://duckduckgo.com"; exit; }
