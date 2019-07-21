@@ -1,13 +1,9 @@
 #!/bin/dash
-checkbluetooth(){ \
-	test=$(bluetooth | grep "on")
-	if [ -z "$test" ] 
-	then
-		return
-	fi
-	blueman-applet&
-}
 dock_monitor 
+# included in dock_monitor
+# remaps &
+# setbg &
+killall dwm
 compton &
 unclutter &
 clipmenud &
@@ -17,6 +13,9 @@ redshift &
 pulsemixer --set-volume 50 &
 xbacklight -set 50 &
 flashfocus &
-sudo powertop --auto-tune --quiet &
-# sleep 1
-# checkbluetooth &
+autosuspend.sh  &
+psave.sh &
+sleep 15
+checkup &
+# mailsync &
+newsup &
