@@ -12,6 +12,7 @@ HELP	fzf/pkgsearch	/^  LESS=-FEXR less <<HELP$/;"	h
 Install	i3-wm-scripts/README.md	/^### Install$/;"	S
 Notification_menu	dmenu/dmenu_kdeconnect.sh	/^Notification_menu () {$/;"	f
 SendKeys	dmenu/dmenu_kdeconnect.sh	/^SendKeys(){$/;"	f
+_bluetoothctl	dmenu/btmenu	/^_bluetoothctl() {$/;"	f
 adduserandpass	garbs/garbs.sh	/^adduserandpass() { \\$/;"	f
 adjust_timeout	garbs/grubcheckshift.sh	/^adjust_timeout () {$/;"	f
 arch	fzf/pkgsearch	/^arch() {$/;"	f
@@ -22,24 +23,23 @@ asktype	dmenu/dmenuumount	/^asktype() { \\$/;"	f
 audioalsa	dmenu/dmenurecord	/^audioalsa() { \\$/;"	f
 audiopulse	dmenu/dmenurecord	/^audiopulse() { \\$/;"	f
 aurinstall	garbs/garbs.sh	/^aurinstall() { \\$/;"	f
-checkbluetooth	dwm/autostart.sh	/^checkbluetooth(){ \\$/;"	f
 checkurl	dmenu/dmenu_websearch	/^checkurl() {$/;"	f
 chex	tools/tpb.sh	/^chex() {$/;"	f
-clone	dmenu/cabl	/^echo "$prim" | grep "^.*git*" >\/dev\/null && clone() { notify-send "cloning started"; git -C "$/;"	f
+cpugov	tools/psave.sh	/^cpugov(){$/;"	f
 createtodo	dmenu/dmenu_googletasks.sh	/^createtodo(){$/;"	f
 debian	fzf/pkgsearch	/^debian() {$/;"	f
-dhandler	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconne/;"	f
+dhandler	dmenu/cabl	/^echo "$prim" | ag "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconnect/;"	f
 die	fzf/fv	/^die() {$/;"	f
 die	fzf/pkgrm	/^die() {$/;"	f
 die	fzf/pkgsearch	/^die() {$/;"	f
 dump_links_with_titles	surf/surf_linkselect.sh	/^dump_links_with_titles() {$/;"	f
-edit	Notes_start.sh	/^edit(){$/;"	f
-email	dmenu/cabl	/^echo "$prim" | grep "^.*@.*\\.[A-Za-z]\\+$" >\/dev\/null && email() { xdg-email "$@" ;}$/;"	f
+email	dmenu/cabl	/^echo "$prim" | ag "^.*@.*\\.[A-Za-z]\\+$" >\/dev\/null && email() { xdg-email "$@" ;}$/;"	f
 err	fzf/fv	/^err() {$/;"	f
 err	fzf/pkgrm	/^err() {$/;"	f
 err	fzf/pkgsearch	/^err() {$/;"	f
 error	garbs/garbs.sh	/^error() { clear; printf "ERROR:\\\\n%s\\\\n" "$1"; exit;}$/;"	f
 error	garbs/updatedotfiles.sh	/^error() { clear; printf "ERROR:\\\\n%s\\\\n" "$1"; exit;}$/;"	f
+execute_mode	dmenu/btmenu	/^execute_mode() {$/;"	f
 fatal	i3-wm-scripts/i3-exec	/^fatal() {$/;"	f
 fedora	fzf/pkgsearch	/^fedora() {$/;"	f
 filter	i3-wm-scripts/i3mpd	/^filter() {$/;"	f
@@ -47,7 +47,6 @@ finalize	garbs/garbs.sh	/^finalize(){ \\$/;"	f
 fzf	fzf/fv	/^fzf() {$/;"	f
 fzf	fzf/pkgrm	/^fzf() {$/;"	f
 fzf	fzf/pkgsearch	/^fzf() {$/;"	f
-get_bookmark_lines	i3-wm-scripts/vimb-bookmark	/^def get_bookmark_lines(filename):$/;"	f
 get_icon	dmenu/dmenu_kdeconnect.sh	/^get_icon () {$/;"	f
 getmount	dmenu/dmenumount	/^getmount() { \\$/;"	f
 getsink	dwm/volumechecker.sh	/^getsink() {$/;"	f
@@ -61,21 +60,18 @@ has	fzf/pkgrm	/^has() {$/;"	f
 has	fzf/pkgsearch	/^has() {$/;"	f
 i3-wm-scripts	i3-wm-scripts/README.md	/^i3-wm-scripts$/;"	c
 i3_exec_quote	i3-wm-scripts/i3-exec	/^i3_exec_quote() {$/;"	f
-init	Notes_start.sh	/^init(){$/;"	f
 install	fzf/pkgsearch	/^install() {$/;"	f
 installationloop	garbs/garbs.sh	/^installationloop() { \\$/;"	f
 iter_plus	i3-wm-scripts/nextfind	/^def iter_plus(it, extra):$/;"	f
 joinlines	i3-wm-scripts/nextfind	/^def joinlines(L):$/;"	f
-kdeconnect	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconne/;"	f
+kdeconnect	dmenu/cabl	/^echo "$prim" | ag "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconnect/;"	f
 killrecording	dmenu/dmenurecord	/^killrecording() {$/;"	f
 link_normalize	surf/surf_linkselect.sh	/^link_normalize() {$/;"	f
 link_select	surf/surf_linkselect.sh	/^link_select() {$/;"	f
 main	i3-wm-scripts/nextfind	/^def main(args):$/;"	f
 main	i3-wm-scripts/nextmatch	/^def main(args):$/;"	f
-main	i3-wm-scripts/vimb-bookmark	/^def main(args):$/;"	f
 maininstall	garbs/garbs.sh	/^maininstall() { # Installs all needed programs from main repo.$/;"	f
 make_timeout	garbs/grubcheckshift.sh	/^make_timeout () {$/;"	f
-manual	dmenu/cabl	/^man -k "^$prim$" >\/dev\/null && manual() { man -Tpdf "$prim" | $READER - ;}$/;"	f
 manualinstall	garbs/garbs.sh	/^manualinstall() { # Installs $1 manually if not installed. Used only for AUR helper here.$/;"	f
 maps	dmenu/cabl	/^maps() { "$BROWSER" "https:\/\/maps.google.com\/?q=$*" ;}$/;"	f
 mark/goto/unmark	i3-wm-scripts/README.md	/^### mark\/goto\/unmark$/;"	S
@@ -84,26 +80,26 @@ mountandroid	dmenu/dmenumount	/^mountandroid() { \\$/;"	f
 mountusb	dmenu/dmenumount	/^mountusb() { \\$/;"	f
 moveChoice	i3-wm-scripts/i3resize	/^moveChoice() {$/;"	f
 multimon	dmenu/displayselect	/^multimon() { # Multi-monitor handler.$/;"	f
-new	Notes_start.sh	/^new(){$/;"	f
 newperms	garbs/garbs.sh	/^newperms() { # Set special sudoers settings for install (or after).$/;"	f
 nextfind	i3-wm-scripts/README.md	/^### nextfind$/;"	S
 nextmatch	i3-wm-scripts/README.md	/^### nextmatch$/;"	S
+notify	dmenu/btmenu	/^notify() {$/;"	f
 pick_destination	fzf/fv	/^pick_destination() {$/;"	f
 pick_files	fzf/fv	/^pick_files() {$/;"	f
 pipinstall	garbs/garbs.sh	/^pipinstall() { \\$/;"	f
-popen	i3-wm-scripts/vimb-bookmark	/^def popen(*args, **kwds):$/;"	f
 preinstallmsg	garbs/garbs.sh	/^preinstallmsg() { \\$/;"	f
 print_date	tools/windowshot.sh	/^print_date(){$/;"	f
 printhelp	tools/tpb.sh	/^printhelp() {$/;"	f
 putgitrepo	garbs/garbs.sh	/^putgitrepo() { # Downlods a gitrepo $1 and places the files in $2 only overwriting conflicts$/;"	f
 putgitrepo	garbs/updatedotfiles.sh	/^putgitrepo() { # Downlods a gitrepo $1 and places the files in $2 only overwriting conflicts$/;"	f
-qrcode	dmenu/cabl	/^command -v qrencode >\/dev\/null && qrcode() { qrencode "$@" -s 10 -o \/tmp\/qr.png && xdg-open /;"	f
+qrcode	dmenu/cabl	/^qrcode() { qrencode "$@" -s 10 -o \/tmp\/qr.png && xdg-open \/tmp\/qr.png ;}$/;"	f
 read	dmenu/cabl	/^read() { pico2wave -w=\/tmp\/test.wav "$*"; aplay \/tmp\/test.wav -D 'pulse'; rm \/tmp\/test.wav/;"	f
 refreshkeys	garbs/garbs.sh	/^refreshkeys() { \\$/;"	f
 resetpulse	garbs/garbs.sh	/^resetpulse() { dialog --infobox "Reseting Pulseaudio..." 4 50$/;"	f
 screencastalsa	dmenu/dmenurecord	/^screencastalsa() { \\$/;"	f
 screencastpulse	dmenu/dmenurecord	/^screencastpulse() { \\$/;"	f
 search	dmenu/cabl	/^search() { $/;"	f
+search	tools/ytgrep	/^search() {$/;"	f
 search_window	i3-wm-scripts/nextmatch	/^def search_window(windows, expr):$/;"	f
 searchweb	dmenu/dmenu_websearch	/^searchweb() {$/;"	f
 select_from	fzf/pkgrm	/^select_from() {$/;"	f
@@ -121,10 +117,11 @@ twoscreen	dmenu/displayselect	/^twoscreen() { # If multi-monitor is selected and
 unmountandroid	dmenu/dmenuumount	/^unmountandroid() { \\$/;"	f
 unmountusb	dmenu/dmenuumount	/^unmountusb() {$/;"	f
 updateicon	dmenu/dmenurecord	/^updateicon() { \\$/;"	f
-url	dmenu/cabl	/^echo "$prim" | grep "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconne/;"	f
+url	dmenu/cabl	/^echo "$prim" | ag "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconnect/;"	f
 usage	dmenu/calc.sh	/^usage() {$/;"	f
 usage	fzf/pkgsearch	/^usage() {$/;"	f
 usercheck	garbs/garbs.sh	/^usercheck() { \\$/;"	f
 video	dmenu/dmenurecord	/^video() { ffmpeg \\$/;"	f
 void	fzf/pkgsearch	/^void() {$/;"	f
 welcomemsg	garbs/garbs.sh	/^welcomemsg() { \\$/;"	f
+wifiman	tools/psave.sh	/^wifiman(){$/;"	f
