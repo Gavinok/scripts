@@ -4,7 +4,11 @@ dock_monitor
 # remaps &
 # setbg &
 killall dwm
-compton &
+scheme=$(cat ~/.config/colorschemes/current)
+if [ "$scheme" = "dark" ];then
+    compton &
+    flashfocus &
+fi
 unclutter &
 clipmenud &
 kdeconnect-cli &
@@ -12,10 +16,7 @@ dropbox-cli start &
 redshift &
 pulsemixer --set-volume 50 &
 xbacklight -set 50 &
-flashfocus &
 autosuspend.sh  &
 psave.sh &
 sleep 15
 checkup &
-# mailsync &
-newsup &

@@ -99,3 +99,6 @@ G,https://github.com/Gavinok/st.git,"is my custom build of suckless's terminal e
 G,https://github.com/Gavinok/dmenu.git,"fork of dmenu"
 G,https://github.com/Gavinok/DWMIM.git,"fork of dwm"
 G,https://github.com/Gavinok/Gsurfing.git,"fork of surf"
+G,http://porkepik.fr/setxbg,"simple backgroung setter"
+G,https://porkepik.fr/xscreen,"simple screenshots"
+G,http://porkepik.fr/sct,"alternative to redshift"

@@ -49,7 +49,7 @@ case "$file" in
     *\.rmd) echo "require(rmarkdown); render('$file')" | R --vanilla && mv "$base".pdf "$dir"/pdfs;;
     *\.tex) textype "$file" ;;
     *\.md)  
-    	# for github flared Markdown with links
+	# for github flared Markdown with links
 	# if Ifinstalled grip && Ifinstalled wkhtmltopdf;then
 	#     grip --quiet --export "$file" -  | wkhtmltopdf - "$base".pdf
 	#     rm "$base".html
@@ -70,3 +70,4 @@ case "$file" in
     *\.sent) setsid sent "$file" 2>/dev/null & ;;
     *) chmod +x "$file" && sed 1q "$file" | grep "^#!/" | sed "s/^#!//" | xargs -r -I % "$file" ;;
 esac
+

@@ -1,6 +1,12 @@
 #!/bin/dash
 
 # A general backlight interface
+notifybrightness(){
+    BRIGHTNESS=$(bright)
+    # dunstify -t 500 -r 325 "Light: $BRIGHTNESS"
+    # xsetroot -name "Light[$BRIGHTNESS]"
+    xsetroot -name "$(~/Programming/C_practice/statwe/statwe -b)"
+}
 
 [ -z "$2" ] && num="2" || num="$2"
 
