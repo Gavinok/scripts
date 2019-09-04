@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
     if(maxbrightness == 0)
 	   return 1;
     float percentbrightness = ((float)currentbrightness/maxbrightness)*100;
-    inttofile((int)percentbrightness);
+    /* inttofile((int)percentbrightness); */
     printf ("%.0f%%", percentbrightness);
     return 0;
 }

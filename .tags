@@ -7,53 +7,36 @@
 !_TAG_PROGRAM_VERSION	0.0.0	/3fdf28bc/
 AUDIO_VOLUME_GET	tools/checkvol/checkvol.c	/^    AUDIO_VOLUME_GET,$/;"	e	enum:__anon4b77a7c30103	file:
 AUDIO_VOLUME_SET	tools/checkvol/checkvol.c	/^    AUDIO_VOLUME_SET,$/;"	e	enum:__anon4b77a7c30103	file:
-AVG	tools/sct/sct.c	/^#define AVG(/;"	d	file:
 EOF	garbs/grubcheckshift.sh	/^    cat << EOF$/;"	h
 EOF	garbs/grubcheckshift.sh	/^    cat <<EOF$/;"	h
 EOF	tools/llc.sh	/^	*) cat << EOF$/;"	h
 HELP	fzf/pkgsearch	/^  LESS=-FEXR less <<HELP$/;"	h
 Install	i3-wm-scripts/README.md	/^### Install$/;"	S
-LEN	tools/statwe/statwe.c	/^#define LEN(/;"	d	file:
 MIXER_DEV	tools/checkvol/checkvol.c	/^#define MIXER_DEV /;"	d	file:
 Notification_menu	dmenu/dmenu_kdeconnect.sh	/^Notification_menu () {$/;"	f
-PATH_MAX	tools/statwe/statwe.c	/^#define PATH_MAX /;"	d	file:
 SendKeys	dmenu/dmenu_kdeconnect.sh	/^SendKeys(){$/;"	f
-VERSION	tools/statwe/Makefile	/^VERSION = 4.9$/;"	m
-VERSION	tools/statwe/statwe.c	/^#define VERSION /;"	d	file:
-__anon068dd2790108	tools/sct/sct.c	/^static const struct { float r; float g; float b; } whitepoints[] = {$/;"	s	file:
 __anon4b77a7c30103	tools/checkvol/checkvol.c	/^typedef enum {$/;"	g	file:
 _bluetoothctl	dmenu/btmenu	/^_bluetoothctl() {$/;"	f
 adduserandpass	garbs/garbs.sh	/^adduserandpass() { \\$/;"	f
 adjust_timeout	garbs/grubcheckshift.sh	/^adjust_timeout () {$/;"	f
 all	tools/checkbrightness/Makefile	/^all: bright$/;"	t
 all	tools/checkvol/Makefile	/^all: checkvol$/;"	t
-all	tools/sct/Makefile	/^all: sct$/;"	t
-all	tools/statwe/Makefile	/^all: statwe$/;"	t
 arch	fzf/pkgsearch	/^arch() {$/;"	f
 askrecording	dmenu/dmenurecord	/^askrecording() { \\$/;"	f
 asktoend	dmenu/dmenurecord	/^asktoend() { \\$/;"	f
 asktype	dmenu/dmenumount	/^asktype() { \\$/;"	f
 asktype	dmenu/dmenuumount	/^asktype() { \\$/;"	f
 audio_volume	tools/checkvol/checkvol.c	/^int audio_volume(audio_volume_action action, long* outvol)$/;"	f	typeref:typename:int
-audio_volume	tools/statwe/statwe.c	/^int audio_volume(long* outvol)$/;"	f	typeref:typename:int
 audio_volume_action	tools/checkvol/checkvol.c	/^} audio_volume_action;$/;"	t	typeref:enum:__anon4b77a7c30103	file:
 audioalsa	dmenu/dmenurecord	/^audioalsa() { \\$/;"	f
 audiopulse	dmenu/dmenurecord	/^audiopulse() { \\$/;"	f
 aurinstall	garbs/garbs.sh	/^aurinstall() { \\$/;"	f
-b	tools/sct/sct.c	/^static const struct { float r; float g; float b; } whitepoints[] = {$/;"	m	struct:__anon068dd2790108	typeref:typename:float	file:
-battery_bar	tools/statwe/statwe.c	/^const char * battery_bar(const char *bat)$/;"	f	typeref:typename:const char *
-battery_perc	tools/statwe/statwe.c	/^int battery_perc(const char *bat)$/;"	f	typeref:typename:int
-battery_print	tools/statwe/statwe.c	/^const char * battery_print(int perc, int charging)$/;"	f	typeref:typename:const char *
-battery_state	tools/statwe/statwe.c	/^int battery_state(const char *bat){$/;"	f	typeref:typename:int
 bright	tools/checkbrightness/Makefile	/^bright: bright.c$/;"	t
-brightness	tools/statwe/statwe.c	/^float brightness()$/;"	f	typeref:typename:float
-buf	tools/statwe/statwe.c	/^char buf[1024];$/;"	v	typeref:typename:char[1024]
 checkurl	dmenu/dmenu_websearch	/^checkurl() {$/;"	f
 checkvol	tools/checkvol/Makefile	/^checkvol: checkvol.c$/;"	t
 chex	tools/tpb.sh	/^chex() {$/;"	f
 cpugov	tools/psave.sh	/^cpugov(){$/;"	f
 createtodo	dmenu/dmenu_googletasks.sh	/^createtodo(){$/;"	f
-datetime	tools/statwe/statwe.c	/^const char * datetime(const char *fmt)$/;"	f	typeref:typename:const char *
 debian	fzf/pkgsearch	/^debian() {$/;"	f
 dhandler	dmenu/cabl	/^echo "$prim" | ag "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconnect/;"	f
 die	fzf/fv	/^die() {$/;"	f
@@ -70,13 +53,11 @@ execute_mode	dmenu/btmenu	/^execute_mode() {$/;"	f
 fatal	i3-wm-scripts/i3-exec	/^fatal() {$/;"	f
 fedora	fzf/pkgsearch	/^fedora() {$/;"	f
 filetoint	tools/checkbrightness/bright.c	/^int filetoint(const char *file)$/;"	f	typeref:typename:int
-filetostring	tools/statwe/statwe.c	/^const char *filetostring(const char *file)$/;"	f	typeref:typename:const char *
 filter	i3-wm-scripts/i3mpd	/^filter() {$/;"	f
 finalize	garbs/garbs.sh	/^finalize(){ \\$/;"	f
 fzf	fzf/fv	/^fzf() {$/;"	f
 fzf	fzf/pkgrm	/^fzf() {$/;"	f
 fzf	fzf/pkgsearch	/^fzf() {$/;"	f
-g	tools/sct/sct.c	/^static const struct { float r; float g; float b; } whitepoints[] = {$/;"	m	struct:__anon068dd2790108	typeref:typename:float	file:
 get_icon	dmenu/dmenu_kdeconnect.sh	/^get_icon () {$/;"	f
 getmount	dmenu/dmenumount	/^getmount() { \\$/;"	f
 getuserandpass	garbs/garbs.sh	/^getuserandpass() { \\$/;"	f
@@ -101,8 +82,6 @@ main	i3-wm-scripts/nextfind	/^def main(args):$/;"	f
 main	i3-wm-scripts/nextmatch	/^def main(args):$/;"	f
 main	tools/checkbrightness/bright.c	/^int main(int argc, char *argv[])$/;"	f	typeref:typename:int
 main	tools/checkvol/checkvol.c	/^int main(void)$/;"	f	typeref:typename:int
-main	tools/sct/sct.c	/^main(int argc, char **argv)$/;"	f	typeref:typename:int
-main	tools/statwe/statwe.c	/^int main(int argc, char *argv[])$/;"	f	typeref:typename:int
 maininstall	garbs/garbs.sh	/^maininstall() { # Installs all needed programs from main repo.$/;"	f
 make_timeout	garbs/grubcheckshift.sh	/^make_timeout () {$/;"	f
 manualinstall	garbs/garbs.sh	/^manualinstall() { # Installs $1 manually if not installed. Used only for AUR helper here.$/;"	f
@@ -127,14 +106,11 @@ printhelp	tools/tpb.sh	/^printhelp() {$/;"	f
 putgitrepo	garbs/garbs.sh	/^putgitrepo() { # Downlods a gitrepo $1 and places the files in $2 only overwriting conflicts$/;"	f
 putgitrepo	garbs/updatedotfiles.sh	/^putgitrepo() { # Downlods a gitrepo $1 and places the files in $2 only overwriting conflicts$/;"	f
 qrcode	dmenu/cabl	/^qrcode() { qrencode "$@" -s 10 -o \/tmp\/qr.png && xdg-open \/tmp\/qr.png ;}$/;"	f
-r	tools/sct/sct.c	/^static const struct { float r; float g; float b; } whitepoints[] = {$/;"	m	struct:__anon068dd2790108	typeref:typename:float	file:
 read	dmenu/cabl	/^read() { pico2wave -w=\/tmp\/test.wav "$*"; aplay \/tmp\/test.wav -D 'pulse'; rm \/tmp\/test.wav/;"	f
 refreshkeys	garbs/garbs.sh	/^refreshkeys() { \\$/;"	f
 resetpulse	garbs/garbs.sh	/^resetpulse() { dialog --infobox "Reseting Pulseaudio..." 4 50$/;"	f
 screencastalsa	dmenu/dmenurecord	/^screencastalsa() { \\$/;"	f
 screencastpulse	dmenu/dmenurecord	/^screencastpulse() { \\$/;"	f
-sct	tools/sct/Makefile	/^sct: sct.c$/;"	t
-sct	tools/sct/README.md	/^# sct$/;"	c
 search	dmenu/cabl	/^search() { $/;"	f
 search	tools/ytgrep	/^search() {$/;"	f
 search_window	i3-wm-scripts/nextmatch	/^def search_window(windows, expr):$/;"	f
@@ -148,9 +124,7 @@ show_devices	dmenu/dmenu_kdeconnect.sh	/^show_devices (){$/;"	f
 show_menu	dmenu/dmenu_kdeconnect.sh	/^show_menu () {$/;"	f
 show_pmenu	dmenu/dmenu_kdeconnect.sh	/^show_pmenu () {$/;"	f
 split_checker	i3-wm-scripts/checksplit.sh	/^split_checker()$/;"	f
-statwe	tools/statwe/Makefile	/^statwe: statwe.c$/;"	t
 systembeepoff	garbs/garbs.sh	/^systembeepoff() { dialog --infobox "Getting rid of that retarded error beep sound..." 10 50$/;"	f
-termals	tools/statwe/statwe.c	/^int termals(const char *file)$/;"	f	typeref:typename:int
 toggle	dmenu/dmenu_googletasks.sh	/^toggle(){$/;"	f
 twoscreen	dmenu/displayselect	/^twoscreen() { # If multi-monitor is selected and there are two screens.$/;"	f
 unmountandroid	dmenu/dmenuumount	/^unmountandroid() { \\$/;"	f
@@ -159,10 +133,8 @@ updateicon	dmenu/dmenurecord	/^updateicon() { \\$/;"	f
 url	dmenu/cabl	/^echo "$prim" | ag "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconnect/;"	f
 usage	dmenu/calc.sh	/^usage() {$/;"	f
 usage	fzf/pkgsearch	/^usage() {$/;"	f
-usage	tools/statwe/statwe.c	/^static void usage(void)$/;"	f	typeref:typename:void	file:
 usercheck	garbs/garbs.sh	/^usercheck() { \\$/;"	f
 video	dmenu/dmenurecord	/^video() { ffmpeg \\$/;"	f
 void	fzf/pkgsearch	/^void() {$/;"	f
 welcomemsg	garbs/garbs.sh	/^welcomemsg() { \\$/;"	f
-whitepoints	tools/sct/sct.c	/^static const struct { float r; float g; float b; } whitepoints[] = {$/;"	v	typeref:typename:const struct __anon068dd2790108[]
 wifiman	tools/psave.sh	/^wifiman(){$/;"	f

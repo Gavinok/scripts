@@ -19,7 +19,7 @@ password=$(printf '%s\n' "${password_files[@]}" | uniq  | dmenu -w "$winid" -l 5
 [[ -n $password ]] || exit
 
 #copy username to clipboard
-pass show "$password" | grep login: | sed 's/login: //' | xclip 
+pass show "$password" | grep login: | sed 's/login: //' | awk 'NR==1' | xclip 
 if [[ $typeit -eq 0 ]]; then
 	pass show -c "$password" 2>/dev/null
 else

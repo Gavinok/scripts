@@ -307,4 +307,6 @@ man() {
         LESS_TERMCAP_us=$(printf "\e[1;32m") \
             man "$@"
 }
+
+calc () { echo "scale=5;$@" | bc -l; }
 # vim:ft=sh
