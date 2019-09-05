@@ -61,6 +61,7 @@ case "$file" in
     *config.h) make && sudo make install ;;
     *\.c) compilec ;;
     *\.h) compilec ;;
+    *\.java) javac "$file" && echo ${base##*/} | xargs java ;;
     *\.py) python "$file" ;;
     *\.docx|*\.doc) 
 	Ifinstalled libreoffice && lowriter --convert-to pdf "$file" && exit
