@@ -40,7 +40,7 @@ if [ $scheme = "dark" ]; then
     #ranger
     sed -i "s/bwlight/solarized/g" ~/.config/ranger/rc.conf
     #rtv
-    sed -i "s/mytheme2/mytheme/g" ~/.config/rtv/rtv.cfg
+    sed -i "s/mytheme2/mytheme1/g" ~/.config/rtv/rtv.cfg
     #compton
     setsid compton &
     setsid flashfocus &
@@ -62,7 +62,7 @@ else
     #ranger
     sed -i "s/solarized/bwlight/g" ~/.config/ranger/rc.conf
     #rtv
-    sed -i "s/mytheme/mytheme2/g" ~/.config/rtv/rtv.cfg
+    sed -i "s/mytheme1/mytheme2/g" ~/.config/rtv/rtv.cfg
     #ducksearch
     sed -i "s/kae=d/kae=-1/g" ~/.scripts/dmenu/ducksearch
     #compton
