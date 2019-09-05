@@ -5,16 +5,15 @@ echo 'auto' | sudo tee '/sys/bus/usb/devices/4-1/power/control'
 wifiman(){
     if ping -q -c 1 8.8.8.8; then
     	dropbox-cli start
-    	kdeconnect-cli -l
+    	# kdeconnect-cli -l
     else
     # if [ "$batt" -le "50" ] ;then
 	# sudo systemctl stop NetworkManager.service
     # else
 	# sudo systemctl start NetworkManager.service
     # fi
-    	echo bye
     	killall dropbox
-    	killall kdeconnectd
+    	# killall kdeconnectd
     fi
 }
 
