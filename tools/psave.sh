@@ -7,11 +7,6 @@ wifiman(){
     	dropbox-cli start
     	# kdeconnect-cli -l
     else
-    # if [ "$batt" -le "50" ] ;then
-	# sudo systemctl stop NetworkManager.service
-    # else
-	# sudo systemctl start NetworkManager.service
-    # fi
     	killall dropbox
     	# killall kdeconnectd
     fi
@@ -22,7 +17,6 @@ cpugov(){
     now=$(cat /sys/class/power_supply/BAT0/energy_now)
     state=$(cat /sys/class/power_supply/BAT0/status)
     [ "$state" = Charging ] && echo ondemand | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor && echo 1867000 | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq && exit
-
     batt=$(echo "scale=2; 100*($now/$full)" | bc | cut -d"." -f1)
     [ "$batt" -ge "80" ] && echo ondemand | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor && echo 1867000 | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq && exit
     [ "$batt" -ge "35" ] && echo ondemand | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor && echo 1600000 | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq && exit
