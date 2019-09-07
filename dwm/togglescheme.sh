@@ -33,6 +33,10 @@ if [ $scheme = "dark" ]; then
     sed -i "s/PATHCOLOR=30m/PATHCOLOR=34m/g" ~/.bashrc 
     sed -i "s/PROMPTCOLOR=30m/PROMPTCOLOR=35m/g" ~/.bashrc 
     sed -i "s/SCHEME=light/SCHEME=dark/g" ~/.bashrc 
+    #zsh
+    sed -i 's/#PROMPT/PROMPT/g' ~/.zshrc
+    sed -i 's/PROMPT.*#light/#\0/g' ~/.zshrc
+    sed -i "s/SCHEME=light/SCHEME=dark/g" ~/.zshrc
     #newsboat
     sed -i "s/black/blue/g" ~/.config/newsboat/config
     sed -i "s/color info black default bold/color info red default bold/g" ~/.config/newsboat/config
@@ -55,6 +59,10 @@ else
     sed -i "s/PATHCOLOR=34m/PATHCOLOR=30m/g" ~/.bashrc 
     sed -i "s/PROMPTCOLOR=35m/PROMPTCOLOR=30m/g" ~/.bashrc 
     sed -i "s/SCHEME=dark/SCHEME=light/g" ~/.bashrc 
+    #zsh
+    sed -i 's/#PROMPT/PROMPT/g' ~/.zshrc
+    sed -i 's/PROMPT.*#dark/#\0/g' ~/.zshrc
+    sed -i "s/SCHEME=light/SCHEME=dark/g" ~/.zshrc
     #newsboat
     sed -i "s/blue/black/g" ~/.config/newsboat/config
     sed -i "s/color info red default bold/color info black default bold/g" ~/.config/newsboat/config
