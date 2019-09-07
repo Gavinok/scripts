@@ -1,6 +1,6 @@
 # Calculator
 calc () { echo "scale=5;$*" | bc -l; }
-R(){
+red(){
     reddio print -l 20 "$@" | sed -r "s/[[:cntrl:]]\[[0-9]{1,3}m//g" | nvim -R -
     # reddio print -l 20 "$@" | nvim -R -
 }
