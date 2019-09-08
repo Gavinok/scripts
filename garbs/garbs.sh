@@ -19,16 +19,15 @@ esac done
 # DEFAULTS:
 [ -z "$dotfilesrepo" ] && dotfilesrepo="https://github.com/Gavinok/dotfiles.git"
 [ -z "$scriptrepo" ] && scriptrepo="https://github.com/Gavinok/scripts.git"
-[ -z "$wallpapers" ] && scriptrepo="https://github.com/Gavinok/scripts.git"
 [ -z "$passripo" ]  && scriptrepo="https://github.com/Gavinok/pass.git"
 [ -z "$progsfile" ]  && progsfile="https://github.com/Gavinok/scripts/raw/master/Programs.csv"
 [ -z "$aurhelper" ] && aurhelper="yay"
 [ -z "$repobranch" ] && repobranch="master"
 
-[ -z "$st" ],https://github.com/gavinok/st,"is my custom build of suckless's terminal emulator."
-[ -z "$dmenu" ],https://github.com/gavinok/dmenu,
-[ -z "$dwm" ],https://github.com/gavinok/dwmim,
-[ -z "$surf" ],https://github.com/gavinok/gsurfing,
+[ -z "$st" ] && st="https://github.com/gavinok/st.git"
+[ -z "$dmenu" ] && dmenu="https://github.com/gavinok/dmenu"
+[ -z "$dwm" ] && dwm="https://github.com/gavinok/dwmim"
+[ -z "$surf" ] && surf="https://github.com/gavinok/gsurfing"
 ### FUNCTIONS ###
 
 error() { clear; printf "ERROR:\\n%s\\n" "$1"; exit;}
@@ -187,7 +186,7 @@ adduserandpass || error "Error adding username and/or password."
 # Refresh Arch keyrings.
 refreshkeys || error "Error automatically refreshing Arch keyring. Consider doing so manually."
 
-dialog --title "LARBS Installation" --infobox "Installing \`basedevel\` and \`git\` for installing other software." 5 70
+dialog --title "GARBS Installation" --infobox "Installing \`basedevel\` and \`git\` for installing other software." 5 70
 pacman --noconfirm --needed -S base-devel git >/dev/null 2>&1
 [ -f /etc/sudoers.pacnew ] && cp /etc/sudoers.pacnew /etc/sudoers # Just in case
 
@@ -214,7 +213,6 @@ installationloop
 putgitrepo "$dotfilesrepo" "/home/$name" "$repobranch"
 rm -f "/home/$name/README.md" "/home/$name/LICENSE"
 putgitrepo "$scriptrepo" "/home/$name/.scripts" "$repobranch"
-putgitrepo "$wallpapers" "/home/$name/Pictures/wallpapers" "$repobranch"
 putgitrepo "$passripo" "/home/$name/.password-store" "$repobranch"
 putgitrepo "$st" "/home/$name/.config/st" "$repobranch"
 putgitrepo "$dmenu" "/home/$name/.config/dmenu" "$repobranch"
