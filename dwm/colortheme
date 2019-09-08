@@ -1,0 +1,206 @@
+#!/bin/sh
+set -e
+
+version="0.1.0"
+slroot=~
+
+die() {
+	printf '%s \n' "$1" >&2
+	exit 1
+}
+
+show_help() {
+	echo "usage: ${0##*/} [OPTION] THEMEFILE"
+	echo "Writes colors from THEMEFILE to:"
+	echo "            ~/.Xresources"
+	# echo "            $slroot/st/config.h"
+	# echo "            $slroot/tabbed/config.h"
+	# echo "            $slroot/dwm/config.h"
+	echo "Valid OPTIONS are:"
+	echo "   -h, --help     show this message"
+	echo "   -v, --version  show version information"
+}
+
+show_version() {
+	echo "${0##*/} version $version"
+	echo "Licensed under GNU Public License v3+"
+	echo "Written by Anders Damsgaard <anders@adamsgaard.dk>"
+}
+
+get_theme_color() {
+	! [ -f "$path" ] && die "Error: Could not find $path"
+	grep --ignore-case "^\*\.*$1:" "$path" | awk '{ print $2 }'
+}
+
+report_colors() {
+	echo "foreground:  $foreground"
+	echo "background:  $background"
+	echo "color0:      $color0"
+	echo "color1:      $color1"
+	echo "color2:      $color2"
+	echo "color3:      $color3"
+	echo "color4:      $color4"
+	echo "color5:      $color5"
+	echo "color6:      $color6"
+	echo "color7:      $color7"
+	echo "color8:      $color8"
+	echo "color9:      $color9"
+	echo "color10:     $color10"
+	echo "color11:     $color11"
+	echo "color12:     $color12"
+	echo "color13:     $color13"
+	echo "color14:     $color14"
+	echo "color15:     $color15"
+	echo "cursorColor: $cursorColor"
+}
+
+get_colors() {
+	path="$1"
+	! [ -f "$path" ] && die "Error: Could not find $path"
+	foreground=$(get_theme_color foreground)
+	background=$(get_theme_color background)
+echo $background
+	color0=$(get_theme_color color0)
+	color1=$(get_theme_color color1)
+	color2=$(get_theme_color color2)
+	color3=$(get_theme_color color3)
+	color4=$(get_theme_color color4)
+	color5=$(get_theme_color color5)
+	color6=$(get_theme_color color6)
+	color7=$(get_theme_color color7)
+	color8=$(get_theme_color color8)
+	color9=$(get_theme_color color9)
+	color10=$(get_theme_color color10)
+	color11=$(get_theme_color color11)
+	color12=$(get_theme_color color12)
+	color13=$(get_theme_color color13)
+	color14=$(get_theme_color color14)
+	color15=$(get_theme_color color15)
+	cursorColor=$(get_theme_color cursorColor)
+	cursorColor=${cursorColor:-#FF00FF}
+
+	if [ "$foreground" = "" ] || \
+		[ "$background" = "" ] || \
+		[ "$color0" = "" ] || \
+		[ "$color1" = "" ] || \
+		[ "$color2" = "" ] || \
+		[ "$color3" = "" ] || \
+		[ "$color4" = "" ] || \
+		[ "$color5" = "" ] || \
+		[ "$color6" = "" ] || \
+		[ "$color7" = "" ] || \
+		[ "$color8" = "" ] || \
+		[ "$color9" = "" ] || \
+		[ "$color10" = "" ] || \
+		[ "$color11" = "" ] || \
+		[ "$color12" = "" ] || \
+		[ "$color13" = "" ] || \
+		[ "$color14" = "" ] || \
+		[ "$color15" = "" ] || \
+		[ "$cursorColor" = "" ]; then
+
+		report_colors
+		die 'Error: One or more colors were not defined'
+	fi
+}
+
+set_colors() {
+	get_colors "$1"
+
+	if [ -f ~/.Xresources ]; then
+		sed -i "s/^\*\.foreground: .*$/\*.foreground: $foreground/;\
+			s/^\*\.background: .*$/\*.background: $background/;\
+			s/^\*\.color0: .*$/\*.color0: $color0/;\
+			s/^\*\.color1: .*$/\*.color1: $color1/;\
+			s/^\*\.color2: .*$/\*.color2: $color2/;\
+			s/^\*\.color3: .*$/\*.color3: $color3/;\
+			s/^\*\.color4: .*$/\*.color4: $color4/;\
+			s/^\*\.color5: .*$/\*.color5: $color5/;\
+			s/^\*\.color6: .*$/\*.color6: $color6/;\
+			s/^\*\.color7: .*$/\*.color7: $color7/;\
+			s/^\*\.color8: .*$/\*.color8: $color8/;\
+			s/^\*\.color9: .*$/\*.color9: $color9/;\
+			s/^\*\.color10: .*$/\*.color10: $color10/;\
+			s/^\*\.color11: .*$/\*.color11: $color11/;\
+			s/^\*\.color12: .*$/\*.color12: $color12/;\
+			s/^\*\.color13: .*$/\*.color13: $color13/;\
+			s/^\*\.color14: .*$/\*.color14: $color14/;\
+			s/^\*\.color15: .*$/\*.color15: $color15/;\
+			s/^\*\.cursorColor: .*$/\*.cursorColor: $cursorColor/" ~/.Xresources
+		xrdb -merge ~/.Xresources
+		command -v i3-msg >/dev/null 2>&1 && (i3-msg restart || :)
+		command -v wallpaper >/dev/null 2>&1 && (wallpaper || :)
+	fi
+
+	# if [ -f $slroot/st/config.h ]; then
+	# 	sed -i "s/^\t\[257\] = \".*\",.*$/\t\[257\] = \"$foreground\",/;\
+	# 		s/^\t\[256\] = \".*\",.*$/\t\[256\] = \"$background\",/;\
+	# 		s/^\t\[0\] = \".*\",.*$/\t\[0\] = \"$color0\",/;\
+	# 		s/^\t\[1\] = \".*\",.*$/\t\[1\] = \"$color1\",/;\
+	# 		s/^\t\[2\] = \".*\",.*$/\t\[2\] = \"$color2\",/;\
+	# 		s/^\t\[3\] = \".*\",.*$/\t\[3\] = \"$color3\",/;\
+	# 		s/^\t\[4\] = \".*\",.*$/\t\[4\] = \"$color4\",/;\
+	# 		s/^\t\[5\] = \".*\",.*$/\t\[5\] = \"$color5\",/;\
+	# 		s/^\t\[6\] = \".*\",.*$/\t\[6\] = \"$color6\",/;\
+	# 		s/^\t\[7\] = \".*\",.*$/\t\[7\] = \"$color7\",/;\
+	# 		s/^\t\[8\] = \".*\",.*$/\t\[8\] = \"$color8\",/;\
+	# 		s/^\t\[9\] = \".*\",.*$/\t\[9\] = \"$color9\",/;\
+	# 		s/^\t\[10\] = \".*\",.*$/\t\[10\] = \"$color10\",/;\
+	# 		s/^\t\[11\] = \".*\",.*$/\t\[11\] = \"$color11\",/;\
+	# 		s/^\t\[12\] = \".*\",.*$/\t\[12\] = \"$color12\",/;\
+	# 		s/^\t\[13\] = \".*\",.*$/\t\[13\] = \"$color13\",/;\
+	# 		s/^\t\[14\] = \".*\",.*$/\t\[14\] = \"$color14\",/;\
+	# 		s/^\t\[258\] = \".*\",.*$/\t\[258\] = \"$cursorColor\",/"\
+	# 		$slroot/st/config.h
+	# fi
+
+	# if [ -f $slroot/tabbed/config.h ]; then
+	# 	sed -i "s/normbgcolor \+= \".*\";/normbgcolor = \"$background\";/;\
+	# 		s/normfgcolor \+= \".*\";/normfgcolor = \"$foreground\";/;\
+	# 		s/selfgcolor \+= \".*\";/selfgcolor = \"$background\";/;\
+	# 		s/selbgcolor \+= \".*\";/selbgcolor = \"$foreground\";/;\
+	# 		s/urgbgcolor \+= \".*\";/urgbgcolor = \"$color9\";/;\
+	# 		s/urgfgcolor \+= \".*\";/urgfgcolor = \"$color0\";/"\
+	# 		$slroot/tabbed/config.h
+	# fi
+
+
+	if [ -f $slroot/dwm/config.h ]; then
+		sed -i "s/col_gray4\[\] *= \".*\";/col_gray4\[\] = \"$background\";/;\
+			s/col_cyan\[\] *= \".*\";/col_cyan\[\] = \"$color6\";/;\
+			s/col_gray3\[\] *= \".*\";/col_gray3\[\] = \"$foreground\";/;\
+			s/col_gray1\[\] *= \".*\";/col_gray1\[\] = \"$background\";/;"\
+			$slroot/dwm/config.h
+	fi
+
+}
+
+[ $# -lt 1 ] && (show_help && exit 1)
+
+while :; do
+	case "$1" in
+		-h|-\?|--help)
+			show_help
+			exit 0
+			;;
+		-v|--version)
+			show_version
+			exit 0
+			;;
+		--) # end all options
+			shift
+			break
+			;;
+		-?*)
+			die "Error: Unknown option '$1' specified"
+			;;
+		*)  # no more options
+			break
+	esac
+	shift
+done
+
+[ $# -lt 1 ] && die 'Error: No THEMEFILE specified'
+[ $# -gt 1 ] && die 'Error: More than one THEMEFILE specified'
+
+set_colors "$1"

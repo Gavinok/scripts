@@ -39,6 +39,7 @@ cpugov	tools/psave.sh	/^cpugov(){$/;"	f
 createtodo	dmenu/dmenu_googletasks.sh	/^createtodo(){$/;"	f
 debian	fzf/pkgsearch	/^debian() {$/;"	f
 dhandler	dmenu/cabl	/^echo "$prim" | ag "^.*\\.[A-Za-z]\\+.*" >\/dev\/null && url() { "$BROWSER" "$@" ;} && kdeconnect/;"	f
+die	dwm/colortheme	/^die() {$/;"	f
 die	fzf/fv	/^die() {$/;"	f
 die	fzf/pkgrm	/^die() {$/;"	f
 die	fzf/pkgsearch	/^die() {$/;"	f
@@ -58,7 +59,9 @@ finalize	garbs/garbs.sh	/^finalize(){ \\$/;"	f
 fzf	fzf/fv	/^fzf() {$/;"	f
 fzf	fzf/pkgrm	/^fzf() {$/;"	f
 fzf	fzf/pkgsearch	/^fzf() {$/;"	f
+get_colors	dwm/colortheme	/^get_colors() {$/;"	f
 get_icon	dmenu/dmenu_kdeconnect.sh	/^get_icon () {$/;"	f
+get_theme_color	dwm/colortheme	/^get_theme_color() {$/;"	f
 getmount	dmenu/dmenumount	/^getmount() { \\$/;"	f
 getuserandpass	garbs/garbs.sh	/^getuserandpass() { \\$/;"	f
 gitmakeinstall	garbs/garbs.sh	/^gitmakeinstall() {$/;"	f
@@ -108,6 +111,7 @@ putgitrepo	garbs/updatedotfiles.sh	/^putgitrepo() { # Downlods a gitrepo $1 and 
 qrcode	dmenu/cabl	/^qrcode() { qrencode "$@" -s 10 -o \/tmp\/qr.png && xdg-open \/tmp\/qr.png ;}$/;"	f
 read	dmenu/cabl	/^read() { pico2wave -w=\/tmp\/test.wav "$*"; aplay \/tmp\/test.wav -D 'pulse'; rm \/tmp\/test.wav/;"	f
 refreshkeys	garbs/garbs.sh	/^refreshkeys() { \\$/;"	f
+report_colors	dwm/colortheme	/^report_colors() {$/;"	f
 resetpulse	garbs/garbs.sh	/^resetpulse() { dialog --infobox "Reseting Pulseaudio..." 4 50$/;"	f
 screencastalsa	dmenu/dmenurecord	/^screencastalsa() { \\$/;"	f
 screencastpulse	dmenu/dmenurecord	/^screencastpulse() { \\$/;"	f
@@ -120,9 +124,12 @@ select_from	fzf/pkgsearch	/^select_from() {$/;"	f
 select_window	i3-wm-scripts/nextfind	/^def select_window(windows, dmenu_args):$/;"	f
 serviceinit	garbs/garbs.sh	/^serviceinit() { for service in "$@"; do$/;"	f
 serviceinit	garbs/updatedotfiles.sh	/^serviceinit() { for service in "$@"; do$/;"	f
+set_colors	dwm/colortheme	/^set_colors() {$/;"	f
 show_devices	dmenu/dmenu_kdeconnect.sh	/^show_devices (){$/;"	f
+show_help	dwm/colortheme	/^show_help() {$/;"	f
 show_menu	dmenu/dmenu_kdeconnect.sh	/^show_menu () {$/;"	f
 show_pmenu	dmenu/dmenu_kdeconnect.sh	/^show_pmenu () {$/;"	f
+show_version	dwm/colortheme	/^show_version() {$/;"	f
 split_checker	i3-wm-scripts/checksplit.sh	/^split_checker()$/;"	f
 systembeepoff	garbs/garbs.sh	/^systembeepoff() { dialog --infobox "Getting rid of that retarded error beep sound..." 10 50$/;"	f
 toggle	dmenu/dmenu_googletasks.sh	/^toggle(){$/;"	f
