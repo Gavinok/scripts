@@ -11,6 +11,8 @@ if xrandr | grep "$extern disconnected"; then
 else
     xrandr --output "$intern" --primary --auto --output "$extern" --right-of "$intern" --auto
 fi
+device=$(uname -n)
+[ $device = "sp4" ] && xrandr --dpi 220
 [ ! -z $initial ] && exit
 setbg &
 remaps &
