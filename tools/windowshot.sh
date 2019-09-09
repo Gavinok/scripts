@@ -5,5 +5,5 @@ print_date(){
 	date '+%F_%T'
 
 }
-xscreen -uf ~/Pictures/ScreenShots/"$(print_date)".png
+import "$HOME/Pictures/ScreenShots/$(print_date).png"
 notify-send screanshot taken
