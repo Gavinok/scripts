@@ -17,6 +17,7 @@ redshift &
 pulsemixer --set-volume 50 &
 xbacklight -set 50 &
 autosuspend.sh  &
-psave.sh &
+device=$(uname -n)
+[ "$device" != "sp4" ] && psave.sh &
 sleep 15
 checkup &
