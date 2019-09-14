@@ -3,8 +3,21 @@
 # I find this useful especially running from vim.
 
 basename="$(echo "$1" | sed 's/\.[^\/.]*$//')"
+file=$(readlink -f "$1")
+dir=$(dirname "$file")
+secdir=$(dirname "$dir")
+texopen(){
+	    echo "${secdir}/Notes.pdf"
+	    if [ -f "${secdir}/Notes.pdf" ]; then
+		setsid "$READER" "${secdir}/Notes.pdf" >/dev/null 2>&1 &
+		exit
+	    fi
+	    setsid "$READER" "$basename".pdf >/dev/null 2>&1 &
+}
 case "$1" in
-	*.tex|*.md|*.rmd|*.ms|*.groff|*.me|*.mom|*.docx|*.doc) setsid "$READER" "$basename".pdf >/dev/null 2>&1 & ;;
+	*.tex) texopen "$1" ;;
+	*.md|*.rmd|*.ms|*.groff|*.me|*.mom|*.docx|*.doc) setsid "$READER" "$basename".pdf >/dev/null 2>&1 & ;;
+	*.pdf|*.mp3|*.mp4) setsid "$READER" "$basename".pdf >/dev/null 2>&1 & ;;
 	*.html) 
 	    setsid "$BROWSER"  "$basename".html >/dev/null 2>&1 & ;;
 	*.sent) setsid sent "$1" >/dev/null 2>&1 & ;;

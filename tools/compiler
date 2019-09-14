@@ -22,10 +22,17 @@ Ifinstalled(){
     command -v "$1" >/dev/null || { notify-send "📦 <b>$1</b> must be installed for this function." && exit 1 ;}
 }
 
-textype() { \
-	command="pdflatex"
-    ( sed 5q "$file" | grep -i -q 'xelatex' ) && command="xelatex"
-    $command --output-directory="$dir" "$base" &&
+textype() { 
+    command="pdflatex"
+    # ( sed 5q "$file" | grep -i -q 'xelatex' ) && command="xelatex"
+    secdir="$(dirname $dir)"
+    cd "$secdir"
+    if [ -f "${secdir}/Notes.tex" ]; then
+	echo ${secdir}/Notes.tex
+	$command --output-directory="$secdir" "${secdir}/Notes.tex"
+	exit
+    fi
+    $command --output-directory="$dir" "$base" 
     grep -i addbibresource "$file" >/dev/null &&
     biber --input-directory "$dir" "$base" &&
     $command --output-directory="$dir" "$base" &&

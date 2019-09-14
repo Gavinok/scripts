@@ -1,0 +1,6 @@
+#!/bin/dash
+
+# quickly find and display man page
+
+Selected="$(man -k . | dmenu -l 10 -p "Select Program" | cut -d" " -f1)"
+man -Tpdf "$Selected" | zathura -

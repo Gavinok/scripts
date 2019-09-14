@@ -40,7 +40,7 @@ if [ $scheme = "dark" ]; then
     #newsboat
     sed -i "s/black/blue/g" ~/.config/newsboat/config
     sed -i "s/color info black default bold/color info red default bold/g" ~/.config/newsboat/config
-    sed -i "s/color listnormal_unread yellow default bold/color listnormal_unread blue default bold/g" ~/.config/newsboat/config
+    sed -i "s/color listnormal_unread blue default bold/color listnormal_unread white default bold/g" ~/.config/newsboat/config
     #ranger
     sed -i "s/bwlight/solarized/g" ~/.config/ranger/rc.conf
     #rtv
@@ -66,7 +66,8 @@ else
     #newsboat
     sed -i "s/blue/black/g" ~/.config/newsboat/config
     sed -i "s/color info red default bold/color info black default bold/g" ~/.config/newsboat/config
-    sed -i "s/color listnormal_unread blue default bold/color listnormal_unread yellow default bold/g" ~/.config/newsboat/config
+    sed -i "s/color listnormal_unread black default bold/color listnormal_unread black default bold/g" ~/.config/newsboat/config
+
     #ranger
     sed -i "s/solarized/bwlight/g" ~/.config/ranger/rc.conf
     #rtv

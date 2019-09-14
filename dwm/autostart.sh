@@ -15,9 +15,7 @@ clipmenud &
 dropbox-cli start &
 redshift &
 pulsemixer --set-volume 50 &
-xbacklight -set 50 &
+xbacklight -set 30 &
 autosuspend.sh  &
 device=$(uname -n)
-[ "$device" != "sp4" ] && psave.sh &
-sleep 15
-checkup &
+[ "$device" = "sp4" ] && exit
