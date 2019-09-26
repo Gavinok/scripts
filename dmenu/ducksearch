@@ -16,10 +16,12 @@ else
 fi
 case "$choice" in 
   *🦆*)
-    $localBROWSER"https://duckduckgo.com" > ~/.surf/log 2>&1 && exit
+    setsid $localBROWSER"https://duckduckgo.com" > ~/.surf/log 2>&1 &
+    exit
     ;;
   http*)
-    $localBROWSER"$choice" > ~/.surf/log 2>&1 && exit
+    setsid $localBROWSER"$choice" > ~/.surf/log 2>&1 &
+    exit
     ;;
   *)
     if [ "$TRUEBROWSER" = "surf" ] && [ -z "$*" ];then
@@ -36,7 +38,7 @@ case "$choice" in
 	rm "$TMPFILE"
 	exit
     else 
-	$localBROWSER"https://duckduckgo.com/?q=$choice" > ~/.surf/log 2>&1 && exit
+	$localBROWSER"https://duckduckgo.com/lite/?q=$choice" > ~/.surf/log 2>&1 && exit
     fi
     ;;
 esac
