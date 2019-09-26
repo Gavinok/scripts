@@ -63,7 +63,7 @@ case "$file" in
 	#     exit
 	# fi
 	# Ifinstalled md2pdf && md2pdf "$file" && exit
-	Ifinstalled pandoc && pandoc "$file" --pdf-engine=xelatex -o "$base".pdf && exit
+	Ifinstalled pandoc && pandoc -f markdown-implicit_figures "$file" --pdf-engine=xelatex -o "$base".pdf && exit
 	;;
     *config.h) make && sudo make install ;;
     *\.c) compilec ;;
@@ -78,4 +78,4 @@ case "$file" in
     *\.sent) setsid sent "$file" 2>/dev/null & ;;
     *) chmod +x "$file" && sed 1q "$file" | grep "^#!/" | sed "s/^#!//" | xargs -r -I % "$file" ;;
 esac
-
+# vim:ft=sh
