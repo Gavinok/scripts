@@ -1,9 +1,16 @@
 #!/bin/dash
 
-WIFI=$(nmcli connection show --active | sed '1d'  | awk '{print $1}')
+[ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon="📡"
+[ ! -n "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print "📶", int($3 * 100 / 70) "%" }')
+# WIFI=$(printf "%s " "$wifiicon" && nmcli connection show --active | sed '1d'  | awk '{print $1}')
+
+WIFI=$(printf "%s %s" "$wifiicon" "$(cat /sys/class/net/w*/operstate | sed "s/down/❎/;s/up/🌐/")")
+
+
+
 
 if [ -n "$WIFI" ]; then
-   choice=$(printf "Bluetooth\\nNetwork" | dmenu -i -p "wifi: $WIFI"  ) 
+   choice=$(printf "Bluetooth\\nNetwork" | dmenu -i -p "$WIFI"  ) 
 else 
     choice=$(printf "Bluetooth\\nNetwork" | dmenu -i -p 'Connect:'  ) 
 fi
