@@ -65,6 +65,7 @@ else
     sed -i "s/SCHEME=light/SCHEME=dark/g" ~/.zshrc
     #newsboat
     sed -i "s/blue/black/g" ~/.config/newsboat/config
+    sed -i "s/white/black/g" ~/.config/newsboat/config
     sed -i "s/color info red default bold/color info black default bold/g" ~/.config/newsboat/config
     sed -i "s/color listnormal_unread black default bold/color listnormal_unread black default bold/g" ~/.config/newsboat/config
 
