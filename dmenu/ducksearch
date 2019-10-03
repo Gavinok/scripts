@@ -20,10 +20,12 @@ case "$choice" in
     exit
     ;;
   http*)
+    [ "$TRUEBROWSER" = "qutebrowser-fast" ] && qutebrowser --target window "$choice" > /dev/null 2>&1 && exit
     setsid $localBROWSER"$choice" > ~/.surf/log 2>&1 &
     exit
     ;;
   *)
+    [ "$TRUEBROWSER" = "qutebrowser-fast" ] && qutebrowser --target window "https://duckduckgo.com/?q=$choice" > /dev/null 2>&1 && exit
     if [ "$TRUEBROWSER" = "surf" ] && [ -z "$*" ];then
 	TMPFILE="/tmp/ducksearch"
 	rm "$TMPFILE"
@@ -38,7 +40,7 @@ case "$choice" in
 	rm "$TMPFILE"
 	exit
     else 
-	$localBROWSER"https://duckduckgo.com/lite/?q=$choice" > ~/.surf/log 2>&1 && exit
+	$localBROWSER"https://duckduckgo.com/?q=$choice" > ~/.surf/log 2>&1 && exit
     fi
     ;;
 esac
