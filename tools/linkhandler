@@ -32,9 +32,9 @@ case "$1" in
 	curl "$1" | "$READER" - >/dev/null 2>&1 & ;;
     *mp3|*m4a|*ogg|*flac|*opus|*mp3?source|*soundcloud*)
 	setsid "$TERMINAL" -n "mp3" -e mpv --video=no "$1" >/dev/null 2>&1 & ;;
-    *imgur.com/*)
-	url=$(curl -s "$1" | grep "/i.imgur.com/" | grep "link" | cut -d'"' -f4)
-	curl -sL "$url" > "/tmp/$(echo "$url" | sed "s/.*\///")" && setsid imv "/tmp/$(echo "$url" | sed "s/.*\///")"   & ;;
+    # *imgur.com/*)
+	# url=$(curl -s "$1" | grep "/i.imgur.com/" | grep "link" | cut -d'"' -f4)
+	# curl -sL "$url" > "/tmp/$(echo "$url" | sed "s/.*\///")" && setsid imv "/tmp/$(echo "$url" | sed "s/.*\///")"   & ;;
     *.diff|*.md|*.txt|*.c|*.h|*.cpp|*.hs|*.py|*raw*)
 	curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && setsid "$TERMINAL" -n popup -e "$EDITOR" "/tmp/$(echo "$1" | sed "s/.*\///")"   & ;;
     *) 
