@@ -20,12 +20,10 @@ case "$choice" in
     exit
     ;;
   http*)
-    [ "$TRUEBROWSER" = "qutebrowser-fast" ] && qutebrowser --target window "$choice" > /dev/null 2>&1 && exit
     setsid $localBROWSER"$choice" > ~/.surf/log 2>&1 &
     exit
     ;;
   *)
-    [ "$TRUEBROWSER" = "qutebrowser-fast" ] && qutebrowser --target window "https://duckduckgo.com/?q=$choice" > /dev/null 2>&1 && exit
     if [ "$TRUEBROWSER" = "surf" ] && [ -z "$*" ];then
 	TMPFILE="/tmp/ducksearch"
 	rm "$TMPFILE"
