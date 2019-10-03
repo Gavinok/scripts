@@ -164,3 +164,4 @@ if [ -n "$report" ] ; then
 	echo -e "$report"
 fi
 unset IFS
+# vim:ft=sh
