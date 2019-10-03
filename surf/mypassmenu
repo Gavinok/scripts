@@ -16,7 +16,7 @@ password_files=( "${password_files[@]%.gpg}" )
 
 password=$(printf '%s\n' "${password_files[@]}" | uniq  | dmenu -w "$winid" -l 5 "$@" )
 
-[[ -n $password ]] || exit
+[[ -n $password ]] || exit 0
 
 #copy username to clipboard
 pass show "$password" | grep login: | sed 's/login: //' | awk 'NR==1' | xclip 
