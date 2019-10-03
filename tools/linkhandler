@@ -23,7 +23,7 @@ case "$1" in
 	notify-send "Playing Video";;
     *youtube.com/watch*|*youtube.com/playlist*) #limit the video quality
 	ytplay "$1" &;;
-    *reddit*) #limit the video quality
+    *reddit.com/r/*) #limit the video quality
 	setsid "$TERMINAL" rtv "$1" &;;
     *png|*jpg|*jpe|*jpeg)
 	curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && imv "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
