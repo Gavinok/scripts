@@ -4,5 +4,4 @@
 clipmenu
 xclip -selection "primary" -o |  qrencode -s 10 -o /tmp/QR.png 
 xdg-open /tmp/QR.png
-
-
+#vim:ft=sh

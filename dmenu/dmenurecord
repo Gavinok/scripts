@@ -103,3 +103,4 @@ case "$1" in
 	kill) killrecording;;
 	*) ([ -f ~/.recordingpid ] && asktoend && exit) || askrecording;;
 esac
+#vim:ft=sh

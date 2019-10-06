@@ -42,3 +42,4 @@ case "$choice" in
     fi
     ;;
 esac
+#vim:ft=sh

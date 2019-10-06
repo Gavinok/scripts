@@ -109,3 +109,4 @@ then
 	gotourl
 else searchweb
 fi
+#vim:ft=sh

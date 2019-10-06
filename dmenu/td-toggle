@@ -13,3 +13,4 @@ else
 	[ "$yn" = "Yes" ] && transmission-daemon
 fi
 sleep 3 && pkill -RTMIN+7 i3blocks
+#vim:ft=sh

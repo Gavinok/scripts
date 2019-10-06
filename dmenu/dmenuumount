@@ -34,3 +34,4 @@ else
 	echo "Unmountable USB drive(s) and Android device(s) detected."
 	asktype
 fi
+#vim:ft=sh

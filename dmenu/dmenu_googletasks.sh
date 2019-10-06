@@ -38,3 +38,4 @@ completed=$(dmenu -l "$linenumber" -p "$PROMPT" < /tmp/dmenu_todo/tmp.txt |  sed
 [ "$completed" = "clear" ] &&  $EXECUTABLE -c
 #toggle a tasks
 toggle "$completed"
+#vim:ft=sh

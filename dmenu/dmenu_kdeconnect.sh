@@ -180,3 +180,4 @@ get_icon () {
     echo $ICON
 }
 show_devices
+#vim:ft=sh

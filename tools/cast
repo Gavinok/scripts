@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/sh
 # uses castthis for different formats
 [ -z "$1" ] && { exit; }
 pgrep -x node && killall node

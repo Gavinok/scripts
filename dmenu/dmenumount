@@ -53,3 +53,4 @@ else
 		asktype
 	fi
 fi
+#vim:ft=sh

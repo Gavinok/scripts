@@ -204,3 +204,4 @@ done
 [ $# -gt 1 ] && die 'Error: More than one THEMEFILE specified'
 
 set_colors "$1"
+#vim:ft=sh

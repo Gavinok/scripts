@@ -4,3 +4,4 @@
 
 Selected="$(man -k . | dmenu -l 10 -p "Select Program" | cut -d" " -f1)"
 man -Tpdf "$Selected" | zathura -
+#vim:ft=sh

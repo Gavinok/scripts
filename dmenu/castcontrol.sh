@@ -14,3 +14,4 @@ case "$res" in
 	open) st -g "=30x4-0+0" -e castnow >/dev/null 2>&1 & ;;
 	*) exit
 esac
+#vim:ft=sh

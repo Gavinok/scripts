@@ -26,3 +26,4 @@ fi
 if [ $choice = "Network" ]; then
 	networkmanager_dmenu
 fi
+#vim:ft=sh

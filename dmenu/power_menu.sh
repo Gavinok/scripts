@@ -19,3 +19,4 @@ case "$res" in
 	;;
 esac
 exit 0
+#vim:ft=sh

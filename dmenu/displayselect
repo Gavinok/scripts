@@ -47,3 +47,4 @@ feh --bg-scale "$HOME/.config/wall.png"
 #polybar_launch
 # Re-remap keys if keyboard added (for laptop bases)
 remaps
+#vim:ft=sh

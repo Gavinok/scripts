@@ -23,4 +23,4 @@ case "$isFile" in
 		fi
 		;;
 esac
-
+#vim:ft=sh

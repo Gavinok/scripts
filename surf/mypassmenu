@@ -27,3 +27,4 @@ else
 		xdotool type --clearmodifiers --file -
 fi
 
+#vim:ft=sh

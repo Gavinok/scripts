@@ -31,3 +31,4 @@ while true; do
 		fi
 	fi
 done
+#vim:ft=sh

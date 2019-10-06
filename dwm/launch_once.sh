@@ -9,3 +9,4 @@ if  pgrep -x "$1" ;then
 	exit
 fi
 exec "$1"
+#vim:ft=sh

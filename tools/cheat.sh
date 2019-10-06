@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/sh
 # Quickly search cheat.sh dependint on 
 # the inserted file type (used in my vimrc)
 file=$(readlink -f "$1")
