@@ -14,8 +14,7 @@ if [ "$OS" = 'Android' ];then
     xdg-open "$1"
     exit
 fi
-echo "$1"
-[ -z "$TRUEBROWSER" ] && TRUEBROWSER="surf"
+[ -z "$TRUEBROWSER" ] && TRUEBROWSER="qutebrowser.sh"
 [ -z "$1" ] && { $TRUEBROWSER "https://duckduckgo.com"; exit; }
 case "$1" in
     *mkv|*webm|*mp4|*gif|*hooktube.com*|*v.redd.it*|*view_video*)
@@ -23,6 +22,8 @@ case "$1" in
 	notify-send "Playing Video";;
     *youtube.com/watch*|*youtube.com/playlist*) #limit the video quality
 	ytplay "$1" &;;
+    *youtu.be*)
+	notify-send "playing $1" && mpv --really-quiet "$1";;
     *reddit.com/r/*) #limit the video quality
 	setsid "$TERMINAL" rtv "$1" &;;
     *png|*jpg|*jpe|*jpeg)
