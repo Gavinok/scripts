@@ -20,9 +20,8 @@ setsid dunst &
 cp ~/.config/colorschemes/wall/$scheme.png ~/.config/wall.png
 setbg
 
-#ranger
-cp ~/.config/colorschemes/wall/$scheme.png ~/.config/wall.png
-setbg
+#vifm
+cp ~/.config/colorschemes/vifm/$scheme.vifm ~/.config/vifm/colors/current.vifm
 
 #vim and bash and newsboat
 if [ $scheme = "dark" ]; then
