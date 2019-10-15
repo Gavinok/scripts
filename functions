@@ -103,4 +103,4 @@ zle     -N   fzf-history-widget
 bindkey '^E' fzf-history-widget
 
 calc () { echo "scale=5;$@" | bc -l; }
-# vim:ft=sh
+# vim:ft=zsh
