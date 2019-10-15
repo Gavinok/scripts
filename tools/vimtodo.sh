@@ -6,8 +6,7 @@
 # add it.
 #
 
-file="$HOME/Dropbox/vimwiki/todo.txt"
-touch "$file"
+ORGDIR="$HOME ~/Documents/org/"
 # $TERMINAL $EDITOR $file
-$TERMINAL -n popup -t Todo $EDITOR $file
+$TERMINAL -n popup -t Todo "$EDITOR" -c "silent grep! -r TODO $ORGDIR"
 exit 0
