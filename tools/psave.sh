@@ -5,6 +5,14 @@ echo 'auto' | sudo tee '/sys/bus/usb/devices/4-1/power/control'
 wifiman(){
     if ping -q -c 1 8.8.8.8; then
     	dropbox-cli start
+	WIFI=$(printf "%s " "$wifiicon" && nmcli connection show --active | sed '1d'  | awk '{print $1}')
+	[ $WIFI != 'Uvic' ] &&
+	case $WIFI in
+		Uvic )
+			killall kdeconnectd ;;
+		ShawOpen )
+			killall kdeconnectd ;;
+	esac
     	# kdeconnect-cli -l
     else
     	killall dropbox
