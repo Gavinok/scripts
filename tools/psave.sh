@@ -12,8 +12,10 @@ wifiman(){
 			killall kdeconnectd ;;
 		ShawOpen )
 			killall kdeconnectd ;;
+		*)
+    	kdeconnect-cli -l
+
 	esac
-    	# kdeconnect-cli -l
     else
     	killall dropbox
     	# killall kdeconnectd
