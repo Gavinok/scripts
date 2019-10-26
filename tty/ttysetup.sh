@@ -19,6 +19,5 @@ if [ "$TERM" = "linux" ]; then
     clear #for background artifacting
 	# Switch escape and caps if tty:
 	sudo -n loadkeys ~/.scripts/tty/ttymaps.kmap 2>/dev/null
-	tmux -f ~/.scripts/tty/dwm.tmux/dwm.tmux
 fi
 
