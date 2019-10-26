@@ -14,7 +14,8 @@ if [ "$OS" = 'Android' ];then
     xdg-open "$1"
     exit
 fi
-[ -z "$TRUEBROWSER" ] && TRUEBROWSER="qutebrowser.sh"
+notify-send "$1"
+[ -z "$TRUEBROWSER" ] && TRUEBROWSER="qutebrowser"
 [ -z "$1" ] && { $TRUEBROWSER "https://duckduckgo.com"; exit; }
 case "$1" in
     *mkv|*webm|*mp4|*gif|*hooktube.com*|*v.redd.it*|*view_video*)
