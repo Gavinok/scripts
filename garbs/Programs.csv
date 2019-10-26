@@ -68,6 +68,7 @@ A,spotify,
 ,qrencode,"QR code generator"
 ,aspell,
 ,aspell-en,
+,words,"used as a general purpose dictonary"
 ,fish,
 ,ttf-dejavu,"font used in dwm an dmenu"
 ,adobe-source-code-pro-fonts,"font for term"
