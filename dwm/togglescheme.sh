@@ -26,7 +26,7 @@ cp ~/.config/colorschemes/vifm/$scheme.vifm ~/.config/vifm/colors/current.vifm
 #vim and bash and newsboat
 if [ $scheme = "dark" ]; then
     #vimrc
-    sed -i 's/acme/spacegray/g' ~/.vimrc
+    sed -i 's/acme/spaceway/g' ~/.vimrc
     #bashrc
     sed -i "s/TEXTCOLOR=30m/TEXTCOLOR=37m/g" ~/.bashrc 
     sed -i "s/PATHCOLOR=30m/PATHCOLOR=34m/g" ~/.bashrc 
