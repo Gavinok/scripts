@@ -8,5 +8,5 @@
 
 ORGDIR="$HOME/Documents/org/"
 # $TERMINAL $EDITOR $file
-$TERMINAL -n popup -t Todo -e "$EDITOR" -c "Copen | silent grep -r TODO $ORGDIR"
+$TERMINAL -n popup -t Todo -e "$EDITOR" -c "copen | silent grep -r TODO $ORGDIR"
 exit 0
