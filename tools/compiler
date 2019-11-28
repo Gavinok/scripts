@@ -18,25 +18,27 @@ dir=$(dirname "$file")
 base="${file%.*}"
 
 cd "$dir" || exit
+
 Ifinstalled(){
     command -v "$1" >/dev/null || { notify-send "📦 <b>$1</b> must be installed for this function." && exit 1 ;}
 }
 
 textype() { 
     command="pdflatex"
+	errorfmt="-file-line-error"
     # ( sed 5q "$file" | grep -i -q 'xelatex' ) && command="xelatex"
-    secdir="$(dirname $dir)"
+    secdir="$(dirname "$dir")"
     cd "$secdir"
     if [ -f "${secdir}/Notes.tex" ]; then
-	echo ${secdir}/Notes.tex
-	$command --output-directory="$secdir" "${secdir}/Notes.tex"
+	echo "${secdir}/Notes.tex"
+	$command $errorfmt --output-directory="$secdir" "${secdir}/Notes.tex"
 	exit
     fi
-    $command --output-directory="$dir" "$base" 
+    $command $errorfmt --output-directory="$dir" "$base" 
     grep -i addbibresource "$file" >/dev/null &&
     biber --input-directory "$dir" "$base" &&
-    $command --output-directory="$dir" "$base" &&
-    $command --output-directory="$dir" "$base"
+    $command $errorfmt --output-directory="$dir" "$base" &&
+    $command $errorfmt --output-directory="$dir" "$base"
 }
 
 compilec(){
@@ -55,6 +57,8 @@ case "$file" in
     *\.groff) refer -PS -e "$groffbib" "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
     *\.rmd) echo "require(rmarkdown); render('$file')" | R --vanilla && mv "$base".pdf "$dir"/pdfs;;
     *\.tex) textype "$file" ;;
+    *\.org)  
+	Ifinstalled pandoc && pandoc "$file" --pdf-engine=xelatex -o "$base".pdf && exit ;;
     *\.md)  
 	# for github flared Markdown with links
 	# if Ifinstalled grip && Ifinstalled wkhtmltopdf;then
