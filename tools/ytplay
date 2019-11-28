@@ -1,4 +1,10 @@
 #!/usr/bin/dash
+
+# script they plays youtube videos that opens a youtube video in
+# the best available quality up to 480p since more then that
+# is bloat
+
 notify-send "Playing video"
-setsid mpv --really-quiet --ytdl-format=22 "$*" >/dev/null 2>&1 ||  notify-send "Failed to play Video"
+setsid mpv --really-quiet --ytdl-format=22 "$*" >/dev/null 2>&1 ||  setsid mpv --really-quiet "$*" >/dev/null 2>&1 || notify-send "Failed to play Video"
+# setsid mpv --really-quiet --ytdl-format=22 "$*" >/dev/null 2>&1 || notify-send "Failed to play Video"
 #vim:ft=sh
