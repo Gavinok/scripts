@@ -6,7 +6,7 @@
 # add it.
 #
 
-ORGDIR="$HOME/Documents/org/"
+ORGFILE="$HOME/Documents/org/mylife.org"
 # $TERMINAL $EDITOR $file
-$TERMINAL -n popup -t Todo -e "$EDITOR" -c "copen | silent grep -r TODO $ORGDIR"
+$TERMINAL -n popup -t Todo -e "$EDITOR" "$ORGFILE"
 exit 0
