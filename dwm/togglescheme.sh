@@ -52,7 +52,7 @@ if [ $scheme = "dark" ]; then
 
 else
     #vimrc
-    sed -i 's/spacegray/acme/g' ~/.vimrc
+    sed -i 's/spaceway/acme/g' ~/.vimrc
     #bashrc
     sed -i "s/TEXTCOLOR=37m/TEXTCOLOR=30m/g" ~/.bashrc 
     sed -i "s/PATHCOLOR=34m/PATHCOLOR=30m/g" ~/.bashrc 
