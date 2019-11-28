@@ -19,7 +19,7 @@ case "$file" in
 	*\.tex) curl cheat.sh/latex/"$keyword";;
         *\.c) curl cheat.sh/c/"$keyword";;
 	*\.h)  curl cheat.sh/c/"$keyword";;
-	*\.py)  curl cheat.sh/python/"$keyword";;
+	*\.py)  curl http://docs.python.org/3/search.html?q="$keyword";;
 	*\.go) curl cheat.sh/go/"$keyword";;
 	*\.vimrc) curl cheat.sh/vim/"$keyword";;
 	*) curl cheat.sh/"$*";;
