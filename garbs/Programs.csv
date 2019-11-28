@@ -28,7 +28,7 @@ A,unclutter-xfixes-git,
 ,ttf-linux-libertine,
 ,arandr,
 ,calcurse,
-,compton,
+A,picom-git,"compositor forked from compton"
 ,xorg-xprop,
 ,dosfstools,
 ,libnotify,
@@ -62,8 +62,6 @@ A,urlscan,
 A,task-spooler,
 A,simple-mtpfs,
 A,spotify,
-,nnn,
-,vidir,"for nnn"
 ,arc-gtk-theme,
 ,qrencode,"QR code generator"
 ,aspell,
