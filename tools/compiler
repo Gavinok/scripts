@@ -20,66 +20,70 @@ base="${file%.*}"
 cd "$dir" || exit
 
 Ifinstalled(){
-    command -v "$1" >/dev/null || { notify-send "📦 <b>$1</b> must be installed for this function." && exit 1 ;}
+	command -v "$1" >/dev/null || { notify-send "📦 <b>$1</b> must be installed for this function." && exit 1 ;}
 }
 
 textype() { 
-    command="pdflatex"
+	command="pdflatex"
 	errorfmt="-file-line-error"
-    # ( sed 5q "$file" | grep -i -q 'xelatex' ) && command="xelatex"
-    secdir="$(dirname "$dir")"
-    cd "$secdir"
-    if [ -f "${secdir}/Notes.tex" ]; then
-	echo "${secdir}/Notes.tex"
-	$command $errorfmt --output-directory="$secdir" "${secdir}/Notes.tex"
-	exit
-    fi
-    $command $errorfmt --output-directory="$dir" "$base" 
-    grep -i addbibresource "$file" >/dev/null &&
-    biber --input-directory "$dir" "$base" &&
-    $command $errorfmt --output-directory="$dir" "$base" &&
-    $command $errorfmt --output-directory="$dir" "$base"
+	# ( sed 5q "$file" | grep -i -q 'xelatex' ) && command="xelatex"
+	secdir="$(dirname "$dir")"
+	cd "$secdir"
+	if [ -f "${secdir}/Notes.tex" ]; then
+		echo "${secdir}/Notes.tex"
+		$command $errorfmt --output-directory="$secdir" "${secdir}/Notes.tex"
+		exit
+	fi
+	$command $errorfmt --output-directory="$dir" "$base" 
+	grep -i addbibresource "$file" >/dev/null &&
+		biber --input-directory "$dir" "$base" &&
+		$command $errorfmt --output-directory="$dir" "$base" &&
+		$command $errorfmt --output-directory="$dir" "$base"
+	}
+
+pandoccmd(){
+	pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" --pdf-engine=xelatex -o "$2".pdf 
 }
 
 compilec(){
-    if [ -f "${dir}/Makefile" ]; then
-	make
-    else
-	cc "$file" -o "$base" && "$base" 
-    fi
+	if [ -f "${dir}/Makefile" ]; then
+		make
+	else
+		cc "$file" -o "$base" && "$base" 
+	fi
 }
 
 # If there is a global $REFBIB variable/file for `refer`, use it.
 [ -f "$REFBIB" ] && groffbib="-p $REFBIB"
 
 case "$file" in
-    *\.ms) refer -PS -e "$groffbib" "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
-    *\.groff) refer -PS -e "$groffbib" "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
-    *\.rmd) echo "require(rmarkdown); render('$file')" | R --vanilla && mv "$base".pdf "$dir"/pdfs;;
-    *\.tex) textype "$file" ;;
-    *\.org)  
-	Ifinstalled pandoc && pandoc "$file" --pdf-engine=xelatex -o "$base".pdf && exit ;;
-    *\.md)  
-	# for github flared Markdown with links
-	# if Ifinstalled grip && Ifinstalled wkhtmltopdf;then
-	#     grip --quiet --export "$file" -  | wkhtmltopdf - "$base".pdf
-	#     rm "$base".html
-	#     exit
-	# fi
-	# Ifinstalled md2pdf && md2pdf "$file" && exit
-	Ifinstalled pandoc && pandoc -f markdown-implicit_figures "$file" --pdf-engine=xelatex -o "$base".pdf && exit
-	;;
-    *config.h) make && sudo make install ;;
-    *\.c) compilec ;;
-    *\.h) compilec ;;
-    *\.java) javac "$file" && echo ${base##*/} | xargs java ;;
-    *\.py) python "$file" ;;
-    *\.docx|*\.doc) 
-	Ifinstalled libreoffice && lowriter --convert-to pdf "$file" && exit
-	Ifinstalled pandoc && pandoc "$file" --pdf-engine=xelatex -o "$base".pdf && exit
-	    ;;
-    *\.go) go run "$file" ;;
-    *\.sent) setsid sent "$file" 2>/dev/null & ;;
-    *) chmod +x "$file" && sed 1q "$file" | grep "^#!/" | sed "s/^#!//" | xargs -r -I % "$file" ;;
+	*\.ms) refer -PS -e "$groffbib" "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
+	*\.groff) refer -PS -e "$groffbib" "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
+	*\.rmd) echo "require(rmarkdown); render('$file')" | R --vanilla && mv "$base".pdf "$dir"/pdfs;;
+	*\.tex) textype "$file" ;;
+	*\.org)  
+		Ifinstalled pandoc && pandoccmd "$file" "$base" && exit ;;
+	*\.md)  
+		# for github flared Markdown with links
+		# if Ifinstalled grip && Ifinstalled wkhtmltopdf;then
+		#     grip --quiet --export "$file" -  | wkhtmltopdf - "$base".pdf
+		#     rm "$base".html
+		#     exit
+		# fi
+		# Ifinstalled md2pdf && md2pdf "$file" && exit
+		Ifinstalled pandoc && pandoccmd "$file" "$base" && exit
+		;;
+	*config.h) make && sudo make install ;;
+	*\.c) compilec ;;
+	*\.h) compilec ;;
+	*\.java) javac "$file" && echo "${base##*/}" | xargs java ;;
+	*\.py) python "$file" ;;
+	*\.docx|*\.doc) 
+		Ifinstalled libreoffice && lowriter --convert-to pdf "$file" && exit
+		Ifinstalled pandoc && pandoccmd "$file" "$base" && exit
+		;;
+	*\.go) go run "$file" ;;
+	*\.sent) setsid sent "$file" 2>/dev/null & ;;
+	*) chmod +x "$file" && sed 1q "$file" | grep "^#!/" | sed "s/^#!//" | xargs -r -I % "$file" ;;
 esac
 # vim:ft=sh
