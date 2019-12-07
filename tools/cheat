@@ -1,0 +1,23 @@
+#!/usr/bin/sh
+# Quickly search cheat.sh dependint on 
+# the inserted file type (used in my vimrc)
+file=$(readlink -f "$1")
+dir=$(dirname "$file")
+keyword=$2
+cd "$dir" || exit
+
+ask(){
+
+	curl -s cheat.sh/"$*" | less -R
+}
+[ -z "$keyword" ] && keyword=":learn"
+case "$file" in
+	*tex)   ask latex/"$keyword";;
+	*c)     ask c/"$keyword";;
+	*h)     ask c/"$keyword";;
+	*py)    ask python/"$keyword";;
+	*go)    ask go/"$keyword";;
+	*vimrc) ask vim/"$keyword";;
+	*vim)   ask vim/"$keyword";;
+	*)        ask "$*";;
+esac
