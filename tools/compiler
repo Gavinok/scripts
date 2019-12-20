@@ -42,7 +42,12 @@ textype() {
 	}
 
 pandoccmd(){
-	pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" --pdf-engine=xelatex -o "$2".pdf 
+	# pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" --pdf-engine=xelatex -o "$2".pdf 
+	pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" -o "$2".pdf 
+}
+
+pandocorg(){
+	pandoc -V geometry:margin=3cm -f org-implicit_figures "$1" -o "$2".pdf 
 }
 
 compilec(){
@@ -62,7 +67,7 @@ case "$file" in
 	*\.rmd) echo "require(rmarkdown); render('$file')" | R --vanilla && mv "$base".pdf "$dir"/pdfs;;
 	*\.tex) textype "$file" ;;
 	*\.org)  
-		Ifinstalled pandoc && pandoccmd "$file" "$base" && exit ;;
+		Ifinstalled pandoc && pandocorg "$file" "$base" && exit ;;
 	*\.md)  
 		# for github flared Markdown with links
 		# if Ifinstalled grip && Ifinstalled wkhtmltopdf;then
@@ -83,6 +88,7 @@ case "$file" in
 		Ifinstalled pandoc && pandoccmd "$file" "$base" && exit
 		;;
 	*\.go) go run "$file" ;;
+	*\.vim*) vint "$file" ;;
 	*\.sent) setsid sent "$file" 2>/dev/null & ;;
 	*) chmod +x "$file" && sed 1q "$file" | grep "^#!/" | sed "s/^#!//" | xargs -r -I % "$file" ;;
 esac

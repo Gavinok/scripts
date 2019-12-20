@@ -16,6 +16,7 @@ if [ "$TERM" = "linux" ]; then
     echo -en "\e]PE44C9C9" #cyan
     echo -en "\e]P7E5E5E5" #lightgrey
     echo -en "\e]PFFFFFFF" #white
+	echo -e "\e[?112c"
     clear #for background artifacting
 	# Switch escape and caps if tty:
 	sudo -n loadkeys ~/.scripts/tty/ttymaps.kmap 2>/dev/null
