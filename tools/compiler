@@ -42,8 +42,7 @@ textype() {
 	}
 
 pandoccmd(){
-	# pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" --pdf-engine=xelatex -o "$2".pdf 
-	pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" -o "$2".pdf 
+	pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" --pdf-engine=xelatex -o "$2".pdf 
 }
 
 pandocorg(){
@@ -69,13 +68,6 @@ case "$file" in
 	*\.org)  
 		Ifinstalled pandoc && pandocorg "$file" "$base" && exit ;;
 	*\.md)  
-		# for github flared Markdown with links
-		# if Ifinstalled grip && Ifinstalled wkhtmltopdf;then
-		#     grip --quiet --export "$file" -  | wkhtmltopdf - "$base".pdf
-		#     rm "$base".html
-		#     exit
-		# fi
-		# Ifinstalled md2pdf && md2pdf "$file" && exit
 		Ifinstalled pandoc && pandoccmd "$file" "$base" && exit
 		;;
 	*config.h) make && sudo make install ;;
