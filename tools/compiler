@@ -68,8 +68,9 @@ case "$file" in
 	*\.org)  
 		Ifinstalled pandoc && pandocorg "$file" "$base" && exit ;;
 	*\.md)  
-		Ifinstalled pandoc && pandoccmd "$file" "$base" && exit
-		;;
+		Ifinstalled pandoc && pandoccmd "$file" "$base" && exit ;;
+	*\.mmd)  
+		Ifinstalled mmdc && mmdc -i "$file" -o "$base".pdf && exit ;;
 	*config.h) make && sudo make install ;;
 	*\.c) compilec ;;
 	*\.h) compilec ;;
