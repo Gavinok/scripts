@@ -23,9 +23,9 @@ search() {
 }
 maps() { "$BROWSER" "https://maps.google.com/?q=$*" ;}
 
-echo "$prim" | ag "^http" >/dev/null && "$BROWSER" "$prim" && exit
-echo "$prim" | ag "^.*\.[A-Za-z]\+.*" >/dev/null && url() { "$BROWSER" "$@" ;} && kdeconnect() { "kdeconnect-handler" "$@" ;} && dhandler() { dmenuhandler "$@" ;}
-echo "$prim" | ag "^.*@.*\.[A-Za-z]\+$" >/dev/null && email() { xdg-email "$@" ;}
+echo "$prim" | grep "^http" >/dev/null && "$BROWSER" "$prim" && exit
+echo "$prim" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && url() { "$BROWSER" "$@" ;} && kdeconnect() { "kdeconnect-handler" "$@" ;} && dhandler() { dmenuhandler "$@" ;}
+echo "$prim" | grep "^.*@.*\.[A-Za-z]\+$" >/dev/null && email() { xdg-email "$@" ;}
 qrcode() { qrencode "$*" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png ;}
 read() { pico2wave -w=/tmp/test.wav "$*"; aplay /tmp/test.wav -D 'pulse'; rm /tmp/test.wav;}
 
