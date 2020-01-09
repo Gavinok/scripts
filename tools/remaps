@@ -12,7 +12,7 @@ setxkbmap -layout us -variant altgr-intl -option caps:escape
 xmodmap -e "keycode 66 = Escape"
 xmodmap -e "keycode 108 = Alt_L"
 # xmodmap -e "keycode 168 = space"
-xmodmap -e "keysym Menu = Super_L"
+xmodmap -e "keycode 135 = Super_R"
 # But when it is pressed only once, treat it as escape.
 # killall xcape ; xcape -t 250  -e 'Caps_Lock=Escape'
 # killall xcape ; xcape -t 250  -e 'Control_L=Escape'
