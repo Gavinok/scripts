@@ -92,7 +92,7 @@ cp ~/.config/colorschemes/dmenu/$scheme.h ~/.config/colorschemes/dmenu/current.h
 cd ~/.config/dmenu/ || exit
 sudo make clean install
 
-#dwm
+#surf
 cp ~/.config/colorschemes/surf/$scheme.h ~/.config/colorschemes/surf/current.h
 cd ~/.config/surf/ || exit
 sudo make clean install
