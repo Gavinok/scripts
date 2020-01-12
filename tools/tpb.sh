@@ -16,9 +16,17 @@ program='/home/gavinok/.scripts/tools/transadd'
 TPB="https://proxtpb.art/"
 
 # show N first matches by default
-limit=15
+limit=25
 
 # colors
+# numbcolor=''
+# namecolor=''
+# sizecolor=''
+# seedcolor=''
+# peercolor=''
+# errocolor=''
+# mesgcolor=''
+# nonecolor=''
 numbcolor='\x1b[1;35m'
 namecolor='\x1b[1;33m'
 sizecolor='\x1b[1;36m'
@@ -122,19 +130,19 @@ echo "$r" \
 read -p ">> Torrents to download (eg. 1 3 5-7): " selection
 IFS=$'\n\ '
 for num in $selection ; do
-	if [ "$num" = "`echo $num | grep -o '[[:digit:]][[:digit:]]*'`" ] ; then
+	if [ "$num" = "`echo "$num" | grep -o '[[:digit:]][[:digit:]]*'`" ] ; then
 		down="$down $num"
-	elif [ "$num" = "`echo $num | grep -o '[[:digit:]][[:digit:]]*-[[:digit:]][[:digit:]]*'`" ] ; then
+	elif [ "$num" = "`echo "$num" | grep -o '[[:digit:]][[:digit:]]*-[[:digit:]][[:digit:]]*'`" ] ; then
 		seqstart="${num%-*}"
 		seqend="${num#*-}"
-		if [ $seqstart -le $seqend ] ; then
-			down="$down `seq $seqstart $seqend`"
+		if [ "$seqstart" -le "$seqend" ] ; then
+			down=""$down" `seq "$seqstart" "$seqend"`"
 		fi
 	fi
 done
 
 # normalize download list, sort it and remove dupes
-down="$(echo $down | tr '\ ' '\n' | sort -n | uniq)"
+down="$(echo "$down" | tr '\ ' '\n' | sort -n | uniq)"
 IFS=$'\n'
 
 # check whether we're downloading something, else exit
@@ -146,14 +154,14 @@ fi
 echo -n "Downloading torrent(s): "
 for torrent in $down ; do
 	# check if ID is valid and in range of results, download torrent
-	if [ $torrent -ge 1 ] ; then
-		if [ $torrent -le $limit ] ; then
+	if [ "$torrent" -ge 1 ] ; then
+		if [ "$torrent" -le "$limit" ] ; then
 			echo -n "$torrent "
-			command="$program `echo "$r" | awk -F '|' 'NR=='$torrent'{print $2; exit}'`"
+			command=""$program" `echo "$r" | awk -F '|' 'NR=='$torrent'{print $2; exit}'`"
 			status=$(eval "$command" 2>&1)
 			if [ $? -ne 0 ] ; then
 				echo -n '(failed!) '
-				report="$report\n(#$torrent) $status"
+				report=""$report"\n(#$torrent) $status"
 			fi
 		fi
 	fi
