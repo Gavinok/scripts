@@ -5,8 +5,8 @@ current=$(xdotool getwindowfocus)
 
 # The window will take up no more than a third of
 # the width or height of the screen.
-newwidth=$(($(xdotool getdisplaygeometry | awk '{print $2}') / 3))
-newheight=$(($(xdotool getdisplaygeometry | awk '{print $1}') / 3))
+newwidth=$(($(xdotool getdisplaygeometry | awk '{print $2}') / 2))
+newheight=$(($(xdotool getdisplaygeometry | awk '{print $1}') / 2))
 
 xdotool windowsize "$(xdotool getwindowfocus)" $newheight $newwidth
 
@@ -17,4 +17,4 @@ vertical=$(($(xdotool getdisplaygeometry | awk '{print $2}') - newsize))
 horizontal=$(($(xdotool getdisplaygeometry | awk '{print $1}') - newwidth))
 
 xdotool windowmove "$current" $horizontal $vertical
-i3-msg "[con_id="$current"] focus"
+# i3-msg "[con_id="$current"] focus"
