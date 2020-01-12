@@ -1,0 +1,233 @@
+#!/usr/bin/env bash
+
+#-------#
+# DEBUG #
+#-------#{{{
+#set -x
+#}}}
+
+#-------------#
+# SCRIPT NAME #
+#-------------#{{{
+_name_=${0##*/}
+#}}}
+
+#-----------#
+# ERROR MSG #
+#-----------#{{{
+_er_(){ echo -e "${_name_^}: $@" >&2 && exit 1 ;}
+#}}}
+
+#---------#
+# MESSAGE #
+#---------#{{{
+_ms_(){ echo -e "${_name_^}: $@" ;}
+#}}}
+
+#------------#
+# LIST FILES #
+#------------#{{{
+_list_(){
+for i in "${_list_[@]:$F}" ; do
+    local full=$(realpath -- "$i")
+    local path="${full%/*}"
+    local file="${full##*/}"
+    local root="${file%.*}"
+
+    # check for file exist
+    [ -e "$i" ] || { _ms_ "$_file_ No such file or directory" ; continue ;}
+
+    list_full+=( "$full" )
+    list_path+=( "$path" )
+    list_file+=( "$file" )
+    list_root+=( "$root" )
+
+    [ "$_RENAME_" ] && printf "%s\n" "$file" >> "$_TMP_"
+    [ "$_ROOT_" ]   && printf "%s\n" "$root" >> "$_TMP_"
+    [ "$_FULL_" ]   && printf "%s\n" "$full" >> "$_TMP_"
+done
+}
+#}}}
+
+#--------------------#
+# EDIT AND CHECK TMP #
+#--------------------#{{{
+_edit_(){
+# if tmp empt exit
+[ "$(< $_TMP_)" ] || _er_ "Missing File(s) Operand"
+
+# edit tmp
+eval "$BV_EDITOR $_TMP_"
+
+# exit the file didnt moified since it was last read
+[ -N "$_TMP_" ] || _er_ "No Change To Destination File(s) operand"
+}
+#}}}
+
+#-----------------#
+# RENAME FUNCTION #
+#-----------------#{{{
+_rename_(){
+_list_
+_edit_
+
+# rename files
+x=0
+while read -r line ; do
+    # if NEW not equal OLD, mv OLD to NEW
+    [ "${list_file[$x]}" = "$line" ] || {
+        ${BV_MV} -- "${list_path[$x]}/${list_file[$x]}" "${list_path[$x]}/$line"
+        # show the verbose msg
+        [ "$_VERBOSE_" ] && _ms_ "Rename [${list_file[$x]}] To [$line]"
+    }
+    ((x++))
+done < "$_TMP_"
+}
+#}}}
+
+#-------------#
+# ROOT RENAME #
+#-------------#{{{
+_root_(){
+_list_
+_edit_
+
+x=0
+while read -r line; do
+    [ "$line" = "${list_root[$x]}" ] || {
+        local _file_=${list_file[$x]/${list_root[$x]}/$line}
+        ${BV_MV} -- "${list_full[$x]}" "${list_path[$x]}/$_file_"
+        [ "$_VERBOSE_" ] && _ms_ "Rename [${list_file[$x]}] To [$_file_]"
+    }
+    ((x++))
+done < "$_TMP_"
+}
+#}}}
+
+#-------------#
+# FULL RENAME #
+#-------------#{{{
+_full_(){
+_list_
+_edit_
+
+x=0
+while read line ; do
+    local file=${line##*/}
+    local path=${line%/*}
+
+    [ "${list_full[$x]}" = "$path" ] && {
+        [ "${list_file[$x]}" = "$file" ] || {
+            ${BV_MV} -- "$path/${list_file[$x]}" "$line"
+            [ "$_VERBOSE_" ] && _ms_ "Rename [$path/${list_file[$x]}] To [$line]"
+        }
+    } || {
+        [ -d "$path" ] || mkdir -p "$path"
+        ${BV_MV} -- "$path/${list_file[$x]}" "$line"
+        [ "$_VERBOSE_" ] && _ms_ "Rename [$path/${_file_}] To [$line]"
+    }
+    ((x++))
+done < "$_TMP_"
+}
+#}}}
+
+#-------------#
+# HELP DIALOG #
+#-------------#{{{
+_help_(){
+cat <<- HELP
+${_name_^} Rename multi files
+
+Usage: ${_name_} [OPTIONS] ... FILES ...
+
+OPTIONS
+ -c <file> : Rename current file(s) name
+ -r <file> : Rename root of current file(s)
+ -f <file> : Rename anything on the file(s)
+ -e        : Editor to use (default: \$EDITOR)
+ -m        : Mv command to use (default: mv)
+ -v        : Explain what is being done
+ -h        : Display this help and exit
+
+VARIABLES
+ BV_EDITOR   Editor to use (default: \$EDITOR)
+ BV_MV       MV command to use (default: mv)
+HELP
+exit 0
+}
+#}}}
+
+#---------------#
+# MAIN FUNCTION #
+#---------------#{{{
+_main_(){
+while getopts ":crfe:m:vh" OPT ; do
+    case "$OPT" in
+        c )
+            _RENAME_=true
+            ((_ERROR_++))
+            ;;
+        r )
+            _ROOT_=true
+            ((_ERROR_++))
+            ;;
+        f )
+            _FULL_=true
+            ((_ERROR_++))
+            ;;
+        e )
+            BV_EDITOR="$OPTARG"
+            ;;
+        m )
+            BV_MV="$OPTARG"
+            ;;
+        v )
+            _VERBOSE_=true
+            ;;
+        h )
+            _HELP_=true
+            ((_ERROR_++))
+            ;;
+        : )
+            _er_ "option requires an argument -- '${OPTARG}'\nTry '${_name_} -h' for more information."
+            ;;
+        * )
+            _er_ "invalid option -- '${OPTARG}'\nTry '${_name_} -h' for more information."
+            ;;
+    esac
+done
+
+F=$((OPTIND-1))
+
+}
+#}}}
+
+#-------------------#
+# RUN MAIN FUNCTION #
+#-------------------#{{{
+# create list of all giving files
+for i in "$@" ; { _list_+=( "$i" ) ;}
+_main_ "$@"
+#}}}
+
+#------------------#
+# SCRIPT VARIABLES #
+#------------------#{{{
+_TMP_="/tmp/$_name_.XXX"
+x=0
+:> "$_TMP_"
+[ "$BV_EDITOR" ] || BV_EDITOR=${EDITOR}
+[ "$BV_MV" ]     || BV_MV="mv"
+#}}}
+
+#----------------------#
+# RUN OPTIONS FUNCTION #
+#----------------------#{{{
+(( _ERROR_ > 1 )) && _er_ "No multi tasks Support\nTry '${_name_} -h' for more information"
+[[ $1 =~ ^-.* ]]  || _RENAME_=true
+[ "$_HELP_" ]     && _help_   || true
+[ "$_RENAME_" ]   && _rename_ || true
+[ "$_ROOT_" ]     && _root_   || true
+[ "$_FULL_" ]     && _full_   || true
+#}}}
+
