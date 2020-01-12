@@ -89,6 +89,7 @@ A,svox-pico-bin,"used for pico2wave (text to speech)"
 ,clang,"c compiler"
 ,entr,"used for autocompilation"
 ,pass,
+A,rofi-calc,"calculator that uses rofi"
 A,bitwise,"bitwise calculator for the terminal"
 A,ttf-emojione,
 A,ttf-symbola,
