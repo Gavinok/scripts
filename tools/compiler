@@ -57,6 +57,14 @@ compilec(){
 	fi
 }
 
+compilev(){
+	if [ -f "${dir}/Makefile" ]; then
+		make
+	else
+		v "$file" && "$base" 
+	fi
+}
+
 # If there is a global $REFBIB variable/file for `refer`, use it.
 [ -f "$REFBIB" ] && groffbib="-p $REFBIB"
 
@@ -74,6 +82,7 @@ case "$file" in
 	*config.h) make && sudo make install ;;
 	*\.c) compilec ;;
 	*\.h) compilec ;;
+	*\.v) compilev ;;
 	*\.java) javac "$file" && echo "${base##*/}" | xargs java ;;
 	*\.py) python "$file" ;;
 	*\.docx|*\.doc) 
