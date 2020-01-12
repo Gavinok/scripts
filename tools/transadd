@@ -9,4 +9,4 @@
 
 pgrep -x transmission-da || (transmission-daemon && notify-send "Starting daemon..." && sleep 3 && pkill -RTMIN+7 i3blocks)
 
-transmission-remote -a "$@" && notify-send "Torrent added."
+transmission-remote -a "$@" && notify-send "⛵ Torrent added."
