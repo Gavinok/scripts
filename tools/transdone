@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# This script is ran by transimision when a torrent has completed
+
+notify-send " $TR_TORRENT_NSME Torrent Done."
