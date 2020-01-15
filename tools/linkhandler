@@ -37,10 +37,6 @@ case "$1" in
 	*.diff|*.md|*.txt|*.c|*.h|*.cpp|*.hs|*.py|*raw*)
 		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && setsid "$TERMINAL" -n popup -e "$EDITOR" "/tmp/$(echo "$1" | sed "s/.*\///")"   & ;;
 	*) 
-		if $INTERM;then 
-			"$TERMBROWSER" "$1" 
-		else
 			setsid "$TRUEBROWSER" "$1" >/dev/null 2>&1 &
-		fi
 		;;
 esac
