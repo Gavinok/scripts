@@ -2,7 +2,7 @@
 
 # A general backlight interface
 notifybrightness(){
-    BRIGHTNESS=$(bright)
+    # BRIGHTNESS=$(bright)
     # dunstify -t 500 -r 325 "Light: $BRIGHTNESS"
     # xsetroot -name "Light[$BRIGHTNESS]"
     statwe -b

@@ -22,29 +22,27 @@
 ######################################################################
 
 # manage power to usb ports
-echo 'auto' | sudo tee '/sys/bus/usb/devices/4-1/power/control'
 
 wifiman(){
   # Check for wifi and determines if it should start dropbox
   if ping -q -c 1 8.8.8.8; then
-    dropbox-cli start
-    WIFI=$(printf "%s " "$wifiicon" && nmcli connection show --active | sed '1d'  | awk '{print $1}')
+    dropbox-cli start 2>&1 >/dev/null | xargs notify-send
+    WIFI=$(nmcli connection show --active | sed '1d'  | awk '{print $1}')
 
     # Only kill kdeconnect when using wifi that doesn't support it
-    case $WIFI in
+    case ${WIFI} in
       Uvic )
         killall kdeconnectd ;;
       ShawOpen )
         killall kdeconnectd ;;
       *)
         # If on any other wifi start kdeconnect
-        kdeconnect-cli -l
-
-      esac
-    else
-      # If there is no wifi kill dropbox and kdeconnect 
-      killall dropbox
-      killall kdeconnectd
+        kdeconnect-cli -l;;
+    esac
+  else
+    # If there is no wifi kill dropbox and kdeconnect 
+    killall dropbox
+    killall kdeconnectd
   fi
 }
 
@@ -59,12 +57,16 @@ cpugov(){
   full=$(cat /sys/class/power_supply/BAT0/energy_full)
   now=$(cat /sys/class/power_supply/BAT0/energy_now)
   state=$(cat /sys/class/power_supply/BAT0/status)
-  [ "$state" = Charging ] && echo ondemand | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor && echo 1867000 | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq && exit
-  batt=$(echo "scale=2; 100*($now/$full)" | bc | cut -d"." -f1)
-  [ "$batt" -ge "80" ] && echo ondemand | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor && echo 1867000 | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq && exit
-  [ "$batt" -ge "35" ] && echo ondemand | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor && echo 1600000 | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq && exit
-  echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor && echo 1867000 | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq && exit
-}
+  [ "${state}" = Charging ] && echo ondemand | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor && \
+    echo 1867000 | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq && exit
+      batt=$(echo "scale=2; 100*(${now}/${full})" | bc | cut -d"." -f1)
+      [ "${batt}" -ge "80" ] && echo ondemand | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor && \
+        echo 1867000 | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq && exit
+              [ "${batt}" -ge "35" ] && echo ondemand | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor && \
+                echo 1600000 | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq && exit
+                              echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor && \
+                                echo 1867000 | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq && exit
+                              }
 
 # This version of cpugov is works on more modern computers since intel_pstate
 # is more efficient then cpufreq but is only available in 'core i' series cpus
@@ -73,17 +75,17 @@ spcpugov(){
   full=$(cat /sys/class/power_supply/BAT1/energy_full)
   now=$(cat /sys/class/power_supply/BAT1/energy_now)
   state=$(cat /sys/class/power_supply/BAT1/status)
-  [ "$state" = Charging ] && echo 100 | sudo tee /sys/devices/system/cpu/intel_pstate/max_perf_pct && exit
-  batt=$(echo "scale=2; 100*($now/$full)" | bc | cut -d"." -f1)
-  [ "$batt" -ge "80" ] && echo 80 | sudo tee /sys/devices/system/cpu/intel_pstate/max_perf_pct && exit
-  [ "$batt" -ge "35" ] && echo 50 | sudo tee /sys/devices/system/cpu/intel_pstate/max_perf_pct && exit
+  [ "${state}" = Charging ] && echo 100 | sudo tee /sys/devices/system/cpu/intel_pstate/max_perf_pct && exit
+  batt=$(echo "scale=2; 100*(${now}/${full})" | bc | cut -d"." -f1)
+  [ "${batt}" -ge "80" ] && echo 80 | sudo tee /sys/devices/system/cpu/intel_pstate/max_perf_pct && exit
+  [ "${batt}" -ge "35" ] && echo 50 | sudo tee /sys/devices/system/cpu/intel_pstate/max_perf_pct && exit
   echo 26 | sudo tee /sys/devices/system/cpu/intel_pstate/max_perf_pct && exit
 }
 
-device=$(uname -n)
-wifiman
+# device=$(uname -n)
+wifiman "$1"
 # replace MODERN with the name of the system that should use spcpugov
-[ "$device" = "MODERN" ] && spcpugov && exit
-cpugov
+# [ "$device" = "MODERN" ] && spcpugov && exit
+# cpugov
 
 # vim: set tw=78 ts=2 et sw=2 sr:

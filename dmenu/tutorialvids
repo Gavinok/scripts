@@ -31,7 +31,7 @@ Latex Macros	https://www.youtube.com/watch?v=rvgP7IMeUn8
 Latex and vim	https://www.youtube.com/watch?v=yNOkCYuPt3E
 Python		https://www.youtube.com/watch?v=rfscVS0vtbw&t=2s
 JSON	https://www.youtube.com/watch?v=wI1CWzNtE-M
-JavaScript	https://www.youtube.com/watch?v=fju9ii8YsGs&t=433s
+JavaScript	https://www.youtube.com/watch?v=W6NZfCO5SIk
 Go 7 hour Course	https://www.youtube.com/watch?v=YS4e4q9oBaU&t=2h19m0s
 Regex	https://www.youtube.com/watch?v=vcRPNhLbhoc
 Game Dev in C	https://www.youtube.com/watch?v=yFLa3ln16w0&t=556s
@@ -39,7 +39,14 @@ Red Hat Linux Course complete	https://www.youtube.com/watch?v=oflN6WZOzxw
 Full ArchLinux Install	    https://www.youtube.com/watch?v=4PBqpX0_UOc&t=1473s
 Power of Unix	https://www.youtube.com/watch?v=7uwW20odwEk
 Manjaro Architect   https://www.youtube.com/watch?v=530O4InhR3A
+POSIX pthreads	https://www.youtube.com/watch?v=ynCc-v0K-do&list=PLzCAxcRKUAgkc65DlRo0gr0B8sqlE6WZY
 "
 
-echo "$vidlist" | grep -P "^$(echo "$vidlist" | grep "https:" | sed 's/\t.*//g' | $LAUNCER -i -p "Learn about what? (ESC to cancel)" -l 20 | awk '{print $1}')\s" | sed 's/.*\t//' | xargs -r mpv
+
+if command -v ytplay >/dev/null;then
+	Player='ytplay'
+else
+	Player='mpv'
+fi
+echo "$vidlist" | grep -P "^$(echo "$vidlist" | grep "https:" | sed 's/\t.*//g' | $LAUNCER -i -p "Learn about what? (ESC to cancel)" -l 20 | awk '{print $1}')\s" | sed 's/.*\t//' | xargs -r $Player
 #vim:ft=sh

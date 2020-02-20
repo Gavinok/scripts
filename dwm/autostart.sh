@@ -17,5 +17,9 @@ redshift &
 pulsemixer --set-volume 50 &
 xbacklight -set 30 &
 autosuspend.sh  &
+sudo powertop --auto-tune
+dunst
+echo 'auto' | sudo tee '/sys/bus/usb/devices/4-1/power/control'
+psave.sh
 device=$(uname -n)
 [ "$device" = "sp4" ] && exit

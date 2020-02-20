@@ -42,7 +42,7 @@ case $func in
     Kill )
 	id=$(get_id_interactive)
     	[ -z "$id" ] && exit
-	xdotool Windowclose ${id} ;;
+	xdotool windowkill ${id} ;;
     Hide )
 	id=$(get_id_interactive)
     	[ -z "$id" ] && exit

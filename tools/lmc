@@ -9,16 +9,13 @@ getsink() {
     pacmd list-sinks | awk '/index:/{i++} /* index:/{print i; exit}'
     
 }
+
 # Get the selected sink volume
 getvolume() {
-    volume="$(pactl list sinks | grep 'Mute: yes')"
-    # [ -n "$volume" ] &&  /usr/bin/dunstify -r 798 -t 500 "🔈 MUTE" && exit
+    # volume="$(pactl list sinks | grep 'Mute: yes')"
     # [ -n "$volume" ] &&  xsetroot -name "🔈 MUTE" && exit
-    [ -n "$volume" ] &&  xsetroot -name "🔈 MUTE" && exit
 
-    volume=$(pacmd list-sinks | awk '/^\svolume:/{i++} i=='"$(getsink)"'{print $5; exit}')
-    # /usr/bin/dunstify -r 798 -t 500 "Volume: ${volume}"
-    # xsetroot -name "$(~/Programming/C_practice/statwe/statwe -a)"
+    # volume=$(pacmd list-sinks | awk '/^\svolume:/{i++} i=='"$(getsink)"'{print $5; exit}')
     statwe -a
 }
 

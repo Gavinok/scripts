@@ -10,36 +10,36 @@ localBROWSER="$BROWSER "
 [ ! -z "$*" ] && localBROWSER="$*"
 
 if [ -f ~/.config/bookmarks ]; then
-	 choice=$( (echo "🦆" && cat ~/.config/bookmarks) | $LAUNCER -l 5 -i -p "Search:") || exit 1
+	choice=$( (echo "🦆" && cat ~/.config/bookmarks) | $LAUNCER -l 5 -i -p "Search:") || exit 1
 else 
 	choice=$(echo "🦆" | $LAUNCER -i -p "Search DuckDuckGo:") || exit 1
 fi
 case "$choice" in 
-  *🦆*)
-    setsid $localBROWSER"https://duckduckgo.com" > ~/.surf/log 2>&1 &
-    exit
-    ;;
-  http*)
-    setsid $localBROWSER"$choice" > ~/.surf/log 2>&1 &
-    exit
-    ;;
-  *)
-    if [ "$TRUEBROWSER" = "surf" ] && [ -z "$*" ];then
-	TMPFILE="/tmp/ducksearch"
-	rm "$TMPFILE"
-	setsid surf -w > "$TMPFILE" &
-	wordcount=$(wc -l $TMPFILE) # check if the file exists and if it has more then one line
-	while [ ! -f "$TMPFILE" ] || [ "$wordcount" != "1 $TMPFILE" ]
-	do
-	    wordcount=$(wc -l $TMPFILE)
-	done
-	winid=$(cat "$TMPFILE" | head -n 1)
-	xprop -id "$winid" -f "_SURF_SEARCH" 8s -set  "_SURF_SEARCH" "$choice"
-	rm "$TMPFILE"
-	exit
-    else 
-	$localBROWSER"https://duckduckgo.com/?q=$choice" > ~/.surf/log 2>&1 && exit
-    fi
-    ;;
+	*🦆*)
+		setsid $localBROWSER"https://duckduckgo.com" > ~/.surf/log 2>&1 &
+		exit
+		;;
+	http*)
+		setsid $localBROWSER"$choice" > ~/.surf/log 2>&1 &
+		exit
+		;;
+	*)
+		if [ "$TRUEBROWSER" = "surf" ] && [ -z "$*" ];then
+			TMPFILE="/tmp/ducksearch"
+			rm "$TMPFILE"
+			setsid surf -w > "$TMPFILE" &
+			wordcount=$(wc -l $TMPFILE) # check if the file exists and if it has more then one line
+			while [ ! -f "$TMPFILE" ] || [ "$wordcount" != "1 $TMPFILE" ]
+			do
+				wordcount=$(wc -l $TMPFILE)
+			done
+			winid=$(cat "$TMPFILE" | head -n 1)
+			xprop -id "$winid" -f "_SURF_SEARCH" 8s -set  "_SURF_SEARCH" "$choice"
+			rm "$TMPFILE"
+			exit
+		else 
+			$localBROWSER"https://duckduckgo.com/?q=$choice" > ~/.surf/log 2>&1 && exit
+		fi
+		;;
 esac
 #vim:ft=sh

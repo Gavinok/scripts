@@ -5,18 +5,63 @@ ranger() {
 		exit
 	fi
 }
+ 
+r() {
+    # Block nesting of nnn in subshells
+    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+        echo "nnn is already running"
+        return
+    fi
 
-# export NNN_TMPFILE="/tmp/nnn"
-# r()
-# {
-#         nnn "$@" -l
-#
-#         if [ -f $NNN_TMPFILE ]; then
-#                 . $NNN_TMPFILE
-#                 rm $NNN_TMPFILE
-#         fi
-# }
+    # The default behaviour is to cd on quit (nnn checks if NNN_TMPFILE is set)
+    # To cd on quit only on ^G, remove the "export" as in:
+    #     NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+    # NOTE: NNN_TMPFILE is fixed, should not be modified
+    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
 
+    nnn "$@" -E 
+
+    if [ -f "$NNN_TMPFILE" ]; then
+            . "$NNN_TMPFILE"
+            rm -f "$NNN_TMPFILE" > /dev/null
+    fi
+}
+
+#dirsize - finds directory sizes and lists them for the current directory
+dirsize () {
+	du -shx * .[a-zA-Z0-9_]* 2> /dev/null | \
+	egrep '^ *[0-9.]*[MG]' | sort -n > /tmp/list
+	egrep '^ *[0-9.]*M' /tmp/list
+	egrep '^ *[0-9.]*G' /tmp/list
+	rm /tmp/list
+}
+
+#myip - finds your current IP if your connected to the internet
+myip () {
+	lynx -dump -hiddenlinks=ignore -nolist http://checkip.dyndns.org:8245/ | awk '{ print $4 }' | sed '/^$/d; s/^[ ]*//g; s/[ ]*$//g' 
+}
+
+#clock - A bash clock that can run in your terminal window.
+clock () {
+while true;do clear;echo "===========";date +"%r";echo "===========";sleep 1;done
+}
+
+# mkdir and cd in one command
+mcd() {
+    mkdir -p -- "$1" &&
+      cd -P -- "$1"
+}
+
+# ip address
+ipif() { 
+    if grep -P "(([1-9]\d{0,2})\.){3}(?2)" <<< "$1"; then
+	 curl ipinfo.io/"$1"
+    else
+	ipawk=($(host "$1" | awk '/address/ { print $NF }'))
+	curl ipinfo.io/${ipawk[1]}
+    fi
+    echo
+}
 # ------------FZF Keybindings
 if [[ $- == *i* ]]; then
 

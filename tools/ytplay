@@ -6,5 +6,4 @@
 
 notify-send "Playing video"
 setsid mpv --really-quiet --ytdl-format=22 "$*" >/dev/null 2>&1 ||  setsid mpv --really-quiet "$*" >/dev/null 2>&1 || notify-send "Failed to play Video"
-# setsid mpv --really-quiet --ytdl-format=22 "$*" >/dev/null 2>&1 || notify-send "Failed to play Video"
 #vim:ft=sh

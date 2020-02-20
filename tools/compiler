@@ -2,8 +2,7 @@
 
 # This script will compile or run another finishing operation on a document. I
 # have this script run via Vim.
-#
-# tex files: Compiles to pdf, including bibliography if necessary
+# # tex files: Compiles to pdf, including bibliography if necessary
 # md files: Compiles to pdf via pandoc
 # rmd files: Compiles via R Markdown
 # c files: Compiles via whatever compiler is set to cc. Usually gcc. 
@@ -70,6 +69,8 @@ compilev(){
 
 case "$file" in
 	*\.ms) refer -PS -e "$groffbib" "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
+	*\.me) refer -PS -e "$groffbib" "$file"  | groff -kejpt -me -T pdf > "$base".pdf ;;
+	*\.mm) refer -PS -e "$groffbib" "$file"  | groff -kejpt -mm -T pdf > "$base".pdf ;;
 	*\.groff) refer -PS -e "$groffbib" "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
 	*\.rmd) echo "require(rmarkdown); render('$file')" | R --vanilla && mv "$base".pdf "$dir"/pdfs;;
 	*\.tex) textype "$file" ;;
@@ -84,6 +85,7 @@ case "$file" in
 	*\.h) compilec ;;
 	*\.v) compilev ;;
 	*\.java) javac "$file" && echo "${base##*/}" | xargs java ;;
+	*\.js) node "$file" ;;
 	*\.py) python "$file" ;;
 	*\.docx|*\.doc) 
 		Ifinstalled libreoffice && lowriter --convert-to pdf "$file" && exit

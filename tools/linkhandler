@@ -28,7 +28,7 @@ case "$1" in
 	*reddit.com/r/*) #limit the video quality
 		setsid "$TERMINAL" rtv "$1" &;;
 	*png|*jpg|*jpe|*jpeg)
-		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && imv "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
+		curl -sL "$1" > "/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv "/tmp/$(echo "$1" | sed "s/.*\///")"  >/dev/null 2>&1 & ;;
 		# curl "$1" | imv - ;;
 	*pdf)
 		curl "$1" | "$READER" - >/dev/null 2>&1 & ;;

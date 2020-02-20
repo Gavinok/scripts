@@ -44,7 +44,7 @@ SEPERATOR='|'
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-ping -q -c 1 1.1.1.1 > /dev/null || notify-send "check internet connection" && exit
+ping -q -c 1 1.1.1.1 > /dev/null || "$(notify-send "check internet connection" && exit)"
 
 show_devices (){
     IFS=$','
@@ -86,7 +86,6 @@ SendKeys(){
     output=$(xsel -o)
     notify-send "$output"
     kdeconnect-cli --device "$*" -k "$output"
-
 }
 
 #used to interact with notifications if they are avalable
