@@ -71,6 +71,7 @@ case "$file" in
 	*\.ms) refer -PS -e "$groffbib" "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
 	*\.me) refer -PS -e "$groffbib" "$file"  | groff -kejpt -me -T pdf > "$base".pdf ;;
 	*\.mm) refer -PS -e "$groffbib" "$file"  | groff -kejpt -mm -T pdf > "$base".pdf ;;
+	*\.mom) refer -PS -e "$groffbib" "$file"  | groff -kejpt -mom -T pdf > "$base".pdf ;;
 	*\.groff) refer -PS -e "$groffbib" "$file"  | groff -kejpt -ms -T pdf > "$base".pdf ;;
 	*\.rmd) echo "require(rmarkdown); render('$file')" | R --vanilla && mv "$base".pdf "$dir"/pdfs;;
 	*\.tex) textype "$file" ;;
