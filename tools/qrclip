@@ -1,0 +1,19 @@
+#!/bin/dash
+# quick and dirty way to copy your clipboard into a QR code
+
+tmpfile="/tmp/QR.png"
+clip=$(xclip -selection "primary" -o)
+
+qrurl() 
+{ 
+	echo "$1"
+	curl -sS "http://chart.apis.google.com/chart?chs=200x200&cht=qr&chld=H|0&chl=$1" -o "${tmpfile}"
+}
+
+if command -v qrencode >/dev/null ;then
+	echo "${clip}" | qrencode -s 10 -o "${tmpfile}"
+else
+	qrurl "${clip}"
+fi
+
+xdg-open "${tmpfile}"
