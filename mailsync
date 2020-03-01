@@ -26,7 +26,7 @@ fi
 # Check account for new mail. Notify if there is new content.
 syncandnotify() {
     acc="$(echo "$account" | sed "s/.*\///")"
-    mbsync "$acc" >/dev/null
+    mbsync "$acc"
     new=$(find "$HOME/.local/share/mail/$acc/INBOX/new/" "$HOME/.local/share/mail/$acc/Inbox/new/" "$HOME/.local/share/mail/$acc/inbox/new/" -type f -newer "$HOME/.config/mutt/.mailsynclastrun" 2> /dev/null)
     newcount=$(echo "$new" | sed '/^\s*$/d' | wc -l)
     if [ "$newcount" -gt "0" ]; then
@@ -53,14 +53,14 @@ echo " 🔃" > /tmp/imapsyncicon_"$USER"
 # Parallelize multiple accounts
 for account in $accounts
 do
-    syncandnotify 2>/dev/null &
+    syncandnotify &
 done
 
 wait
 rm -f /tmp/imapsyncicon_"$USER"
 ( pkill -RTMIN+12 "${STATUSBAR:?}" >/dev/null 2>&1 ) 2>/dev/null
 
-notmuch new &>/dev/null | notify-send
+notmuch new 2>/dev/null
 
 #Create a touch file that indicates the time of the last run of mailsync
 touch "$HOME/.config/mutt/.mailsynclastrun"
