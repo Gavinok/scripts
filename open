@@ -14,7 +14,11 @@ OPENER="xdg-open"
 # use either file extensions and/or mime types here. Below uses an editor for
 # text files and a file opener for the rest.
 case $(file --mime-type "$*" -b) in
+  # follow symlinks
+  inode/symlink) $0 "$(readlink "$*")" && exit;;
+  # open sc files with sc
   application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) sc-im "$*";;
+  # open text files with sc
   text/*) ${EDITOR} "$*";;
   *) for f in "$@"; do setsid "${OPENER}" "${f}" > /dev/null 2> /dev/null & done;;
 esac
