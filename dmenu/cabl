@@ -5,8 +5,15 @@
 LAUNCER="dmenu"
 
 while getopts ":c" o; do case "${o}" in
-	c) prim="$(xclip -o)" ;;
-	*) printf "Invalid option: -%s\\n" "${o}" && exit ;;
+	c) 
+		prim="$(xclip -o)" 
+		if [ -z "${prim}" ]; then
+			notify-send "no selection in clipboard" 
+			exit 1
+		fi
+		;;
+	*) 
+		printf "Invalid option: -%s\\n" "${o}" && exit ;;
 esac done
 
 [ -z "${prim}" ] && prim="$*"
