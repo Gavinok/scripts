@@ -41,7 +41,7 @@ read() { pico2wave -w=/tmp/test.wav "$*"; aplay /tmp/test.wav -D 'pulse'; rm /tm
 # check if single word
 if [ "$(echo "${prim}" | wc -w)" -eq 1 ]; then
 	# check if manpage exists
-	man -w "${prim}" >/dev/null && manual() { man -Tpdf "${prim}" | zathura - ;}
+	man -w "${prim}" >/dev/null && manual() { man -Tpdf "${prim}" | ${READER} - ;}
 fi
 
 # prompt="$(echo "${prim}" | awk 'NR==1{print $1, $2, $3}')"
