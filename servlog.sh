@@ -5,10 +5,10 @@
 # @file        : servlog.sh
 # @created     : Fri 10 Jan 2020 12:32:16 PM MST
 #
-# @description : 
+# @description : used for lsp debugging 
 ######################################################################
 
- tee in.log | texlab | tee out.log
+tee in.log | "$@" | tee out.log
 
 # vim: set tw=78 ts=2 et sw=2 sr:
 
