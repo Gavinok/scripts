@@ -7,9 +7,9 @@ keyword=$2
 cd "$dir" || exit
 
 ask(){
-
 	curl -s cheat.sh/"$*" | less -R
 }
+
 [ -z "$keyword" ] && keyword=":learn"
 case "$file" in
 	*tex)   ask latex/"$keyword";;
