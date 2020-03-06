@@ -49,8 +49,6 @@ answer=$(echo "$1" | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
 # Path to menu application
 if [ ! -n "${menu+1}" ]; then
     if [[ -n $(command -v rofi) ]]; then
-        menu="$(command -v rofi)"
-    elif [[ -n $(command -v dmenu) ]]; then
         menu=$(command -v dmenu)
     else
         echo >&2 "Rofi or dmenu not found"
