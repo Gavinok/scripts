@@ -46,17 +46,6 @@ myip() {
 	lynx -dump -hiddenlinks=ignore -nolist http://checkip.dyndns.org:8245/ | awk '{ print $4 }' | sed '/^$/d; s/^[ ]*//g; s/[ ]*$//g'
 }
 
-#clock - A bash clock that can run in your terminal window.
-clock() {
-	while true; do
-		clear
-		echo "==========="
-		date +"%r"
-		echo "==========="
-		sleep 1
-	done
-}
-
 # mkdir and cd in one command
 mcd() {
 	mkdir -p -- "$1" &&
