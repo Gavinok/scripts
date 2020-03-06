@@ -3,6 +3,8 @@
 # This script move the selected window to the bottom left of the screen.
 current=$(xdotool getwindowfocus)
 
+type dwmc >/dev/null 2>&1 && dwmc setfloating
+
 # The window will take up no more than a third of
 # the width or height of the screen.
 newwidth=$(($(xdotool getdisplaygeometry | awk '{print $2}') / 2))
