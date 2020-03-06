@@ -1,7 +1,5 @@
 #!/bin/dash
 
-# A general audio interface for LARBS.
-
 # utilises dunstify ant amixer to notify the 
 # user of the volume as well as chang it
 # Get the index of the selected sink:
