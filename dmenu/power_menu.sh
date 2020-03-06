@@ -9,15 +9,15 @@ res=$(printf "shutdown\\nreboot\\nhibernate\\nkill X" | ${LAUNCER} -i -p 'Power 
 # check for pacman and yay
 [ -f /var/lib/pacman/db.lck ] && notify-send "ERROR /var/lib/pacman/db.lck exists\n pacman in use" && exit 2
 # check for pip
-pgrep -x pip   && "ERROR pip in use"   && exit 3
+pgrep -x pip && notify-send "ERROR pip in use"   && exit 3
 # check for yarn
-pgrep -x yarn  && "ERROR yarn in use"  && exit 4
+pgrep -x yarn  > /dev/null && notify-send "ERROR yarn in use"  && exit 4
 # check for pip
-pgrep -x npm   && "ERROR yarn in use"  && exit 5
+pgrep -x npm   > /dev/null && notify-send "ERROR yarn in use"  && exit 5
 # check for brew
-pgrep -x brew  && "ERROR brew in use"  && exit 5
+pgrep -x brew  > /dev/null && notify-send "ERROR brew in use"  && exit 5
 # check for cargo
-pgrep -x cargo && "ERROR cargo in use" && exit 6
+pgrep -x cargo > /dev/null && notify-send "ERROR cargo in use" && exit 6
 
 case "${res}" in
 	"reboot" )
