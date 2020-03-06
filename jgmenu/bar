@@ -3,6 +3,32 @@ get_id_interactive() {
 	xid=$(xwininfo | grep 'Window id: ')
 	echo "${xid}" | cut -d':' -f3 | cut -d' ' -f2
 }
+
+spawn(){
+		prog=$(printf "Term\\nBrowser\\nVol\\n" | jgmenu --no-spawn --simple)
+		[ -z "${prog}" ] && exit
+		case "${prog}" in
+			Term )
+				setsid "${TERMINAL}" & ;;
+			Browser )
+				setsid "${BROWSER}" "https://duckduckgo.com" & ;;
+			Vol )
+				setsid st -e pulsemixer & ;;
+			* )
+				notify-send "error prog not found"
+				exit ;;
+		esac
+}
+
+killclient(){
+		id=$(get_id_interactive)
+		[ -z "${id}" ] && exit
+		# properly kill the window using dwm
+		type dwmc >/dev/null 2>&1 && xdotool focus "${id}" && dwmc killclient && exit
+		# fall back to xdotool to kill window
+		xdotool windowkill "${id}"
+	}
+
 opts=$(printf "Resize\\nSpawn\\nKill\\nHide\\n")
 tmpfile="/tmp/hidden"
 HIDDENWINDOWS=$(wc -l "${tmpfile}" | cut -d " " -f1)
@@ -28,24 +54,11 @@ case ${func} in
 		xdotool windowmove "${id}" "${xlocal}" "${ylocal}"
 		exit ;;
 	Spawn ) 
-		prog=$(printf "Term\\nBrowser\\nVol\\n" | jgmenu --no-spawn --simple)
-		[ -z "${prog}" ] && exit
-		case "${prog}" in
-			Term )
-				setsid "${TERMINAL}" & ;;
-			Browser )
-				setsid "${BROWSER}" "https://duckduckgo.com" & ;;
-			Vol )
-				setsid st -e pulsemixer & ;;
-			* )
-				notify-send "error prog not found"
-				exit ;;
-		esac
+		spawn
 		;;
 	Kill )
-		id=$(get_id_interactive)
-		[ -z "${id}" ] && exit
-		xdotool windowkill "${id}" ;;
+		killclient
+		;;
 	Hide )
 		id=$(get_id_interactive)
 		[ -z "${id}" ] && exit
@@ -57,7 +70,7 @@ case ${func} in
 			WINDOWID=$(sed 's/@@@/ /g' "${tmpfile}" | awk '{print $NF}' )
 		else
 			WINDOWID=$(sed 's/@@@/ /g' "${tmpfile}" | jgmenu --no-spawn --simple | awk '{print $NF}' )
-			echo ${WINDOWID}
+			echo "${WINDOWID}"
 		fi
 
 		if [ -n "${WINDOWID}" ]; then
