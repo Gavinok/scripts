@@ -19,7 +19,7 @@ tsstart () {
   [ -f "${lockfile}" ] && return
 
   touch "${lockfile}" &&  sh < "${pipefile}" 
-  rm "${lockfile}"
+  rm -f "${lockfile}"
 
   notify-send " Tasks Completed"
 }

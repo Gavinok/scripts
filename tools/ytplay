@@ -5,5 +5,10 @@
 # is bloat
 
 notify-send "Playing video"
-setsid mpv --really-quiet --ytdl-format=22 "$*" >/dev/null 2>&1 ||  setsid mpv --really-quiet "$*" >/dev/null 2>&1 || notify-send "Failed to play Video"
+# try to run video in lower format
+setsid mpv --really-quiet --ytdl-format=22 "$*" >/dev/null 2>&1 && exit
+# fallback to default format
+setsid mpv --really-quiet "$*" >/dev/null 2>&1 && 
+# video cannot me loaded
+notify-send "Failed to play Video"
 #vim:ft=sh
