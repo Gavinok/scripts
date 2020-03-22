@@ -12,7 +12,7 @@ fi
 unclutter &
 clipmenud &
 kdeconnect-cli &
-dropbox-cli start &
+# dropbox-cli start &
 redshift &
 pulsemixer --set-volume 50 &
 xbacklight -set 30 &

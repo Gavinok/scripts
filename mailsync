@@ -7,21 +7,26 @@ export DBUS_SESSION_BUS_ADDRESS
 export DISPLAY=:0.0
 [ -d "$HOME/.local/share/password-store" ] && export PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
 
-# Run only if user logged in (prevent cron errors)
-pgrep -u "${USER:=$LOGNAME}" >/dev/null || { echo "$USER not logged in; sync will not run."; exit ;}
-# Run only if not already running in other instance
-pgrep -x mbsync >/dev/null && { echo "mbsync is already running." ; exit ;}
-
-# Checks for internet connection and set notification script.
-ping -q -c 1 1.1.1.1 > /dev/null || { echo "No internet connection detected."; exit ;}
-command -v notify-send >/dev/null || echo "Note that \`libnotify\` or \`libnotify-send\` should be installed for pop-up mail notifications with this script."
-
 # Settings are different for MacOS (Darwin) systems.
 if [ "$(uname)" = "Darwin" ]; then
-    notify() { osascript -e "display notification \"$2 in $1\" with title \"You've got Mail\" subtitle \"Account: $account\"" && sleep 2 ;}
+    notify() { osascript -e ": $*" && sleep 2 ;}
+    mailnotify() { osascript -e "display notification \"$2 in $1\" with title \"You've got Mail\" subtitle \"Account: $account\"" && sleep 2 ;}
+elif [ -n  "$DISPLAY" ]; then
+    notify() { notify-send --app-name="mutt-wizard" "" "$*" ;}
+    mailnotify() { notify-send --app-name="mutt-wizard" "" "📬 $2 new mail(s) in \`$1\` account." ;}
 else
-    notify() { notify-send --app-name="mutt-wizard" "mutt-wizard" "📬 $2 new mail(s) in \`$1\` account." ;}
+	notify() { echo " $*" ;}
+	mailnotify() { echo "" "📬 $2 new mail(s) in \`$1\` account." ;}
 fi
+
+# Run only if user logged in (prevent cron errors)
+pgrep -u "${USER:=$LOGNAME}" >/dev/null || { notify "$USER not logged in; sync will not run."; exit ;}
+# Run only if not already running in other instance
+pgrep -x mbsync >/dev/null && { notify "mbsync is already running." ; exit ;}
+
+# Checks for internet connection and set notification script.
+ping -q -c 1 1.1.1.1 > /dev/null || { notify "No internet connection detected."; exit ;}
+command -v notify-send >/dev/null || notify "Note that \`libnotify\` or \`libnotify-send\` should be installed for pop-up mail notifications with this script."
 
 # Check account for new mail. Notify if there is new content.
 syncandnotify() {
@@ -30,12 +35,12 @@ syncandnotify() {
     new=$(find "$HOME/.local/share/mail/$acc/INBOX/new/" "$HOME/.local/share/mail/$acc/Inbox/new/" "$HOME/.local/share/mail/$acc/inbox/new/" -type f -newer "$HOME/.config/mutt/.mailsynclastrun" 2> /dev/null)
     newcount=$(echo "$new" | sed '/^\s*$/d' | wc -l)
     if [ "$newcount" -gt "0" ]; then
-        notify "$acc" "$newcount" &
+        mailnotify "$acc" "$newcount" &
         for file in $new; do
             # Extract subject and sender from mail.
             from=$(awk '/^From: / && ++n ==1,/^\<.*\>:/' "$file" | perl -CS -MEncode -ne 'print decode("MIME-Header", $_)' | awk '{ $1=""; if (NF>=3)$NF=""; print $0 }' | sed 's/^[[:blank:]]*[\"'\''\<]*//;s/[\"'\''\>]*[[:blank:]]*$//')
             subject=$(awk '/^Subject: / && ++n == 1,/^\<.*\>: / && ++i == 2' "$file" | head -n-1 | perl -CS -MEncode -ne 'print decode("MIME-Header", $_)' | sed 's/^Subject: //' | sed 's/^{[[:blank:]]*[\"'\''\<]*//;s/[\"'\''\>]*[[:blank:]]*$//' | tr -d '\n')
-            notify-send --app-name="mutt-wizard" "📧$from:" "$subject" &
+            notify " $from:" "$subject" &
         done
     fi
 }
@@ -64,3 +69,4 @@ notmuch new 2>/dev/null
 
 #Create a touch file that indicates the time of the last run of mailsync
 touch "$HOME/.config/mutt/.mailsynclastrun"
+notify "Mail Syncronized"

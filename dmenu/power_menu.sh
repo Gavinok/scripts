@@ -7,17 +7,23 @@ res=$(printf "shutdown\\nreboot\\nhibernate\\nkill X" | ${LAUNCER} -i -p 'Power 
 
 # ensure that no packages are being installed
 # check for pacman and yay
-[ -f /var/lib/pacman/db.lck ] && notify-send "ERROR /var/lib/pacman/db.lck exists\n pacman in use" && exit 2
-# check for pip
-pgrep -x pip && notify-send "ERROR pip in use"   && exit 3
-# check for yarn
-pgrep -x yarn  > /dev/null && notify-send "ERROR yarn in use"  && exit 4
-# check for pip
-pgrep -x npm   > /dev/null && notify-send "ERROR yarn in use"  && exit 5
-# check for brew
-pgrep -x brew  > /dev/null && notify-send "ERROR brew in use"  && exit 5
-# check for cargo
-pgrep -x cargo > /dev/null && notify-send "ERROR cargo in use" && exit 6
+[ -f /var/lib/pacman/db.lck ] && notify-send --urgency=critical "❕[ERROR] /var/lib/pacman/db.lck exists pacman in use" && exit 2
+
+progcheck () {
+	pgrep -x "${1}" > /dev/null && notify-send --urgency=critical "❕[ERROR] $1 in use" && exit 1
+}
+
+# check for running programs
+progcheck pip
+progcheck pacman
+progcheck yay
+progcheck apt
+progcheck yarn
+progcheck npm
+progcheck brew
+progcheck cargo
+progcheck rclone
+progcheck rsync
 
 case "${res}" in
 	"reboot" )
