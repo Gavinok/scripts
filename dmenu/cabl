@@ -45,7 +45,7 @@ if [ "$(echo "${prim}" | wc -w)" -eq 1 ]; then
 fi
 
 # prompt="$(echo "${prim}" | awk 'NR==1{print $1, $2, $3}')"
-prompt="Plumb \"$(echo "${prim}" | cut -c -30)\" to?"
+prompt="Plumb \"$(echo "${prim}" | awk ' NR==1' | cut -c -18)\" to?"
 
 func="$(declare -F | awk '{print $3}' | ${LAUNCER} -p "${prompt}" -i -l 15)"
 
