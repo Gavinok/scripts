@@ -26,3 +26,5 @@ sudo powertop --auto-tune &
 psave.sh &
 device=$(uname -n)
 [ "$device" = "sp4" ] && exit
+sleep 10
+covid19.sh &
