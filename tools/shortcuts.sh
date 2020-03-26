@@ -3,7 +3,7 @@
 # Credit yo the original creator:
 # Luck Smith
 # https://github.com/LukeSmithxyz/voidrice
-shell_shortcuts="$HOME/.shshortcuts"
+shell_shortcuts="$HOME/.config/shortcutrc"
 ranger_shortcuts="$HOME/.config/ranger/shortcuts.conf"
 qute_shortcuts="/dev/null"
 fish_shortcuts="$HOME/.config/fish/shortcuts.fish"
