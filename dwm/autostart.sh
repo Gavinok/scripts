@@ -11,7 +11,7 @@ if [ "$scheme" = "dark" ];then
 fi
 unclutter &
 clipmenud &
-kdeconnect-cli &
+# kdeconnect-cli &
 # dropbox-cli start &
 redshift &
 pulsemixer --set-volume 50 &
