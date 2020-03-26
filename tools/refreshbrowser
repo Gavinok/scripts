@@ -1,0 +1,42 @@
+#!/usr/bin/env sh
+
+######################################################################
+# @author      : Gavin Jaeger-Freeborn (gavinfreeborn@gmail.com)
+# @file        : test.sh
+# @created     : Wed 25 Mar 2020 05:49:29 PM
+#
+# @description : simple xdotool script used to reload browsers
+######################################################################
+
+browserclass='google-chrome'
+
+#===  FUNCTION  ======================================================
+#         NAME: moveto
+#  DESCRIPTION: move to the center of the specified window id
+#=====================================================================
+moveto() {
+  geom=$(xdotool getwindowgeometry "${1}" )
+  local=$(echo "${geom}" | awk NR==2 | cut -d: -f 2 | cut -d\( -f 1)
+  dimentions=$(echo "${geom}" | awk NR==3 | cut -d: -f 2 | cut -d\( -f 1 | cut -d, -f1)
+  x=$(echo "${local}" | cut -d, -f1); 
+  y=$(echo "${local}" | cut -d, -f2);
+  w=$(echo "${dimentions}" | cut -dx -f1)
+  h=$(echo "${dimentions}" | cut -dx -f2)
+
+  xdotool mousemove $((x + w/2)) $((y + h/2))
+}
+
+# Save the current window
+cwid=$(xdotool getwindowfocus)
+# Find the browser window
+twid=$(xdotool search --onlyvisible --class "${browserclass}")
+[ -z "${twid}" ] && notify-send 'failed to determine browser window' && exit
+[ -z "${cwid}" ] && notify-send 'failed to determine current window' && exit
+
+moveto "${twid}"
+
+xdotool key F5
+
+moveto "${cwid}"
+
+# vim: set tw=78 ts=2 et sw=2 sr:
