@@ -9,13 +9,10 @@
 #                every hour
 ######################################################################
 
-# while true; do
-  stats=$(curl -s https://corona.lmao.ninja/countries/canada)
-  deaths=$(echo "${stats}" | jq '.deaths')
-  cases=$(echo "${stats}" | jq '.cases')
-  deathrate='🤒 '$(echo "(${deaths}" /  "${cases}) * 100" | bc -l | cut -c -3)'% death rate in Canada from COVID-19'
-  notify-send "${deathrate}"
-  # sleep "1h"
-# done
+stats=$(curl -s https://corona.lmao.ninja/countries/canada)
+deaths=$(echo "${stats}" | jq '.deaths')
+cases=$(echo "${stats}" | jq '.cases')
+deathrate='🤒 '$(echo "(${deaths}" /  "${cases}) * 100" | bc -l | cut -c -3)'% death rate in Canada from COVID-19'
+notify-send "${deathrate}"
 
 # vim: set tw=78 ts=2 et sw=2 sr:
