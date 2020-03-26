@@ -37,7 +37,7 @@ case "$1" in
 		notify-send "playing $1" && mpv --really-quiet "$1"
 		;;
 	*reddit.com/r/*) #limit the video quality
-		${TERMINAL} rtv "$1" ;;
+		${TERMINAL} tuir "$1" ;;
 	*png | *jpg | *jpe | *jpeg)
 		curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
 		;;
