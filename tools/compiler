@@ -42,6 +42,8 @@ textype() {
 
 pandoccmd(){
 	pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" --pdf-engine=xelatex -o "$2".pdf 
+
+	# pandoc "${1}" -f markdown+tex_math_dollars+pipe_tables -t ms -o ${2}.pdf
 }
 
 pandocorg(){
