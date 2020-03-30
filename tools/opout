@@ -16,7 +16,7 @@ texopen(){
 }
 case "$1" in
 	*.tex) texopen "$1" ;;
-	*.md|*.mmd|*.rmd|*.ms|*.groff|*.me|*.mom|*.docx|*.doc|*.org) setsid "$READER" "$basename".pdf >/dev/null 2>&1 & ;;
+	*.md|*.mmd|*.rmd|*.ms|*.groff|*.me|*.mom|*.jot|*.docx|*.doc|*.org) setsid "$READER" "$basename".pdf >/dev/null 2>&1 & ;;
 	*.pdf|*.mp3|*.mp4) setsid "$READER" "$basename".pdf >/dev/null 2>&1 & ;;
 	*.html) 
 	    setsid "$BROWSER"  "$basename".html >/dev/null 2>&1 & ;;
