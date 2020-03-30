@@ -4,16 +4,16 @@
 
 # TODO: add subtitile support <07-03-20 Gavin Jaeger-Freeborn>
 
-# pgrep -x node && killall node
+pkill node
 # pgrep will only find *node* and wont find *castnow*
-ps aux | grep castnow | grep -v grep && killall node
+# ps aux |  castnow | grep -v grep && killall node
 
 case "$1" in
 	*mkv|*avi)
 		setsid castnow ./"$1" --quiet --tomp4 >/dev/null 2>&1 & ;;
 	*youtube.com*|*youtu.be*) #limit the video quality
-		setsid youtube-dl --format=18 -o - "$1" 2>/dev/null | setsid castnow --quiet - >/dev/null 2>&1 & ;;
+		setsid youtube-dl -o - "$1" 2>/dev/null | setsid castnow --quiet - >/dev/null 2>&1 & ;;
 	*) 
 		setsid castnow ./"$1" --quiet >/dev/null 2>&1 & ;;
 esac
-notify-send "casting video"
+notify-send " casting video"
