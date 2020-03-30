@@ -5,14 +5,23 @@
 # @file        : covid19.sh
 # @created     : Tue 24 Mar 2020 09:29:35 PM
 #
-# @description : Simple script to get the death percentage for COVID-19
+# @description : Simple script to get the death percentage for COVED-19
 #                every hour
 ######################################################################
 
-stats=$(curl -s https://corona.lmao.ninja/countries/canada)
+country=Canada
+
+stats=$(curl -s "https://corona-stats.online/${country}/?source=2&format=json" |
+  jq '.data[]')
 deaths=$(echo "${stats}" | jq '.deaths')
 cases=$(echo "${stats}" | jq '.cases')
-deathrate='🤒 '$(echo "(${deaths}" /  "${cases}) * 100" | bc -l | cut -c -3)'% death rate in Canada from COVID-19'
+deathrate=''$(echo "(${deaths}" /  "${cases}) * 100" | bc -l | cut -c -3)'%'
+deathrate=$(printf "
+😷 Cases:  %s 
+💀 Deaths: %s 
+
+%s 💀/😷 in Canada
+form COVID-19" "${cases}" "${deaths}" "${deathrate}" )
 notify-send "${deathrate}"
 
 # vim: set tw=78 ts=2 et sw=2 sr:
