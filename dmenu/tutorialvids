@@ -1,6 +1,7 @@
 #!/bin/dash
 
-LAUNCER="dmenu"
+LAUNCER="dmenu -i -l 20 -p "
+# LAUNCER="fzf --prompt"
 
 vidlist="
 Bash script		https://www.youtube.com/watch?v=YOpeXETS2z0&t=192s
@@ -51,10 +52,6 @@ Awk	https://www.youtube.com/watch?v=_q6Uj4X_knc
 "
 
 
-if command -v ytplay >/dev/null;then
-	Player='ytplay'
-else
-	Player='mpv'
-fi
-echo "${vidlist}" | grep -P "^$(echo "${vidlist}" | grep "https:" | sed 's/\t.*//g' | ${LAUNCER} -i -p "Learn about what? (ESC to cancel)" -l 20 | awk '{print $1}')\s" | sed 's/.*\t//' | xargs -r ${Player}
+Player='xdg-open'
+echo "${vidlist}" | grep -P "^$(echo "${vidlist}" | grep "https:" | sed 's/\t.*//g' | ${LAUNCER} "Learn about what? (ESC to cancel)" | awk '{print $1}')\s" | sed 's/.*\t//' | xargs -r ${Player}
 #vim:ft=sh
