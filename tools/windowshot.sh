@@ -25,7 +25,7 @@ mkdir -p "${SCREENSHOTDIR}"
 while getopts ":cw" o; 
 do 
 	case "${o}" in
-		c) import "${SCREENSHOTDIR}/$(print_date).png" ;;
+		c) import "${SCREENSHOTDIR}/$(print_date).png" && notify-send "screenshot name ${SCREENSHOTDIR}/$(print_date).png" ;;
 		w) import -window "$(xdotool getactivewindow)" "${SCREENSHOTDIR}/$(print_date).png" ;;
 		\?) printf "Invalid option: -%s\\n" "${o}" && exit ;;
 		*)
