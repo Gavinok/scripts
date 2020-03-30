@@ -22,7 +22,7 @@ PID=$(xprop -id "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}'
 PID=$(echo "$(pstree -lpA "${PID}" | tail -n 1)" | awk -F'---' '{print $NF}' | sed -re 's/[^0-9]//g')
 cd "$(readlink /proc/"${PID}"/cwd)" || exit
 [ -f "${prim}" ] && xdg-open "${prim}" && exit
-# [ -d "$prim" ] && "$TERMINAL" "$prim" && exit
+[ -d "$prim" ] && cd "$prim" && exec "$TERMINAL"
 
 search() { 
 	"${BROWSER}" "https://duckduckgo.com/?q=$*"
