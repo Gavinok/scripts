@@ -98,6 +98,7 @@ case "$file" in
 	*\.go) go run "$file" ;;
 	*\.vim*) vint "$file" ;;
 	*\.sent) setsid sent "$file" 2>/dev/null & ;;
+	*\.html) refreshbrowser;;
 	*) chmod +x "$file" && sed 1q "$file" | grep "^#!/" | sed "s/^#!//" | xargs -r -I % "$file" ;;
 esac
 # vim:ft=sh
