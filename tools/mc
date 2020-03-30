@@ -20,16 +20,10 @@ getvolume() {
 [ -z "$2" ] && num="2" || num="$2"
 
 case "$1" in
-	# u*) pulsemixer --change-volume +"$num" ;;#Speakers and headphones SLOW
-	# u*) pactl set-sink-volume 0 +"$num"% ;pactl set-sink-volume 2 +"$num"% ;;#Speakers and headphones
-	# u*) pactl set-sink-volume 0 +"$num"% ;; #Speakers
-	# u*) pactl set-sink-volume 2 +"$num"% ;;#headphones 
-	u*) pactl set-sink-volume @DEFAULT_SINK@  +"$num"% ; getvolume;;#change the default audio sync
-	# d*) pulsemixer --change-volume -"$num" ;;#Speakers and headphones SLOW
-	# d*) pactl set-sink-volume 0 -"$num"% ;pactl set-sink-volume 2 -"$num"% ;;#Speakers and headphones
-	# d*) pactl set-sink-volume 0 -"$num"% ;;#Speakers
-	# d*) pactl set-sink-volume 2 -"$num"% ;;#headphones
-	d*) pactl set-sink-volume @DEFAULT_SINK@  -"$num"% ; getvolume;;#change the default audio sync
+	u*) pactl set-sink-volume @DEFAULT_SINK@  +"${num}"% ; getvolume;;#change the default audio sync
+	# u*) amixer sset Master "$num"%+ ;getvolume;;
+	d*) pactl set-sink-volume @DEFAULT_SINK@  -"${num}"% ; getvolume;;#change the default audio sync
+	# d*) { amixer sset Master "$num"%- ;getvolume;;
 	m*) pulsemixer --toggle-mute ; getvolume;;
 	truemute) pulsemixer --mute ;;
 	play) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Play;;
