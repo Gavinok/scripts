@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 ######################################################################
 # @author      : Gavin Jaeger-Freeborn (gavinfreeborn@gmail.com)
@@ -16,9 +16,8 @@ stats=$(curl -s "https://corona-stats.online/${country}/?source=2&format=json" |
 deaths=$(echo "${stats}" | jq '.deaths')
 cases=$(echo "${stats}" | jq '.cases')
 deathrate=''$(echo "(${deaths}" /  "${cases}) * 100" | bc -l | cut -c -3)'%'
-deathrate=$(printf "
-😷 Cases:  %s 
-💀 Deaths: %s 
+deathrate=$(printf "😷 Cases:  %s
+💀 Deaths: %s
 
 %s 💀/😷 in Canada
 form COVID-19" "${cases}" "${deaths}" "${deathrate}" )

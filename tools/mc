@@ -23,7 +23,7 @@ case "$1" in
 	u*) pactl set-sink-volume @DEFAULT_SINK@  +"${num}"% ; getvolume;;#change the default audio sync
 	# u*) amixer sset Master "$num"%+ ;getvolume;;
 	d*) pactl set-sink-volume @DEFAULT_SINK@  -"${num}"% ; getvolume;;#change the default audio sync
-	# d*) { amixer sset Master "$num"%- ;getvolume;;
+	# d*) amixer sset Master "$num"%- ;getvolume;;
 	m*) pulsemixer --toggle-mute ; getvolume;;
 	truemute) pulsemixer --mute ;;
 	play) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Play;;

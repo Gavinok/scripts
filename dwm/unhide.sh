@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 tmpfile="/tmp/hidden"
 HIDDENWINDOWS=$(wc -l $tmpfile | cut -d " " -f1)

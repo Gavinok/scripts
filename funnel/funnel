@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 ######################################################################
 # @author      : Gavin Jaeger-Freeborn (gavinfreeborn@gmail.com)
@@ -18,7 +18,10 @@ tsstart () {
   # quit if lockfile already exists
   [ -f "${lockfile}" ] && return
 
-  touch "${lockfile}" &&  sh < "${pipefile}" 
+  touch "${lockfile}" 
+  while true; do
+    sh < "${pipefile}" 
+  done
   rm -f "${lockfile}"
 
   notify-send " Tasks Completed"

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 clip() {
 	echo "${1}"

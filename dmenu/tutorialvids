@@ -1,11 +1,11 @@
 #!/bin/dash
 
 LAUNCER="dmenu -i -l 20 -p "
-# LAUNCER="fzf --prompt"
+[ -z "${DISPLAY}" ] && LAUNCER="fzf --prompt"
 
 vidlist="
 Bash script		https://www.youtube.com/watch?v=YOpeXETS2z0&t=192s
-Bash script full	 https://www.youtube.com/watch?v=oxuRxtrO2Ag	
+Bash script full	 https://www.youtube.com/watch?v=oxuRxtrO2Ag
 dmenu script	https://www.youtube.com/watch?v=R9m723tAurA
 status bar	https://www.youtube.com/watch?v=gKumet6b-WY
 mutt		https://www.youtube.com/watch?v=2U3vRbF7v5A
@@ -51,7 +51,6 @@ Arch Linux Maintenance	https://www.youtube.com/watch?v=3BnHHP7Fmo0
 Awk	https://www.youtube.com/watch?v=_q6Uj4X_knc
 "
 
-
 Player='xdg-open'
-echo "${vidlist}" | grep -P "^$(echo "${vidlist}" | grep "https:" | sed 's/\t.*//g' | ${LAUNCER} "Learn about what? (ESC to cancel)" | awk '{print $1}')\s" | sed 's/.*\t//' | xargs -r ${Player}
+echo "${vidlist}" | grep -P "^$(echo "${vidlist}" | grep "https:" | sed 's/\t.*//g' | ${LAUNCER} "Learn about what? (ESC to cancel)" | awk '{print $1}')\s" | sed 's/.*\t//' | xargs -r mpv
 #vim:ft=sh

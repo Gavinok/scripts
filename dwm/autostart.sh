@@ -23,8 +23,8 @@ echo 'auto' | sudo tee '/sys/bus/usb/devices/4-1/power/control' &
 # disable Ethernet
 sudo ip link set enp0s25 down &
 sudo powertop --auto-tune &
-psave.sh &
 device=$(uname -n)
 [ "$device" = "sp4" ] && exit
 sleep 10
+psave.sh &
 covid19.sh &

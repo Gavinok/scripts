@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 ######################################################################
 # @author      : Gavin Jaeger-Freeborn (gavinfreeborn@gmail.com)

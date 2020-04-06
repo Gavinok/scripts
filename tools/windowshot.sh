@@ -1,4 +1,4 @@
-#! /usr/bin/env sh
+#!/bin/sh
 #===============================================================================
 #         FILE: windowshot.sh
 #
@@ -14,28 +14,34 @@
 # highlighting an area to copy. scrotcucks on suicidewatch right now.
 
 
-SCREENSHOTDIR="${HOME}/Pictures/ScreenShots"
-
 print_date(){
 	date '+%F_%T'
 }
 
+SCREENSHOTDIR="${HOME}/Pictures/ScreenShots"
+SCREENSHOTNAME="${SCREENSHOTDIR}/$(print_date).png"
+
+note() {
+	notify-send "screenshot name ${SCREENSHOTNAME}"
+}
+
 mkdir -p "${SCREENSHOTDIR}"
+
 
 while getopts ":cw" o; 
 do 
 	case "${o}" in
-		c) import "${SCREENSHOTDIR}/$(print_date).png" && notify-send "screenshot name ${SCREENSHOTDIR}/$(print_date).png" ;;
-		w) import -window "$(xdotool getactivewindow)" "${SCREENSHOTDIR}/$(print_date).png" ;;
+		c) import "${SCREENSHOTNAME}" &&  note && exit;;
+		w) import -window "$(xdotool getactivewindow)" "${SCREENSHOTNAME}" && note && exit;;
 		\?) printf "Invalid option: -%s\\n" "${o}" && exit ;;
 		*)
 	esac
 done
 
 case "$(printf "a selected area\\ncurrent window\\nfull screen" | dmenu -l 6 -i -p "Screenshot which area?")" in
-	"a selected area") import "${SCREENSHOTDIR}/$(print_date).png" ;;
-	"current window") import -window "$(xdotool getactivewindow)" "${SCREENSHOTDIR}/$(print_date).png" ;;
-	"full screen") import -window root "${SCREENSHOTDIR}/$(print_date).png" ;;
+	"a selected area") import "${SCREENSHOTNAME}";;
+	"current window") import -window "$(xdotool getactivewindow)" "${SCREENSHOTNAME}";;
+	"full screen") import -window root "${SCREENSHOTNAME}";;
 	*) exit;;
 esac
-notify-send screanshot taken
+note

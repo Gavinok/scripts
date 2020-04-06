@@ -20,7 +20,7 @@ case "$choice" in
 		exit
 		;;
 	http*)
-		setsid $localBROWSER"$choice" &
+		setsid $localBROWSER"$(echo $choice | awk '{print $1}')" &
 		exit
 		;;
 	*)

@@ -24,9 +24,9 @@
 # manage power to usb ports
 
 wifiman(){
-  # Check for wifi and determines if it should start dropbox
+  # Check for wifi and determines if it should start syncthing
   if ping -q -c 1 8.8.8.8; then
-    dropbox-cli start 2>&1 >/dev/null | xargs notify-send
+    syncthing -no-browser 2>&1 >/dev/null | xargs notify-send
     WIFI=$(nmcli connection show --active | sed '1d'  | awk '{print $1}')
 
     # Only kill kdeconnect when using wifi that doesn't support it
@@ -37,12 +37,13 @@ wifiman(){
         killall kdeconnectd ;;
       *)
         # If on any other wifi start kdeconnect
-        kdeconnect-cli -l;;
+        # Since kdeconnect isnt working comment it out
+        # kdeconnect-cli -l;;
     esac
   else
-    # If there is no wifi kill dropbox and kdeconnect 
-    killall dropbox
-    killall kdeconnectd
+    # If there is no wifi kill syncthing and kdeconnect 
+    killall syncthing
+    # killall kdeconnectd
   fi
 }
 

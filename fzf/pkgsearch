@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Searches repos and installs multiple packages. 
 # Currently works with Debian, Ubuntu and Arch, and 
 # experimental support for Fedora and Void.
