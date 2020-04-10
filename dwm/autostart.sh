@@ -22,4 +22,4 @@ device=$(uname -n)
 [ "$device" = "sp4" ] && exit
 sleep 10
 psave.sh &
-# covid19.sh &
+covid19.sh &
