@@ -12,7 +12,7 @@ clipmenud &
 pulsemixer --set-volume 50 &
 xbacklight -set 30 &
 autosuspend.sh  &
-sudo rkill block bluetooth &
+# sudo rkill block bluetooth &
 dunst &
 # echo 'auto' | sudo tee '/sys/bus/usb/devices/4-1/power/control' &
 # disable Ethernet
