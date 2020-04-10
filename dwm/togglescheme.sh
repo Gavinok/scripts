@@ -9,7 +9,7 @@ if [ "$scheme" = "dark" ];then
 	export VIMTHEME='acme'
 else
 	scheme="dark"
-	export BACKGROUND='#101010'
+	export BACKGROUND='#000000'
 	export FOREGROUND='#b7bec9'
 	export ALT='#151515'
 	export VIMTHEME='spaceway'
