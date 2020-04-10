@@ -87,6 +87,6 @@ spcpugov(){
 wifiman "$1"
 # replace MODERN with the name of the system that should use spcpugov
 # [ "$device" = "MODERN" ] && spcpugov && exit
-cpugov
+# cpugov
 
 # vim: set tw=78 ts=2 et sw=2 sr:
