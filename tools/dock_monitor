@@ -12,9 +12,9 @@ else
     xrandr --output "$intern" --primary --auto --output "$extern" --right-of "$intern" --auto
 fi
 device=$(uname -n)
-[ $device = "sp4" ] && xrandr --dpi 220
-[ ! -z $initial ] && exit
+[ "$device" = "sp4" ] && xrandr --dpi 220
+[ -n "$initial" ] && exit
 setbg &
-remaps &
-# xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen stylus" MapToOutput LVDS1
+remaps 2> /dev/null &
+xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen stylus" MapToOutput LVDS1 2> /dev/null
 # vim:ft=sh
