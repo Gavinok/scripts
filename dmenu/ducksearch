@@ -7,7 +7,7 @@
 LAUNCER="dmenu"
 
 localBROWSER="$BROWSER "
-[ ! -z "$*" ] && localBROWSER="$*"
+[ -n "$*" ] && localBROWSER="$*"
 
 if [ -f ~/.config/bookmarks ]; then
 	choice=$( (echo "🦆" && cat ~/.config/bookmarks) | $LAUNCER -l 5 -i -p "Search:") || exit 1
@@ -24,7 +24,8 @@ case "$choice" in
 		exit
 		;;
 	*)
-		setsid $localBROWSER"https://duckduckgo.com/?q=$choice" &1 && exit
+		setsid $localBROWSER"https://duckduckgo.com/?q=$choice" &1
+		exit
 		;;
 esac
 #vim:ft=sh
