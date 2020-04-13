@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 # Lists and removes packages, optionally sorts by size.
 # depends on pacman
 # credit to original creator:
