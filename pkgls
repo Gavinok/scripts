@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+
+######################################################################
+# @author      : Gavin Jaeger-Freeborn (gavinfreeborn@gmail.com)
+# @file        : test.sh
+# @created     : Sat 11 Apr 2020 10:39:14 AM
+#
+# @description : sort by package size and print the selected package
+######################################################################
+
+function func_ls
+{
+        #set +e
+        #set +E
+
+        # list all packages on local system sorted by their installed size using "expac" and "sort".
+        # expac -H M -Q "%12m - \e[1m%n\e[0m %v"  displays size, name, and version number
+        # "sort -n -r"  sorts list by number (with which every element begins).
+        # ATTENTION: (i do not know why but) using quotes (" symbols) around $( comm ...) breaks expac
+        expac -H M -Q "%12m - \e[1m%n\e[0m" $( pacman -Qq | sort) | sort -n -r | fzf -i --multi --exact --no-sort --ansi --reverse --bind=right:half-page-down,left:half-page-up --margin=4%,1%,1%,1% --info=inline --no-unicode --preview '
+            echo -e "\e[1mInstalled package info: \e[0m"
+            pacman -Qi {4} --color always
+            ' "$( if (( $(tput cols) >= 125 )); then echo "--preview-window=right:60%:wrap"; else echo "--preview-window=bottom:60%:wrap"; fi )" --header="Navigate with PageUp / PageDown. ESC to quit." --prompt='Enter string to filter list > '  | awk -F ' - ' '{print $2}'
+        # alternative command to "expac" and "sort": package-query -Qe --rsort 2 -f "%2 - \e[1m%n \e[0m%v" | numfmt --to=iec
+
+        #set -e
+        #set -E
+}
+func_ls
+
+# vim: set tw=78 ts=2 et sw=2 sr:
+
