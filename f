@@ -23,7 +23,7 @@ f() {
 		fzedit.sh ~/Programming/
 		;;
 	w)
-		fzedit.sh ~/Dropbox/DropsyncFiles/vimwiki/
+		fzedit.sh ~/.local/Dropbox/DropsyncFiles/vimwiki/
 		;;
 	s)
 		scriptedit.sh
