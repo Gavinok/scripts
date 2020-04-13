@@ -25,4 +25,5 @@ else
     xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen eraser" Rotate none
     echo "0" >/tmp/rotate
 fi
+dock_monitor
 #vim:ft=sh
