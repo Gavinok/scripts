@@ -9,7 +9,7 @@ scheme=$(cat ~/.config/colorschemes/current)
 unclutter &
 clipmenud &
 # redshift &
-pulsemixer --set-volume 50 &
+# pulsemixer --set-volume 50 &
 xbacklight -set 30 &
 autosuspend.sh  &
 # sudo rkill block bluetooth &
@@ -21,5 +21,5 @@ dunst &
 device=$(uname -n)
 [ "$device" = "sp4" ] && exit
 sleep 10
-psave.sh &
-covid19.sh &
+# psave.sh &
+# covid19.sh &
