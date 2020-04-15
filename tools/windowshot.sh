@@ -13,8 +13,7 @@
 # choose the kind of screenshot to take, including copying the image or even
 # highlighting an area to copy. scrotcucks on suicidewatch right now.
 
-
-print_date(){
+print_date() {
 	date '+%F_%T'
 }
 
@@ -27,21 +26,19 @@ note() {
 
 mkdir -p "${SCREENSHOTDIR}"
 
-
-while getopts ":cw" o; 
-do 
+while getopts ":cw" o; do
 	case "${o}" in
-		c) import "${SCREENSHOTNAME}" &&  note && exit;;
-		w) import -window "$(xdotool getactivewindow)" "${SCREENSHOTNAME}" && note && exit;;
-		\?) printf "Invalid option: -%s\\n" "${o}" && exit ;;
-		*)
+	c) import "${SCREENSHOTNAME}" && note && exit ;;
+	w) import -window "$(xdotool getactivewindow)" "${SCREENSHOTNAME}" && note && exit ;;
+	\?) printf 'Invalid option: -%s\n' "${o}" && exit ;;
+	*) ;;
 	esac
 done
 
-case "$(printf "a selected area\\ncurrent window\\nfull screen" | dmenu -l 6 -i -p "Screenshot which area?")" in
-	"a selected area") import "${SCREENSHOTNAME}";;
-	"current window") import -window "$(xdotool getactivewindow)" "${SCREENSHOTNAME}";;
-	"full screen") import -window root "${SCREENSHOTNAME}";;
-	*) exit;;
+case "$(printf 'a selected area\ncurrent window\nfull screen' | dmenu -l 6 -i -p "Screenshot which area?")" in
+"a selected area") import "${SCREENSHOTNAME}" ;;
+"current window") import -window "$(xdotool getactivewindow)" "${SCREENSHOTNAME}" ;;
+"full screen") import -window root "${SCREENSHOTNAME}" ;;
+*) exit ;;
 esac
 note

@@ -4,84 +4,89 @@ get_id_interactive() {
 	echo "${xid}" | cut -d':' -f3 | cut -d' ' -f2
 }
 
-spawn(){
-		prog=$(printf "Term\\nBrowser\\nVol\\n" | jgmenu --no-spawn --simple)
-		[ -z "${prog}" ] && exit
-		case "${prog}" in
-			Term )
-				setsid "${TERMINAL}" & ;;
-			Browser )
-				setsid "${BROWSER}" "https://duckduckgo.com" & ;;
-			Vol )
-				setsid st -e pulsemixer & ;;
-			* )
-				notify-send "error prog not found"
-				exit ;;
-		esac
+spawn() {
+	prog=$(printf 'Term\nBrowser\nVol\n' | jgmenu --no-spawn --simple)
+	[ -z "${prog}" ] && exit
+	case "${prog}" in
+	Term)
+		setsid "${TERMINAL}" &
+		;;
+	Browser)
+		setsid "${BROWSER}" "https://duckduckgo.com" &
+		;;
+	Vol)
+		setsid st -e pulsemixer &
+		;;
+	*)
+		notify-send "error prog not found"
+		exit
+		;;
+	esac
 }
 
-killclient(){
-		id=$(get_id_interactive)
-		[ -z "${id}" ] && exit
-		# properly kill the window using dwm
-		type dwmc >/dev/null 2>&1 && xdotool focus "${id}" && dwmc killclient && exit
-		# fall back to xdotool to kill window
-		xdotool windowkill "${id}"
-	}
+killclient() {
+	id=$(get_id_interactive)
+	[ -z "${id}" ] && exit
+	# properly kill the window using dwm
+	type dwmc >/dev/null 2>&1 && xdotool focus "${id}" && dwmc killclient && exit
+	# fall back to xdotool to kill window
+	xdotool windowkill "${id}"
+}
 
-opts=$(printf "Resize\\nSpawn\\nKill\\nHide\\n")
+opts=$(printf 'Resize\nSpawn\nKill\nHide\n')
 tmpfile="/tmp/hidden"
 HIDDENWINDOWS=$(wc -l "${tmpfile}" | cut -d " " -f1)
-[ "${HIDDENWINDOWS}" -ge "1" ] && opts=$(printf "%s\\nShow\\n" "${opts}")
+[ "${HIDDENWINDOWS}" -ge "1" ] && opts=$(printf '%s\nShow\n' "${opts}")
 
-func=$(printf "%s\\n" "${opts}" | jgmenu --no-spawn --simple )
+func=$(printf '%s\n' "${opts}" | jgmenu --no-spawn --simple)
 [ -z "${func}" ] && exit
 case ${func} in
-	Resize ) 
-		id=$(get_id_interactive)
-		[ -z "${id}" ] && exit
-		geo=$(slop -n)
-		[ -z "${geo}" ] && exit
-		xsize=$(echo "${geo}" | cut -dx -f1)
-		echo "${xsize}"
-		ysize=$(echo "${geo}" | cut -dx -f2 | cut -d+ -f1)
-		echo "${ysize}"
-		xlocal=$(echo "${geo}" | cut -d+ -f2)
-		echo "${xlocal}"
-		ylocal=$(echo "${geo}" | cut -d+ -f3)
-		echo "${ylocal}"
-		xdotool windowsize "${id}" "${xsize}" "${ysize}"
-		xdotool windowmove "${id}" "${xlocal}" "${ylocal}"
-		exit ;;
-	Spawn ) 
-		spawn
-		;;
-	Kill )
-		killclient
-		;;
-	Hide )
-		id=$(get_id_interactive)
-		[ -z "${id}" ] && exit
-		hide.sh
-		;;
-	Show )
-		# implementation of unhide.sh using jgmenu
-		if [ "${HIDDENWINDOWS}" -le "1" ];then
-			WINDOWID=$(sed 's/@@@/ /g' "${tmpfile}" | awk '{print $NF}' )
-		else
-			WINDOWID=$(sed 's/@@@/ /g' "${tmpfile}" | jgmenu --no-spawn --simple | awk '{print $NF}' )
-			echo "${WINDOWID}"
-		fi
+Resize)
+	id=$(get_id_interactive)
+	[ -z "${id}" ] && exit
+	geo=$(slop -n)
+	[ -z "${geo}" ] && exit
+	xsize=$(echo "${geo}" | cut -dx -f1)
+	echo "${xsize}"
+	ysize=$(echo "${geo}" | cut -dx -f2 | cut -d+ -f1)
+	echo "${ysize}"
+	xlocal=$(echo "${geo}" | cut -d+ -f2)
+	echo "${xlocal}"
+	ylocal=$(echo "${geo}" | cut -d+ -f3)
+	echo "${ylocal}"
+	xdotool windowsize "${id}" "${xsize}" "${ysize}"
+	xdotool windowmove "${id}" "${xlocal}" "${ylocal}"
+	exit
+	;;
+Spawn)
+	spawn
+	;;
+Kill)
+	killclient
+	;;
+Hide)
+	id=$(get_id_interactive)
+	[ -z "${id}" ] && exit
+	hide.sh
+	;;
+Show)
+	# implementation of unhide.sh using jgmenu
+	if [ "${HIDDENWINDOWS}" -le "1" ]; then
+		WINDOWID=$(sed 's/@@@/ /g' "${tmpfile}" | awk '{print $NF}')
+	else
+		WINDOWID=$(sed 's/@@@/ /g' "${tmpfile}" | jgmenu --no-spawn --simple | awk '{print $NF}')
+		echo "${WINDOWID}"
+	fi
 
-		if [ -n "${WINDOWID}" ]; then
-			xdotool windowmap "${WINDOWID}"
-			sed -i '/'${WINDOWID}'/d' "${tmpfile}"
-			export WINDOWID=
-		else
-			notify-send "No hidden windows"
-		fi
-		;;
-	*) echo fail ;;
+	if [ -n "${WINDOWID}" ]; then
+		xdotool windowmap "${WINDOWID}"
+		sed -i '/'${WINDOWID}'/d' "${tmpfile}"
+		export WINDOWID=
+	else
+		notify-send "No hidden windows"
+	fi
+	;;
+*) echo fail ;;
 esac
 exit
 #vim:ft=sh

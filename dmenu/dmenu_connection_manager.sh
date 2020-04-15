@@ -7,9 +7,9 @@
 WIFI=$(printf "%s %s" "${wifiicon}" "$(cat /sys/class/net/w*/operstate | sed "s/down/❎/;s/up/🌐/")")
 
 if [ -n "${WIFI}" ]; then
-	choice=$(printf "Bluetooth\\nNetwork" | dmenu -i -p "${WIFI}"  ) 
-else 
-	choice=$(printf "Bluetooth\\nNetwork" | dmenu -i -p 'Connect:'  ) 
+	choice=$(printf 'Bluetooth\nNetwork' | dmenu -i -p "${WIFI}")
+else
+	choice=$(printf 'Bluetooth\nNetwork' | dmenu -i -p 'Connect:')
 fi
 
 if [ "${choice}" = "Bluetooth" ]; then
@@ -19,7 +19,7 @@ if [ "${choice}" = "Bluetooth" ]; then
 	blueman-applet &
 	# [ -z "$(pgrep blueman)" ] && blueman-applet &
 
-	choice2=$(printf "Connect\\nNew\\nManage\\nDisable" | dmenu -i -p 'Bluetooth:'  ) 
+	choice2=$(printf 'Connect\nNew\nManage\nDisable' | dmenu -i -p 'Bluetooth:')
 	[ "${choice2}" = 'Connect' ] && btmenu
 	[ "${choice2}" = 'New' ] && blueman-assistant
 	[ "${choice2}" = 'Manage' ] && blueman-manager

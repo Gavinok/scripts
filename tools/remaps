@@ -18,4 +18,3 @@ xmodmap -e "keysym 135 = Super_L"
 # killall xcape ; xcape -t 250  -e 'Caps_Lock=Escape'
 # killall xcape ; xcape -t 250  -e 'Control_L=Escape'
 # xcape -t 330 -e "Hyper_L=space"
-

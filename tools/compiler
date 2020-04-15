@@ -5,7 +5,7 @@
 # # tex files: Compiles to pdf, including bibliography if necessary
 # md files: Compiles to pdf via pandoc
 # rmd files: Compiles via R Markdown
-# c files: Compiles via whatever compiler is set to cc. Usually gcc. 
+# c files: Compiles via whatever compiler is set to cc. Usually gcc.
 #	   Use make if Makefile exists.
 # py files: runs via python command
 # go files: compiles and runs with "go run"
@@ -18,11 +18,11 @@ base="${file%.*}"
 
 cd "$dir" || exit
 
-Ifinstalled(){
-	command -v "$1" >/dev/null || { notify-send "📦 <b>$1</b> must be installed for this function." && exit 1 ;}
+Ifinstalled() {
+	command -v "$1" >/dev/null || { notify-send "📦 <b>$1</b> must be installed for this function." && exit 1; }
 }
 
-textype() { 
+textype() {
 	command="pdflatex"
 	errorfmt="-file-line-error"
 	# ( sed 5q "$file" | grep -i -q 'xelatex' ) && command="xelatex"
@@ -33,65 +33,67 @@ textype() {
 		$command $errorfmt --output-directory="$secdir" "${secdir}/Notes.tex"
 		exit
 	fi
-	$command $errorfmt --output-directory="$dir" "$base" 
+	$command $errorfmt --output-directory="$dir" "$base"
 	grep -i addbibresource "$file" >/dev/null &&
 		biber --input-directory "$dir" "$base" &&
 		$command $errorfmt --output-directory="$dir" "$base" &&
 		$command $errorfmt --output-directory="$dir" "$base"
-	}
+}
 
-pandoccmd(){
-	pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" --pdf-engine=xelatex -o "$2".pdf 
+pandoccmd() {
+	pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" --pdf-engine=xelatex -o "$2".pdf
 
 	# pandoc "${1}" -f markdown+tex_math_dollars+pipe_tables -t ms -o ${2}.pdf
 }
 
-pandocorg(){
-	pandoc -V geometry:margin=3cm -f org-implicit_figures "$1" -o "$2".pdf 
+pandocorg() {
+	pandoc -V geometry:margin=3cm -f org-implicit_figures "$1" -o "$2".pdf
 }
 
-compilec(){
+compilec() {
 	if [ -f "${dir}/Makefile" ]; then
 		make
 	else
-		cc "$file" -o "$base" && "$base" 
+		cc "$file" -o "$base" && "$base"
 	fi
 }
-
 
 # If there is a global $REFBIB variable/file for `refer`, use it.
 [ -f "$REFBIB" ] && groffbib="-p $REFBIB"
 
 case "$file" in
-	*\.ms) refer -PS -e "$groffbib" "$file"  | groff -Ukejpt -ms -T pdf > "$base".pdf ;;
-	*\.me) refer -PS -e "$groffbib" "$file"  | groff -Ukejpt -me -T pdf > "$base".pdf ;;
-	*\.mm) refer -PS -e "$groffbib" "$file"  | groff -Ukejpt -mm -T pdf > "$base".pdf ;;
-	*\.mom) refer -PS -e "$groffbib" "$file"  | groff -Ukejpt -mom -T pdf > "$base".pdf ;;
-	*\.groff) refer -PS -e "$groffbib" "$file"  | groff -Ukejpt -ms -T pdf > "$base".pdf ;;
-	*\.jot) refer -PS -e "$groffbib" "$file" | jot "$file"  | groff -Ukejpt -ms -T pdf > "$base".pdf ;;
-	*\.rmd) echo "require(rmarkdown); render('$file')" | R --vanilla && mv "$base".pdf "$dir"/pdfs;;
-	*\.tex) textype "$file" ;;
-	*\.org)  
-		Ifinstalled pandoc && pandocorg "$file" "$base" && exit ;;
-	*\.md)  
-		Ifinstalled pandoc && pandoccmd "$file" "$base" && exit ;;
-	*\.mmd)  
-		Ifinstalled mmdc && mmdc -i "$file" -o "$base".pdf && exit ;;
-	*config.h) make && sudo make install ;;
-	*\.c) compilec ;;
-	*\.h) compilec ;;
-	*\.java) javac "$file" && echo "${base##*/}" | xargs java ;;
-	*\.js) node "$file" ;;
-	*\.py) python "$file" ;;
-	*\.tcl) tclsh "$file" ;;
-	*\.docx|*\.doc) 
-		Ifinstalled libreoffice && lowriter --convert-to pdf "$file" && exit
-		Ifinstalled pandoc && pandoccmd "$file" "$base" && exit
-		;;
-	*\.go) go run "$file" ;;
-	*\.vim*) vint "$file" ;;
-	*\.sent) setsid sent "$file" 2>/dev/null & ;;
-	*\.html) refreshbrowser;;
-	*) chmod +x "$file" && sed 1q "$file" | grep "^#!/" | sed "s/^#!//" | xargs -r -I % "$file" ;;
+*\.ms) refer -PS -e "$groffbib" "$file" | groff -Ukejpt -ms -T pdf >"$base".pdf ;;
+*\.me) refer -PS -e "$groffbib" "$file" | groff -Ukejpt -me -T pdf >"$base".pdf ;;
+*\.mm) refer -PS -e "$groffbib" "$file" | groff -Ukejpt -mm -T pdf >"$base".pdf ;;
+*\.mom) refer -PS -e "$groffbib" "$file" | groff -Ukejpt -mom -T pdf >"$base".pdf ;;
+*\.groff) refer -PS -e "$groffbib" "$file" | groff -Ukejpt -ms -T pdf >"$base".pdf ;;
+*\.jot) refer -PS -e "$groffbib" "$file" | jot "$file" | groff -Ukejpt -ms -T pdf >"$base".pdf ;;
+*\.rmd) echo "require(rmarkdown); render('$file')" | R --vanilla && mv "$base".pdf "$dir"/pdfs ;;
+*\.tex) textype "$file" ;;
+*\.org)
+	Ifinstalled pandoc && pandocorg "$file" "$base" && exit
+	;;
+*\.md)
+	Ifinstalled pandoc && pandoccmd "$file" "$base" && exit
+	;;
+*\.mmd)
+	Ifinstalled mmdc && mmdc -i "$file" -o "$base".pdf && exit
+	;;
+*config.h) make && sudo make install ;;
+*\.c) compilec ;;
+*\.h) compilec ;;
+*\.java) javac "$file" && echo "${base##*/}" | xargs java ;;
+*\.js) node "$file" ;;
+*\.py) python "$file" ;;
+*\.tcl) tclsh "$file" ;;
+*\.docx | *\.doc)
+	Ifinstalled libreoffice && lowriter --convert-to pdf "$file" && exit
+	Ifinstalled pandoc && pandoccmd "$file" "$base" && exit
+	;;
+*\.go) go run "$file" ;;
+*\.vim*) vint "$file" ;;
+*\.sent) setsid sent "$file" 2>/dev/null &;;
+*\.html) refreshbrowser ;;
+*) chmod +x "$file" && sed 1q "$file" | grep "^#!/" | sed "s/^#!//" | xargs -r -I % "$file" ;;
 esac
 # vim:ft=sh

@@ -1,8 +1,8 @@
 # make plan9 walk available on all systems
 walk() {
-	if type walk >/dev/null 2>&1; then
+	if command -v walk >/dev/null 2>&1; then
 		/usr/local/bin/walk
-	elif type fd >/dev/null 2>&1; then
+	elif command -v fd >/dev/null 2>&1; then
 		fd -c never .
 	else
 		find .
@@ -35,7 +35,7 @@ r() {
 
 #dirsize - finds directory sizes and lists them for the current directory
 dirsize() {
-	du -shx -- * .[a-zA-Z0-9_]* 2>/dev/null |grep -E '^ *[0-9.]*[MG]' | sort -n >/tmp/list
+	du -shx -- * .[a-zA-Z0-9_]* 2>/dev/null | grep -E '^ *[0-9.]*[MG]' | sort -n >/tmp/list
 	grep -E '^ *[0-9.]*M' /tmp/list
 	grep -E '^ *[0-9.]*G' /tmp/list
 	rm /tmp/list
@@ -53,42 +53,18 @@ mcd() {
 }
 
 # define a word
-define() {
-    curl -s dict://dict.org/d:$1 | grep -v '^[0-9]'
-}
+define() { curl -s "dict://dict.org/d:$1" | grep -v '^[0-9]'; }
 
-man() {
-	/bin/man "$*" || awman "$*"
-}
+man() { /bin/man "$*" || awman "$*"; }
 
-# List Packages by Size
-# this function provides core functionality of "List Packages by Size". the help page provides additional explanations.
-pasz ()
-{
-        #set +e
-        #set +E
-
-        # list all packages on local system sorted by their installed size using "expac" and "sort".
-        # expac -H M -Q "%12m - \e[1m%n\e[0m %v"  displays size, name, and version number
-        # "sort -n -r"  sorts list by number (with which every element begins).
-        # ATTENTION: (i do not know why but) using quotes (" symbols) around $( comm ...) breaks expac
-        expac -H M -Q "%12m - \e[1m%n\e[0m" $( pacman -Qq | sort) | sort -n -r | fzf -i --multi --exact --no-sort --ansi --reverse --bind=right:half-page-down,left:half-page-up --margin=4%,1%,1%,1% --info=inline --no-unicode --preview '
-            echo -e "\e[1mInstalled package info: \e[0m"
-            pacman -Qi {4} --color always
-            ' "$( if (( $(tput cols) >= 125 )); then echo "--preview-window=right:60%:wrap"; else echo "--preview-window=bottom:60%:wrap"; fi )" --header="Navigate with PageUp / PageDown. ESC to quit." --prompt='Enter string to filter list > ' > /tmp/pacui-ls
-        # alternative command to "expac" and "sort": package-query -Qe --rsort 2 -f "%2 - \e[1m%n \e[0m%v" | numfmt --to=iec
-
-        #set -e
-        #set -E
-}
 # Create a shell function as a wrapper
-viminfo () {
-    ${EDITOR} -R -M -c "Info $1 $2" +only
-}
+viminfo() { ${EDITOR} -R -M -c "Info $1 $2" +only; }
 # Alias info to our new function
 alias info=viminfo
 
-notegrep () {
-	${EDITOR} -c "NGrep $*"
-}
-# vim:ft=sh
+notegrep() { ${EDITOR} -c "NGrep $*"; }
+
+cpuspeed() { cpupower frequency-info -fm | grep -oP '(?<=frequency: )([^ ]+ [^ ]+)'; }
+
+powernow() { echo "scale=5;$(cat /sys/class/power_supply/BAT0/power_now)/1000000" | bc -l; }
+#vim:ft=sh

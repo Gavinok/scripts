@@ -9,11 +9,13 @@ pkill node
 # ps aux |  castnow | grep -v grep && killall node
 
 case "$1" in
-	*mkv|*avi)
-		setsid castnow ./"$1" --quiet --tomp4 >/dev/null 2>&1 & ;;
-	*youtube.com*|*youtu.be*) #limit the video quality
-		setsid youtube-dl -o - "$1" 2>/dev/null | setsid castnow --quiet - >/dev/null 2>&1 & ;;
-	*) 
-		setsid castnow ./"$1" --quiet >/dev/null 2>&1 & ;;
+*mkv | *avi)
+	setsid castnow ./"$1" --quiet --tomp4 >/dev/null 2>&1 &
+	;;
+*youtube.com* | *youtu.be*) #limit the video quality
+	setsid youtube-dl -o - "$1" 2>/dev/null | setsid castnow --quiet - >/dev/null 2>&1 &;;
+*)
+	setsid castnow ./"$1" --quiet >/dev/null 2>&1 &
+	;;
 esac
 notify-send " casting video"

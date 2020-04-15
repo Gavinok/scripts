@@ -27,31 +27,31 @@ notify-send "$1"
 }
 
 case "$1" in
-	*mkv | *webm | *mp4 | *gif | *hooktube.com* | *v.redd.it* | *view_video*)
-		mpv --really-quiet "$1" >/dev/null 2>&1
-		notify-send "Playing Video"
-		;;
-	*youtube.com/watch* | *youtube.com/playlist*) #limit the video quality
-		ytplay "$1" ;;
-	*youtu.be*)
-		notify-send "playing $1" && mpv --really-quiet "$1"
-		;;
-	*reddit.com/r/*) #limit the video quality
-		${TERMINAL} tuir "$1" ;;
-	*png | *jpg | *jpe | *jpeg)
-		curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
-		;;
-		# curl "$1" | imv - ;;
-	*pdf)
-		curl "$1" | "${READER}" - >/dev/null 2>&1 &
-		;;
-	*mp3 | *m4a | *ogg | *flac | *opus | *mp3?source | *soundcloud*)
-		"${TERMINAL}" -n "mp3" -e mpv --video=no "$1" >/dev/null 2>&1
-		;;
-	*.diff | *.md | *.txt | *.c | *.h | *.cpp | *.hs | *.py | *raw*)
-		curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && "${TERMINAL}" -e "${EDITOR}" "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
-		;;
-	*)
-		"${TRUEBROWSER}" "$1" >/dev/null 2>&1
-		;;
+*mkv | *webm | *mp4 | *gif | *hooktube.com* | *v.redd.it* | *view_video*)
+	mpv --really-quiet "$1" >/dev/null 2>&1
+	notify-send "Playing Video"
+	;;
+*youtube.com/watch* | *youtube.com/playlist*) #limit the video quality
+	ytplay "$1" ;;
+*youtu.be*)
+	notify-send "playing $1" && mpv --really-quiet "$1"
+	;;
+*reddit.com/r/*) #limit the video quality
+	${TERMINAL} tuir "$1" ;;
+*png | *jpg | *jpe | *jpeg)
+	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
+	;;
+	# curl "$1" | imv - ;;
+*pdf)
+	curl "$1" | "${READER}" - >/dev/null 2>&1 &
+	;;
+*mp3 | *m4a | *ogg | *flac | *opus | *mp3?source | *soundcloud*)
+	"${TERMINAL}" -n "mp3" -e mpv --video=no "$1" >/dev/null 2>&1
+	;;
+*.diff | *.md | *.txt | *.c | *.h | *.cpp | *.hs | *.py | *raw*)
+	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && "${TERMINAL}" -e "${EDITOR}" "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
+	;;
+*)
+	"${TRUEBROWSER}" "$1" >/dev/null 2>&1
+	;;
 esac

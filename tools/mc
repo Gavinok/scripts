@@ -1,42 +1,52 @@
 #!/bin/dash
 
-# utilises dunstify ant amixer to notify the 
+# utilises dunstify ant amixer to notify the
 # user of the volume as well as chang it
 # Get the index of the selected sink:
 getsink() {
-    pacmd list-sinks | awk '/index:/{i++} /* index:/{print i; exit}'
-    
+	pacmd list-sinks | awk '/index:/{i++} /* index:/{print i; exit}'
+
 }
 
 # Get the selected sink volume
 getvolume() {
-    # volume="$(pactl list sinks | grep 'Mute: yes')"
-    # [ -n "$volume" ] &&  xsetroot -name "🔈 MUTE" && exit
+	# volume="$(pactl list sinks | grep 'Mute: yes')"
+	# [ -n "$volume" ] &&  xsetroot -name "🔈 MUTE" && exit
 
-    # volume=$(pacmd list-sinks | awk '/^\svolume:/{i++} i=='"$(getsink)"'{print $5; exit}')
-    statwe -a
+	# volume=$(pacmd list-sinks | awk '/^\svolume:/{i++} i=='"$(getsink)"'{print $5; exit}')
+	statwe -a
 }
 
 [ -z "$2" ] && num="2" || num="$2"
 
 case "$1" in
-	u*) pactl set-sink-volume @DEFAULT_SINK@  +"${num}"% ; getvolume;;#change the default audio sync
-	# u*) amixer sset Master "$num"%+ ;getvolume;;
-	d*) pactl set-sink-volume @DEFAULT_SINK@  -"${num}"% ; getvolume;;#change the default audio sync
-	# d*) amixer sset Master "$num"%- ;getvolume;;
-	m*) pulsemixer --toggle-mute ; getvolume;;
-	truemute) pulsemixer --mute ;;
-	play) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Play;;
-	n*) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next ;;
-	prev) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous ;;
-	t*) 
-            [ -z "$(pgrep spotify)" ] && spotify
-            dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause ;;
-	p*) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop ;;
-	f*) mpc seek +"$num" ;;
-	b*) mpc seek -"$num" ;;
-	r*) mpc seek 0\% ;;
-	*) cat << EOF
+# u*) pactl set-sink-volume @DEFAULT_SINK@  +"${num}"% ; getvolume;;#change the default audio sync
+u*)
+	amixer sset Master "$num"%+
+	getvolume
+	;;
+# d*) pactl set-sink-volume @DEFAULT_SINK@  -"${num}"% ; getvolume;;#change the default audio sync
+d*)
+	amixer sset Master "$num"%-
+	getvolume
+	;;
+m*)
+	pulsemixer --toggle-mute
+	getvolume
+	;;
+truemute) pulsemixer --mute ;;
+play) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Play ;;
+n*) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next ;;
+prev) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous ;;
+t*)
+	[ -z "$(pgrep spotify)" ] && spotify
+	dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+	;;
+p*) dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop ;;
+f*) mpc seek +"$num" ;;
+b*) mpc seek -"$num" ;;
+r*) mpc seek 0\% ;;
+*) cat <<EOF ;;
 lmc: cli music interface for mpd and pulse for those with divine intellect too
 grand to remember the mpc/pamixer commands.
 

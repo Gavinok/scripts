@@ -11,21 +11,22 @@ localBROWSER="$BROWSER "
 
 if [ -f ~/.config/bookmarks ]; then
 	choice=$( (echo "🦆" && cat ~/.config/bookmarks) | $LAUNCER -l 5 -i -p "Search:") || exit 1
-else 
+else
 	choice=$(echo "🦆" | $LAUNCER -i -p "Search DuckDuckGo:") || exit 1
 fi
-case "$choice" in 
-	*🦆*)
-		setsid $localBROWSER"https://duckduckgo.com" &
-		exit
-		;;
-	http*)
-		setsid $localBROWSER"$(echo $choice | awk '{print $1}')" &
-		exit
-		;;
-	*)
-		setsid $localBROWSER"https://duckduckgo.com/?q=$choice" &1
-		exit
-		;;
+case "$choice" in
+*🦆*)
+	setsid $localBROWSER"https://duckduckgo.com" &
+	exit
+	;;
+http*)
+	setsid $localBROWSER"$(echo $choice | awk '{print $1}')" &
+	exit
+	;;
+*)
+	setsid $localBROWSER"https://duckduckgo.com/?q=$choice" &
+	1
+	exit
+	;;
 esac
 #vim:ft=sh

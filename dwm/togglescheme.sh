@@ -97,10 +97,10 @@ else
 fi
 
 #dwm
-cp ~/.config/colorschemes/dwm/$scheme.h ~/.config/colorschemes/dwm/current.h
-cd ~/.config/dwm/ || exit
-sudo make clean install
-killall dwm
+# cp ~/.config/colorschemes/dwm/$scheme.h ~/.config/colorschemes/dwm/current.h
+# cd ~/.config/dwm/ || exit
+# sudo make clean install
+# killall dwm
 
 #dmenu
 cp ~/.config/colorschemes/dmenu/$scheme.h ~/.config/colorschemes/dmenu/current.h
@@ -108,9 +108,9 @@ cd ~/.config/dmenu/ || exit
 sudo make clean install
 
 #surf
-cp ~/.config/colorschemes/surf/$scheme.h ~/.config/colorschemes/surf/current.h
-cd ~/.config/surf/ || exit
-sudo make clean install
+# cp ~/.config/colorschemes/surf/$scheme.h ~/.config/colorschemes/surf/current.h
+# cd ~/.config/surf/ || exit
+# sudo make clean install
 
 #update scheme
 echo $scheme > ~/.config/colorschemes/current

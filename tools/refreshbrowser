@@ -15,15 +15,15 @@ browserclass='google-chrome'
 #  DESCRIPTION: move to the center of the specified window id
 #=====================================================================
 moveto() {
-  geom=$(xdotool getwindowgeometry "${1}" )
-  local=$(echo "${geom}" | awk NR==2 | cut -d: -f 2 | cut -d\( -f 1)
-  dimentions=$(echo "${geom}" | awk NR==3 | cut -d: -f 2 | cut -d\( -f 1 | cut -d, -f1)
-  x=$(echo "${local}" | cut -d, -f1); 
-  y=$(echo "${local}" | cut -d, -f2);
-  w=$(echo "${dimentions}" | cut -dx -f1)
-  h=$(echo "${dimentions}" | cut -dx -f2)
+	geom=$(xdotool getwindowgeometry "${1}")
+	local=$(echo "${geom}" | awk NR==2 | cut -d: -f 2 | cut -d\( -f 1)
+	dimentions=$(echo "${geom}" | awk NR==3 | cut -d: -f 2 | cut -d\( -f 1 | cut -d, -f1)
+	x=$(echo "${local}" | cut -d, -f1)
+	y=$(echo "${local}" | cut -d, -f2)
+	w=$(echo "${dimentions}" | cut -dx -f1)
+	h=$(echo "${dimentions}" | cut -dx -f2)
 
-  xdotool mousemove $((x + w/2)) $((y + h/2))
+	xdotool mousemove $((x + w / 2)) $((y + h / 2))
 }
 
 # Save the current window

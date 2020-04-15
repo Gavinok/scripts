@@ -5,16 +5,17 @@
 LAUNCER="dmenu"
 
 while getopts ":c" o; do case "${o}" in
-	c) 
-		prim="$(xclip -o)" 
+	c)
+		prim="$(xclip -o)"
 		if [ -z "${prim}" ]; then
-			notify-send "no selection in clipboard" 
+			notify-send "no selection in clipboard"
 			exit 1
 		fi
 		;;
-	*) 
-		printf "Invalid option: -%s\\n" "${o}" && exit ;;
-esac done
+	*)
+		printf 'Invalid option: -%s\n' "${o}" && exit
+		;;
+	esac done
 
 [ -z "${prim}" ] && prim="$*"
 [ -z "${prim}" ] && exit
@@ -24,24 +25,28 @@ cd "$(readlink /proc/"${PID}"/cwd)" || exit
 [ -f "${prim}" ] && xdg-open "${prim}" && exit
 [ -d "$prim" ] && cd "$prim" && exec "$TERMINAL"
 
-search() { 
+search() {
 	"${BROWSER}" "https://duckduckgo.com/?q=$*"
 }
 
-maps() { "${BROWSER}" "https://maps.google.com/?q=$*" ;}
+maps() { "${BROWSER}" "https://maps.google.com/?q=$*"; }
 
 # TODO: convert to golang to allow for handling multiple <02-03-20 Gavin Jaeger-Freeborn>
 
 # echo "${prim}" | grep "^http" >/dev/null && "${BROWSER}" "${prim}" && exit
 echo "${prim}" | grep "^.*@.*\.[A-Za-z]\+$" >/dev/null && xdg-email "${prim}" && exit
-echo "${prim}" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && url() { "${BROWSER}" "$@" ;} && kdeconnect() { "kdeconnect-handler" "$@" ;} && dhandler() { dmenuhandler "$@" ;}
-qrcode() { qrencode "$*" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png ;}
-read() { pico2wave -w=/tmp/test.wav "$*"; aplay /tmp/test.wav -D 'pulse'; rm /tmp/test.wav;}
+echo "${prim}" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && url() { "${BROWSER}" "$@"; } && kdeconnect() { "kdeconnect-handler" "$@"; } && dhandler() { dmenuhandler "$@"; }
+qrcode() { qrencode "$*" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png; }
+read() {
+	pico2wave -w=/tmp/test.wav "$*"
+	aplay /tmp/test.wav -D 'pulse'
+	rm /tmp/test.wav
+}
 
 # check if single word
 if [ "$(echo "${prim}" | wc -w)" -eq 1 ]; then
 	# check if manpage exists
-	man -w "${prim}" >/dev/null && manual() { man -Tpdf "${prim}" | ${READER} - ;}
+	man -w "${prim}" >/dev/null && manual() { man -Tpdf "${prim}" | ${READER} -; }
 fi
 
 # prompt="$(echo "${prim}" | awk 'NR==1{print $1, $2, $3}')"

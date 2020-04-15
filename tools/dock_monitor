@@ -4,17 +4,17 @@ extern=HDMI2
 
 while getopts ":i" o; do case "$o" in
 	i) initial=1 ;;
-esac done
+	esac done
 
 if xrandr | grep "$extern disconnected"; then
-    xrandr --output "$extern" --off --output "$intern" --auto
+	xrandr --output "$extern" --off --output "$intern" --auto
 else
-    xrandr --output "$intern" --primary --auto --output "$extern" --right-of "$intern" --auto
+	xrandr --output "$intern" --primary --auto --output "$extern" --right-of "$intern" --auto
 fi
 device=$(uname -n)
 [ "$device" = "sp4" ] && xrandr --dpi 220
 [ -n "$initial" ] && exit
 setbg &
-remaps 2> /dev/null &
-xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen stylus" MapToOutput LVDS1 2> /dev/null
+remaps 2>/dev/null &
+xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen stylus" MapToOutput LVDS1 2>/dev/null
 # vim:ft=sh

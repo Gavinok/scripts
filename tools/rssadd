@@ -8,8 +8,8 @@ else
 	RSSSTRING="$1"
 	RSSNAME="$(echo "News" | dmenu -p "rss feed name")"
 	[ -z "$RSSNAME" ] notify-send "Canceled adding rss." && exit
-	if [ "$RSSNAME" != News ];then
-	    RSSSTRING="\"~${RSSSTRING} $RSSNAME\""
+	if [ "$RSSNAME" != News ]; then
+		RSSSTRING="\"~${RSSSTRING} $RSSNAME\""
 	fi
-	echo "$RSSSTRING" >> "$RSSFILE" && notify-send "RSS feed added."
+	echo "$RSSSTRING" >>"$RSSFILE" && notify-send "RSS feed added."
 fi
