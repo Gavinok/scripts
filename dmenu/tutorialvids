@@ -8,7 +8,7 @@ Bash script		https://www.youtube.com/watch?v=YOpeXETS2z0&t=192s
 Bash script full	 https://www.youtube.com/watch?v=oxuRxtrO2Ag
 dmenu script	https://www.youtube.com/watch?v=R9m723tAurA
 status bar	https://www.youtube.com/watch?v=gKumet6b-WY
-mutt		https://www.youtube.com/watch?v=2U3vRbF7v5A
+mutt	https://www.youtube.com/watch?v=2U3vRbF7v5A
 ncmpcpp		https://www.youtube.com/watch?v=sZIEdI9TS2U
 newsboat	https://www.youtube.com/watch?v=dUFCRqs822w
 ranger		https://www.youtube.com/watch?v=L6Vu7WPkoJo
@@ -24,7 +24,7 @@ install latex	https://www.youtube.com/watch?v=NwnYHoNtfJ0
 Latex all	https://m.youtube.com/watch?v=VhmkLrOjLsw
 Latex1		https://www.youtube.com/watch?v=mfRmmZ_84Mw&t=2s
 Latex2		https://www.youtube.com/watch?v=25LExaNtdF0 
-Latex3 bib	https://www.youtube.com/watch?v=46piog3Fzp4
+Latex bib	https://www.youtube.com/watch?v=46piog3Fzp4
 Latex Resume	https://www.youtube.com/watch?v=VjsX4tznW40&t=570s
 Latex Resume2	https://www.youtube.com/watch?v=o5-BZ7JmYWk	
 Latex Images	https://www.youtube.com/watch?v=zgThRPjy-vw
@@ -43,9 +43,9 @@ Manjaro Architect	https://www.youtube.com/watch?v=530O4InhR3A
 POSIX pthreads	https://www.youtube.com/watch?v=ynCc-v0K-do&list=PLzCAxcRKUAgkc65DlRo0gr0B8sqlE6WZY
 groff	https://www.youtube.com/watch?v=w8EKH_fjmXA
 groff Macros + Others	https://www.youtube.com/watch?v=kJ_TXZB4Gm4
-groff enq	https://www.youtube.com/watch?v=sp0qgpeG6EY
 groff refer	https://www.youtube.com/watch?v=XfOwRYmb5bQ&list=PL-p5XmQHB_JRe2YeaMjPTKXSc5FqJZ_km&index=4&t=0s
 groff auto refer	https://www.youtube.com/watch?v=yTQbi_E_Gys&list=PL-p5XmQHB_JRe2YeaMjPTKXSc5FqJZ_km&index=4
+eqn (groff) 	https://www.youtube.com/watch?v=sp0qgpeG6EY
 rclone	https://www.youtube.com/watch?v=G8YMspboIXs
 Arch Linux Maintenance	https://www.youtube.com/watch?v=3BnHHP7Fmo0
 Awk	https://www.youtube.com/watch?v=_q6Uj4X_knc
@@ -58,5 +58,5 @@ if command -v mpv >/dev/null; then
 else
 	Player='xdg-open'
 fi
-echo "${vidlist}" | grep -P "^$(echo "${vidlist}" | grep "https:" | sed 's/\t.*//g' | ${LAUNCER} "Learn about what? (ESC to cancel)" | awk '{print $1}')\s" | sed 's/.*\t//' | xargs -r ${Player}
+echo "${vidlist}" | grep -P "^$(echo "${vidlist}" | grep "https:" | sed 's/\t.*//g' | ${LAUNCER} "Learn about what? (ESC to cancel)" | awk -F '	' '{print $1}')\s" | sed 's/.*\t//' | xargs -r ${Player}
 #vim:ft=sh
