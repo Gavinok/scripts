@@ -41,13 +41,14 @@ textype() {
 }
 
 pandoccmd() {
-	pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" --pdf-engine=xelatex -o "$2".pdf
 
-	# pandoc "${1}" -f markdown+tex_math_dollars+pipe_tables -t ms -o ${2}.pdf
+	Ifinstalled pdflatex && pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" --pdf-engine=xelatex -o "${2}.pdf"
+
+	Ifinstalled groff && pandoc "${1}" -f markdown+tex_math_dollars+pipe_tables -t ms -o "${2}.pdf"
 }
 
 pandocorg() {
-	pandoc -V geometry:margin=3cm -f org-implicit_figures "$1" -o "$2".pdf
+	pandoc -V geometry:margin=3cm "$1" -o "$2".pdf
 }
 
 compilec() {
