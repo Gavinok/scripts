@@ -39,7 +39,8 @@ echo "${prim}" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && url() { "${BROWSER}" "$@
 qrcode() { qrencode "$*" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png; }
 read() {
 	pico2wave -w=/tmp/test.wav "$*"
-	aplay /tmp/test.wav -D 'pulse'
+	# aplay /tmp/test.wav -D 'pulse'
+	aplay /tmp/test.wav
 	rm /tmp/test.wav
 }
 
