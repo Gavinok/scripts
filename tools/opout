@@ -19,6 +19,6 @@ case "$1" in
 	*.md|*.mmd|*.rmd|*.ms|*.groff|*.me|*.mom|*.jot|*.docx|*.doc|*.org) setsid "$READER" "$basename".pdf >/dev/null 2>&1 & ;;
 	*.pdf|*.mp3|*.mp4) setsid "$READER" "$basename".pdf >/dev/null 2>&1 & ;;
 	*.html) 
-	    setsid "$BROWSER"  "$basename".html >/dev/null 2>&1 & ;;
+	    setsid "google-chrome-stable" "$basename".html >/dev/null 2>&1 & ;;
 	*.sent) setsid sent "$1" >/dev/null 2>&1 & ;;
 esac
