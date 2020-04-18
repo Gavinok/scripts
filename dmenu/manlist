@@ -2,6 +2,9 @@
 
 # quickly find and display man page
 
-Selected="$(man -k . | dmenu -l 10 -p "Select Program" | cut -d" " -f1)"
-man -Tpdf "$Selected" | zathura -
+# LAUNCER="dmenu -i -l 20 -p "
+[ -n "${DISPLAY}" ] && LAUNCER="fzf --prompt "
+
+Selected="$(man -k . | $LAUNCER "Select Program " | cut -d" " -f1)"
+man "$Selected"
 #vim:ft=sh
