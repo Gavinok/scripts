@@ -25,6 +25,7 @@ spawn() {
 }
 
 killclient() {
+	command -v xkill >/dev/null && xkill && exit 0
 	id=$(get_id_interactive)
 	[ -z "${id}" ] && exit
 	# properly kill the window using dwm
