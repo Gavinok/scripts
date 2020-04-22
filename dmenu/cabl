@@ -29,20 +29,21 @@ search() {
 	"${BROWSER}" "https://duckduckgo.com/?q=$*"
 }
 
-maps() { "${BROWSER}" "https://maps.google.com/?q=$*"; }
 
 # TODO: convert to golang to allow for handling multiple <02-03-20 Gavin Jaeger-Freeborn>
 
 # echo "${prim}" | grep "^http" >/dev/null && "${BROWSER}" "${prim}" && exit
 echo "${prim}" | grep "^.*@.*\.[A-Za-z]\+$" >/dev/null && xdg-email "${prim}" && exit
 echo "${prim}" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && url() { "${BROWSER}" "$@"; } && kdeconnect() { "kdeconnect-handler" "$@"; } && dhandler() { dmenuhandler "$@"; }
-qrcode() { qrencode "$*" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png; }
 read() {
 	pico2wave -w=/tmp/test.wav "$*"
 	# aplay /tmp/test.wav -D 'pulse'
 	aplay /tmp/test.wav
 	rm /tmp/test.wav
 }
+
+qrcode() { qrencode "$*" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png; }
+maps() { "${BROWSER}" "https://maps.google.com/?q=$*"; }
 
 # check if single word
 if [ "$(echo "${prim}" | wc -w)" -eq 1 ]; then
