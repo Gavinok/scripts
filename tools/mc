@@ -27,5 +27,9 @@ toggle) toggle ;;
 mute) mute ;;
 up) up ;;
 down) down ;;
+*)
+	control
+	exit 0
+	;;
 esac
 updatevolume
