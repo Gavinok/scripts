@@ -55,7 +55,7 @@ mcd() {
 # define a word
 define() { curl -s "dict://dict.org/d:$1" | grep -v '^[0-9]'; }
 
-man() { /bin/man "$*" || awman "$*"; }
+man() { /bin/man $* || awman "$*"; }
 
 # Create a shell function as a wrapper
 viminfo() { ${EDITOR} -R -M -c "Info $1 $2" +only; }
