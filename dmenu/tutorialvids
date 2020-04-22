@@ -42,15 +42,17 @@ Power of Unix	https://www.youtube.com/watch?v=7uwW20odwEk
 Manjaro Architect	https://www.youtube.com/watch?v=530O4InhR3A
 POSIX pthreads	https://www.youtube.com/watch?v=ynCc-v0K-do&list=PLzCAxcRKUAgkc65DlRo0gr0B8sqlE6WZY
 groff	https://www.youtube.com/watch?v=w8EKH_fjmXA
-groff Macros + Others	https://www.youtube.com/watch?v=kJ_TXZB4Gm4
+groff Macros and Others	https://www.youtube.com/watch?v=kJ_TXZB4Gm4
 groff refer	https://www.youtube.com/watch?v=XfOwRYmb5bQ&list=PL-p5XmQHB_JRe2YeaMjPTKXSc5FqJZ_km&index=4&t=0s
 groff auto refer	https://www.youtube.com/watch?v=yTQbi_E_Gys&list=PL-p5XmQHB_JRe2YeaMjPTKXSc5FqJZ_km&index=4
-eqn (groff) 	https://www.youtube.com/watch?v=sp0qgpeG6EY
+eqn groff 	https://www.youtube.com/watch?v=sp0qgpeG6EY
 rclone	https://www.youtube.com/watch?v=G8YMspboIXs
 Arch Linux Maintenance	https://www.youtube.com/watch?v=3BnHHP7Fmo0
 Awk	https://www.youtube.com/watch?v=_q6Uj4X_knc
 Hacking with Vim	https://www.youtube.com/watch?v=l8iXMgk2nnY
 mutt isync	https://www.youtube.com/watch?v=tR9zk3xz5SA
+ffmpeg screen casting	https://www.youtube.com/watch?v=386Z2yeQ5fo
+installing fonts	https://www.youtube.com/watch?v=LJ7CEhnS0OM
 "
 
 if command -v mpv >/dev/null; then
@@ -58,5 +60,5 @@ if command -v mpv >/dev/null; then
 else
 	Player='xdg-open'
 fi
-echo "${vidlist}" | grep -P "^$(echo "${vidlist}" | grep "https:" | sed 's/\t.*//g' | ${LAUNCER} "Learn about what? (ESC to cancel)" | awk -F '	' '{print $1}')\s" | sed 's/.*\t//' | xargs -r ${Player}
+echo "${vidlist}" | grep -P "^$(echo "${vidlist}" | grep "https:" | sed 's/\t.*//g' | ${LAUNCER} "Learn about what? (ESC to cancel)" | cut -f1)\t" | sed 's/.*\t//' | xargs -r ${Player}
 #vim:ft=sh
