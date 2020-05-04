@@ -53,6 +53,9 @@ Hacking with Vim	https://www.youtube.com/watch?v=l8iXMgk2nnY
 mutt isync	https://www.youtube.com/watch?v=tR9zk3xz5SA
 ffmpeg screen casting	https://www.youtube.com/watch?v=386Z2yeQ5fo
 installing fonts	https://www.youtube.com/watch?v=LJ7CEhnS0OM
+cs50 Beyond javascript https://www.youtube.com/watch?v=dlEPkLSDQi0&t=51s
+cs50 Beyond javascript continued https://www.youtube.com/watch?v=XNDZ3eg_VcE&t=319s
+spotifyd https://www.youtube.com/watch?v=R5jikGfSdh4
 "
 
 if command -v mpv >/dev/null; then
