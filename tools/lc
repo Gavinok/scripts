@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/sh
 
 # A general backlight interface
 notifybrightness() {
