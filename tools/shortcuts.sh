@@ -3,11 +3,11 @@
 # Credit yo the original creator:
 # Luck Smith
 # https://github.com/LukeSmithxyz/voidrice
-shell_shortcuts="${XDG_CONFIG_HOME}/shortcutrc"
-ranger_shortcuts="${XDG_CONFIG_HOME}/ranger/shortcuts.conf"
+shell_shortcuts="${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"
+ranger_shortcuts="${XDG_CONFIG_HOME:-$HOME/.config}/ranger/shortcuts.conf"
 qute_shortcuts="/dev/null"
-fish_shortcuts="${XDG_CONFIG_HOME}/fish/shortcuts.fish"
-vifm_shortcuts="${XDG_CONFIG_HOME}/vifm/vifmshortcuts"
+fish_shortcuts="${XDG_CONFIG_HOME:-$HOME/.config}/fish/shortcuts.fish"
+vifm_shortcuts="${XDG_CONFIG_HOME:-$HOME/.config}/vifm/vifmshortcuts"
 vim_shortcuts="$HOME/.vim/vimshortcuts.vim"
 
 # Remove, prepare files
