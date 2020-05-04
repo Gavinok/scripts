@@ -4,28 +4,34 @@
 # Without input, will open DuckDuckGo.com.
 # Anything else, it search it.
 
-LAUNCER="dmenu"
+LAUNCER="dmenu -l 5 -i -p "
+[ -z "${DISPLAY}" ] && LAUNCER="fzf --prompt "
 
 localBROWSER="$BROWSER "
 [ -n "$*" ] && localBROWSER="$*"
+[ -z "${DISPLAY}" ] && localBROWSER="w3m "
 
 if [ -f ~/.config/bookmarks ]; then
-	choice=$( (echo "🦆" && cat ~/.config/bookmarks) | $LAUNCER -l 5 -i -p "Search:") || exit 1
+	choice=$( (echo "🦆" && cat ~/.config/bookmarks) | $LAUNCER"Search:") || exit 1
 else
 	choice=$(echo "🦆" | $LAUNCER -i -p "Search DuckDuckGo:") || exit 1
 fi
+
+browse (){
+	[ -z "${DISPLAY}" ] && $localBROWSER"${1}" &LAUNCER="fzf --prompt "
+	setsid $localBROWSER"${1}" &
+}
+
 case "$choice" in
 *🦆*)
-	setsid $localBROWSER"https://duckduckgo.com" &
+	$localBROWSER"https://duckduckgo.com"
 	exit
 	;;
 http*)
-	setsid $localBROWSER"$(echo $choice | awk '{print $1}')" &
+	$localBROWSER"$(echo $choice | awk '{print $1}')"
 	exit
 	;;
-*)
-	setsid $localBROWSER"https://duckduckgo.com/?q=$choice" &
-	1
+*) $localBROWSER"https://duckduckgo.com/?q=$choice"
 	exit
 	;;
 esac
