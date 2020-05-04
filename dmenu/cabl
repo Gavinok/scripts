@@ -5,56 +5,75 @@
 LAUNCER="dmenu"
 
 while getopts ":c" o; do case "${o}" in
-	c)
-		prim="$(xclip -o)"
-		if [ -z "${prim}" ]; then
-			notify-send "no selection in clipboard"
-			exit 1
-		fi
-		;;
-	*)
-		printf 'Invalid option: -%s\n' "${o}" && exit
-		;;
-	esac done
+    c)
+        prim="$(xclip -o)"
+        if [ -z "${prim}" ]; then
+            notify-send "no selection in clipboard"
+            exit 1
+        fi
+        ;;
+    *)
+        printf 'Invalid option: -%s\n' "${o}" && exit
+        ;;
+esac; done
 
 [ -z "${prim}" ] && prim="$*"
 [ -z "${prim}" ] && exit
 PID=$(xprop -id "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" | grep -m 1 PID | cut -d " " -f 3)
 PID=$(echo "$(pstree -lpA "${PID}" | tail -n 1)" | awk -F'---' '{print $NF}' | sed -re 's/[^0-9]//g')
 cd "$(readlink /proc/"${PID}"/cwd)" || exit
-[ -f "${prim}" ] && xdg-open "${prim}" && exit
+
+# FILE
+prim=$(echo "${prim}" | sed 's/file://g') # Remove file url
+[ -f "${prim}" ] && exec "$OPENER" "${prim}"
+# DIRECTORY
 [ -d "$prim" ] && cd "$prim" && exec "$TERMINAL"
+# URL
+echo "${prim}" | grep "^\s*https\?.*\.[A-Za-z]\+.*" > /dev/null && exec "${BROWSER}" "${prim}"
+# EMAIL
+echo "${prim}" | grep "^.*@.*\.[A-Za-z]\+$" > /dev/null && xdg-email "${prim}" && exit
+# VIM PLUGIN
+echo "${prim}" | grep ".*Plug.*'.*/.*'.*" > /dev/null && exec "${BROWSER}" "https://github.com/$(echo "${prim}" | cut -d\' -f2)"
+# ERROR MESSAGE
+echo "${prim}" | cut -d: -f1 | xargs -r test -f &&
+    echo "${prim}" | grep -E '^[A-Za-z/\.-]+:[0-9]+' > /dev/null &&
+    exec "${TERMINAL}" -e "$EDITOR" "$(echo "${prim}" | cut -d: -f1)" "+$(echo "${prim}" | cut -d: -f2)" 
 
-search() {
-	"${BROWSER}" "https://duckduckgo.com/?q=$*"
-}
+# DATE
+# echo "${prim}" | grep '.*[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9].*' > /dev/null &&
+# 	date() { ${BROWSER} $(echo "${prim}" | sed 's/.
 
 
-# TODO: convert to golang to allow for handling multiple <02-03-20 Gavin Jaeger-Freeborn>
 
-# echo "${prim}" | grep "^http" >/dev/null && "${BROWSER}" "${prim}" && exit
-echo "${prim}" | grep "^.*@.*\.[A-Za-z]\+$" >/dev/null && xdg-email "${prim}" && exit
-echo "${prim}" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && url() { "${BROWSER}" "$@"; } && kdeconnect() { "kdeconnect-handler" "$@"; } && dhandler() { dmenuhandler "$@"; }
+# BEGIN OPTIONS
+options=''
+
+search() { "${BROWSER}" "https://duckduckgo.com/?q=$*"; }                && options="${options}\nsearch"
+qrcode() { qrencode "$*" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png; } && options="${options}\nqrcode"
+maps() { "${BROWSER}" "https://maps.google.com/?q=$*"; }                 && options="${options}\nmaps"
+
+# MAYBE A URL
+echo "${prim}" | grep "^.*\.[A-Za-z]\+.*" > /dev/null &&
+    dhandler() { dmenuhandler "$@"; }               && options="${options}\ndhandler"
+
+# READ ALOUD
 read() {
-	pico2wave -w=/tmp/test.wav "$*"
-	# aplay /tmp/test.wav -D 'pulse'
-	aplay /tmp/test.wav
-	rm /tmp/test.wav
-}
-
-qrcode() { qrencode "$*" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png; }
-maps() { "${BROWSER}" "https://maps.google.com/?q=$*"; }
+    pico2wave -w=/tmp/test.wav "$*"
+    # aplay /tmp/test.wav -D 'pulse'
+    aplay /tmp/test.wav
+    rm /tmp/test.wav
+} && options="${options}\nread"
 
 # check if single word
 if [ "$(echo "${prim}" | wc -w)" -eq 1 ]; then
-	# check if manpage exists
-	man -w "${prim}" >/dev/null && manual() { man -Tpdf "${prim}" | ${READER} -; }
+    # if manpage exists
+    man -w "${prim}" > /dev/null && 
+		manual() { man -Tpdf "${prim}" | ${READER} -; } && options="${options}\nmanual"
 fi
 
-# prompt="$(echo "${prim}" | awk 'NR==1{print $1, $2, $3}')"
 prompt="Plumb \"$(echo "${prim}" | awk ' NR==1' | cut -c -18)\" to?"
 
-func="$(declare -F | awk '{print $3}' | ${LAUNCER} -p "${prompt}" -i -l 15)"
+func="$(printf "$options" | awk 'NR>1' | ${LAUNCER} -p "${prompt}" -i -l 15)"
 
 [ -z "${func}" ] || "${func}" "${prim}"
 #vim:ft=sh
