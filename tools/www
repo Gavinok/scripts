@@ -1,0 +1,60 @@
+#!/bin/sh
+
+# Feed script a url.
+# If an image, it will view in sxiv,
+# if a video or gif, it will view in mpv
+# if a music file or pdf, it will download,
+# otherwise it opens link in browser.
+# cant use environmental variables
+# If no url given. Opens browser. For using script as $BROWSER.
+
+OS="$(uname -o)" # this is for use with termux
+if [ "${OS}" = 'Android' ]; then
+	[ -z "$1" ] && {
+		xdg-open "https://duckduckgo.com"
+		exit
+	}
+	xdg-open "$1"
+	exit
+fi
+notify-send "$1"
+
+[ -z "${TRUEBROWSER}" ] && TRUEBROWSER="qutebrowser"
+
+[ -z "$1" ] && {
+	${TRUEBROWSER} "https://duckduckgo.com"
+	exit
+}
+
+case "$1" in
+*\.mkv | *\.webm | *\.mp4 | *\.gif | *hooktube.com* | *v.redd.it* | *view_video*)
+	exec mpv --really-quiet "$1" >/dev/null 2>&1
+	notify-send "Playing Video"
+	;;
+*\.png | *\.jpg | *\.jpe | *\.jpeg)
+	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
+	;;
+*\.pdf | *\.ps)
+	curl "$1" |exec  "${READER}" - >/dev/null 2>&1 &
+	;;
+*\.mp3 | *\.m4a | *\.ogg | *\.flac | *\.opus | *\.mp3?source | *soundcloud*)
+	exec "${TERMINAL}" -n "mp3" -e mpv --video=no "$1" >/dev/null 2>&1
+	;;
+*\.diff | *\.md | *\.ms | *\.mom | *\.txt | *\.c | *\.h | *\.cpp | *\.hs | *\.py | *\.sh | *raw*)
+	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && exec "${TERMINAL}" -e "${EDITOR}" "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
+	;;
+*\.torrent|*\.magnet)
+	exec transadd "$1"
+	;;
+*\.git)
+	exec transadd "$1"
+	;;
+*youtube.com/watch* | *youtube.com/playlist*|*youtu.be*) #limit the video quality
+	exec ytplay "$1"
+	;;
+*reddit.com/r/*)
+	exec ${TERMINAL} tuir "$1" ;;
+*)
+	exec "${TRUEBROWSER}" "$1" >/dev/null 2>&1
+	;;
+esac
