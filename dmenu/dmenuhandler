@@ -4,33 +4,51 @@
 # TODO
 # 1. Check if a program is installed before offering the option
 
-downloader (){
-	case "$1" in 
-	    *magnet:*|*torrent*) 
-	    	aria2c "$!";;
-	    *youtube.com/watch* | *youtube.com/playlist*|*youtu.be*) 
+Ifinstalled() {
+	command -v "$1" >/dev/null || { notify-send "📦 <b>$1</b> must be installed for this function." && exit 1; }
+}
+
+torrent(){
+	Ifinstalled transadd && transadd "${1}" && exit
+	Ifinstalled aria2c && aria2c "${1}" && exit
+	notify-send "No Torrent Program installed"
+}
+
+youtube(){
 			notify-send "downloading video"
 			setsid youtube-dl --add-metadata -i -o "$HOME/Downloads/%(title)s.%(ext)s" "${1}" \
-				&& notify-send "finished cloning" && exit
-			notify-send "failed downloading";;
-	    *github.com*) 
+				&& notify-send "finished download" && exit
+			notify-send "failed downloading"
+}
+
+clone(){
+
 			repo=$(echo "$1" | cut -d# -f1)
 			repo=${repo}.git
 			notify-send "cloning repository ${repo}"
 			git -C "$HOME/Downloads/" clone "${repo}" \
 				&& notify-send "finished cloning" && exit
-			notify-send "failed cloning";;
-	    *gitlab.com*) 
-			notify-send "cloning repository"
-			repo=$(echo "$1" | cut -d# -f1)
-			repo=${repo}.git
-			git -C "$HOME/Downloads/" clone "${1}.git"  \
-				&& notify-send "finished cloning" && exit
-			notify-send "failed cloning";;
-	    *) 
+			notify-send "failed cloning"
+}
+
+raw(){
+
 			notify-send "downloading page"
 			wget -P "$HOME/Downloads/" "${1}"   \
 				&& notify-send "finished downloading" && exit
+			notify-send "failed cloning"
+}
+
+downloader (){
+	case "$1" in 
+	    *magnet:*|*torrent*) 
+	    	torrent "${1}";;
+	    *youtube.com/watch* | *youtube.com/playlist*|*youtu.be*) 
+			youtube "${1}" ;;
+	    *github.com*|*gitlab.com*) 
+			clone "${1}" ;;
+	    *) 
+			raw "${1}" ;;
 	esac
 	notify-send "failed downloading"
  	exit
@@ -57,6 +75,6 @@ case "${x}" in
     download) 
 		downloader "$1" ;;
     *) 
-		notify-send "failed to find option for ${x}" ;;
+		exit 1;;
 esac
 #vim:ft=sh
