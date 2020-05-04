@@ -1,0 +1,13 @@
+#!/bin/env sh
+
+PORT=1337
+
+PID=$(pgrep --full "python -m http.server $PORT") 
+killall -n "$PID" 2> /dev/null
+
+[ ! -f "$1" ] && exit
+FILE="$1"
+
+
+$BROWSER "localhost:${PORT}/$1"
+python -m http.server $PORT &
