@@ -67,4 +67,8 @@ notegrep() { ${EDITOR} -c "NGrep $*"; }
 cpuspeed() { cpupower frequency-info -fm | grep -oP '(?<=frequency: )([^ ]+ [^ ]+)'; }
 
 powernow() { echo "scale=5;$(cat /sys/class/power_supply/BAT0/power_now)/1000000" | bc -l; }
+
+onecpu() { echo 0 | sudo tee /sys/devices/system/cpu/cpu*/online; }
+
+allcpu() { echo 1 | sudo tee /sys/devices/system/cpu/cpu*/online; }
 #vim:ft=sh
