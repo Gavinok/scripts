@@ -34,7 +34,7 @@ killclient() {
 	xdotool windowkill "${id}"
 }
 
-opts=$(printf 'Resize\nSpawn\nKill\nHide\n')
+opts=$(printf 'Resize\nspawn, ^pipe(jgmenu_run pmenu)\nKill\nHide\n')
 tmpfile="/tmp/hidden"
 HIDDENWINDOWS=$(wc -l "${tmpfile}" | cut -d " " -f1)
 [ "${HIDDENWINDOWS}" -ge "1" ] && opts=$(printf '%s\nShow\n' "${opts}")
@@ -87,7 +87,7 @@ Show)
 		notify-send "No hidden windows"
 	fi
 	;;
-*) echo fail ;;
+*) setsid "${func}" ;;
 esac
 exit
 #vim:ft=sh
