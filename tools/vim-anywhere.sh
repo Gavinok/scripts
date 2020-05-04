@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/sh
 winid=$(xprop -root _NET_ACTIVE_WINDOW | sed 's/.*[[:space:]]//')
 TEMPFILE=/tmp/VimFloat
 while getopts ":c" o; do case "$o" in

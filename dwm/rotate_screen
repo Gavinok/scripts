@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/sh
 # touch  "/tmp/rotate"
 if [ ! -f "/tmp/rotate" ];then
     touch  "/tmp/rotate" 

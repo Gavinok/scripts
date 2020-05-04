@@ -1,19 +1,22 @@
-#!/usr/bin/dash
+#!/bin/sh
 
 scheme=$(cat ~/.config/colorschemes/current)
 if [ "$scheme" = "dark" ];then
 	scheme="light"
-	export BACKGROUND='#ffffea'
-	export FOREGROUND='#111111'
-	export ALT='#151515'
-	export VIMTHEME='acme'
 else
 	scheme="dark"
-	export BACKGROUND='#000000'
-	export FOREGROUND='#b7bec9'
-	export ALT='#151515'
-	export VIMTHEME='spaceway'
 fi
+
+command -v "xgetres" >/dev/null || { notify-send "📦 xgetres must be installed for this function." && exit 1; } 
+
+#Xresources
+cp ~/.config/colorschemes/xresources/$scheme ~/.config/colorschemes/xresources/current
+xrdb ~/.Xresources
+
+export BACKGROUND=$(xgetres '*.background')
+export FOREGROUND=$(xgetres '*.foreground')
+export BANNER=$(xgetres '*.banner')
+export ALT=$(xgetres '*.alt')
 
 # envsubst settings
 export FONT='monospace'
@@ -52,7 +55,7 @@ if [ $scheme = "dark" ]; then
 	sed -i 's/PROMPT.*#light/#\0/g' ~/.zshrc
 	sed -i "s/SCHEME=light/SCHEME=dark/g" ~/.zshrc
 	#newsboat
-	sed -i "s/black/blue/g" ~/.config/newsboat/config
+	sed -i "s/black/color15/g" ~/.config/newsboat/config
 	sed -i "s/color info black default bold/color info red default bold/g" ~/.config/newsboat/config
 	sed -i "s/color listnormal_unread blue default bold/color listnormal_unread white default bold/g" ~/.config/newsboat/config
 	#ranger
@@ -78,7 +81,7 @@ else
 	sed -i 's/PROMPT.*#dark/#\0/g' ~/.zshrc
 	sed -i "s/SCHEME=light/SCHEME=dark/g" ~/.zshrc
 	#newsboat
-	sed -i "s/blue/black/g" ~/.config/newsboat/config
+	sed -i "s/color15/black/g" ~/.config/newsboat/config
 	sed -i "s/white/black/g" ~/.config/newsboat/config
 	sed -i "s/color info red default bold/color info black default bold/g" ~/.config/newsboat/config
 	sed -i "s/color listnormal_unread black default bold/color listnormal_unread black default bold/g" ~/.config/newsboat/config

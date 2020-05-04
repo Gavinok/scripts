@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/sh
 
 # This is a simple script that utilises dmenu to
 # check the spelling of a word using aspell.

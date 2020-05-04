@@ -1,4 +1,4 @@
-#!/usr/bin/dash
+#!/bin/sh
 get_id_interactive() {
 	xid=$(xwininfo | grep 'Window id: ')
 	echo "${xid}" | cut -d':' -f3 | cut -d' ' -f2

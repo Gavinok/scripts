@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/sh
 
 # a simple script for starting a program 
 # kill it if it is already running

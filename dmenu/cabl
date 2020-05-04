@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Dependencies are xclip and xorg-xprop.
 # qrencode required for qrcode generation.
 

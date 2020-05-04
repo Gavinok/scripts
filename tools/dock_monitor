@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/sh
 intern=LVDS1
 extern=HDMI2
 

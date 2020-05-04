@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/sh
 
 [ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon="📡"
 [ -z "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print "📶", int($3 * 100 / 70) "%" }')

@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/sh
 #
 # Write/remove a task to do later.
 #

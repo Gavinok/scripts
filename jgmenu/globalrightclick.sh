@@ -1,4 +1,4 @@
-#!/usr/bin/dash
+#!/bin/sh
 eval $(xdotool getmouselocation --shell)
 prim="$(xclip -o)"
 

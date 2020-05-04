@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/sh
 # quick and dirty way to copy your clipboard into a QR code
 
 tmpfile="/tmp/QR.png"

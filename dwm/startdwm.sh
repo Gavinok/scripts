@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/bin/sh
 # Infinitely restart dwm so no programs close
 while true; do
     # Log stderror to a file 
