@@ -8,7 +8,7 @@
 # @description : used for lsp debugging 
 ######################################################################
 
-tee in.log | "$@" | tee out.log
+tee in.log | "$*" | tee out.log
 
 # vim: set tw=78 ts=2 et sw=2 sr:
 
