@@ -11,6 +11,9 @@ progcheck() {
 	pgrep -x "${1}" >/dev/null && notify-send --urgency=critical "❕[ERROR] $1 in use" && exit 1
 }
 
+
+res=$(printf 'shutdown\nreboot\nhibernate\nkill X' | ${LAUNCER} 'Power Menu:')
+
 # check for running programs
 progcheck pip
 progcheck pacman
@@ -23,8 +26,6 @@ progcheck brew
 progcheck cargo
 progcheck rclone
 progcheck rsync
-
-res=$(printf 'shutdown\nreboot\nhibernate\nkill X' | ${LAUNCER} 'Power Menu:')
 
 case "${res}" in
 "reboot")
