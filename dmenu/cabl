@@ -24,6 +24,22 @@ do
 	esac
 done
 shift $(( OPTIND - 1))
+
+# custom opener when called from shell
+shellopener(){
+	case $(file --mime-type "$*" -b) in
+		# follow symlinks
+		inode/symlink) $0 "$(readlink "$*")" && exit;;
+		# open sc files with sc
+		application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) exec sc-im "$*";;
+		# open text files with sc
+		text/*) exec ${EDITOR} "$*";;
+		*) for f in "$@"; do setsid "${OPENER}" "${f}" > /dev/null 2> /dev/null & done && exit 0;;
+	
+	esac
+	exit 1
+}
+
 [ -z "${prim}" ] && prim="$*"
 [ -z "${prim}" ] && exit
 PID=$(xprop -id "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" | grep -m 1 PID | cut -d " " -f 3)
@@ -32,7 +48,8 @@ cd "$(readlink /proc/"${PID}"/cwd)" || exit
 
 # FILE
 prim=$(echo "${prim}" | sed 's/file://g') # Remove file url
-[ -f "${prim}" ] && exec "$OPENER" "${prim}"
+[ -f "${prim}" ] && if [ "$src" = 'shell' ]; then shellopener "${prim}"; else exec "$OPENER" "${prim}"; fi
+
 # DIRECTORY
 [ -d "$prim" ] && cd "$prim" && exec "$TERMINAL"
 # URL
