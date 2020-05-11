@@ -38,7 +38,7 @@ prim=$(echo "${prim}" | sed 's/file://g') # Remove file url
 # URL
 echo "${prim}" | grep "^\s*https\?.*\.[A-Za-z]\+.*" > /dev/null && exec "${BROWSER}" "${prim}"
 # EMAIL
-echo "${prim}" | grep "^.*@.*\.[A-Za-z]\+$" > /dev/null && xdg-email "${prim}" && exit
+echo "${prim}" | grep "[A-Za-z0-9._%+-]\+@[A-Za-z0-9.-]\+\.[A-Za-z]\{2,6\}\$" > /dev/null && xdg-email "${prim}" && exit
 # VIM PLUGIN
 echo "${prim}" | grep ".*Plug.*'.*/.*'.*" > /dev/null && exec "${BROWSER}" "https://github.com/$(echo "${prim}" | cut -d\' -f2)"
 # ERROR MESSAGE
