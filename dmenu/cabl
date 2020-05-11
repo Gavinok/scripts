@@ -2,22 +2,28 @@
 # Dependencies are xclip and xorg-xprop.
 # qrencode required for qrcode generation.
 
-
-while getopts ":c" o; do case "${o}" in
-    c)
-        prim="$(xclip -o)"
-        if [ -z "${prim}" ]; then
-            notify-send "no selection in clipboard"
-            exit 1
-        fi
-        ;;
-    *)
-        printf 'Invalid option: -%s\n' "${o}" && exit
-        ;;
-esac; done
 [ -z "$LAUNCER" ] && LAUNCER="dmenu"
 [ -z "$OPENER" ] && OPENER="xdg-open"
 
+while getopts cs: f
+do
+	case $f in
+		c)
+			prim="$(xclip -o)"
+			if [ -z "${prim}" ]; then
+				notify-send "no selection in clipboard"
+				exit 1
+			fi
+			;;
+		s)  
+			src=$OPTARG
+			;;
+		\?) 
+			printf 'Invalid option: -%s\n' "${o}" && exit 1
+			;;
+	esac
+done
+shift $(( OPTIND - 1))
 [ -z "${prim}" ] && prim="$*"
 [ -z "${prim}" ] && exit
 PID=$(xprop -id "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" | grep -m 1 PID | cut -d " " -f 3)
