@@ -13,10 +13,10 @@ else
     touch /tmp/rotate
 fi
 if  grep 0 /tmp/rotate ; then
-    xrandr --output LVDS1 --rotate left
-    xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen stylus" Rotate ccw
-    xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Finger touch" Rotate ccw
-    xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen eraser" Rotate ccw
+    xrandr --output LVDS1 --rotate inverted
+    xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen stylus" Rotate half
+    xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Finger touch" Rotate half
+    xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen eraser" Rotate half
     echo "1" >/tmp/rotate
 else
     xrandr --output LVDS1 --rotate normal
@@ -25,5 +25,10 @@ else
     xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen eraser" Rotate none
     echo "0" >/tmp/rotate
 fi
+#sideways
+    # xrandr --output LVDS1 --rotate left
+    # xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen stylus" Rotate ccw
+    # xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Finger touch" Rotate ccw
+    # xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen eraser" Rotate ccw
 dock_monitor
 #vim:ft=sh
