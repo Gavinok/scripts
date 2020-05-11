@@ -2,7 +2,6 @@
 # Dependencies are xclip and xorg-xprop.
 # qrencode required for qrcode generation.
 
-LAUNCER="dmenu"
 
 while getopts ":c" o; do case "${o}" in
     c)
@@ -16,6 +15,8 @@ while getopts ":c" o; do case "${o}" in
         printf 'Invalid option: -%s\n' "${o}" && exit
         ;;
 esac; done
+[ -z "$LAUNCER" ] && LAUNCER="dmenu"
+[ -z "$OPENER" ] && OPENER="xdg-open"
 
 [ -z "${prim}" ] && prim="$*"
 [ -z "${prim}" ] && exit
@@ -49,7 +50,7 @@ echo "${prim}" | cut -d: -f1 | xargs -r test -f &&
 options=''
 
 search() { "${BROWSER}" "https://duckduckgo.com/?q=$*"; }                && options="${options}\nsearch"
-qrcode() { qrencode "$*" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png; } && options="${options}\nqrcode"
+qrcode() { qrencode "$*" -s 10 -o /tmp/qr.png && "$OPENER" /tmp/qr.png; } && options="${options}\nqrcode"
 maps() { "${BROWSER}" "https://maps.google.com/?q=$*"; }                 && options="${options}\nmaps"
 
 # MAYBE A URL
