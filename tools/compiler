@@ -59,14 +59,15 @@ compilec() {
 [ -f "$REFBIB" ] && groffbib="-p $REFBIB"
 
 case "$file" in
-*\.ms|*\.groff) refer -PS -e "$groffbib" "$file" | groff -UkeGt -b -wall -mspdf -T pdf >"$base".pdf ;;
-*\.mm|*\.me|*\.mom) refer -PS -e "$groffbib" "$file" | grog --run >"$base".pdf ;;
+*\.ms|*\.groff) refer -PS -e "$groffbib" "$file" | groff -UkeGt -b -wall -ms -T pdf >"$base".pdf ;;
+# *\.mm|*\.me|*\.mom) refer -PS -e "$groffbib" "$file" | grog --run >"$base".pdf ;;
 *\.tex) textype "$file" ;;
 *\.org) Ifinstalled pandoc && pandocorg "$file" "$base" && exit ;;
 *\.md) Ifinstalled pandoc && pandoccmd "$file" "$base" && exit ;;
 *config.h) make && sudo make install ;;
 *\.c) compilec ;;
 *\.h) compilec ;;
+*\.r) R -f "$file";;
 *\.java) javac "$file" && echo "${base##*/}" | xargs java ;;
 *\.js) node "$file" ;;
 *\.py) python "$file" ;;
