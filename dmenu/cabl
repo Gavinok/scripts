@@ -33,13 +33,43 @@ shellopener(){
 		# open sc files with sc
 		application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) exec sc-im "$*";;
 		# open text files with sc
-		text/*) exec ${EDITOR} "$*";;
+		text/*) exec ${EDITOR:-vi} "$*";;
 		*) for f in "$@"; do setsid "${OPENER}" "${f}" > /dev/null 2> /dev/null & done && exit 0;;
-	
+
 	esac
 	exit 1
 }
 
+fallbackopen() { exec "$OPENER" "${prim}" ; }
+
+istext(){
+	case $src in
+		shell)
+			exec "${EDITOR:-vi}" "$*"
+			;;
+		vim)
+			nvr -o "$*" --nostart && exit
+			;;
+		*)
+			fallbackopen "$*"
+			;;
+	esac
+	fallbackopen "$*"
+}
+
+
+isfile() {
+	case $(file --mime-type "$*" -b) in
+		# follow symlinks
+		inode/symlink) isfile "$(readlink "$*")" && exit;;
+		# open sc files with sc
+		application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) isspreadsheet "$*";;
+		# open text files with sc
+		text/*)  istext "$*";;
+		*) for f in "$@"; do fallbackopen "$*" > /dev/null 2> /dev/null & done && exit 0;;
+
+	esac
+}
 [ -z "${prim}" ] && prim="$*"
 [ -z "${prim}" ] && exit
 PID=$(xprop -id "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" | grep -m 1 PID | cut -d " " -f 3)
@@ -48,7 +78,7 @@ cd "$(readlink /proc/"${PID}"/cwd)" || exit
 
 # FILE
 prim=$(echo "${prim}" | sed 's/file://g') # Remove file url
-[ -f "${prim}" ] && if [ "$src" = 'shell' ]; then shellopener "${prim}"; else exec "$OPENER" "${prim}"; fi
+[ -f "${prim}" ] && isfile "${prim}"
 
 # DIRECTORY
 [ -d "$prim" ] && cd "$prim" && exec "$TERMINAL"
@@ -60,13 +90,13 @@ echo "${prim}" | grep "[A-Za-z0-9._%+-]\+@[A-Za-z0-9.-]\+\.[A-Za-z]\{2,6\}\$" > 
 echo "${prim}" | grep ".*Plug.*'.*/.*'.*" > /dev/null && exec "${BROWSER}" "https://github.com/$(echo "${prim}" | cut -d\' -f2)"
 # ERROR MESSAGE
 echo "${prim}" | cut -d: -f1 | xargs -r test -f &&
-    echo "${prim}" | grep -E '^[A-Za-z/\.-]+:[0-9]+' > /dev/null &&
-    exec "${TERMINAL}" -e "$EDITOR" "$(echo "${prim}" | cut -d: -f1)" "+$(echo "${prim}" | cut -d: -f2)" 
+	echo "${prim}" | grep -E '^[A-Za-z/\.-]+:[0-9]+' > /dev/null &&
+	exec "${TERMINAL}" -e "${EDITOR:-vi}" "$(echo "${prim}" | cut -d: -f1)" "+$(echo "${prim}" | cut -d: -f2)" 
 
 # DATE https://calendar.google.com/calendar/r/day/
 echo "${prim}" | grep '\s*<\?[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\} [a-zA-Z]\{3\} \?\([0-9]\{2\}:[0-9]\{2\}\)\?>\?\s*' > /dev/null &&
-	exec ${BROWSER} "https://calendar.google.com/calendar/r/day/$(echo "${prim}" | 
-		awk -F '[- ]' '{$1=$1}1 {printf "%s/%s/%s", $1, $2, $3}' | tr -d '<')"
+	exec "${BROWSER}" "https://calendar.google.com/calendar/r/day/$(echo "${prim}" | 
+	awk -F '[- ]' '{$1=$1}1 {printf "%s/%s/%s", $1, $2, $3}' | tr -d '<')"
 
 
 
@@ -74,25 +104,25 @@ echo "${prim}" | grep '\s*<\?[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\} [a-zA-Z]\{3\} \?\(
 options=''
 
 search() { "${BROWSER}" "https://duckduckgo.com/?q=$*"; }                && options="${options}\nsearch"
-qrcode() { qrencode "$*" -s 10 -o /tmp/qr.png && "$OPENER" /tmp/qr.png; } && options="${options}\nqrcode"
-maps() { "${BROWSER}" "https://maps.google.com/?q=$*"; }                 && options="${options}\nmaps"
+	qrcode() { qrencode "$*" -s 10 -o /tmp/qr.png && "$OPENER" /tmp/qr.png; } && options="${options}\nqrcode"
+		maps() { "${BROWSER}" "https://maps.google.com/?q=$*"; }                 && options="${options}\nmaps"
 
 # MAYBE A URL
 echo "${prim}" | grep "^.*\.[A-Za-z]\+.*" > /dev/null &&
-    dhandler() { dmenuhandler "$@"; }               && options="${options}\ndhandler"
+	dhandler() { dmenuhandler "$@"; }               && options="${options}\ndhandler"
 
 # READ ALOUD
 read() {
-    pico2wave -w=/tmp/test.wav "$*"
-    # aplay /tmp/test.wav -D 'pulse'
-    aplay /tmp/test.wav
-    rm /tmp/test.wav
+	pico2wave -w=/tmp/test.wav "$*"
+	# aplay /tmp/test.wav -D 'pulse'
+	aplay /tmp/test.wav
+	rm /tmp/test.wav
 } && options="${options}\nread"
 
 # check if single word
 if [ "$(echo "${prim}" | wc -w)" -eq 1 ]; then
-    # if manpage exists
-    man -w "${prim}" > /dev/null && 
+	# if manpage exists
+	man -w "${prim}" > /dev/null && 
 		manual() { man -Tpdf "${prim}" | ${READER} -; } && options="${options}\nmanual"
 fi
 
