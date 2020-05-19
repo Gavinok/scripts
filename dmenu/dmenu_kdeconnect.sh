@@ -81,7 +81,7 @@ SendKeys(){
     output="?"
     TEMPFILE=/tmp/VimFloat
     > $TEMPFILE
-    st -t "vim-anywhere" -n 'popup' -e "$EDITOR" -c 'startinsert' $TEMPFILE
+    st -t "vim-anywhere" -n 'popup' -e "${EDITOR:-vi}" -c 'startinsert' $TEMPFILE
     xsel -i < $TEMPFILE
     output=$(xsel -o)
     notify-send "$output"

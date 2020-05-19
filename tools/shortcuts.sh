@@ -26,7 +26,7 @@ sed "s/\s*#.*$//;/^\s*$/d" "$HOME/.config/bmdirs" | tee >(awk '{print "alias " $
 	| awk '{print "map g"$1" cd "$2"\nmap t"$1" tab_new "$2"\nmap m"$1" shell mv -v %s "$2"\nmap Y"$1" shell cp -rv %s "$2}' >> "$ranger_shortcuts"
 
 # Format the `configs` file in the correct syntax and sent it to both configs.
-sed "s/\s*#.*$//;/^\s*$/d"  "$HOME/.config/bmfiles" | tee >(awk '{print "alias "$1"=\"$EDITOR $(readlink "$2"||echo "$2")\" "}' >> "$shell_shortcuts") \
+sed "s/\s*#.*$//;/^\s*$/d"  "$HOME/.config/bmfiles" | tee >(awk '{print "alias "$1"=\"${EDITOR:-vi} $(readlink "$2"||echo "$2")\" "}' >> "$shell_shortcuts") \
 	>(awk '{print "abbr", $1, "\"$EDITOR $(readlink "$2")\""}' >> "$fish_shortcuts") \
 	>(awk '{print "map", $1, ":e", $2 "<CR>" }' >> "$vifm_shortcuts") \
 	>(awk '{print "nmap <leader>"$1, ":e <c-r>=resolve(expand(\"",$2"\"))<CR><CR>"}' >> "$vim_shortcuts") \

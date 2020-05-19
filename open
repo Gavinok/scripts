@@ -19,7 +19,7 @@ case $(file --mime-type "$*" -b) in
   # open sc files with sc
   application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) sc-im "$*";;
   # open text files with sc
-  text/*) ${EDITOR} "$*";;
+  text/*) ${EDITOR:-vi} "$*";;
   *) for f in "$@"; do setsid "${OPENER}" "${f}" > /dev/null 2> /dev/null & done;;
 esac
 # vim: set tw=78 ts=2 et sw=2 sr:
