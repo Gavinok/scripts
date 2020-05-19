@@ -29,7 +29,7 @@ mkdir -p "${SCREENSHOTDIR}"
 while getopts ":cw" o; do
 	case "${o}" in
 	c) import "${SCREENSHOTNAME}" && note && exit ;;
-	w) import -window "$(xdotool getactivewindow)" "${SCREENSHOTNAME}" && note && exit ;;
+	w) import -window "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" "${SCREENSHOTNAME}" && note && exit ;;
 	\?) printf 'Invalid option: -%s\n' "${o}" && exit ;;
 	*) ;;
 	esac
@@ -37,7 +37,7 @@ done
 
 case "$(printf 'a selected area\ncurrent window\nfull screen' | dmenu -l 6 -i -p "Screenshot which area?")" in
 "a selected area") import "${SCREENSHOTNAME}" ;;
-"current window") import -window "$(xdotool getactivewindow)" "${SCREENSHOTNAME}" ;;
+"current window") import -window "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" "${SCREENSHOTNAME}" ;;
 "full screen") import -window root "${SCREENSHOTNAME}" ;;
 *) exit ;;
 esac
