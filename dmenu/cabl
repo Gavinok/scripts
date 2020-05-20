@@ -25,7 +25,7 @@ do
 done
 shift $(( OPTIND - 1))
 
-# custom opener when called from shell
+# Custom opener when called from shell
 shellopener(){
 	case $(file --mime-type "$*" -b) in
 		# follow symlinks
@@ -35,7 +35,6 @@ shellopener(){
 		# open text files with sc
 		text/*) exec ${EDITOR:-vi} "$*";;
 		*) for f in "$@"; do setsid "${OPENER}" "${f}" > /dev/null 2> /dev/null & done && exit 0;;
-
 	esac
 	exit 1
 }
