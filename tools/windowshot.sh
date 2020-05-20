@@ -2,7 +2,7 @@
 #===============================================================================
 #         FILE: windowshot.sh
 #
-#  DESCRIPTION: Takes a screanshot using imagemagic and xdotool
+#  DESCRIPTION: Takes a screanshot using imagemagic and xprop
 #
 #       AUTHOR: Gavin Jaeger-Freeborn gavinfreeborn@gmail.com
 #      CREATED: Thu 28 Nov 2019 12:28:36 PM MST
@@ -26,19 +26,35 @@ note() {
 
 mkdir -p "${SCREENSHOTDIR}"
 
+
+region() { 
+	killall unclutter
+	import "${SCREENSHOTNAME}" 
+	setsid unclutter &
+}
+window() { import -window "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" "${SCREENSHOTNAME}" ;}
+root()   { import -window root "${SCREENSHOTNAME}" ;}
+
+# Default Prompt For Selection
+prompter(){
+	case "$(printf 'a selected area\ncurrent window\nfull screen' | dmenu -l 6 -i -p "Screenshot which area?")" in
+		"a selected area") region ;;
+		"current window") window ;;
+		"full screen") rootwin ;;
+		*) exit ;;
+	esac
+}
+
 while getopts ":cw" o; do
 	case "${o}" in
-	c) import "${SCREENSHOTNAME}" && note && exit ;;
-	w) import -window "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" "${SCREENSHOTNAME}" && note && exit ;;
-	\?) printf 'Invalid option: -%s\n' "${o}" && exit ;;
-	*) ;;
+		c) region;;
+		w) window ;;
+		r) root ;;
+		\?) printf 'Invalid option: -%s\n' "${o}" && exit ;;
+		*) prompter ;;
 	esac
 done
 
-case "$(printf 'a selected area\ncurrent window\nfull screen' | dmenu -l 6 -i -p "Screenshot which area?")" in
-"a selected area") import "${SCREENSHOTNAME}" ;;
-"current window") import -window "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" "${SCREENSHOTNAME}" ;;
-"full screen") import -window root "${SCREENSHOTNAME}" ;;
-*) exit ;;
-esac
 note
+
+${PLUMBER:-xdg-open} "${SCREENSHOTNAME}"
