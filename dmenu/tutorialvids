@@ -57,6 +57,7 @@ cs50 Beyond javascript https://www.youtube.com/watch?v=dlEPkLSDQi0&t=51s
 cs50 Beyond javascript continued https://www.youtube.com/watch?v=XNDZ3eg_VcE&t=319s
 spotifyd https://www.youtube.com/watch?v=R5jikGfSdh4
 hugo netlify github pages https://www.youtube.com/watch?v=NSts93C9UeE
+Lua	https://www.youtube.com/watch?v=iMacxZQMPXs
 "
 
 if command -v mpv >/dev/null; then
