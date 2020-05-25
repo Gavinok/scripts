@@ -1,7 +1,35 @@
-#!/bin/sh
+#! /usr/bin/env sh
+#===============================================================================
+#         FILE: bar
+#
+#  DESCRIPTION: Custom Rightclick Menu
+# DEPENDANCIES: 
+#              - xwininfo
+#              - xdotool
+#              - xkill
+#     ENV VARS:
+#              - TERMINAL
+#              - BROWSER
+#
+#       AUTHOR: Gavin Jaeger-Freeborn gavinfreeborn@gmail.com
+#      CREATED: Wed 20 May 2020 10:15:25 AM
+#      VERSION: 1.0
+#===============================================================================
+
+# file to store hidden windows
+tmpfile="/tmp/hidden"
+
+# default options for men
+opts=$(printf 'Resize\nspawn, ^pipe(jgmenu_run pmenu)\nKill\nHide\n')
+
+# check the number of hidden windows
+hiddenwindows=$(wc -l "${tmpfile}" | cut -d " " -f1)
+
+# add option to show windows if some exist
+[ "${hiddenwindows}" -ge "1" ] && opts=$(printf '%s\nShow\n' "${opts}")
+
 get_id_interactive() {
-	xid=$(xwininfo | grep 'Window id: ')
-	echo "${xid}" | cut -d':' -f3 | cut -d' ' -f2
+	xwininfo | grep 'Window id: ' | awk '{print $4}'
 }
 
 spawn() {
@@ -28,16 +56,36 @@ killclient() {
 	command -v xkill >/dev/null && xkill && exit 0
 	id=$(get_id_interactive)
 	[ -z "${id}" ] && exit
-	# properly kill the window using dwm
-	type dwmc >/dev/null 2>&1 && xdotool focus "${id}" && dwmc killclient && exit
 	# fall back to xdotool to kill window
 	xdotool windowkill "${id}"
 }
 
-opts=$(printf 'Resize\nspawn, ^pipe(jgmenu_run pmenu)\nKill\nHide\n')
-tmpfile="/tmp/hidden"
-HIDDENWINDOWS=$(wc -l "${tmpfile}" | cut -d " " -f1)
-[ "${HIDDENWINDOWS}" -ge "1" ] && opts=$(printf '%s\nShow\n' "${opts}")
+hideclient(){
+	id=$(get_id_interactive)
+	
+	[ -z "${id}" ] && exit
+	xdotool windowunmap "${id}"
+	printf "%b@@@%b\\n" "$(xwininfo -id "${id}" | grep 'Window id: ' | cut -d'"' -f 2)" "${id}" >> "${tmpfile}"
+}
+
+showclient(){
+	# implementation of unhide.sh using jgmenu
+	if [ "${hiddenwindows}" -le "1" ]; then
+		windowid=$(sed 's/@@@/ /g' "${tmpfile}" | awk '{print $NF}')
+	else
+		windowid=$(sed 's/@@@/ /g' "${tmpfile}" | jgmenu --no-spawn --simple | awk '{print $NF}')
+		echo "${windowid}"
+	fi
+
+	if [ -n "${windowid}" ]; then
+		xdotool windowmap "${windowid}"
+		sed -i '/'${windowid}'/d' "${tmpfile}"
+		export windowid=
+	else
+		notify-send "No hidden windows"
+	fi
+}
+
 
 func=$(printf '%s\n' "${opts}" | jgmenu --no-spawn --simple)
 [ -z "${func}" ] && exit
@@ -66,26 +114,10 @@ Kill)
 	killclient
 	;;
 Hide)
-	id=$(get_id_interactive)
-	[ -z "${id}" ] && exit
-	hide.sh
+	hideclient
 	;;
 Show)
-	# implementation of unhide.sh using jgmenu
-	if [ "${HIDDENWINDOWS}" -le "1" ]; then
-		WINDOWID=$(sed 's/@@@/ /g' "${tmpfile}" | awk '{print $NF}')
-	else
-		WINDOWID=$(sed 's/@@@/ /g' "${tmpfile}" | jgmenu --no-spawn --simple | awk '{print $NF}')
-		echo "${WINDOWID}"
-	fi
-
-	if [ -n "${WINDOWID}" ]; then
-		xdotool windowmap "${WINDOWID}"
-		sed -i '/'${WINDOWID}'/d' "${tmpfile}"
-		export WINDOWID=
-	else
-		notify-send "No hidden windows"
-	fi
+	showclient
 	;;
 *) setsid "${func}" ;;
 esac
