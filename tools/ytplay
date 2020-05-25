@@ -8,13 +8,13 @@ notify-send "Playing video"
 # try to run video in lower format
 allcpus_enabled=$(cat /sys/devices/system/cpu/cpu1/online)
 # if not all cpus re enabled enabled use 360p
-[ "$allcpus_enabled" -eq 0 ] && setsid mpv --really-quiet --ytdl-format=18 "$*" >/dev/null 2>&1 && exit
+[ "$allcpus_enabled" -eq 0 ] && setsid mpv --force-window=immediate --really-quiet --ytdl-format=18 "$*" >/dev/null 2>&1 && exit
 
 # default to 720p
-setsid mpv --really-quiet --ytdl-format=22 "$*" >/dev/null 2>&1 && exit
+setsid mpv --force-window=immediate --really-quiet --ytdl-format=22 "$*" >/dev/null 2>&1 && exit
 
 # fallback to default format
-setsid mpv --really-quiet "$*" >/dev/null 2>&1 && exit
+setsid mpv --force-window=immediate --really-quiet "$*" >/dev/null 2>&1 && exit
 
 # video cannot me loaded
 notify-send "Failed to play Video"
