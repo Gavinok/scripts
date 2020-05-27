@@ -47,7 +47,8 @@ mountandroid() { \
 	}
 
 asktype() { \
-	case $(printf "USB\\nAndroid" | dmenu -i -p "Mount a USB drive or Android device?") in
+	choice="$(printf "USB\\nAndroid" | dmenu -i -p "Mount a USB drive or Android device?")" || exit 1
+	case $choice in
 		USB) mountusb ;;
 		Android) mountandroid ;;
 	esac
