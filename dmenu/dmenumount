@@ -1,4 +1,10 @@
 #!/bin/sh
+#===============================================================================
+#         FILE: dmenumount
+#
+# ORIGINAL AUTHOR: Luke Smith
+#          AUTHOR: Gavin Jaeger-Freeborn gavinfreeborn@gmail.com
+#===============================================================================
 
 # Gives a dmenu prompt to mount unmounted drives and Android phones. If
 # they're in /etc/fstab, they'll be mounted automatically. Otherwise, you'll
