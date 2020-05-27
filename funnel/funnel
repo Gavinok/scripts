@@ -14,22 +14,22 @@ pipename=ts.pipe
 pipefile="/tmp/${pipename}"
 lockfile="/tmp/ts.lock"
 
-tsstart() {
-	# quit if lockfile already exists
-	[ -f "${lockfile}" ] && return
+tsstart () {
+  # quit if lockfile already exists
+  [ -f "${lockfile}" ] && return
 
-	touch "${lockfile}"
-	while true; do
-		sh <"${pipefile}"
-	done
-	rm -f "${lockfile}"
+  touch "${lockfile}" 
+  while true; do
+    sh < "${pipefile}" 
+  done
+  rm -f "${lockfile}"
 
-	notify-send " Tasks Completed"
+  notify-send " Tasks Completed"
 }
 
 [ ! -p "${pipefile}" ] && mkfifo "${pipefile}"
 
-echo "${BROWSER} $1" >>"${pipefile}" &
+echo "${BROWSER} $1" >> "${pipefile}" &
 
-tsstart &
+tsstart & 
 # vim: set tw=78 ts=2 et sw=2 sr:
