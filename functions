@@ -69,6 +69,8 @@ alias info=viminfo
 
 notegrep() { ${EDITOR:-vi} -c "NGrep $*"; }
 
+fznote() { ${EDITOR:-vim} $(rg -n '.*' ~/Documents/org/ | fzf | sed -E 's/(.*):([0-9]+):.*/\1 +\2/g') }
+
 cpuspeed() { cpupower frequency-info -fm | grep -oP '(?<=frequency: )([^ ]+ [^ ]+)'; }
 
 powernow() { echo "scale=5;$(cat /sys/class/power_supply/BAT0/power_now)/1000000" | bc -l; }
