@@ -12,7 +12,7 @@ progcheck() {
 }
 
 
-res=$(printf 'shutdown\nreboot\nhibernate\nkill X' | ${LAUNCER} 'Power Menu:')
+res=$(printf 'shutdown\nreboot\nsleep\nhibernate\nkill X' | ${LAUNCER} 'Power Menu:')
 
 # check for running programs
 progcheck pip
@@ -33,6 +33,9 @@ case "${res}" in
 	;;
 "shutdown")
 	systemctl poweroff
+	;;
+"sleep")
+	systemctl suspend
 	;;
 "hibernate")
 	systemctl hibernate
