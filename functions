@@ -65,7 +65,7 @@ man() { /bin/man $* || awman "$*"; }
 # Create a shell function as a wrapper
 viminfo() { ${EDITOR:-vi} -R -M -c "Info $1 $2" +only; }
 # Alias info to our new function
-alias info=viminfo
+# alias info=viminfo
 
 notegrep() { ${EDITOR:-vi} -c "NGrep $*"; }
 
