@@ -69,7 +69,7 @@ viminfo() { ${EDITOR:-vi} -R -M -c "Info $1 $2" +only; }
 
 notegrep() { ${EDITOR:-vi} -c "NGrep $*"; }
 
-fznote() { ${EDITOR:-vim} $(rg -n '.*' ~/Documents/org/ | fzf | sed -E 's/(.*):([0-9]+):.*/\1 +\2/g') }
+fn() { ${EDITOR:-vim} $(rg -n '.*' "$HOME/Documents/org/" | fzf | sed -E 's/(.*):([0-9]+):.*/\1 +\2/g'); }
 
 cpuspeed() { cpupower frequency-info -fm | grep -oP '(?<=frequency: )([^ ]+ [^ ]+)'; }
 
