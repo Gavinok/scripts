@@ -14,26 +14,35 @@
 #get the name of the wifi device
 DEVICE=$(iw dev | awk '/Interface/ {print $2}')
 
+if [ $(echo $DEVICE | wc -l) -gt 1 ]; then
+  DEVICE=$(echo $DEVICE | dmenu -p 'select device')
+fi
+
 # check if wifi is connected
-if ! ip link show "${DEVICE}" | grep 'UP'; then 
+echo "check if device is enabled"
+if ! ip link show "${device}" | grep 'up'  ; then 
+  echo "device is not enabled"
   # turn connection on
   sudo ip link set "${DEVICE}" up || notify "set ${DEVICE} to UP"
 fi
 
 # check if already connected
-if iw "${DEVICE}" link | Grep 'Connected to .*'; then 
-  notify "wifi is already connected" 
+echo "check if already connected"
+if iw "${DEVICE}" link | grep 'Connected to .*' ; then 
+  notify-send "wifi is already connected" 
   exit
 fi
 
 # get the avalilable networks 
-sudo iw wls1 scan |awk '/SSID: [^[:space:]]+.*/ {print $2}'
+echo "get the avalilable networks"
+WIFI=$(sudo iw wls1 scan |awk '/ssid: [^[:space:]]+.*/ {print $2}' | dmenu -p "Select Network")
 
 # TODO: select a network 
 # WIFI=
 
 # Connect to WPA/WPA2 WiFi network
 # XXX: not sure if this works
+echo "add passphrase to wpa_supplicant"
 wpa_passphrase "${WIFI}" |sudo tee -a /etc/wpa_supplicant.conf 
 
 # -B means run wpa_supplicant in the background.
@@ -45,6 +54,7 @@ sudo wpa_supplicant -B -D wext -i "${DEVICE}" -c /etc/wpa_supplicant.conf
 
 iw "${DEVICE}" link
 
+# use dhclient to get ip address
 sudo dhclient "${DEVICE}"
 
 IPADDR=$(ip addr show wls1 | awk '/inet.*wls1/ {print $2}')
