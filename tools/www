@@ -38,7 +38,7 @@ case "$1" in
 	curl "$1" |exec  "${READER}" - >/dev/null 2>&1 &
 	;;
 *\.mp3 | *\.m4a | *\.ogg | *\.flac | *\.opus | *\.mp3?source | *soundcloud*)
-	exec "${TERMINAL}" -n "mp3" -e mpv --force-window=immediate --video=no "$1" >/dev/null 2>&1
+	exec "${TERMINAL}" -n "mp3" -e mpv --video=no "$1" >/dev/null 2>&1
 	;;
 *\.diff | *\.md | *\.ms | *\.mom | *\.txt | *\.c | *\.h | *\.cpp | *\.hs | *\.py | *\.sh | *raw*)
 	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && exec "${TERMINAL}" -e "${EDITOR:-vi}" "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
