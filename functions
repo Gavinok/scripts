@@ -78,4 +78,7 @@ powernow() { echo "scale=5;$(cat /sys/class/power_supply/BAT0/power_now)/1000000
 onecpu() { echo 0 | sudo tee /sys/devices/system/cpu/cpu*/online; }
 
 allcpu() { echo 1 | sudo tee /sys/devices/system/cpu/cpu*/online; }
+
+# may remove if I never end up using it
+sxiv() { /home/gavinok/.scripts/tools/sw sxiv "*" ; }
 #vim:ft=sh
