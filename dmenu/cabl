@@ -33,13 +33,24 @@ shellopener(){
 		# open sc files with sc
 		application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) exec sc-im "$*";;
 		# open text files with sc
-		text/*) exec ${EDITOR:-vi} "$*";;
+		text/*) exec "${EDITOR:-vi}" "$*";;
 		*) for f in "$@"; do setsid "${OPENER}" "${f}" > /dev/null 2> /dev/null & done && exit 0;;
 	esac
 	exit 1
 }
 
-fallbackopen() { exec "$OPENER" "${prim}" ; }
+fallbackopen() {
+	case ${prim} in
+		*.xopp)
+			exec xournalpp "${prim}"
+			;;
+		*)
+			exec "$OPENER" "${prim}"
+			;;
+	esac
+
+
+}
 
 istext(){
 	case $src in
