@@ -15,10 +15,10 @@ do
 				exit 1
 			fi
 			;;
-		s)  
+		s)
 			src=$OPTARG
 			;;
-		\?) 
+		\?)
 			printf 'Invalid option: -%s\n' "${o}" && exit 1
 			;;
 	esac
@@ -77,9 +77,14 @@ isfile() {
 		# open text files with sc
 		text/*)  istext "$*";;
 		*) for f in "$@"; do fallbackopen "$*" > /dev/null 2> /dev/null & done && exit 0;;
-
 	esac
 }
+
+isdir() {
+	cd "$*" && exec "$TERMINAL" && exit 0
+	fallbackopen "$*"
+}
+
 [ -z "${prim}" ] && prim="$*"
 [ -z "${prim}" ] && exit
 PID=$(xprop -id "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" | grep -m 1 PID | cut -d " " -f 3)
