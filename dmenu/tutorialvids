@@ -58,6 +58,8 @@ cs50 Beyond javascript continued https://www.youtube.com/watch?v=XNDZ3eg_VcE&t=3
 spotifyd https://www.youtube.com/watch?v=R5jikGfSdh4
 hugo netlify github pages https://www.youtube.com/watch?v=NSts93C9UeE
 Lua	https://www.youtube.com/watch?v=iMacxZQMPXs
+Gnu Parallel	https://www.youtube.com/playlist?list=PL284C9FF2488BC6D1
+Curl for REST APIs	https://www.youtube.com/watch?v=czeIHABQCxo
 "
 
 if command -v mpv >/dev/null; then
