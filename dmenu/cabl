@@ -34,7 +34,7 @@ shellopener(){
 		application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) exec sc-im "$*";;
 		# open text files with sc
 		text/*) exec "${EDITOR:-vi}" "$*";;
-		*) for f in "$@"; do setsid "${OPENER}" "${f}" > /dev/null 2> /dev/null & done && exit 0;;
+		*) for f in "$@"; do sw "${OPENER}" "${f}" > /dev/null 2> /dev/null & done && exit 0;;
 	esac
 	exit 1
 }
