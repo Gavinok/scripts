@@ -41,8 +41,8 @@ textype() {
 }
 
 pandoccmd() {
+	Ifinstalled pdflatex && pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" -o "${2}.pdf"
 	Ifinstalled groff && pandoc "${1}" -t ms -o "${2}.pdf" && exit
-	Ifinstalled pdflatex && pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" --pdf-engine=xelatex -o "${2}.pdf"
 }
 
 pandocorg() { pandoccmd "$file" "$base"; }
@@ -59,7 +59,7 @@ compilec() {
 [ -f "$REFBIB" ] && groffbib="-p $REFBIB"
 
 case "$file" in
-*\.ms|*\.groff) refer -PS -e "$groffbib" "$file" | groff -Gkte -b -wall -ms -mspdf -T ps | ps2pdf - >"$base".pdf ;;
+*\.ms|*\.groff)  groff -Gkte -b -w w -ms -mspdf -T ps "$file" | ps2pdf - >"$base".pdf ;;
 # *\.mm|*\.me|*\.mom) refer -PS -e "$groffbib" "$file" | grog --run >"$base".pdf ;;
 *\.tex) textype "$file" ;;
 *\.org) Ifinstalled pandoc && pandocorg "$file" "$base" && exit ;;
