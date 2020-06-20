@@ -9,7 +9,6 @@ updatevolume() { statwe -a; }
 PULSE=true
 if [ "$PULSE" ]; then
 	toggle() { pactl set-sink-mute @DEFAULT_SINK@ toggle; }
-
 	up() { pactl set-sink-volume @DEFAULT_SINK@ +"${NUM}"%; }
 	down() { pactl set-sink-volume @DEFAULT_SINK@ -"${NUM}"%; }
 	control() { pulsemixer; }
