@@ -80,5 +80,7 @@ onecpu() { echo 0 | sudo tee /sys/devices/system/cpu/cpu*/online; }
 allcpu() { echo 1 | sudo tee /sys/devices/system/cpu/cpu*/online; }
 
 # may remove if I never end up using it
-sxiv() { /home/gavinok/.scripts/tools/sw sxiv "*" ; }
+sxiv() { sw sxiv "$*" ; }
+xournalpp() { sw xournalpp "$*" ; }
+
 #vim:ft=sh
