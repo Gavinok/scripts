@@ -1,0 +1,24 @@
+#!/bin/sh
+
+######################################################################
+# @author      : Gavin Jaeger-Freeborn (gavinfreeborn@gmail.com)
+# @file        : feeder.sh
+# @created     : Mon 29 Jun 2020 11:32:51 AM
+#
+# @description : A simple rss reader using dmenu and sfeed
+######################################################################
+
+# check sfeed is installed
+command -v "sfeed" >/dev/null || { notify-send "📦 <b>sfeed</b> must be installed for this function." && exit 1; }
+# check dmenu is installed
+command -v "dmenu" >/dev/null || { notify-send "📦 <b>dmenu</b> must be installed for this function." && exit 1; }
+
+# find alternative apps if it is installed on your system
+find_alt() { for i;do command -v "${i}" >/dev/null && { echo "${i}"; return 0;};done;return 1; }
+export PLUMBER=$(find_alt cabl $OPENER)
+
+url=$(sfeed_plain "$HOME/.sfeed/feeds/"* | dmenu -l 35 -i | \
+	sed -n 's@^.* \([a-zA-Z]*://\)\(.*\)$@\1\2@p')
+test -n "${url}" && $PLUMBER "${url}"
+
+# vim: set tw=78 ts=2 et sw=2 sr:
