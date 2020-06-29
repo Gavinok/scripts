@@ -59,7 +59,7 @@ compilec() {
 [ -f "$REFBIB" ] && groffbib="-p $REFBIB"
 
 case "$file" in
-*\.ms|*\.groff)  groff -Gkte -b -w w -ms -mspdf -T ps "$file" | ps2pdf - >"$base".pdf ;;
+*\.ms|*\.groff) groff -Gkte -b -w w -ms -mspdf -T ps "$file" | ps2pdf - >"$base".pdf ;;
 # *\.mm|*\.me|*\.mom) refer -PS -e "$groffbib" "$file" | grog --run >"$base".pdf ;;
 *\.tex) textype "$file" ;;
 *\.org) Ifinstalled pandoc && pandocorg "$file" "$base" && exit ;;
