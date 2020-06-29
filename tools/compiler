@@ -76,6 +76,7 @@ case "$file" in
 	Ifinstalled libreoffice && lowriter --convert-to pdf "$file" && exit
 	Ifinstalled pandoc && pandoccmd "$file" "$base" && exit
 	;;
+*\.dot|*\.gv) dot -Tps "$file" > "$base".ps ;;
 *\.go) go run "$file" ;;
 *\.vim*) vint "$file" ;;
 *\.sent) setsid sent "$file" 2>/dev/null &;;
