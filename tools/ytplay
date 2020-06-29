@@ -7,17 +7,23 @@
 notify-send "Playing video"
 # try to run video in lower format
 allcpus_enabled=$(cat /sys/devices/system/cpu/cpu1/online)
-plugged_in=/sys/class/power_supply/AC
+charging_state=$(cat /sys/class/power_supply/BAT0/status)
 
-# if not all cpus re enabled enabled use 360p
 if [ "$allcpus_enabled" -eq 0 ]; then
-	setsid mpv --force-window=immediate --really-quiet --ytdl-format="bestvideo[height<=?360]+bestaudio/best" "$*" >/dev/null 2>&1 && exit
-elif [ -d "$plugged_in" ]; then
-	# default to 720p
-	setsid mpv --force-window=immediate --really-quiet --ytdl-format="bestvideo[height<=?720]+bestaudio/best" "$*" >/dev/null 2>&1 && exit
+	# 360p if not all cores are enabled
+	setsid mpv --force-window=immediate --really-quiet\
+		--ytdl-format="bestvideo[height<=?360]+bestaudio/best" "$*" >/dev/null 2>&1 &&
+		exit
+elif [ "$charging_state" = 'Charging' ]; then
+	# Default to 720p if charging
+	setsid mpv --force-window=immediate --really-quiet\
+		--ytdl-format="bestvideo[height<=?720]+bestaudio/best" "$*" >/dev/null 2>&1 && 
+		exit
 else
-	# default to 720p
-	setsid mpv --force-window=immediate --really-quiet --ytdl-format="bestvideo[height<=?480]+bestaudio/best" "$*" >/dev/null 2>&1 && exit
+	# Default to 480p
+	setsid mpv --force-window=immediate --really-quiet\
+		--ytdl-format="bestvideo[height<=?480]+bestaudio/best" "$*" >/dev/null 2>&1 && 
+		exit
 fi
 
 # video cannot me loaded
