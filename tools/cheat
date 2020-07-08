@@ -19,6 +19,5 @@ case "$file" in
 	*go)    ask go/"$keyword";;
 	*vimrc) ask vim/"$keyword";;
 	*vim)   ask vim/"$keyword";;
-	*vim)   ask vim/"$keyword";;
 	*)        ask "$*";;
 esac
