@@ -60,7 +60,7 @@ compilec() {
 
 case "$file" in
 *\.ms|*\.groff) groff -Gktes -b -w w -ms -mspdf -T ps "$file" | ps2pdf - >"$base".pdf ;;
-*\.mom) groff -Gktes -wall -Wrange -mom -T ps "$file" | ps2pdf - > "$base".pdf ;;
+*\.mom) groff -Gktes -wall -Wrange -mom -pdfmark -T ps "$file" | ps2pdf - > "$base".pdf ;;
 *\.mm|*\.me) grog "$file" --run | ps2pdf - > "$base".pdf ;;
 *\.tex) textype "$file" ;;
 *\.org) Ifinstalled pandoc && pandocorg "$file" "$base" && exit ;;
