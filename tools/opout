@@ -16,7 +16,15 @@ texopen(){
 }
 case "$1" in
 	*.tex) texopen "$1" ;;
-	*.md|*.mmd|*.rmd|*.ms|*.groff|*.me|*.mom|*.jot|*.docx|*.doc|*.org) setsid "$READER" "$basename".pdf >/dev/null 2>&1 & ;;
+	*.md|*.mmd|*.rmd|*.ms|*.groff|*.me|*.mom|*.jot|*.docx|*.doc|*.org) 
+		if [ -f "$basename".pdf ]; then
+			setsid "$READER" "$basename".pdf >/dev/null 2>&1 & 
+		elif [ -f "$basename".ps ]; then
+			setsid "$READER" "$basename".ps >/dev/null 2>&1 & 
+		elif [ -f "$basename".html ]; then
+	    	setsid "google-chrome-stable" "$basename".html >/dev/null 2>&1 &
+		fi
+			;;
 	*.pdf|*.mp3|*.mp4) setsid "$READER" "$basename".pdf >/dev/null 2>&1 & ;;
 	*.html) 
 	    setsid "google-chrome-stable" "$basename".html >/dev/null 2>&1 & ;;
