@@ -39,6 +39,7 @@ screencastpulse() { \
 	"$HOME/screencast-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > ~/.recordingpid
 	updateicon "⏺️🎙️"
+	notify-send "Dont forget to enlarge terminal text"
        	}
 
 screencastalsa() { \
