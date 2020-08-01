@@ -15,6 +15,8 @@ Simply clone this repo and recursivly add it to the `PATH`
 - jgmenu
 - POSIX complient shell
 - xclip
+- curl
+- qrencode (optional)
 - TERMINAL (set this environment variable)
 - EDITOR (set this environment variable)
 - PLUMBER (set this environment variable)
