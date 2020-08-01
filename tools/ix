@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# The original version of this script was wtitten by the guys at 2f30
+# upload text to ix.io
+
+PASTE() {
+	curl -F 'f:1=<-' ix.io
+}
+
+if test -z "$1"; then
+	cat -    | PASTE
+else
+	cat "$1" | PASTE
+fi
