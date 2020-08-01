@@ -9,13 +9,31 @@ pkill node
 # ps aux |  castnow | grep -v grep && killall node
 
 case "$1" in
-*mkv | *avi)
-	setsid castnow ./"$1" --quiet --tomp4 >/dev/null 2>&1 &
-	;;
-*youtube.com* | *youtu.be*) #limit the video quality
-	setsid youtube-dl -o - "$1" 2>/dev/null | setsid castnow --quiet - >/dev/null 2>&1 &;;
-*)
-	setsid castnow ./"$1" --quiet >/dev/null 2>&1 &
-	;;
+	*mkv | *avi)
+		setsid castnow ./"$1" --quiet --tomp4 >/dev/null 2>&1 &
+		;;
+	*youtube.com* | *youtu.be*) #limit the video quality
+		tmpdir=$(mktemp -d)
+		file_to_cast=${tmpdir}/cast
+		program_=$(command -v castnow)
+		if [ "${program_}" = "" ]; then
+			notify-send "castnow can't be found..."
+			exit 1
+		fi
+
+		# kill any running instance of castnow
+		pkill -f "${program_}"
+		# setsid castnow ./"$1" --quiet >/dev/null 2>&1 &
+		youtube-dl -qo - "$1" > "${file_to_cast}" &
+		ytdl_pid=$!
+
+		tail -F "${file_to_cast}" | ${program_} -
+		# cleanup remaining background process and file on disk
+		kill ${ytdl_pid}
+		rm -rf "${tmpdir}"
+		;;
+	*)
+		castnow ./"$1" --quiet >/dev/null 2>&1 &
+		;;
 esac
 notify-send " casting video"
