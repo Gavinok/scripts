@@ -106,9 +106,11 @@ fi
 # killall dwm
 
 #dmenu
-cp ~/.config/colorschemes/dmenu/$scheme.h ~/.config/colorschemes/dmenu/current.h
-cd ~/.config/dmenu/ || exit
-sudo make clean install
+if [ -f "~/.config/colorschemes/dmenu/$scheme.h" ] ; then
+	cp ~/.config/colorschemes/dmenu/$scheme.h ~/.config/colorschemes/dmenu/current.h
+	cd ~/.config/dmenu/ || exit
+	sudo make clean install
+fi
 
 #surf
 # cp ~/.config/colorschemes/surf/$scheme.h ~/.config/colorschemes/surf/current.h
