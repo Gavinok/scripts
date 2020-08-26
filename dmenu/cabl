@@ -126,7 +126,7 @@ fi
 OPTIONS="
 search
 qrcode
-nmaps
+maps
 read"
 
 search() { "${BROWSER}" "https://duckduckgo.com/?q=$*"; }
