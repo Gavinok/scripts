@@ -63,7 +63,7 @@ if [ $scheme = "dark" ]; then
 	#rtv
 	sed -i "s/mytheme2/mytheme1/g" ~/.config/rtv/rtv.cfg
 	#compton
-	setsid compton &
+	setsid picom &
 	setsid flashfocus &
 	#mutt
 	sed -i "s\source ~/.config/colorschemes/mutt/light\\g" ~/.config/mutt/muttrc
