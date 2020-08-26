@@ -1,36 +1,36 @@
 # make plan9 walk available on all systems
 walk() {
 	if command -v walk >/dev/null 2>&1; then
-		/usr/local/bin/walk
-			elif command -v fd >/dev/null 2>&1; then
-			fd -c never .
+		/usr/local/bin/walk $@
+	elif command -v fd >/dev/null 2>&1; then
+		fd -c never .
 	else
 		find .
-			fi
+	fi
 }
 
 # Calculator
 calc() { echo "scale=5;$*" | bc -l; }
 
 r() {
-# Block nesting of nnn in subshells
+	# Block nesting of nnn in subshells
 	if [ -n "${NNNLVL}" ] && [ "${NNNLVL:-0}" -ge 1 ]; then
 		echo "nnn is already running"
-			return
-			fi
+		return
+	fi
 
 # The default behaviour is to cd on quit (nnn checks if NNN_TMPFILE is set)
 # To cd on quit only on ^G, remove the "export" as in:
 #     NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
 # NOTE: NNN_TMPFILE is fixed, should not be modified
-			export NNN_TMPFILE="${XDG_CONFIG_HOME:-${HOME}/.config}/nnn/.lastd"
+export NNN_TMPFILE="${XDG_CONFIG_HOME:-${HOME}/.config}/nnn/.lastd"
 
-			nnn -c "$@"
+nnn -c "$@"
 
-			if [ -f "${NNN_TMPFILE}" ]; then
-				. "${NNN_TMPFILE}"
-					rm -f "${NNN_TMPFILE}" >/dev/null
-					fi
+if [ -f "${NNN_TMPFILE}" ]; then
+	. "${NNN_TMPFILE}"
+	rm -f "${NNN_TMPFILE}" >/dev/null
+fi
 }
 
 # f() {
@@ -41,9 +41,9 @@ r() {
 #dirsize - finds directory sizes and lists them for the current directory
 dirsize() {
 	du -shx -- * .[a-zA-Z0-9_]* 2>/dev/null | grep -E '^ *[0-9.]*[MG]' | sort -n >/tmp/list
-		grep -E '^ *[0-9.]*M' /tmp/list
-		grep -E '^ *[0-9.]*G' /tmp/list
-		rm /tmp/list
+	grep -E '^ *[0-9.]*M' /tmp/list
+	grep -E '^ *[0-9.]*G' /tmp/list
+	rm /tmp/list
 }
 
 #myip - finds your current IP if your connected to the internet
@@ -55,12 +55,12 @@ myip() {
 mcd() {
 	mkdir -p -- "$1" &&
 		cd -P -- "$1" || return
-}
+	}
 
 # define a word
 define() { curl -s "dict://dict.org/d:$1" | grep -v '^[0-9]'; }
 
-man() { /bin/man $* || awman "$*"; }
+man() { /bin/man $@ || awman "$@"; }
 
 # Create a shell function as a wrapper
 viminfo() { ${EDITOR:-vi} -R -M -c "Info $1 $2" +only; }
