@@ -62,6 +62,7 @@ Gnu Parallel	https://www.youtube.com/playlist?list=PL284C9FF2488BC6D1
 Curl for REST APIs	https://www.youtube.com/watch?v=czeIHABQCxo
 ImageMagick transparency	https://www.youtube.com/watch?v=D8pcvkRsx1g&t=300s
 ImageMagick Canvases, Plasma, Composites, Geometry	https://www.youtube.com/watch?v=nbXHbHrfrIs
+hub	https://www.youtube.com/watch?v=xWbaKNFAh8Y
 "
 
 if command -v mpv >/dev/null; then
