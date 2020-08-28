@@ -42,7 +42,7 @@ textype() {
 
 pandoccmd() {
 	# Ifinstalled pdflatex && pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" -o "${2}.pdf"
-	Ifinstalled groff && pandoc "${1}" -t ms -o "${2}.pdf" && exit
+	Ifinstalled groff && pandoc "${1}" -t ms --pdf-engine-opt=-p -o "${2}.pdf"
 }
 
 pandocorg() { pandoccmd "$file" "$base"; }
