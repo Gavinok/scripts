@@ -25,3 +25,4 @@ device=$(uname -n)
 sleep 10
 # psave.sh &
 # covid19.sh &
+remind -z -k'notify-send 🦄\ [REMINDER]:\ %s" &' "${DOTREMINDERS}" &
