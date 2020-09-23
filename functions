@@ -69,7 +69,9 @@ viminfo() { ${EDITOR:-vi} -R -M -c "Info $1 $2" +only; }
 
 notegrep() { ${EDITOR:-vi} -c "NGrep $*"; }
 
-fn() { ${EDITOR:-vim} $(rg -n '.*' "$HOME/Documents/org/" | fzf | sed -E 's/(.*):([0-9]+):.*/\1 +\2/g'); }
+fn() { ${EDITOR:-vim} $(rg -n '.*' "$HOME/Documents/org/" | fzf --layout=reverse --height 50% --ansi | sed -E 's/(.*):([0-9]+):.*/\1 +\2/g'); }
+
+fr() { ${EDITOR:-vim} $(rg -n '.*' "$HOME/.config/remind/" | fzf --layout=reverse --height 50% --ansi | sed -E 's/(.*):([0-9]+):.*/\1 +\2/g'); }
 
 cpuspeed() { cpupower frequency-info -fm | grep -oP '(?<=frequency: )([^ ]+ [^ ]+)'; }
 
