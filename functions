@@ -85,3 +85,21 @@ allcpu() { echo 1 | sudo tee /sys/devices/system/cpu/cpu*/online; }
 sxiv() { sw sxiv "$*" ; }
 xournalpp() { sw xournalpp "$*" ; }
 #vim:ft=sh
+
+fzjq() {
+	echo '' | fzf --print-query --preview "jq {q} \"$*\""
+}
+
+fzrec() {
+	echo '' | fzf --print-query --preview "recsel {q} \"$*\""
+}
+
+
+fzawk() {
+	echo '' | fzf --layout=reverse --height 50% --print-query --preview 'echo "a\nb\nc\nd" | awk {q}'
+}
+
+fzR() {
+	echo '' | fzf --layout=reverse --height 50% --print-query --preview 'R -s -e {q}'
+
+}
