@@ -19,19 +19,19 @@ OGVIDEOFILE="$1"
 # ffmpeg -i AUDIOFILE.mp3 -ss 00:00:18 -t 00:00:20 noisesample.wav
 # Then create the profile using this command:
 # sox noisesample.wav -n noiseprof noise_profile_file
-[ ! -f "$2" ] && exit
 # This can be exported in your bashrc
 [ -f "$SOUNDPROFILE" ] || SOUNDPROFILE="$2"
+
+[ ! -f "$SOUNDPROFILE" ] && exit
 
 # Remove Audio From Video
 ffmpeg -i "$OGVIDEOFILE" -vn -ac 2 -ar 44100 -ab 320k -f mp3 AUDIOFILE.mp3
 
 # Remove Background Noise
-sox AUDIOFILE.mp3 fixedAUDIOFILE.mp3 noisered noise_profile_file 0.25
+sox AUDIOFILE.mp3 fixedAUDIOFILE.mp3 noisered $SOUNDPROFILE 0.25
 
 # Join Audio And Video
-ffmpeg -i "$OGVIDEOFILE" -i fixedAUDIOFILE.mp3 -c:v copy -map 0:v:0 -map 1:a:0
-"${OGVIDEOFILE}NEW.mp4"
+ffmpeg -i "$OGVIDEOFILE" -i fixedAUDIOFILE.mp3 -c:v copy -map 0:v:0 -map 1:a:0 "${OGVIDEOFILE}NEW.mp4"
 
 rm fixedAUDIOFILE.mp3
 
