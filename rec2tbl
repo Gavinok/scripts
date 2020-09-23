@@ -1,0 +1,60 @@
+#!/usr/bin/env sh
+
+######################################################################
+# @author      : Gavin Jaeger-Freeborn (gavinfreeborn@gmail.com)
+# @file        : todotemp.sh
+# @created     : Tue 22 Sep 2020 04:56:58 PM
+#
+# @description : 
+######################################################################
+
+DATE=$(date)
+RECFILE='schedule.rec'
+STATEFMT='{{State = "TODO" ? "\m[R]\fB" & "TODO" & "\fI\m[]" : "\m[G]\fB" & State & "\fI\m[]" }}'
+
+formatDates() 
+{
+  recsel -e "State = 'TODO' && (Scheduled ==  '' && Deadline == '' ) " ${RECFILE}
+  # Process one line at a time.
+  recsel -e "Scheduled >> \"$DATE\"|| Deadline >> \"$DATE\" " ${RECFILE} |
+    while IFS=': ' read -r key val
+    do
+
+      [ -z "$key" ] && echo "" && continue
+      if [ "$key" = 'Scheduled' ] ||  [ "$key" = 'Deadline' ] ; then
+        val="in $((($(date +%s --date "$val")-$(date +%s))/(3600*24))) days"
+      fi
+      printf "%s: %s\n" "$key" "$val"
+    done
+}
+
+todos() {
+  recsel -e "State = 'TODO' && (Scheduled ==  '' && Deadline == '' ) " ${RECFILE}
+}
+groff(){
+
+cat << EOF
+.defcolor R rgb 1 0 0
+.defcolor B rgb 0 0 1
+.defcolor G rgb 0 1 0
+.TS
+center tab(;);
+c|c|c|c|c.
+\\fBStatus;Name;Class;Deadline;Scheduled\\fR
+_
+EOF
+todos | recfmt "${STATEFMT};{{Name}};{{Class}};\m[R]{{Deadline}}\m[];\m[B]{{Scheduled}}\m[]
+"
+echo '_'
+formatDates | recfmt "${STATEFMT};{{Name}};{{Class}};\m[R]{{Deadline}}\m[];\m[B]{{Scheduled}}\m[]
+"
+cat << EOF
+.TE
+EOF
+
+}
+
+groff
+# org
+# formatDates | recfmt -f schedule.templ
+# vim: set tw=78 ts=2 et sw=2 sr:
