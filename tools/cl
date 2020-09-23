@@ -26,7 +26,7 @@ Allowed options:
   down NUM	Decrease brightness (2 secs default)
   all else	Print this message
 
-All of these commands, except for \`truemute\`, \`prev\` and \`play\` can be truncated,
-i.e. \`lmc r\` for \`lmc restart\`.
+All of these commands, except for \`up\` and \`down\` can be truncated,
+i.e. \`$( basename $0 ) u\` for \`$( basename $0 ) up\`.
 EOF
 esac
