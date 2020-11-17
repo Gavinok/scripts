@@ -93,7 +93,7 @@ else
 	#ducksearch
 	sed -i "s/kae=d/kae=-1/g" ~/.scripts/dmenu/ducksearch
 	#compton
-	killall compton
+	killall picom
 	killall flashfocus
 	#mutt
 	echo 'source ~/.config/colorschemes/mutt/light' ~/.config/mutt/muttrc
