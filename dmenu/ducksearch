@@ -17,11 +17,6 @@ else
 	choice=$(echo "🦆" | $LAUNCER -i -p "Search DuckDuckGo:") || exit 1
 fi
 
-browse (){
-	[ -z "${DISPLAY}" ] && $localBROWSER"${1}" &LAUNCER="fzf --prompt "
-	setsid $localBROWSER"${1}" &
-}
-
 case "$choice" in
 *🦆*)
 	$localBROWSER"https://duckduckgo.com"
