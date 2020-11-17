@@ -1,0 +1,58 @@
+#!/usr/bin/env sh
+
+######################################################################
+# @author      : Gavin Jaeger-Freeborn (gavinfreeborn@gmail.com)
+# @file        : rec2org.sh
+# @created     : Wed 23 Sep 2020 11:19:30 AM
+#
+# @description : 
+######################################################################
+
+ORGTEMPLATE="* {{State}} {{Name}} :{{Class}}:
+SCHEDULED: <{{Scheduled}}>
+DEADLINE: <{{Deadline}}> {{Desc}}
+
+"
+
+DATE=$(date)
+
+RECORGFILE="${HOME}/Documents/org/rec.org"
+
+RECFILE="${HOME}/schedule.rec"
+
+formatDates() 
+{
+  # recsel -s '' -e "Scheduled >> \"${DATE}\"|| Deadline >> \"${DATE}\" || State = 'TODO'" ${HOME}/schedule.rec |
+
+  # Check that the file is properly formatted
+  recfix --check "${RECFILE}" || exit 1
+
+  # Process one line at a time.
+  recsel  "${RECFILE}" |
+    while IFS=': ' read -r key val
+    do
+      # multi line
+      if [ "$key" = '+' ];then
+        printf "%s %s\n" "$key" "$val" 
+        continue
+      fi
+
+      # End of an entry
+      [ -z "$key" ] && echo "" && continue
+
+      # date
+      if [ "$key" = 'Scheduled' ] ||  [ "$key" = 'Deadline' ] ; then
+        val="$(date +'%Y-%m-%d %a %H:%M' --date "$val")"
+      fi
+
+      printf "%s: %s\n" "$key" "$val"
+    done
+
+  }
+
+formatDates |
+  recfmt "$ORGTEMPLATE" |
+  sed -E -e '/(DEADLINE: <>|SCHEDULED: <>)/d' -e 's/::$//g' > $RECORGFILE
+
+# vim: set tw=78 ts=2 et sw=2 sr:
+
