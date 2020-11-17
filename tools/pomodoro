@@ -1,7 +1,7 @@
 #!/bin/bash
 #pomodoro
 recordTomato () {
-notify-send "break"
+notify-send "pomodoro" "break"
 mpv /usr/share/sounds/freedesktop/stereo/message.oga
 exec 3>&1
 exec 3>&-;
@@ -9,7 +9,7 @@ runBreak
 }
 
 runTomato () {
-notify-send "Start tomato"
+notify-send "pomodoro" "Start tomato"
 mpv /usr/share/sounds/freedesktop/stereo/message.oga
   seconds=1500;
   date1=$((`date +%s` + seconds));
