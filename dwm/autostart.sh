@@ -8,7 +8,7 @@ if [ "$scheme" = "dark" ];then
 fi
 unclutter &
 clipmenud &
-# redshift &
+redshift &
 # pulsemixer --set-volume 50 &
 xbacklight -set 30 &
 autosuspend.sh  &
@@ -25,4 +25,4 @@ device=$(uname -n)
 sleep 10
 # psave.sh &
 # covid19.sh &
-remind -z -k'notify-send 🦄\ [REMINDER]:\ %s" &' "${DOTREMINDERS}" &
+# remind -z -k'notify-send 🦄\ [REMINDER]:\ %s" &' "${DOTREMINDERS}" &
