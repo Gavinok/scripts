@@ -1,4 +1,7 @@
 #!/bin/sh
+# Find The Original Project Here
+#	https://git.2f30.org/scripts/file/ytgrep.html
+
 #depends: jq
 #usage:
 # ytgrep [-n nresults] terms...
