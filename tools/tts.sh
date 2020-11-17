@@ -1,5 +1,5 @@
 #!/bin/bash
-pico2wave -w=/tmp/test.wav "$1"
+pico2wave -w=/tmp/test.wav -- "$1"
 # For Pulse
 # aplay /tmp/test.wav -D 'pulse'
 # For Alsa
