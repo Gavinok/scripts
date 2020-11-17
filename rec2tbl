@@ -10,13 +10,12 @@
 
 DATE=$(date)
 RECFILE='schedule.rec'
-STATEFMT='{{State = "TODO" ? "\m[R]\fB" & "TODO" & "\fI\m[]" : "\m[G]\fB" & State & "\fI\m[]" }}'
+STATEFMT='{{State = "TODO" ? "\m[R]\fB" & "TODO" & "\fR\m[]" : "\m[G]\fB" & State & "\fR\m[]" }}'
 
 formatDates() 
 {
-  recsel -e "State = 'TODO' && (Scheduled ==  '' && Deadline == '' ) " ${RECFILE}
   # Process one line at a time.
-  recsel -e "Scheduled >> \"$DATE\"|| Deadline >> \"$DATE\" " ${RECFILE} |
+  recsel -e "Scheduled >> \"$DATE\"|| Deadline >> \"$DATE\"" --sort 'Scheduled' ${RECFILE} |
     while IFS=': ' read -r key val
     do
 
@@ -31,14 +30,14 @@ formatDates()
 todos() {
   recsel -e "State = 'TODO' && (Scheduled ==  '' && Deadline == '' ) " ${RECFILE}
 }
-groff(){
+groffout(){
 
 cat << EOF
 .defcolor R rgb 1 0 0
 .defcolor B rgb 0 0 1
 .defcolor G rgb 0 1 0
 .TS
-center tab(;);
+tab(;);
 c|c|c|c|c.
 \\fBStatus;Name;Class;Deadline;Scheduled\\fR
 _
@@ -54,7 +53,5 @@ EOF
 
 }
 
-groff
-# org
-# formatDates | recfmt -f schedule.templ
+groffout | groff -ms -t -Tpdf | zathura -
 # vim: set tw=78 ts=2 et sw=2 sr:
