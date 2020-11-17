@@ -63,6 +63,8 @@ Curl for REST APIs	https://www.youtube.com/watch?v=czeIHABQCxo
 ImageMagick transparency	https://www.youtube.com/watch?v=D8pcvkRsx1g&t=300s
 ImageMagick Canvases, Plasma, Composites, Geometry	https://www.youtube.com/watch?v=nbXHbHrfrIs
 hub	https://www.youtube.com/watch?v=xWbaKNFAh8Y
+valgrind https://www.youtube.com/watch?v=bb1bTJtgXrI
+pass	https://www.youtube.com/watch?v=sVkURNfxPd4
 "
 
 if command -v mpv >/dev/null; then
