@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# TODO:  add support for disableing dunst using
+# notify-send "DUNST_COMMAND_PAUSE"
+# and
+# notify-send "DUNST_COMMAND_RESUME"
+
 # Usage:
 # `record`: Ask for recording type via dmenu
 # `record screencast`: Record both audio and screen
@@ -27,10 +32,34 @@ killrecording() {
 	exit
 }
 
+stream() { \
+	twitchkey=$(pass twitchkey)
+	if [ $twitchkey = "" ]; then
+		notify-send "ERROR: no twitch key found"
+		exit 1
+	fi
+	ffmpeg \
+	-y -loglevel warning \
+	-f x11grab \
+	-framerate 30 \
+	-s 1280x800 \
+	-i :0.0 \
+	-f alsa -i default \
+	-r 15 \
+	-c:v libx264 -b:v 2M -maxrate 2M -bufsize 500K \
+	-preset ultrafast -tune zerolatency \
+	-c:a aac -pix_fmt yuv420p -f flv\
+	rtmp://live-sea.twitch.tv/app/"$twitchkey"  &
+	echo $! > ~/.recordingpid
+	updateicon "⏺️🎙️"
+	notify-send "Dont forget to enlarge terminal text"
+}
+
+
 screencastpulse() { \
 	ffmpeg -y \
 	-f x11grab \
-	-framerate 60 \
+	-framerate 30 \
 	-s 1280x800 \
 	-i :0.0 \
 	-f alsa -i default \
@@ -45,12 +74,14 @@ screencastpulse() { \
 webcampulse() { \
 	ffmpeg -y \
 	-f v4l2 \
-	-framerate 90 -video_size 1280x720 -i /dev/video0 -f alsa \
-	-i default \
-	-r 30 \
+	-framerate 30 \
+	-video_size 1920x1080 \
+	-input_format mjpeg \
+	-i /dev/video1 \
 	-f alsa -i default \
 	-r 30 \
-	-c:v libx264rgb -crf 0 -preset ultrafast -c:a flac \
+	-c:a flac \
+	-c copy \
 	"$HOME/webcam-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > ~/.recordingpid
 	updateicon "⏺️🎙️"
@@ -98,9 +129,11 @@ audioalsa() { \
 }
 
 askrecording() { \
-	choice=$(printf "screencast\\nwebcam\\nvideo\\naudio" | dmenu -i -p "Select recording style:")
+	choice=$(printf "screencast\\nstream\\nwebcam\\nvideo\\naudio" | dmenu -i -p "Select recording style:")
 	case "$choice" in
 		screencast) screencastpulse;;
+		webcam) webcampulse;;
+		stream) stream;;
 		audio) audiopulse;;
 		video) video;;
 	esac
@@ -115,6 +148,7 @@ asktoend() { \
 case "$1" in
 	screencast) screencastpulse;;
 	webcam) webcampulse;;
+	stream) stream;;
 	audio) audiopulse;;
 	video) video;;
 	kill) killrecording;;
