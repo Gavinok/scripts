@@ -91,7 +91,7 @@ fzjq() {
 }
 
 fzrec() {
-	echo '' | fzf --print-query --preview "recsel {q} \"$*\""
+	echo '' | fzf --print-query --preview "recsel {q} $*"
 }
 
 
