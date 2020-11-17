@@ -32,6 +32,7 @@ shellopener(){
 		inode/symlink) $0 "$(readlink "$*")" && exit;;
 		# open sc files with sc
 		application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) exec sc-im "$*";;
+		application/csv) exec sc-im "$*";;
 		# open text files with sc
 		text/*) exec "${EDITOR:-vi}" "$*";;
 		*) for f in "$@"; do sw "${OPENER}" "${f}" > /dev/null 2> /dev/null & done && exit 0;;
@@ -55,7 +56,14 @@ fallbackopen() {
 istext(){
 	case $src in
 		shell)
-			exec "${EDITOR:-vi}" "$*"
+			case "$*" in
+			  *\.1)
+			    exec man "$*"
+			    ;;
+			  *)
+				exec "${EDITOR:-vi}" "$*"
+			    ;;
+			esac
 			;;
 		vim)
 			nvr -o "$*" --nostart && exit
@@ -137,7 +145,9 @@ manual() { man -Tpdf "${prim}" | ${READER} -; }
 
 # READ ALOUD
 read() {
-	pico2wave -w=/tmp/test.wav "$*"
+	killall aplay
+	pico2wave -w=/tmp/test.wav -- "$1"
+	# picospeaker "$*"
 	# aplay /tmp/test.wav -D 'pulse'
 	aplay /tmp/test.wav
 	rm /tmp/test.wav
