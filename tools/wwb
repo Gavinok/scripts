@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+
+######################################################################
+# @author      : Gavin Jaeger-Freeborn (gavinfreeborn@gmail.com)
+# @file        : wwb.sh
+# @created     : Tue 24 Nov 2020 12:32:43 PM
+#
+# @description : A simple implementation of wwb I made
+# @requires:
+#          deroff      <http://www.moria.de/~michael/deroff/>
+#          proselint   <https://github.com/amperser/proselint>
+#          GNU diction <https://www.gnu.org/software/diction/diction.html>
+#          write-good  <https://github.com/btford/write-good>
+######################################################################
+
+# TODO: format the output of the programs for easy parsing in vim
+
+file=$(readlink -f "$1")
+dir=$(dirname "$file")
+base="${file%.*}"
+cleanfile="$file.clean"
+
+CLEANLINTERCMD(){
+  sed -e 's/\.clean//'
+}
+
+cd "$dir" || exit
+
+# deroff comes from http://www.moria.de/~michael/deroff/
+deroff "$file" | sed -e 's/^\..\+//' > "$cleanfile"
+
+grep -Hn "[−’]"              "$cleanfile" | CLEANLINTERCMD
+writegood --parse            "$cleanfile" | CLEANLINTERCMD
+proselint                    "$cleanfile" | CLEANLINTERCMD
+diction --suggest --beginner "$cleanfile" | CLEANLINTERCMD
+rm                           "$cleanfile"
+
+# vim: set tw=78 ts=2 et sw=2 sr:
