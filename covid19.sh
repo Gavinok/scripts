@@ -11,8 +11,7 @@
 
 country=Canada
 
-stats=$(curl -s "https://corona-stats.online/${country}/?source=2&format=json" |
-	jq '.data[]')
+stats=$(curl -s "https://corona-stats.online/${country}/?source=2&format=json" | jq '.data[]')
 deaths=$(echo "${stats}" | jq '.deaths')
 cases=$(echo "${stats}" | jq '.cases')
 deathrate=''$(echo "(${deaths}" / "${cases}) * 100" | bc -l | cut -c -3)'%'

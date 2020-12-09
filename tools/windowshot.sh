@@ -37,21 +37,21 @@ root()   { import -window root "${SCREENSHOTNAME}" ;}
 
 # Default Prompt For Selection
 prompter(){
-	case "$(printf 'a selected area\ncurrent window\nfull screen' | dmenu -l 6 -i -p "Screenshot which area?")" in
+	case "$(printf 'a selected area\ncurrent window\nfull screen' | dmenu -l 6 -i -p 'Screenshot which area?')" in
 		"a selected area") region ;;
 		"current window") window ;;
 		"full screen") rootwin ;;
 		*) exit ;;
 	esac
+
 }
 
-while getopts ":cw" o; do
-	case "${o}" in
+while getopts cwr: o; do
+	case "$o" in
 		c) region;;
 		w) window ;;
 		r) root ;;
 		\?) printf 'Invalid option: -%s\n' "${o}" && exit ;;
-		*) prompter ;;
 	esac
 done
 
