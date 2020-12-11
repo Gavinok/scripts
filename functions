@@ -94,6 +94,10 @@ fzrec() {
 	echo '' | fzf --print-query --preview "recsel {q} $*"
 }
 
+fzndb() {
+	echo '' | fzf --print-query --preview "ndbquery -f $* atomicnumber {q}"
+}
+
 
 fzawk() {
 	echo '' | fzf --layout=reverse --height 50% --print-query --preview 'echo "a\nb\nc\nd" | awk {q}'

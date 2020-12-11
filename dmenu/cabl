@@ -19,7 +19,7 @@ do
 			src=$OPTARG
 			;;
 		\?)
-			printf 'Invalid option: -%s\n' "${o}" && exit 1
+			printf 'Invalid option: -%s\n' "${f}" && exit 1
 			;;
 	esac
 done

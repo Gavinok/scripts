@@ -8,6 +8,7 @@
 # @description : fzf shortcuts
 ######################################################################
 
+# TODO: automate adding these
 f() {
 	case "$*" in
 	d)
