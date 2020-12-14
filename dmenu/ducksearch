@@ -9,7 +9,7 @@ LAUNCER="dmenu -l 5 -i -p "
 
 localBROWSER="$BROWSER "
 [ -n "$*" ] && localBROWSER="$*"
-# [ -z "${DISPLAY}" ] && localBROWSER="w3m "
+[ -z "${DISPLAY}" ] && localBROWSER="xdg-open "
 
 if [ -f ~/.config/bookmarks ]; then
 	choice=$( (echo "🦆" && cat ~/.config/bookmarks) | $LAUNCER"Search:") || exit 1
