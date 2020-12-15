@@ -1,6 +1,6 @@
 #!/bin/sh
-intern=LVDS1
-extern=HDMI2
+intern=eDP1
+extern=DP2
 
 while getopts ":i" o; do case "$o" in
 	i) initial=1 ;;
