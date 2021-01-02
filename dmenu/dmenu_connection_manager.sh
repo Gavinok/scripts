@@ -1,5 +1,17 @@
 #!/bin/sh
 
+# initial configuration
+# sudo pacman --noconfirm -S bluez-utils pulseaudio-bluetooth pulseaudio-alsa blueman
+# sudo ln -vsf ${PWD}/etc/bluetooth/main.conf /etc/bluetooth/main.conf
+# sudo systemctl start bluetooth.service
+# sudo systemctl enable bluetooth.service
+
+# Requires:
+# 		blueman
+# 		bluez-utils
+# 		networkmanager_dmenu (https://github.com/firecat53/networkmanager-dmenu)
+# 		btmenu               (https://github.com/cdown/btmenu)
+
 [ "$(cat /sys/class/net/w*/operstate)" = 'down' ] && wifiicon="📡"
 [ -z "${wifiicon+var}" ] && wifiicon=$(grep "^\s*w" /proc/net/wireless | awk '{ print "📶", int($3 * 100 / 70) "%" }')
 # WIFI=$(printf "%s " "$wifiicon" && nmcli connection show --active | sed '1d'  | awk '{print $1}')
