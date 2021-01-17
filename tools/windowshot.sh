@@ -30,6 +30,7 @@ _end()
 {
 	note
 	xdg-open "${SCREENSHOTNAME}"
+	exit 0
 }
 
 region() { 
