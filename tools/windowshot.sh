@@ -26,14 +26,28 @@ note() {
 
 mkdir -p "${SCREENSHOTDIR}"
 
+_end()
+{
+	note
+	xdg-open "${SCREENSHOTNAME}"
+}
 
 region() { 
 	killall unclutter
 	import "${SCREENSHOTNAME}" 
 	setsid unclutter &
+	_end
 }
-window() { import -window "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" "${SCREENSHOTNAME}" ;}
-root()   { import -window root "${SCREENSHOTNAME}" ;}
+window()
+{
+	import -window "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" "${SCREENSHOTNAME}"
+	_end
+}
+root()
+{
+	import -window root "${SCREENSHOTNAME}"
+	_end
+}
 
 # Default Prompt For Selection
 prompter(){
@@ -43,7 +57,7 @@ prompter(){
 		"full screen") rootwin ;;
 		*) exit ;;
 	esac
-
+_end
 }
 
 while getopts cwr: o; do
@@ -54,7 +68,4 @@ while getopts cwr: o; do
 		\?) printf 'Invalid option: -%s\n' "${o}" && exit ;;
 	esac
 done
-
-note
-
-${PLUMBER:-xdg-open} "${SCREENSHOTNAME}"
+prompter
