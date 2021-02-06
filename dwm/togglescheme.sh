@@ -7,16 +7,18 @@ else
 	scheme="dark"
 fi
 
-command -v "xgetres" >/dev/null || { notify-send "📦 xgetres must be installed for this function." && exit 1; } 
+#Xresources
+cp ~/.config/colorschemes/xresources/$scheme ~/.config/colorschemes/xresources/current
+xrdb ~/.Xresources
 
 #Xresources
 cp ~/.config/colorschemes/xresources/$scheme ~/.config/colorschemes/xresources/current
 xrdb ~/.Xresources
 
-export BACKGROUND=$(xgetres '*.background')
-export FOREGROUND=$(xgetres '*.foreground')
-export BANNER=$(xgetres '*.banner')
-export ALT=$(xgetres '*.alt')
+export BACKGROUND=$(getres '*.background')
+export FOREGROUND=$(getres '*.foreground')
+export BANNER=$(getres '*.banner')
+export ALT=$(getres '*.alt')
 
 # envsubst settings
 export FONT='monospace'
@@ -29,10 +31,6 @@ setsid dunst &
 
 #jgmenu
 envsubst < ~/.config/colorschemes/jgmenu/jgmenurc.template > ~/.config/jgmenu/jgmenurc
-
-#Xresources
-cp ~/.config/colorschemes/xresources/$scheme ~/.config/colorschemes/xresources/current
-xrdb ~/.Xresources
 
 #wall
 cp ~/.config/colorschemes/wall/$scheme.png ~/.config/wall.png
