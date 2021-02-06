@@ -16,7 +16,7 @@ texopen(){
 }
 case "$1" in
 	*.tex) texopen "$1" ;;
-	*.md|*.mmd|*.rmd|*.ms|*.groff|*.me|*.mom|*.jot|*.docx|*.doc|*.org|*.ps) 
+	*.m[sed]|*.mom|*.tr|*.groff|*.docx|*.doc|*.org|*.ps) 
 		if [ -f "$basename".pdf ]; then
 			setsid "$READER" "$basename".pdf >/dev/null 2>&1 & 
 		elif [ -f "$basename".ps ]; then
