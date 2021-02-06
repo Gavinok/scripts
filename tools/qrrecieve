@@ -5,7 +5,8 @@
 # @file        : qrrecieve.sh
 # @created     : Sat 18 Jul 2020 10:56:00 PM
 #
-# @description : Quick way to send text from your phone yo your computer
+# @description : Send text or files from your phone to your computer using a
+#                qr code
 ######################################################################
 
 # Requires:
@@ -19,30 +20,36 @@ timeout="30s"
 
 add="http://$(ip ad | grep 'inet ' | awk 'NR > 1 {print $2}' | cut -d'/' -f1):$port"
 
+
 # TODO: finish optional google qrcode <19-07-20 Gavin Jaeger-Freeborn>
-qrurl() 
+_qrurl() 
 { 
-	curl -sS "http://chart.apis.google.com/chart?chs=200x200&cht=qr&chld=H|0&chl=$1" -o "${tmpqr}"
+  curl -sS "http://chart.apis.google.com/chart?chs=200x200&cht=qr&chld=H|0&chl=$1" -o "${tmpqr}"
 }
 
-shout()
+_shout()
 {
   echo "$*"
   notify-send "$*"
   exit 1
 }
 
+uploadtype="--upload-input"
+[  "$1" = "-f" ] && uploadtype="--upload-file"
+[  "$1" = "-h" ] && _help
+
 if command -v qrencode >/dev/null ;then
-	echo "${add}" | qrencode -s 10 -o "${tmpqr}"
+  echo "${add}" | qrencode -s 10 -o "${tmpqr}"
 else
-	qrurl "${add}"
+  _qrurl "${add}"
 fi
 
 # Check if port is in use
-lsof -i -P | grep ".*:$port.*" && shout "port $port is in use"
+lsof -i -P | grep ".*:$port.*" && _shout "port $port is in use"
 
 xdg-open "${tmpqr}" &
 
-oneshot --timeout "$timeout" --port $port --upload-input | xclip
+
+oneshot --timeout "$timeout" --port $port $uploadtype
 
 # vim: set tw=78 ts=2 et sw=2 sr:
