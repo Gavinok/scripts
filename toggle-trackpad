@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+######################################################################
+# @author      : Gavin Jaeger-Freeborn (gavinfreeborn@gmail.com)
+# @file        : toggle-trackpad.sh
+# @created     : Wed 09 Dec 2020 11:48:22 AM
+#
+# @description : toggle on and off Trackpad
+######################################################################
+
+if xinput --list-props "Elan Touchpad" | grep -q 'Device Enabled.*1$'; then
+  xinput disable "Elan Touchpad"
+else
+  xinput enable "Elan Touchpad"
+fi
+
+
+# vim: set tw=78 ts=2 et sw=2 sr:
+

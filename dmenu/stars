@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+
+######################################################################
+# @author      : Gavin Jaeger-Freeborn (gavinfreeborn@gmail.com)
+# @file        : stars.sh
+# @created     : Mon 21 Dec 2020 02:18:19 PM
+#
+# @description : script that uses dmenu to open stared github projects if none
+#                are selected the users own repos are searched
+######################################################################
+
+# TODO: Add the ability to clone the repo instead of opening in browser
+#       If this is used then fzf is probably the better choice since it would
+#       be called from the commandline.
+
+
+# your github username here
+USER="gavinok"
+select_repo() {
+  curl -s "$1"  | awk '/full_name/ {print $2}' | sed 's/[",]//g' | dmenu  -l 10 -p 'Select Repo:'
+}
+
+PROJECT=$(select_repo "https://api.github.com/users/$USER/starred")
+[ -z "$PROJECT" ] && PROJECT=$(select_repo "https://api.github.com/users/$USER/repos?per_page=1000")
+[ -z "$PROJECT" ] && exit 1
+$BROWSER "https://github.com/$PROJECT"
+
+# vim: set tw=78 ts=2 et sw=2 sr:
