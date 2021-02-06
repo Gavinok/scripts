@@ -3,7 +3,7 @@ dock_monitor
 killall dwm
 scheme=$(cat ~/.config/colorschemes/current)
 if [ "$scheme" = "dark" ];then
-    picom &
+    picom --experimental-backends &
     flashfocus &
 fi
 unclutter &
