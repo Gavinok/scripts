@@ -55,16 +55,9 @@ compilec() {
 	fi
 }
 
-# If there is a global $REFBIB variable/file for `refer`, use it.
-# [ -f "$REFBIB" ] && groffbib="-p $REFBIB"
-# export REFER="${HOME}/refer.1"
-
-
 case "$file" in
-    # *\.ms|*\.groff) pdfroff -GktesR -b -w w -ms -mspdf "$file" >"$base".pdf ;;
-    *\.ms | *\.groff) refer -e -p "$REFER" "$file" | ghighlight | groff -Tps -ktesp -G -ms > "$base".ps ;;
+    *\.ms | *\.groff) preconv "$file" |  groff -Tps -ktesp -G -ms > "$base".ps ;;
     *\.ps ) ps2pdf "$file" ;;
-    # *\.mom) pdfmom -pktes -b -wall -mom -mpdfmark "$file" > "$base".pdf ;;
     *\.mom) pdfroff -pktes -b -wall -mom -mpdfmark "$file" > "$base".pdf ;;
     *\.present) groff -p -e -t -mm -mpresent "$file" | presentps -l | ps2pdf - > "$base".pdf ;;
     *\.me) groff -Gktes -b -w w -me -T ps "$file" | ps2pdf - > "$base".pdf ;;
