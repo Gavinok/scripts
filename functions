@@ -107,3 +107,6 @@ fzR() {
 	echo '' | fzf --layout=reverse --height 50% --print-query --preview 'R -s -e {q}'
 
 }
+sk() {
+	screenkey --no-systray -t 2 -p fixed -g '672x84+1+996'
+}
