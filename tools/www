@@ -34,26 +34,27 @@ case "$1" in
 *\.png | *\.jpg | *\.jpe | *\.jpeg)
 	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
 	;;
-*\.pdf | *\.ps)
-	curl "$1" |exec  "${READER}" - >/dev/null 2>&1 &
+*\.ps)
+	curl "$1" | ps2pdf - | exec  "${READER}" - >/dev/null 2>&1 &
+	;;
+*\.pdf)
+	curl "$1" | exec  "${READER}" - >/dev/null 2>&1 &
 	;;
 *\.mp3 | *\.m4a | *\.ogg | *\.flac | *\.opus | *\.mp3?source | *soundcloud*)
 	exec "${TERMINAL}" -n "mp3" -e mpv --video=no "$1" >/dev/null 2>&1
 	;;
-*\.diff | *\.md | *\.ms | *\.mom | *\.txt | *\.c | *\.h | *\.cpp | *\.hs | *\.py | *\.sh | *raw*)
+*\.diff | *\.m[msd] | *\.tr | *\.txt | *\.[ch] | *\.cpp | *\.hs | *\.py | *\.sh | *raw*)
 	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && exec "${TERMINAL}" -e "${EDITOR:-vi}" "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
 	;;
 *\.torrent|*\.magnet)
-	exec transadd "$1"
-	;;
-*\.git)
 	exec transadd "$1"
 	;;
 *youtube.com/watch* | *youtube.com/playlist*|*youtu.be*) #limit the video quality
 	exec ytplay "$1"
 	;;
 *reddit.com/r/*)
-	exec ${TERMINAL} tuir "$1" ;;
+	exec ${TERMINAL} rtv "$1"
+	;;
 *)
 	exec "${TRUEBROWSER}" "$1" >/dev/null 2>&1
 	;;
