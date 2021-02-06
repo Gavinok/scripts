@@ -23,10 +23,10 @@ C Error Handling	https://www.youtube.com/watch?v=IZiUT-ipnj0
 install latex	https://www.youtube.com/watch?v=NwnYHoNtfJ0
 Latex all	https://m.youtube.com/watch?v=VhmkLrOjLsw
 Latex1		https://www.youtube.com/watch?v=mfRmmZ_84Mw&t=2s
-Latex2		https://www.youtube.com/watch?v=25LExaNtdF0 
+Latex2		https://www.youtube.com/watch?v=25LExaNtdF0
 Latex bib	https://www.youtube.com/watch?v=46piog3Fzp4
 Latex Resume	https://www.youtube.com/watch?v=VjsX4tznW40&t=570s
-Latex Resume2	https://www.youtube.com/watch?v=o5-BZ7JmYWk	
+Latex Resume2	https://www.youtube.com/watch?v=o5-BZ7JmYWk
 Latex Images	https://www.youtube.com/watch?v=zgThRPjy-vw
 Latex Macros	https://www.youtube.com/watch?v=rvgP7IMeUn8
 Latex and vim	https://www.youtube.com/watch?v=yNOkCYuPt3E
@@ -65,12 +65,35 @@ ImageMagick Canvases, Plasma, Composites, Geometry	https://www.youtube.com/watch
 hub	https://www.youtube.com/watch?v=xWbaKNFAh8Y
 valgrind https://www.youtube.com/watch?v=bb1bTJtgXrI
 pass	https://www.youtube.com/watch?v=sVkURNfxPd4
+discord bridge	https://www.youtube.com/watch?v=xIOyc4Rklqc&t=317s
 "
 
-if command -v mpv >/dev/null; then
-	Player='ytplay'
+pdfs="
+pic for image drawing PDF	http://floppsie.comp.glam.ac.uk/Glamorgan/gaius/web/pic.html
+pic Revised User Manual PDF	http://doc.cat-v.org/unix/v8/picmemo.pdf
+tbl PDF	http://doc.cat-v.org/unix/v10/10thEdMan/tbl.pdf
+eqn PDF	http://www.kohala.com/start/troff/v7man/eqn/eqn2e.ps
+refer PDF	http://www.kohala.com/start/troff/v7man/refer/refer.ps
+grap PDF	http://doc.cat-v.org/unix/v8/grap.pdf
+unix text processing (utp) PDF	https://github.com/larrykollar/Unix-Text-Processing/releases/download/1.0/utp-1.0.pdf
+pdf manipulation in groff with pdfmark PDF	http://pipeline.lbl.gov/code/3rd_party/licenses.win/groff/1.19.2/pdf/pdfmark.pdf
+pdfmark.ms PDF	http://git.savannah.gnu.org/cgit/groff.git/plain/contrib/pdfmark/pdfmark.ms
+general troff tutorial PDF	http://www.kohala.com/start/troff/v7man/trofftut/trofftut.ps
+Troff User Manual PDF	http://doc.cat-v.org/plan_9/4th_edition/papers/troff.pdf
+Groff and Friends HOWTO PDF	https://www.troff.org/TheGroffFriendsHowto.pdf
+mom macros PDF	http://www.schaffter.ca/mom/pdf/mom-pdf.pdf
+ms macros PDF	http://www.kohala.com/start/troff/v7man/msmacros/msmacros.ps
+"
+tutorials="
+${vidlist}
+${pdfs}
+"
+
+# TODO: grep for youtube to determin if it should use ytplay or xdg-open
+if command -v www >/dev/null; then
+	Player='www'
 else
 	Player='xdg-open'
 fi
-echo "${vidlist}" | grep -P "^$(echo "${vidlist}" | grep "https:" | sed 's/\t.*//g' | ${LAUNCER} "Learn about what? (ESC to cancel)" | cut -f1)\t" | sed 's/.*\t//' | xargs -r ${Player}
+echo "${tutorials}" | grep -P "^$(echo "${tutorials}" | grep "https\?:" | sed 's/\t.*//g' | ${LAUNCER} "Learn about what? (ESC to cancel)" | cut -f1)\t" | sed 's/.*\t//' | xargs -r ${Player}
 #vim:ft=sh
