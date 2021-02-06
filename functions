@@ -25,7 +25,7 @@ r() {
 # NOTE: NNN_TMPFILE is fixed, should not be modified
 export NNN_TMPFILE="${XDG_CONFIG_HOME:-${HOME}/.config}/nnn/.lastd"
 
-nnn -c "$@"
+nnn -C -c "$@"
 
 if [ -f "${NNN_TMPFILE}" ]; then
 	. "${NNN_TMPFILE}"
