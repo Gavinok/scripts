@@ -26,6 +26,6 @@ case "$1" in
 			;;
 	*.pdf) setsid "$READER" "$file" >/dev/null 2>&1 & ;;
 	*.html) 
-	    setsid "google-chrome-stable" "$basename".html >/dev/null 2>&1 & ;;
+	    setsid brave "$basename".html >/dev/null 2>&1 & ;;
 	*.sent) setsid sent "$1" >/dev/null 2>&1 & ;;
 esac
