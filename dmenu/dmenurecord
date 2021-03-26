@@ -123,11 +123,13 @@ video() { \
 }
 
 audiopulse() { \
+	RECORDINGFILE="$VIDEODIR/audio-$(date '+%y%m%d-%H%M-%S').flac"
 	ffmpeg \
 	-f alsa -i default \
 	-c:a flac \
-	"$VIDEODIR/audio-$(date '+%y%m%d-%H%M-%S').flac" &
+	"$RECORDINGFILE" &
 	echo $! > ~/.recordingpid
+	echo "$RECORDINGFILE" > ~/.recordingfile
 	updateicon "🎙️"
 }
 
