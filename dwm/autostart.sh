@@ -8,7 +8,6 @@ if [ "$scheme" = "dark" ];then
 fi
 unclutter &
 clipmenud &
-redshift &
 # pulsemixer --set-volume 50 &
 xbacklight -set 30 &
 autosuspend.sh  &
@@ -19,6 +18,7 @@ dunst &
 # sudo ip link set enp0s25 down &
 # sudo powertop --auto-tune &
 # sudo wpa_supplicant -B -i wls1 -c /etc/wpa_supplicant.conf && sudo dhclient wls1 && notify-send "successfully connected"
+remaps 2>/dev/null &
 setsid syncthing --no-browser &
 device=$(uname -n)
 [ "$device" = "sp4" ] && exit
