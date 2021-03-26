@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TMPFILE=(mktemp $$.wav)
+TMPFILE=$(mktemp XXX.wav)
 trap 'rm $TMPFILE' EXIT TERM HUP
 
 # Test for Palse Audio or Default to Alsa
