@@ -16,6 +16,7 @@ device=$(uname -n)
 [ -n "$initial" ] && exit
 setbg &
 remaps 2>/dev/null &
-xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen stylus" MapToOutput LVDS1 2>/dev/null
-xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen eraser" MapToOutput LVDS1 2>/dev/null
+# xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen stylus" MapToOutput LVDS1 2>/dev/null
+# xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen eraser" MapToOutput LVDS1 2>/dev/null
+xsetwacom --set "Wacom Intuos BT S Pad pad" Button 1 "key +super z -super"
 # vim:ft=sh
