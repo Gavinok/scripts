@@ -109,7 +109,7 @@ fzR() {
 }
 
 sk() {
-	screenkey --no-systray -t 2 -p fixed -g '672x84+1+996'
+	screenkey --no-systray -t 2 -p fixed -g '420x61+1495+54'
 }
 
 pdfappend() {
