@@ -38,7 +38,6 @@ if [ "${choice}" = "Bluetooth" ]; then
 	[ "${choice2}" = 'Disable' ] && sudo rkill block bluetooth
 
 	# since bluman-applet is nolonger needed to maintain connections
-	killall blueman-applet
 fi
 if [ "${choice}" = "Network" ]; then
 	networkmanager_dmenu
