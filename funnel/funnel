@@ -1,5 +1,4 @@
 #!/bin/sh
-
 ######################################################################
 # @author      : Gavin Jaeger-Freeborn (gavinfreeborn@gmail.com)
 # @file        : tslink.sh
@@ -16,17 +15,16 @@ lockfile="/tmp/ts.lock"
 
 tsstart() {
 	touch "${lockfile}"
-	while true; do
-		sh <"${pipefile}"
-	done
+	while read url ; do
+		$BROWSER "$url"
+	done < "${pipefile}"
 	rm -f "${lockfile}"
-
 	notify-send " Tasks Completed"
 }
 
 [ ! -p "${pipefile}" ] && mkfifo "${pipefile}"
 
-echo "${BROWSER} $1" >>"${pipefile}" &
+echo "$1" > "${pipefile}" &
 
 # quit if lockfile already exists
 [ -f "${lockfile}" ] && exit
