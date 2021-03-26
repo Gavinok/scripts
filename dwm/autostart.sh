@@ -8,6 +8,10 @@ if [ "$scheme" = "dark" ];then
 fi
 unclutter &
 clipmenud &
+
+#       LATITUDE:LONGITUDE &
+redshift -l 60:-135 &
+
 # pulsemixer --set-volume 50 &
 xbacklight -set 30 &
 autosuspend.sh  &
