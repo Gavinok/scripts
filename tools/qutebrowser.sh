@@ -1,3 +1,3 @@
 #!/usr/bin/sh
-nice -n5 qutebrowser --target window "$*"
+qutebrowser --target window "$*"
 # vim:ft=sh
