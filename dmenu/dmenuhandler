@@ -57,7 +57,7 @@ downloader (){
 x="$(printf "chrome\\nbrowser\\nmpv\\ndownload\\nkdeconnect\\nQR\\nyt\\ncast" | dmenu -i -p "Open link with what program?")"
 case "${x}" in
     chrome) 
-		setsid google-chrome-stable "$1" >/dev/null 2>&1 & ;;
+		setsid brave "$1" >/dev/null 2>&1 & ;;
     browser) 
 		setsid "$TRUEBROWSER $1" >/dev/null 2>&1 & ;;
     cast) 
