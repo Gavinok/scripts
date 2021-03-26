@@ -145,12 +145,13 @@ manual() { man -Tpdf "${prim}" | ${READER} -; }
 
 # READ ALOUD
 read() {
-	killall aplay
-	pico2wave -w=/tmp/test.wav -- "$1"
+	tts.sh "$1"
+	# killall aplay
+	# pico2wave -w=/tmp/test.wav -- "$1"
 	# picospeaker "$*"
 	# aplay /tmp/test.wav -D 'pulse'
-	aplay /tmp/test.wav
-	rm /tmp/test.wav
+	# aplay /tmp/test.wav
+	# rm /tmp/test.wav
 }
 
 
