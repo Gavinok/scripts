@@ -75,6 +75,8 @@ rm -f /tmp/imapsyncicon_"$USER"
 
 notmuch new 2>/dev/null
 
+recollindex
+
 #Create a touch file that indicates the time of the last run of mailsync
 touch "$HOME/.config/mutt/.mailsynclastrun"
 notify "Mail Syncronized"
