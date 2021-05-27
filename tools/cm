@@ -21,12 +21,13 @@ else
 fi
 
 case "$1" in
-mute) toggle ;;
-up) up ;;
-down) down ;;
-*)
-	control
-	exit 0
-	;;
+	mute) toggle ;;
+	up) up ;;
+	down) down ;;
+	connect) connect ;;
+	*)
+		control
+		exit 0
+		;;
 esac
 updatevolume
