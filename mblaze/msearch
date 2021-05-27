@@ -1,0 +1,2 @@
+#!/bin/env sh
+recollq "$*" | sed 's/.*file:\/\/\(.*S\)].*/\1/' | msort -d | mseq -S && mscan

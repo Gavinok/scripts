@@ -1,0 +1,14 @@
+#!/bin/env sh
+FUZZYFINDER="fzf"
+FUZZYOPTIONS="--tac"
+ATTACH="$(mshow -t . | $FUZZYFINDER "$FUZZYOPTIONS")"
+[ -z $ATTACH ] && return
+MIME="$(echo "$ATTACH" | cut -f 2 -d ":" | cut -f 2 -d " ")"
+ATTACHNUM="$(echo "$ATTACH" | cut -f1 -d':')"
+
+tmp="$(mktemp '/tmp/mblaze.XXXXXX')"
+mshow -O . "$ATTACHNUM" > "$tmp"
+case "$MIME" in
+	*)
+		xdg-open "$tmp";;
+esac

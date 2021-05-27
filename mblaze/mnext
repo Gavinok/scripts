@@ -1,0 +1,6 @@
+#!/bin/env sh
+DATE=$(date +%Y)-$(($(date +%m) - 1))-01
+DATECMP='date > "'
+DATEEND='" && '
+IMPORTANCE='((flagged && !replied) || !seen)'
+mpick -t "${DATECMP}${DATE}${DATEEND}${IMPORTANCE}" | mscan

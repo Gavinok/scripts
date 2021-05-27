@@ -1,0 +1,6 @@
+#!/bin/env sh
+if [ -n "$*" ]; then
+	mlist | msort -d | mthread | mseq -S && mscan
+else
+	mlist ~/.local/share/mail/*/INBOX | msort -d | mthread | mseq -S && mscan
+fi
