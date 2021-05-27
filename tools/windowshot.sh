@@ -14,7 +14,7 @@
 # highlighting an area to copy. scrotcucks on suicidewatch right now.
 
 print_date() {
-	date '+%F_%T'
+	date '+%F_%T' | sed -e 's/:/-/g'
 }
 
 SCREENSHOTDIR="${HOME}/Pictures/ScreenShots"

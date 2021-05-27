@@ -8,29 +8,37 @@
 # @description : fzf shortcuts
 ######################################################################
 
+fzedit(){
+  file=$(find "$@" -not -path "*/\.nnn*" -not -path "*/\.git*" -type f -print | fzf --bind "ctrl-o:execute-silent(setsid xdg-open {}&)")
+  [ -e "$file" ] && ${EDITOR:-vi} "$file"
+}
+
 # TODO: automate adding these
 f() {
 	case "$*" in
 	d)
-		fzedit.sh ~/Documents/
+		fzedit ~/Documents/
 		;;
 	D)
-		fzedit.sh ~/Downloads/
+		fzedit ~/Downloads/
 		;;
 	v)
-		fzedit.sh ~/.vim/
+		fzedit ~/.vim/
 		;;
 	p)
-		fzedit.sh ~/Programming/
+		fzedit ~/Programming/
 		;;
 	w)
-		fzedit.sh ~/.local/Dropbox/DropsyncFiles/vimwiki/
+		fzedit ~/.local/Dropbox/DropsyncFiles/vimwiki/
+		;;
+	m)
+		fzedit ~/.config/nnn/mounts/ 
 		;;
 	s)
-		scriptedit.sh
+    fzedit ~/.scripts/ ~/.config/
 		;;
 	*)
-		fzedit.sh .
+		fzedit .
 		;;
 	esac
 }

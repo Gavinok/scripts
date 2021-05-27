@@ -6,12 +6,13 @@ NUM="${2:-5}"
 updatevolume() { statwe -a; }
 
 # Uncomment the following line to use Pulseaudio.
-PULSE=true
-if [ "$PULSE" ]; then
+PIPEWIRE=true
+if [ "$PIPEWIRE" ]; then
 	toggle() { pactl set-sink-mute @DEFAULT_SINK@ toggle; }
 	up() { pactl set-sink-volume @DEFAULT_SINK@ +"${NUM}"%; }
 	down() { pactl set-sink-volume @DEFAULT_SINK@ -"${NUM}"%; }
 	control() { pulsemixer; }
+	connect() { njconnect; }
 else
 	toggle() { amixer sset Master toggle; }
 	up() { amixer sset Master "${NUM}"%+; }

@@ -27,16 +27,7 @@ shift $(( OPTIND - 1))
 
 # Custom opener when called from shell
 shellopener(){
-	case $(file --mime-type "$*" -b) in
-		# follow symlinks
-		inode/symlink) $0 "$(readlink "$*")" && exit;;
-		# open sc files with sc
-		application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) exec sc-im "$*";;
-		application/csv) exec sc-im "$*";;
-		# open text files with sc
-		text/*) exec "${EDITOR:-vi}" "$*";;
-		*) for f in "$@"; do sw "${OPENER}" "${f}" > /dev/null 2> /dev/null & done && exit 0;;
-	esac
+	open $*
 	exit 1
 }
 
@@ -80,8 +71,6 @@ isfile() {
 	case $(file --mime-type "$*" -b) in
 		# follow symlinks
 		inode/symlink) isfile "$(readlink "$*")" && exit;;
-		# open sc files with sc
-		application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) isspreadsheet "$*";;
 		# open text files with sc
 		text/*)  istext "$*";;
 		*) for f in "$@"; do fallbackopen "$*" > /dev/null 2> /dev/null & done && exit 0;;

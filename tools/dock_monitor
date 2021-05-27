@@ -1,22 +1,33 @@
 #!/bin/sh
 intern=eDP1
-extern=DP2
+monitors='
+DP2
+HDMI2'
 
-while getopts ":i" o; do case "$o" in
-	i) initial=1 ;;
-	esac done
+_mappings(){
+	remaps 2>/dev/null &
+}
 
-if xrandr | grep "$extern disconnected"; then
-	xrandr --output "$extern" --off --output "$intern" --auto
-else
-	xrandr --output "$intern" --primary --auto --output "$extern" --right-of "$intern" --auto
-fi
+_highdpi() {
+ xrandr --dpi 220
+}
+
+_if_monitor_connected() {
+	for monitor in $monitors; do
+		xrandr --output "$intern" --primary --auto --output "$monitor" --right-of "$intern" --auto
+	done
+}
+
+_if_disconnected() {
+xrandr | grep "$monitor disconnected" &&
+	xrandr --output "$monitor" --off --output "$intern" --auto
+}
+_if_monitor_connected
+
+_if_disconnected
+
 device=$(uname -n)
-[ "$device" = "sp4" ] && xrandr --dpi 220
-[ -n "$initial" ] && exit
+[ "$device" = "sp4" ] && _highdpi
 setbg &
-remaps 2>/dev/null &
-# xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen stylus" MapToOutput LVDS1 2>/dev/null
-# xsetwacom set "Wacom Serial Penabled 1FG Touchscreen Pen eraser" MapToOutput LVDS1 2>/dev/null
-xsetwacom --set "Wacom Intuos BT S Pad pad" Button 1 "key +super z -super"
+_mappings
 # vim:ft=sh

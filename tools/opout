@@ -5,17 +5,8 @@ basename="$(echo "$1" | sed 's/\.[^\/.]*$//')"
 file=$(readlink -f "$1")
 dir=$(dirname "$file")
 secdir=$(dirname "$dir")
-texopen(){
-	    echo "${secdir}/Notes.pdf"
-	    if [ -f "${secdir}/Notes.pdf" ]; then
-		setsid "$READER" "${secdir}/Notes.pdf" >/dev/null 2>&1 &
-		exit
-	    fi
-	    setsid "$READER" "$basename".pdf >/dev/null 2>&1 &
-}
 case "$1" in
-	*.tex) texopen "$1" ;;
-	*.m[sed]|*.mom|*.tr|*.groff|*.docx|*.doc|*.org|*.ps) 
+	*.m[sed]|*.mom|*.tr|*.groff|*.docx|*.doc|*.org|*.ps|*.tex|*.txp) 
 		if [ -f "$basename".pdf ]; then
 			setsid "$READER" "$basename".pdf >/dev/null 2>&1 & 
 		elif [ -f "$basename".ps ]; then

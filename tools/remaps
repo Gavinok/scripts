@@ -1,20 +1,26 @@
 #!/bin/sh
 
 # Increase key speed via a rate change
-xset r rate 200 50
 # Map the caps lock key to super...
 # setxkbmap -layout us -variant altgr-intl  -option caps:ctrl_modifier
-setxkbmap -layout us -variant altgr-intl -option caps:escape
+kmonad ~/.config/kmonad.kbd &
+# setxkbmap -layout us -variant altgr-intl -option caps:escape
+# setxkbmap -layout us -variant altgr-intl -option caps:escape
 # If you don't want a us international keyboard, rather whatever keyboard
 # you set in your installation, comment out the above line and uncomment
 # the one below.
 # xmodmap -e "keycode 66 = Control_L"
-xmodmap -e "keycode 66 = Escape"
+## xmodmap -e "keycode 66 = Escape"
 # xmodmap -e "keycode 108 = Alt_L"
 # xmodmap -e "keycode 168 = space"
-xmodmap -e "keycode 108 = Super_R"
-xmodmap -e "keysym 135 = Super_L"
+## xmodmap -e "keycode 108 = Super_R"
+## xmodmap -e "keysym 135 = Super_L"
+# xmodmap -e "keysym Print = Super_R" # map printscreen to super to fix issues with x390's annoying layout
 # But when it is pressed only once, treat it as escape.
 # killall xcape ; xcape -t 250  -e 'Caps_Lock=Escape'
 # killall xcape ; xcape -t 250  -e 'Control_L=Escape'
 # xcape -t 330 -e "Hyper_L=space"
+xsetwacom --set "Wacom Intuos BT S Pad pad" Button 1 "key PgDn"
+xsetwacom --set "Wacom Intuos BT S Pad pad" Button 2 "key PgUp"
+# xsetwacom --set "Wacom Intuos BT S Pad pad" Button 1 "key +super z -super"
+sleep 2 && xset r rate 200 50
