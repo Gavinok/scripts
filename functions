@@ -40,12 +40,6 @@ myip() {
 	lynx -dump -hiddenlinks=ignore -nolist http://checkip.dyndns.org:8245/ | awk '{ print $4 }' | sed '/^$/d; s/^[ ]*//g; s/[ ]*$//g'
 }
 
-# mkdir and cd in one command
-mcd() {
-	mkdir -p -- "$1" &&
-		cd -P -- "$1" || return
-	}
-
 # define a word
 define() { curl -s "dict://dict.org/d:$1" | grep -v '^[0-9]'; }
 
@@ -71,9 +65,6 @@ onecpu() { echo 0 | sudo tee /sys/devices/system/cpu/cpu*/online; }
 allcpu() { echo 1 | sudo tee /sys/devices/system/cpu/cpu*/online; }
 
 # may remove if I never end up using it
-sxiv() { sw sxiv "$*" ; }
-xournalpp() { sw xournalpp "$*" ; }
-#vim:ft=sh
 
 fzjq() {
 	echo '' | fzf --print-query --preview "jq {q} \"$*\""
@@ -113,3 +104,4 @@ qemu-system-x86_64 -cpu host -enable-kvm -m 1024 \
 -drive if=none,id=vd0,file=9front.qcow2.img \
 -device scsi-hd,drive=vd0
 }
+#vim:ft=sh
