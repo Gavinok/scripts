@@ -5,10 +5,10 @@
 LAUNCER="dmenu"
 
 if pgrep -x transmission-da; then
-	yn=$(printf 'No\nYes' | $LAUNCER -i -p "Kill transmission-daemon?")
+	yn=$(printf 'No\nYes\n' | $LAUNCER -i -p "Kill transmission-daemon?")
 	[ "$yn" = "Yes" ] && transmission-remote --exit
 else
-	yn=$(printf 'No\nYes' | $LAUNCER -i -p "Start transmission daemon?")
+	yn=$(printf 'No\nYes\n' | $LAUNCER -i -p "Start transmission daemon?")
 	[ "$yn" = "Yes" ] && transmission-daemon
 fi
 sleep 3 && pkill -RTMIN+7 i3blocks
