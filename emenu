@@ -1,0 +1,7 @@
+#!/bin/sh
+OPTIONS=""
+while read line
+do
+    OPTIONS="$OPTIONS \"$line\""
+done
+emacsclient -e "(completing-read \"PROMPT \" '($OPTIONS))" | sed 's/"$//; s/^"//'
