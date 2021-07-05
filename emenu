@@ -1,7 +1,12 @@
 #!/bin/sh
-OPTIONS=""
+options=""
 while read line
 do
-    OPTIONS="$OPTIONS \"$line\""
+    options="$options \"$line\""
 done
-emacsclient -e "(completing-read \"PROMPT \" '($OPTIONS))" | sed 's/"$//; s/^"//'
+
+result=$(emacsclient -e "(completing-read \"PROMPT \" '($options))" 2> /dev/null)
+[ -z $result ] && exit 1 # if empty exit
+
+printf "%s" $result | sed 's/"$//; s/^"//'
+
