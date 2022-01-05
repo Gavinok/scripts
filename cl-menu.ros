@@ -1,0 +1,129 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+#|
+This is the simple beginings to a dmenu written in Common Lisp because
+some times C just isn't enough.
+
+WARNING: This is not at all complete or even functional.
+
+To run this simply install Roswell and make this file executable.
+
+Roswell installation instructions:
+  https://roswell.github.io/Installation.html
+|#
+(progn ;;init forms
+  (ros:ensure-asdf)
+  #+quicklisp(ql:quickload '(clx) :silent t)
+  )
+
+(defpackage :ros.script.cl-menu.3849918680
+  (:use :cl))
+(in-package :ros.script.cl-menu.3849918680)
+(in-package :xlib)
+
+;; TODO Add multi monitor support utilizing the display-number
+;; TODO Handle user input
+;; TODO Implement sorting algorithm
+;; TODO Properly handle events and close display
+(declaim (optimize (speed 3) (safety 1)))
+
+(defstruct (menu (:constructor create-menu (prompt font text window gcontext)))
+  (prompt  ">"    :type string :read-only t)
+  (font    nil    :type font   :read-only t)
+  (text    ""     :type string)
+  (window  nil    :type window)
+  (gcontext nil   :type gcontext))
+
+(defun h-center-of-monitor (display)
+  (let ((screen (display-default-screen display))
+	(monitor-x (xlib/xinerama:screen-info-x
+		    (car (xlib/xinerama::xinerama-query-screens display)))))
+    (truncate (+ monitor-x (screen-width screen))
+	      2)))
+
+(defun get-text-width (font border text)
+  (+ (text-width font text) (* 2 border)))
+
+(defun get-text-height (font border)
+  (+ (max-char-ascent font)
+     (max-char-descent font) (* 2 border)))
+
+(declaim (ftype (function (string string display &optional string) menu) make-menu))
+(defun make-menu (text prompt display &optional (font-name "fixed"))
+  (progn
+    (print display)
+    (let* ((screen  (display-default-screen display))
+	   (font  (open-font display font-name))
+	  (border 1)
+	  (x (h-center-of-monitor display))
+	  (y 0)
+	  (bg (screen-black-pixel screen))
+	  (fg (screen-white-pixel screen))
+	  (win (create-window :parent (screen-root screen)
+			      :override-redirect :on
+			      :save-under :on
+			      :x x :y y
+			      :width (get-text-width font border text) :height (get-text-height font border)
+			      :background bg
+			      :border fg
+			      :border-width border
+			      :colormap (screen-default-colormap screen)
+			      :bit-gravity :center
+			      :event-mask (make-event-mask :exposure :key-press
+					    :key-release :button-press)))
+	  (gcontext (create-gcontext :drawable win
+				     :background bg
+				     :foreground fg
+				     :font font)))
+     (create-menu
+      prompt
+      font
+      text
+      win
+      gcontext))))
+
+(declaim (ftype (function (menu display) t) display-menu))
+(defun display-menu (menu display)
+  (progn
+    (let ((font (menu-font menu))
+	  (text (menu-text menu))
+	  (width (get-text-width (menu-font menu) 1 (menu-text menu)))
+	  (gcontext (menu-gcontext menu)))
+      (map-window (menu-window menu))
+      (event-case (display ;; :discard-p t :force-output-p t
+		   )
+	(:key-press ()
+		      t)
+	(:exposure ;; Come here on exposure events
+	 (window count)
+	 (when (zerop count) ;; Ignore all but the last exposure event
+	   (with-state (window)
+	     (let ((x (truncate (- (drawable-width window) width) 2))
+		   (y (truncate (- (+ (drawable-height window)
+				      (max-char-ascent font))
+				   (max-char-descent font))
+				2)))
+	       ;; Draw text centered in window
+	       (clear-area window)
+	       (draw-glyphs window gcontext x y text)))
+	   ;; Returning non-nil causes event-case to exit
+	   nil))
+	(:button-press () t))) ;; exit event-case
+    (when display
+      (close-display display :abort nil))))
+
+(declaim (ftype (function (string string &optional string) t) cl-menu))
+(defun cl-menu (text prompt &optional (font-name "fixed"))
+  "Start cl-menu on HOST with STRING in FONT "
+  (let ((display (open-display
+		  (car (get-default-display)))))
+    (display-menu (make-menu text prompt display)
+		  display)))
+
+(defun main (&rest argv)
+  (declare (ignorable argv))
+  (cl-menu "hello world" "> "))
+;;; vim: set ft=lisp lisp:
