@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+######################################################################
+# @author      : Gavin Jaeger-Freeborn (gavinfreeborn@gmail.com)
+# @file        : wac.sh
+# @created     : Tue 02 Mar 2021 09:09:05 PM
+#
+# @description : 
+######################################################################
+
+WACOMWIN=/tmp/wac
+if  [ ! -f "$WACOMWIN" ] || grep -v eDP1 "$WACOMWIN"; then
+echo eDP1 > "$WACOMWIN"
+xsetwacom --set "Wacom Intuos BT S Pen stylus" MapToOutput eDP1
+else
+echo DP2 > "$WACOMWIN"
+xsetwacom --set "Wacom Intuos BT S Pen stylus" MapToOutput DP2
+fi
+# vim: set tw=78 ts=2 et sw=2 sr:
+
+

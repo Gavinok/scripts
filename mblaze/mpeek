@@ -1,0 +1,7 @@
+#!/bin/env sh
+MAILPATH="$HOME/.local/share/mail"
+if [ -n "$*" ]; then
+	mlist $MAILPATH/$1/INBOX $MAILPATH/$1/SENT/\[Gmail\].Sent\ Mail/| msort -d | mthread
+else
+	mlist ${MAILPATH}/*/INBOX ${MAILPATH}/*/\[Gmail\].Sent\ Mail/ | msort -d | mthread
+fi
