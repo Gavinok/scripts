@@ -7,16 +7,31 @@ notifybrightness() {
 	# xsetroot -name "Light[$BRIGHTNESS]"
 	statwe -b
 }
+backlight() {
+        file=/sys/class/backlight/intel_backlight/brightness
+	current=$(cat $file)
+	max=$(cat /sys/class/backlight/intel_backlight/max_brightness)
+	new="$current"
+	if [ "$1" = "-inc" ]
+	then
+	    new=$(echo "current + (1000 * $2)" | bc)
+	fi
+	if [ "$1" = "-dec" ]
+	then
+	    new=$(echo "current - (1000 * $2)" | bc)
+	fi
+	echo "$new" | tee "$file"
+}
 
 [ -z "$2" ] && num="2" || num="$2"
 
 case "$1" in
 u*)
-	xbacklight -inc "$num"%
+	backlight -inc "$num"
 	notifybrightness
 	;; #change the default audio sync
 d*)
-	xbacklight -dec "$num"%
+	backlight -dec "$num"
 	notifybrightness
 	;; #change the default audio sync
 *) cat <<EOF ;;

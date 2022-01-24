@@ -1,7 +1,7 @@
 #!/bin/bash
 # Simple dmenu based program that utilizes systemd
 
-LAUNCER="dmenu -i -p"
+[ -z "$LAUNCHER" ] && LAUNCHER="dmenu -l 5 -i -p "
 
 # ensure that no packages are being installed
 # check for pacman and yay
@@ -12,7 +12,7 @@ progcheck() {
 }
 
 
-res=$(printf 'shutdown\nreboot\nsleep\nhibernate\nkill X' | ${LAUNCER} 'Power Menu:')
+res=$(printf 'shutdown\nreboot\nsleep\nhibernate\nkill X' | $LAUNCHER 'Power Menu:')
 
 # check for running programs
 progcheck pip
@@ -26,6 +26,7 @@ progcheck brew
 progcheck cargo
 progcheck rclone
 progcheck rsync
+progcheck blender
 
 case "${res}" in
 "reboot")

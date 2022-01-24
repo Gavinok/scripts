@@ -63,7 +63,7 @@ Roswell installation instructions:
 	  (bg (screen-black-pixel screen))
 	  (fg (screen-white-pixel screen))
 	  (win (create-window :parent (screen-root screen)
-			      :override-redirect :on
+			      ;; :override-redirect :on
 			      :save-under :on
 			      :x x :y y
 			      :width (get-text-width font border text) :height (get-text-height font border)
@@ -72,8 +72,11 @@ Roswell installation instructions:
 			      :border-width border
 			      :colormap (screen-default-colormap screen)
 			      :bit-gravity :center
-			      :event-mask (make-event-mask :exposure :key-press
-					    :key-release :button-press)))
+			      :event-mask (make-event-mask :exposure
+                                                           :key-press
+                                                           :key-release
+                                                           :button-press
+					    )))
 	  (gcontext (create-gcontext :drawable win
 				     :background bg
 				     :foreground fg
@@ -93,6 +96,15 @@ Roswell installation instructions:
 	  (width (get-text-width (menu-font menu) 1 (menu-text menu)))
 	  (gcontext (menu-gcontext menu)))
       (map-window (menu-window menu))
+      ;; (loop for ev = (process-event display :handler
+      ;;   			    (lambda (&rest event-slots
+      ;;   				     &key event-key
+      ;;   				     &allow-other-keys)
+      ;;   			      (case event-key
+      ;;   				((or :key-release :key-press)
+      ;;   				 "hello")))
+      ;;   			    :timeout nil)
+      ;;       do (print ev))
       (event-case (display ;; :discard-p t :force-output-p t
 		   )
 	(:key-press ()
@@ -111,7 +123,8 @@ Roswell installation instructions:
 	       (draw-glyphs window gcontext x y text)))
 	   ;; Returning non-nil causes event-case to exit
 	   nil))
-	(:button-press () t))) ;; exit event-case
+	(:button-press () t))
+      ) ;; exit event-case
     (when display
       (close-display display :abort nil))))
 

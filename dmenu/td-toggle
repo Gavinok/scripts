@@ -2,13 +2,13 @@
 
 # If transmission-daemon is running, will ask to kill, else will ask to start.
 
-LAUNCER="dmenu"
+LAUNCER="emenu -i -p "
 
 if pgrep -x transmission-da; then
-	yn=$(printf 'No\nYes\n' | $LAUNCER -i -p "Kill transmission-daemon?")
+	yn=$(printf 'No\nYes\n' | $LAUNCER "Kill transmission-daemon?")
 	[ "$yn" = "Yes" ] && transmission-remote --exit
 else
-	yn=$(printf 'No\nYes\n' | $LAUNCER -i -p "Start transmission daemon?")
+	yn=$(printf 'No\nYes\n' | $LAUNCER "Start transmission daemon?")
 	[ "$yn" = "Yes" ] && transmission-daemon
 fi
 sleep 3 && pkill -RTMIN+7 i3blocks

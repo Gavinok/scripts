@@ -3,7 +3,9 @@
 # Increase key speed via a rate change
 # Map the caps lock key to super...
 # setxkbmap -layout us -variant altgr-intl  -option caps:ctrl_modifier
+killall kmonad
 kmonad ~/.config/kmonad.kbd &
+
 # setxkbmap -layout us -variant altgr-intl -option caps:escape
 # setxkbmap -layout us -variant altgr-intl -option caps:escape
 # If you don't want a us international keyboard, rather whatever keyboard

@@ -1,2 +1,10 @@
 #!/bin/env sh
+# Depends On:
+#     mblaze (duh)
+#     recoll
+#     sed
+# Be sure to add the line
+#  `topdirs = ~/path/to/my/mail`
+# to your `~/.config/recoll/recoll.conf`
+
 recollq "$*" | sed 's/.*file:\/\/\(.*S\)].*/\1/' | msort -d | mseq -S && mscan

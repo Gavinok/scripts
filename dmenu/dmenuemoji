@@ -1,17 +1,22 @@
 #!/usr/bin/env sh
 
+LAUNCHER=${LAUNCHER:-"dmenu -i -l 20 -fn Monospace-18 "}
+# Can be a littl slow
+# LAUNCHER="emenu "
 # The famous "get a menu of emojis to copy" script.
 
 # Must have xclip installed to even show menu.
 xclip -h >/dev/null || exit
 
-chosen=$(grep -v "#" ~/.scripts/dmenu/unicode | dmenu -i -l 20 -fn Monospace-18)
+chosen=$(grep -v "#" ~/.scripts/dmenu/unicode | $LAUNCHER)
 
 [ "$chosen" != "" ] || exit
 
 c=$(echo "$chosen" | sed "s/ .*//")
 echo "$c" | tr -d '\n' | xclip -selection clipboard
 notify-send "'$c' copied to clipboard." &
+
+hello
 
 s=$(echo "$chosen" | sed "s/.*; //" | awk '{print $1}')
 echo "$s" | tr -d '\n' | xclip

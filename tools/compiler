@@ -58,16 +58,16 @@ compilec() {
 neatroff_prefix='/opt/share/neatroff'
 
 case "$file" in
-	# *\.ms | *\.groff) preconv "$file" |  groff -Tps -ktesp -G -ms > "$base".ps ;;
-	*\.ms | *\.groff)
-		cat "$file"|
-			${neatroff_prefix}/soin/soin |
-			${neatroff_prefix}/troff/tbl/tbl |
-			${neatroff_prefix}/troff/pic/pic |
-			${neatroff_prefix}/neateqn/eqn |
-			${neatroff_prefix}/neatroff/roff -men -mpost -mkeep -mfp |
-			${neatroff_prefix}/neatpost/pdf > "$base".pdf &&
-			killall -s SIGHUP mupdf;;
+	*\.ms | *\.groff) preconv "$file" |  groff -Tpdf -ktesp -G -ms > "$base".pdf ;;
+	# *\.ms | *\.groff)
+	# 	cat "$file"|
+	# 		${neatroff_prefix}/soin/soin |
+	# 		${neatroff_prefix}/troff/tbl/tbl |
+	# 		${neatroff_prefix}/troff/pic/pic |
+	# 		${neatroff_prefix}/neateqn/eqn |
+	# 		${neatroff_prefix}/neatroff/roff -men -mpost -mkeep -mfp |
+	# 		${neatroff_prefix}/neatpost/pdf > "$base".pdf &&
+	# 		killall -s SIGHUP mupdf;;
 	*\.ps ) ps2pdf "$file" ;;
 	*\.mom) pdfroff -pktes -b -wall -mom -mpdfmark "$file" > "$base".pdf ;;
 	*\.present) groff -p -e -t -mm -mpresent "$file" | presentps -l | ps2pdf - > "$base".pdf ;;

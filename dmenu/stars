@@ -12,12 +12,12 @@
 # TODO: Add the ability to clone the repo instead of opening in browser
 #       If this is used then fzf is probably the better choice since it would
 #       be called from the commandline.
-
-
+LAUNCER="dmenu -l 10 -p"
+LAUNCER="emenu -p"
 # your github username here
 USER="gavinok"
 select_repo() {
-  curl -s "$1"  | awk '/full_name/ {print $2}' | sed 's/[",]//g' | dmenu  -l 10 -p 'Select Repo:'
+  curl -s "$1"  | awk '/full_name/ {print $2}' | sed 's/[",]//g' | emenu -p 'Select Repo:'
 }
 
 PROJECT=$(select_repo "https://api.github.com/users/$USER/starred")

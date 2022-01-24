@@ -4,7 +4,6 @@
 
 [ -z "$LAUNCER" ] && LAUNCER="dmenu"
 [ -z "$OPENER" ] && OPENER="xdg-open"
-
 while getopts cs: f
 do
 	case $f in

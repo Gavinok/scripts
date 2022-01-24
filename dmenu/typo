@@ -5,12 +5,12 @@
 # After a selection has been made it will use xclip
 # to copy to clipboard.
 
-LAUNCER="dmenu"
+LAUNCER="emenu -i -p "
 
-word=$(echo "?" | $LAUNCER -i -p 'spell')
+word=$(echo "?" | $LAUNCER 'spell')
 
 if [ -n "$word" ] && [ "$word" != "?" ]; then
-	selection=$(echo "$word" | aspell pipe --suggest | sed -e '1d; s/^[^:]*://g; s/, /\n/g; s/^ //' | $LAUNCER -p 'copy')
+	selection=$(echo "$word" | aspell pipe --suggest | sed -e '1d; s/^[^:]*://g; s/, /\n/g; s/^ //' | $LAUNCER 'copy')
 	[ -z "$selection" ] && exit
 	if [ "$selection" = "*" ]; then
 		printf "%s" "$word" | xclip -selection clipboard

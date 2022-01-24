@@ -30,4 +30,5 @@ sed "s/\s*#.*$//;/^\s*$/d"  "$HOME/.config/bmfiles" | tee >(awk '{print "alias "
 	>(awk '{print "abbr", $1, "\"$EDITOR $(readlink "$2")\""}' >> "$fish_shortcuts") \
 	>(awk '{print "map", $1, ":e", $2 "<CR>" }' >> "$vifm_shortcuts") \
 	>(awk '{print "nmap <leader>"$1, ":e <c-r>=resolve(expand(\"",$2"\"))<CR><CR>"}' >> "$vim_shortcuts") \
+	>(awk '{print "nmap <leader>"$1, ":e <c-r>=resolve(expand(\"",$2"\"))<CR><CR>"}' >> "$vim_shortcuts") \
 	| awk '{print "map "$1" shell $EDITOR "$2}' >> "$ranger_shortcuts"

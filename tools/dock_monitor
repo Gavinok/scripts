@@ -1,7 +1,8 @@
 #!/bin/sh
-intern=eDP1
+intern=eDP-1
 monitors='
 DP2
+DP-2
 HDMI2'
 
 _mappings(){
@@ -9,18 +10,18 @@ _mappings(){
 }
 
 _highdpi() {
- xrandr --dpi 220
+	xrandr --dpi 220
 }
 
 _if_monitor_connected() {
 	for monitor in $monitors; do
-		xrandr --output "$intern" --primary --auto --output "$monitor" --right-of "$intern" --auto
+		xrandr --output "$intern" --primary --auto --output "$monitor" --left-of "$intern" --auto
 	done
 }
 
 _if_disconnected() {
-xrandr | grep "$monitor disconnected" &&
-	xrandr --output "$monitor" --off --output "$intern" --auto
+	xrandr | grep "$monitor disconnected" &&
+		xrandr --output "$monitor" --off --output "$intern" --auto
 }
 _if_monitor_connected
 

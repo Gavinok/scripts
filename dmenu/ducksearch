@@ -2,32 +2,33 @@
 
 # Gives a dmenu prompt to search DuckDuckGo.
 # Without input, will open DuckDuckGo.com.
-# Anything else, it search it.
+# Anything else, it search it.h
 
-LAUNCER="dmenu -l 5 -i -p "
-[ -z "${DISPLAY}" ] && LAUNCER="fzf --prompt "
+[ -z "$LAUNCHER" ] && LAUNCHER="dmenu -l 5 -i -p "
+
+[ -z "${DISPLAY}" ] && LAUNCHER="fzf --prompt "
 
 localBROWSER="$BROWSER "
 [ -n "$*" ] && localBROWSER="$*"
 [ -z "${DISPLAY}" ] && localBROWSER="xdg-open "
 
 if [ -f ~/.config/bookmarks ]; then
-	choice=$( (echo "🦆" && cat ~/.config/bookmarks) | $LAUNCER"Search:") || exit 1
+	choice=$( (echo "🦆" && cat ~/.config/bookmarks) | $LAUNCHER"Search:") || exit 1
 else
-	choice=$(echo "🦆" | $LAUNCER -i -p "Search DuckDuckGo:") || exit 1
+	choice=$(echo "🦆" | $LAUNCHER -i -p "Search DuckDuckGo:") || exit 1
 fi
 
 case "$choice" in
-*🦆*)
+    *🦆*)
 	$localBROWSER"https://duckduckgo.com"
 	exit
 	;;
-http*)
+    http*)
 	$localBROWSER"$(echo $choice | awk '{print $1}')"
 	exit
 	;;
-*) $localBROWSER"https://duckduckgo.com/?q=$choice"
-	exit
-	;;
+    *) $localBROWSER"https://duckduckgo.com/?q=$choice"
+       exit
+       ;;
 esac
 #vim:ft=sh

@@ -1,8 +1,12 @@
-#!/bin/env sh
-FUZZYFINDER="fzf"
-FUZZYOPTIONS="--tac"
-ATTACH="$(mshow -t . | $FUZZYFINDER "$FUZZYOPTIONS")"
-[ -z $ATTACH ] && return
+#!/bin/sh
+[ -z "$LAUNCHER" ] && LAUNCHER="fzf --tac"
+if [ $TERM = dumb ] ; then
+    mshow -t .
+    read ATTACH
+else
+    ATTACH="$(mshow -t . | $LAUNCHER)"
+fi    
+[ -z "$ATTACH" ] && exit 1
 MIME="$(echo "$ATTACH" | cut -f 2 -d ":" | cut -f 2 -d " ")"
 ATTACHNUM="$(echo "$ATTACH" | cut -f1 -d':')"
 
