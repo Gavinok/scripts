@@ -12,7 +12,7 @@ function is-installed() {
     fi
 }
 
-is-installed "byzanz-record9"
+is-installed "byzanz-record"
 is-installed "slop"
 
 byzanz-record                                        \
