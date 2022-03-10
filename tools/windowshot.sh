@@ -55,7 +55,7 @@ prompter(){
 	case "$(printf 'a selected area\ncurrent window\nfull screen' | dmenu -l 6 -i -p 'Screenshot which area?')" in
 		"a selected area") region ;;
 		"current window") window ;;
-		"full screen") rootwin ;;
+		"full screen") root ;;
 		*) exit ;;
 	esac
 _end
