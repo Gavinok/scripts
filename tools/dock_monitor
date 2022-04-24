@@ -1,5 +1,6 @@
 #!/bin/sh
-intern=eDP-1
+# intern=eDP-1
+intern=eDP1
 monitors='
 DP2
 DP-2
