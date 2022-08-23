@@ -32,28 +32,31 @@ case "$1" in
 	notify-send "Playing Video"
 	;;
 *\.png | *\.jpg | *\.jpe | *\.jpeg)
-	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && sxiv "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
+	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" &&
+	    exec xdg-open "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
 	;;
 *\.ps)
-	curl "$1" | ps2pdf - | exec  "${READER}" - >/dev/null 2>&1 &
+	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && ps2pdf "/tmp/$(echo "$1" | sed "s/.*\///")" &&
+	    exec "${READER}" "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
 	;;
 *\.pdf)
-	curl "$1" | exec  "${READER}" - >/dev/null 2>&1 &
+    curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && exec "${READER}" "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
 	;;
 *\.mp3 | *\.m4a | *\.ogg | *\.flac | *\.opus | *\.mp3?source | *soundcloud*)
 	exec "${TERMINAL}" -n "mp3" -e mpv --video=no "$1" >/dev/null 2>&1
 	;;
 *\.diff | *\.m[msd] | *\.tr | *\.txt | *\.[ch] | *\.cpp | *\.hs | *\.py | *\.sh | *raw*)
-	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && exec "${TERMINAL}" -e "${EDITOR:-vi}" "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
+    if  ! echo "$1"  | grep "github\.com" ; then
+	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && exec xdg-open "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
+    else
+	exec "${TRUEBROWSER}" "$1" >/dev/null 2>&1
+    fi
 	;;
 *\.torrent|*\.magnet)
 	exec transadd "$1"
 	;;
 *youtube.com/watch* | *youtube.com/playlist*|*youtu.be*) #limit the video quality
 	exec ytplay "$1"
-	;;
-*reddit.com/r/*)
-	exec ${TERMINAL} rtv "$1"
 	;;
 *)
 	exec "${TRUEBROWSER}" "$1" >/dev/null 2>&1
