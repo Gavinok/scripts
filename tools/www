@@ -10,55 +10,55 @@
 
 OS="$(uname -o)" # this is for use with termux
 if [ "${OS}" = 'Android' ]; then
-	[ -z "$1" ] && {
-		xdg-open "https://duckduckgo.com"
-		exit
-	}
-	xdg-open "$1"
+    [ -z "$1" ] && {
+	xdg-open "https://duckduckgo.com"
 	exit
+    }
+    xdg-open "$1"
+    exit
 fi
 notify-send "$1"
 
 [ -z "${TRUEBROWSER}" ] && TRUEBROWSER="qutebrowser"
 
 [ -z "$1" ] && {
-	${TRUEBROWSER} "https://duckduckgo.com"
-	exit
+    ${TRUEBROWSER} "https://duckduckgo.com"
+    exit
 }
 
 case "$1" in
-*\.mkv | *\.webm | *\.mp4 | *\.gif | *hooktube.com* | *v.redd.it* | *view_video*)
+    *\.mkv | *\.webm | *\.mp4 | *\.gif | *hooktube.com* | *v.redd.it* | *view_video*)
 	exec mpv --really-quiet --force-window=immediate "$1" >/dev/null 2>&1
 	notify-send "Playing Video"
 	;;
-*\.png | *\.jpg | *\.jpe | *\.jpeg)
+    *\.png | *\.jpg | *\.jpe | *\.jpeg)
 	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" &&
 	    exec xdg-open "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
 	;;
-*\.ps)
+    *\.ps)
 	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && ps2pdf "/tmp/$(echo "$1" | sed "s/.*\///")" &&
 	    exec "${READER}" "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
 	;;
-*\.pdf)
-    curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && exec "${READER}" "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
+    *\.pdf)
+	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && exec "${READER}" "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
 	;;
-*\.mp3 | *\.m4a | *\.ogg | *\.flac | *\.opus | *\.mp3?source | *soundcloud*)
+    *\.mp3 | *\.m4a | *\.ogg | *\.flac | *\.opus | *\.mp3?source | *soundcloud*)
 	exec "${TERMINAL}" -n "mp3" -e mpv --video=no "$1" >/dev/null 2>&1
 	;;
-*\.diff | *\.m[msd] | *\.tr | *\.txt | *\.[ch] | *\.cpp | *\.hs | *\.py | *\.sh | *raw*)
-    if  ! echo "$1"  | grep "github\.com" ; then
-	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && exec xdg-open "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
-    else
-	exec "${TRUEBROWSER}" "$1" >/dev/null 2>&1
-    fi
+    *\.diff | *\.m[msd] | *\.tr | *\.txt | *\.[ch] | *\.cpp | *\.hs | *\.py | *\.sh | *raw*)
+	if  ! echo "$1"  | grep "github\.com" ; then
+	    curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && exec xdg-open "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
+	else
+	    exec "${TRUEBROWSER}" "$1" >/dev/null 2>&1
+	fi
 	;;
-*\.torrent|*\.magnet)
+    *\.torrent|*\.magnet)
 	exec transadd "$1"
 	;;
-*youtube.com/watch* | *youtube.com/playlist*|*youtu.be*) #limit the video quality
+    *youtube.com/watch* | *youtube.com/playlist*|*youtu.be*) #limit the video quality
 	exec ytplay "$1"
 	;;
-*)
+    *)
 	exec "${TRUEBROWSER}" "$1" >/dev/null 2>&1
 	;;
 esac
