@@ -3,8 +3,6 @@
 # Increase key speed via a rate change
 # Map the caps lock key to super...
 # setxkbmap -layout us -variant altgr-intl  -option caps:ctrl_modifier
-killall kmonad
-kmonad ~/.config/kmonad.kbd &
 
 # setxkbmap -layout us -variant altgr-intl -option caps:escape
 # setxkbmap -layout us -variant altgr-intl -option caps:escape
@@ -26,3 +24,6 @@ xsetwacom --set "Wacom Intuos BT S Pad pad" Button 1 "key PgDn"
 xsetwacom --set "Wacom Intuos BT S Pad pad" Button 2 "key PgUp"
 # xsetwacom --set "Wacom Intuos BT S Pad pad" Button 1 "key +super z -super"
 sleep 2 && xset r rate 200 50
+
+killall kmonad
+kmonad ~/.config/kmonad.kbd
