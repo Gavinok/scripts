@@ -11,5 +11,4 @@ else
 	yn=$(printf 'No\nYes\n' | $LAUNCER "Start transmission daemon?")
 	[ "$yn" = "Yes" ] && transmission-daemon
 fi
-sleep 3 && pkill -RTMIN+7 i3blocks
 #vim:ft=sh
