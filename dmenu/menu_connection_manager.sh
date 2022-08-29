@@ -33,8 +33,8 @@ if [ "${choice}" = "Bluetooth" ]; then
 
 	choice2=$(printf 'Connect\nNew\nManage\nDisable' | dmenu -i -p 'Bluetooth:')
 	[ "${choice2}" = 'Connect' ] && btmenu
-	[ "${choice2}" = 'New' ] && blueman-assistant
-	[ "${choice2}" = 'Manage' ] && blueman-manager
+	[ "${choice2}" = 'New' ] && $TERMINAL bluetoothctl
+	[ "${choice2}" = 'Manage' ] && $TERMINAL bluetoothctl
 	[ "${choice2}" = 'Disable' ] && sudo rkill block bluetooth
 
 	# since bluman-applet is nolonger needed to maintain connections
