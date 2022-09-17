@@ -9,56 +9,56 @@ export DISPLAY=:0.0
 
 # Settings are different for MacOS (Darwin) systems.
 if [ "$(uname)" = "Darwin" ]; then
-	notify() { osascript -e ": $*" && sleep 2; }
-	mailnotify() { osascript -e "display notification \"$2 in $1\" with title \"You've got Mail\" subtitle \"Account: $account\"" && sleep 2; }
+    notify() { osascript -e ": $*" && sleep 2; }
+    mailnotify() { osascript -e "display notification \"$2 in $1\" with title \"You've got Mail\" subtitle \"Account: $account\"" && sleep 2; }
 elif [ -n "$DISPLAY" ]; then
-	notify() { notify-send --app-name="mutt-wizard" "" "$*"; }
-	mailnotify() { notify-send --app-name="mutt-wizard" "" "📬 $2 new mail(s) in \`$1\` account."; }
+    notify() { notify-send --app-name="mutt-wizard" "" "$*"; }
+    mailnotify() { notify-send --app-name="mutt-wizard" "" "📬 $2 new mail(s) in \`$1\` account."; }
 else
-	notify() { echo " $*"; }
-	mailnotify() { echo "" "📬 $2 new mail(s) in \`$1\` account."; }
+    notify() { echo " $*"; }
+    mailnotify() { echo "" "📬 $2 new mail(s) in \`$1\` account."; }
 fi
 
 # Run only if user logged in (prevent cron errors)
 pgrep -u "${USER:=$LOGNAME}" >/dev/null || {
-	notify "$USER not logged in; sync will not run."
-	exit
+    notify "$USER not logged in; sync will not run."
+    exit
 }
 # Run only if not already running in other instance
 pgrep -x mbsync >/dev/null && {
-	notify "mbsync is already running."
-	exit
+    notify "mbsync is already running."
+    exit
 }
 
 # Checks for internet connection and set notification script.
 ping -q -c 1 1.1.1.1 >/dev/null || {
-	notify "No internet connection detected."
-	exit
+    notify "No internet connection detected."
+    exit
 }
 command -v notify-send >/dev/null || notify 'Note that `libnotify` or `libnotify-send` should be installed for pop-up mail notifications with this script.'
 
 # Check account for new mail. Notify if there is new content.
 syncandnotify() {
-	acc="$(echo "$account" | sed "s/.*\///")"
-	mbsync "$acc"
-	new=$(find "$HOME/.local/share/mail/$acc/INBOX/new/" "$HOME/.local/share/mail/$acc/Inbox/new/" "$HOME/.local/share/mail/$acc/inbox/new/" -type f -newer "$HOME/.config/mutt/.mailsynclastrun" 2>/dev/null)
-	newcount=$(echo "$new" | sed '/^\s*$/d' | wc -l)
-	if [ "$newcount" -gt "0" ]; then
-		mailnotify "$acc" "$newcount" &
-		for file in $new; do
-			# Extract subject and sender from mail.
-			from=$(awk '/^From: / && ++n ==1,/^\<.*\>:/' "$file" | perl -CS -MEncode -ne 'print decode("MIME-Header", $_)' | awk '{ $1=""; if (NF>=3)$NF=""; print $0 }' | sed 's/^[[:blank:]]*[\"'\''\<]*//;s/[\"'\''\>]*[[:blank:]]*$//')
-			subject=$(awk '/^Subject: / && ++n == 1,/^\<.*\>: / && ++i == 2' "$file" | head -n-1 | perl -CS -MEncode -ne 'print decode("MIME-Header", $_)' | sed 's/^Subject: //' | sed 's/^{[[:blank:]]*[\"'\''\<]*//;s/[\"'\''\>]*[[:blank:]]*$//' | tr -d '\n')
-			notify " $from:" "$subject" &
-		done
-	fi
+    acc="$(echo "$account" | sed "s/.*\///")"
+    mbsync "$acc"
+    new=$(find "$HOME/.local/share/mail/$acc/INBOX/new/" "$HOME/.local/share/mail/$acc/Inbox/new/" "$HOME/.local/share/mail/$acc/inbox/new/" -type f -newer "$HOME/.config/mutt/.mailsynclastrun" 2>/dev/null)
+    newcount=$(echo "$new" | sed '/^\s*$/d' | wc -l)
+    if [ "$newcount" -gt "0" ]; then
+        mailnotify "$acc" "$newcount" &
+        for file in $new; do
+            # Extract subject and sender from mail.
+            from=$(awk '/^From: / && ++n ==1,/^\<.*\>:/' "$file" | perl -CS -MEncode -ne 'print decode("MIME-Header", $_)' | awk '{ $1=""; if (NF>=3)$NF=""; print $0 }' | sed 's/^[[:blank:]]*[\"'\''\<]*//;s/[\"'\''\>]*[[:blank:]]*$//')
+            subject=$(awk '/^Subject: / && ++n == 1,/^\<.*\>: / && ++i == 2' "$file" | head -n-1 | perl -CS -MEncode -ne 'print decode("MIME-Header", $_)' | sed 's/^Subject: //' | sed 's/^{[[:blank:]]*[\"'\''\<]*//;s/[\"'\''\>]*[[:blank:]]*$//' | tr -d '\n')
+            notify " $from:" "$subject" &
+        done
+    fi
 }
 
 # Sync accounts passed as argument or all.
 if [ "$#" -eq "0" ]; then
-	accounts="$(awk '/^Channel/ {print $2}' "$HOME/.mbsyncrc")"
+    accounts="$(awk '/^Channel/ {print $2}' "$HOME/.mbsyncrc")"
 else
-	accounts=$*
+    accounts=$*
 fi
 
 echo " 🔃" >/tmp/imapsyncicon_"$USER"
@@ -66,7 +66,7 @@ echo " 🔃" >/tmp/imapsyncicon_"$USER"
 
 # Parallelize multiple accounts
 for account in $accounts; do
-	syncandnotify &
+    syncandnotify &
 done
 
 wait

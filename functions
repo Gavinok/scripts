@@ -1,19 +1,20 @@
+# -*- mode: sh -*-
+
 # make plan9 walk available on all systems
 walk() {
-	if command -v walk >/dev/null 2>&1; then
-		/usr/local/bin/walk $@
-	elif command -v fd >/dev/null 2>&1; then
-		fd -c never .
-	else
-		find .
-	fi
+    if command -v walk >/dev/null 2>&1; then
+        /usr/local/bin/walk $@
+    elif command -v fd >/dev/null 2>&1; then
+        fd -c never .
+    else
+        find .
+    fi
 }
 
 # Calculator
 calc() { echo "scale=5;$*" | bc -l; }
 
-r()
-{
+r() {
     local dst="$(command vifm --choose-dir - ".")"
     if [ -z "$dst" ]; then
         echo 'Directory picking cancelled/failed'
@@ -29,15 +30,15 @@ r()
 
 #dirsize - finds directory sizes and lists them for the current directory
 dirsize() {
-	du -shx -- * .[a-zA-Z0-9_]* 2>/dev/null | grep -E '^ *[0-9.]*[MG]' | sort -n >/tmp/list
-	grep -E '^ *[0-9.]*M' /tmp/list
-	grep -E '^ *[0-9.]*G' /tmp/list
-	rm /tmp/list
+    du -shx -- * .[a-zA-Z0-9_]* 2>/dev/null | grep -E '^ *[0-9.]*[MG]' | sort -n >/tmp/list
+    grep -E '^ *[0-9.]*M' /tmp/list
+    grep -E '^ *[0-9.]*G' /tmp/list
+    rm /tmp/list
 }
 
 #myip - finds your current IP if your connected to the internet
 myip() {
-	lynx -dump -hiddenlinks=ignore -nolist http://checkip.dyndns.org:8245/ | awk '{ print $4 }' | sed '/^$/d; s/^[ ]*//g; s/[ ]*$//g'
+    lynx -dump -hiddenlinks=ignore -nolist http://checkip.dyndns.org:8245/ | awk '{ print $4 }' | sed '/^$/d; s/^[ ]*//g; s/[ ]*$//g'
 }
 
 # define a word
@@ -67,41 +68,40 @@ allcpu() { echo 1 | sudo tee /sys/devices/system/cpu/cpu*/online; }
 # may remove if I never end up using it
 
 fzjq() {
-	echo '' | fzf --print-query --preview "jq {q} \"$*\""
+    echo '' | fzf --print-query --preview "jq {q} \"$*\""
 }
 
 fzrec() {
-	echo '' | fzf --print-query --preview "recsel {q} $*"
+    echo '' | fzf --print-query --preview "recsel {q} $*"
 }
 
 fzndb() {
-	echo '' | fzf --print-query --preview "ndbquery -f $* atomicnumber {q}"
+    echo '' | fzf --print-query --preview "ndbquery -f $* atomicnumber {q}"
 }
 
-
 fzawk() {
-	echo '' | fzf --layout=reverse --height 50% --print-query --preview 'echo "a\nb\nc\nd" | awk {q}'
+    echo '' | fzf --layout=reverse --height 50% --print-query --preview 'echo "a\nb\nc\nd" | awk {q}'
 }
 
 fzR() {
-	echo '' | fzf --layout=reverse --height 50% --print-query --preview 'R -s -e {q}'
+    echo '' | fzf --layout=reverse --height 50% --print-query --preview 'R -s -e {q}'
 
 }
 
 sk() {
-	screenkey --no-systray -t 2 -p fixed -g '420x61+3300+54'
+    screenkey --no-systray -t 2 -p fixed -g '420x61+3300+54'
 }
 
 pdfappend() {
-	gs -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None -dAutoFilterColorImages=false -dAutoFilterGrayImages=false -dColorImageFilter=/FlateEncode -dGrayImageFilter=/FlateEncode -dDownsampleMonoImages=false -dDownsampleGrayImages=false -sOutputFile=fileAll.pdf $* &&
-	echo "created fileAll.pdf"
+    gs -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dAutoRotatePages=/None -dAutoFilterColorImages=false -dAutoFilterGrayImages=false -dColorImageFilter=/FlateEncode -dGrayImageFilter=/FlateEncode -dDownsampleMonoImages=false -dDownsampleGrayImages=false -sOutputFile=fileAll.pdf $* &&
+        echo "created fileAll.pdf"
 }
 
-9start () {
-qemu-system-x86_64 -cpu host -enable-kvm -m 1024 \
--net nic,model=virtio,macaddr=52:54:00:00:EE:03 -net user \
--device virtio-scsi-pci,id=scsi \
--drive if=none,id=vd0,file=9front.qcow2.img \
--device scsi-hd,drive=vd0
+9start() {
+    qemu-system-x86_64 -cpu host -enable-kvm -m 1024 \
+        -net nic,model=virtio,macaddr=52:54:00:00:EE:03 -net user \
+        -device virtio-scsi-pci,id=scsi \
+        -drive if=none,id=vd0,file=9front.qcow2.img \
+        -device scsi-hd,drive=vd0
 }
 #vim:ft=sh
