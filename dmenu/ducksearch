@@ -5,7 +5,6 @@
 # Anything else, it search it.h
 
 [ -z "$LAUNCHER" ] && LAUNCHER="dmenu -l 5 -i -p "
-
 [ -z "${DISPLAY}" ] && LAUNCHER="fzf --prompt "
 
 localBROWSER="$BROWSER "
@@ -13,22 +12,23 @@ localBROWSER="$BROWSER "
 [ -z "${DISPLAY}" ] && localBROWSER="xdg-open "
 
 if [ -f ~/.config/bookmarks ]; then
-	choice=$( (echo "🦆" && cat ~/.config/bookmarks) | $LAUNCHER"Search:") || exit 1
+    choice=$( (echo "🦆" && cat ~/.config/bookmarks) | $LAUNCHER "Search:") || exit 1
 else
-	choice=$(echo "🦆" | $LAUNCHER -i -p "Search DuckDuckGo:") || exit 1
+    choice=$(echo "🦆" | $LAUNCHER -i -p "Search DuckDuckGo:") || exit 1
 fi
 
 case "$choice" in
-    *🦆*)
-	$localBROWSER"https://duckduckgo.com"
-	exit
-	;;
-    http*)
-	$localBROWSER"$(echo $choice | awk '{print $1}')"
-	exit
-	;;
-    *) $localBROWSER"https://duckduckgo.com/?q=$choice"
-       exit
-       ;;
+*🦆*)
+    $localBROWSER"https://duckduckgo.com"
+    exit
+    ;;
+http*)
+    $localBROWSER"$(echo $choice | awk '{print $1}')"
+    exit
+    ;;
+*)
+    $localBROWSER"https://duckduckgo.com/?q=$choice"
+    exit
+    ;;
 esac
 #vim:ft=sh
