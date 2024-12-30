@@ -32,9 +32,16 @@ killrecording() {
 	rm -f ~/.recordingpid
 	updateicon ""
 	pkill -RTMIN+9 i3blocks
-	# even after SIGTERM, ffmpeg may still run, so SIGKILL it.
 	sleep 3
+	# even after SIGTERM, ffmpeg may still run, so SIGKILL it.
 	kill -9 "$recpid"
+	GIFFILE="$VIDEODIR/screencast-$(date '+%y%m%d-%H%M-%S').gif"
+	# special handling of gifs since we need to convert them
+	[ -f ~/.recordinggif ] &&
+ 	    convert -set delay 10 -layers Optimize "$(cat ~/.recordingfile)" "$GIFFILE" &&
+	    rm -f ~/.recordinggif &&
+	    xdg-open "$GIFFILE" &&
+	    exit
 	[ -f ~/.recordingfile ] && playrecording
 	exit
 }
@@ -61,7 +68,18 @@ stream() { \
 	updateicon "⏺️🎙️"
 	notify-send "Dont forget to enlarge terminal text"
 }
-
+screencastgif () { \
+		   RECORDINGFILE="/tmp/screencast-$(date '+%y%m%d-%H%M-%S').webm"
+		   ffmpeg -f x11grab \
+			  -show_region 1 \
+			  $(slop | sed -e 's/+/ /g' | awk '{ print "-video_size " $1 " -framerate 15 " " -i :0.0+" $2 "," $3 }') \
+			  -vf format=yuv420p \
+			  "$RECORDINGFILE" &
+		   echo $! > ~/.recordingpid
+		   echo 1 > ~/.recordinggif
+		   echo "$RECORDINGFILE" > ~/.recordingfile
+		   notify-send "Recording gif"
+}
 screencastpulse() { \
 	RECORDINGFILE="$VIDEODIR/screencast-$(date '+%y%m%d-%H%M-%S').webm"
 	ffmpeg -y \
@@ -72,7 +90,7 @@ screencastpulse() { \
         -f pulse -i default \
 	-r 30 \
 	-c:v libvpx -crf 0 -preset ultrafast -c:a flac \
-	 "$RECORDINGFILE" &
+	"$RECORDINGFILE" &
 	echo $! > ~/.recordingpid
 	echo "$RECORDINGFILE" > ~/.recordingfile
 	updateicon "⏺️🎙️"
@@ -182,9 +200,10 @@ audioalsa() { \
 }
 
 askrecording() { \
-	choice=$(printf "screencast\\nstream\\nwebcam\\nvideo\\naudio" | $LAUNCHER "Select recording style:")
+	choice=$(printf "screencast\\nstream\\nwebcam\\nvideo\\ngif\\naudio" | $LAUNCHER "Select recording style:")
 	case "$choice" in
 		screencast) screencastpulse;;
+		gif) screencastgif;;
 		webcam) webcampulse;;
 		stream) stream;;
 		audio) audiopulse;;
@@ -214,6 +233,7 @@ case "$1" in
 	screencast) screencastpulse;;
 	webcam) webcampulse;;
 	stream) stream;;
+	gif) screencastgif;;
 	audio) audiopulse;;
 	video) video;;
 	kill) killrecording;;
