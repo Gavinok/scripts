@@ -1,12 +1,14 @@
 #!/bin/sh
 # intern=eDP-1
 intern=eDP1
-monitors='
-DP2
-DP-2
-HDMI2'
-
-_mappings(){
+monitors=$(xrandr | awk "/ connected/ { if (\$1 != \"$intern\") print \$1;}")
+left=$(echo $monitors | cut -d' ' -f1)
+right=$(echo $monitors | cut -d' ' -f2)
+# 'DP2
+# DP-2
+# HDMI2'
+echo $left
+_mappings() {
 	remaps 2>/dev/null &
 }
 
@@ -15,9 +17,16 @@ _highdpi() {
 }
 
 _if_monitor_connected() {
-	for monitor in $monitors; do
-		xrandr --output "$intern" --primary --auto --output "$monitor" --left-of "$intern" --auto
-	done
+	if [ "$(echo ${monitors} | wc -l)" = "2" ]; then
+	    echo path 1
+	    xrandr --output "$left" --auto
+	    xrandr --output "$right" --auto
+
+	    xrandr --output "$intern" --primary --auto --output "$left" --left-of "$intern" --auto --output "$right" --right-of "$intern" --auto
+	elif [ "$(echo ${monitors} | wc -l)" = "1" ]; then
+	    echo left is $left and internal is $intern
+	    xrandr --output "$intern" --primary --auto --output "$left"  --auto --right-of "$intern"
+	fi
 }
 
 _if_disconnected() {

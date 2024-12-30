@@ -64,6 +64,13 @@ fi
 echo " 🔃" >/tmp/imapsyncicon_"$USER"
 (pkill -RTMIN+12 "${STATUSBAR:?}" >/dev/null 2>&1) 2>/dev/null
 
+# Startup davmail for use with outlook accounts
+if ! pgrep -f davmail.jar >/dev/null; then
+    echo "starting davmail"
+    setsid --fork davmail -notray "$HOME/.davmail.properties" &
+    sleep 5
+fi
+
 # Parallelize multiple accounts
 for account in $accounts; do
     syncandnotify &
@@ -75,7 +82,7 @@ rm -f /tmp/imapsyncicon_"$USER"
 
 mu index 2>/dev/null
 
-notmuch new 2>/dev/null
+# notmuch new 2>/dev/null
 
 # recollindex
 

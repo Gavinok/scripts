@@ -1,10 +1,59 @@
-#!/bin/env sh
+#!/bin/sh
+
 # Depends On:
 #     mblaze (duh)
-#     recoll
+#     mu
 #     sed
 # Be sure to add the line
 #  `topdirs = ~/path/to/my/mail`
 # to your `~/.config/recoll/recoll.conf`
 
-recollq "$*" | sed 's/.*file:\/\/\(.*S\)].*/\1/' | msort -d | mseq -S && mscan
+# replaced to now use mu
+# recollq "$*" 2> /dev/null | sed 's/.*file:\/\/\(.*S\)].*/\1/' | msort -d | mseq -S 2> /dev/null && mscan
+
+# Taken from mblaze contrib
+#!/bin/sh
+
+MBLAZE=${MBLAZE:-$HOME/.mblaze}
+engine=$(mhdr -h search-engine "$MBLAZE/profile")
+
+while getopts nmx opt; do
+    case $opt in
+	n)
+	    engine=notmuch
+	    ;;
+	m)
+	    engine=mu
+	    ;;
+	x)
+	    engine=mairix
+	    ;;
+	'?')
+	    printf "Usage: %s: [-n | -m | -x] query\n" "$0" 1>&2
+	    exit 1
+	    ;;
+    esac
+done
+shift $(($OPTIND - 1))
+/
+[ -z "$engine" ] && engine=mu
+
+case $engine in
+    notmuch)
+	exec notmuch search --output=files "$@" | msort -d | mseq -S
+	;;
+    mu)
+	exec mu find --fields l "$@" | msort -d | mseq -S && mscan
+	;;
+    mairix)
+	if [ "$#" -eq 0 ]; then
+	   printf "Usage: %s -x query\n" "$0" 1>&2
+	   exit 1
+	fi
+        exec mairix -r "$@" | msort -d | mseq -S
+	;;
+    *)
+	echo "Unsupported search engine: $engine"
+	exit 1
+	;;
+esac

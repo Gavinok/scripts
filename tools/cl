@@ -27,11 +27,13 @@ backlight() {
 
 case "$1" in
 u*)
-	backlight -inc "$num"
+	# backlight -inc "$num"
+	xbacklight -inc "$num"
 	notifybrightness
 	;; #change the default audio sync
 d*)
-	backlight -dec "$num"
+	# backlight -dec "$num"
+	xbacklight -dec "$num"
 	notifybrightness
 	;; #change the default audio sync
 *) cat <<EOF ;;

@@ -19,84 +19,102 @@ base="${file%.*}"
 cd "$dir" || exit
 
 Ifinstalled() {
-	command -v "$1" >/dev/null || { notify-send "📦 <b>$1</b> must be installed for this function." && exit 1; }
+    command -v "$1" >/dev/null || { notify-send "📦 <b>$1</b> must be installed for this function." && exit 1; }
 }
 
 textype() {
-	command="pdflatex"
-	errorfmt="-file-line-error"
-	# ( sed 5q "$file" | grep -i -q 'xelatex' ) && command="xelatex"
-	secdir="$(dirname "$dir")"
-	cd "$secdir"
-	if [ -f "${secdir}/Notes.tex" ]; then
-		echo "${secdir}/Notes.tex"
-		$command $errorfmt --output-directory="$secdir" "${secdir}/Notes.tex"
-		exit
-	fi
-	$command $errorfmt --output-directory="$dir" "$base"
-	grep -i addbibresource "$file" >/dev/null &&
-		biber --input-directory "$dir" "$base" &&
-		$command $errorfmt --output-directory="$dir" "$base" &&
-		$command $errorfmt --output-directory="$dir" "$base"
+    command="pdflatex"
+    errorfmt="-file-line-error"
+    # ( sed 5q "$file" | grep -i -q 'xelatex' ) && command="xelatex"
+    secdir="$(dirname "$dir")"
+    cd "$secdir"
+    if [ -f "${secdir}/Notes.tex" ]; then
+        echo "${secdir}/Notes.tex"
+        $command $errorfmt --output-directory="$secdir" "${secdir}/Notes.tex"
+        exit
+    fi
+    $command $errorfmt --output-directory="$dir" "$base"
+    grep -i addbibresource "$file" >/dev/null &&
+        biber --input-directory "$dir" "$base" &&
+        $command $errorfmt --output-directory="$dir" "$base" &&
+        $command $errorfmt --output-directory="$dir" "$base"
 }
 
 pandoccmd() {
-	# Ifinstalled pdflatex && pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" -o "${2}.pdf"
-	Ifinstalled groff && pandoc "${1}" -t ms --pdf-engine-opt=-p -o "${2}.pdf"
+    # Ifinstalled pdflatex && pandoc -V geometry:margin=4cm -f markdown-implicit_figures "$1" -o "${2}.pdf"
+    Ifinstalled groff && pandoc "${1}" -t ms --pdf-engine-opt=-p -o "${2}.pdf"
 }
 
 pandocorg() { pandoccmd "$file" "$base"; }
 
 compilec() {
-	if [ -f "${dir}/Makefile" ]; then
-		make
-	else
-		cc "$file" -o "$base" && "$base"
-	fi
+    if [ -f "${dir}/Makefile" ]; then
+        make
+    else
+        clang "$file" -o "$base" && "$base"
+    fi
 }
 
 neatroff_prefix='/opt/share/neatroff'
 
 case "$file" in
-	*\.ms | *\.groff) preconv "$file" |  groff -Tpdf -ktesp -G -ms > "$base".pdf ;;
-	# *\.ms | *\.groff)
-	# 	cat "$file"|
-	# 		${neatroff_prefix}/soin/soin |
-	# 		${neatroff_prefix}/troff/tbl/tbl |
-	# 		${neatroff_prefix}/troff/pic/pic |
-	# 		${neatroff_prefix}/neateqn/eqn |
-	# 		${neatroff_prefix}/neatroff/roff -men -mpost -mkeep -mfp |
-	# 		${neatroff_prefix}/neatpost/pdf > "$base".pdf &&
-	# 		killall -s SIGHUP mupdf;;
-	*\.ps ) ps2pdf "$file" ;;
-	*\.mom) pdfroff -pktes -b -wall -mom -mpdfmark "$file" > "$base".pdf ;;
-	*\.present) groff -p -e -t -mm -mpresent "$file" | presentps -l | ps2pdf - > "$base".pdf ;;
-	*\.me) groff -Gktes -b -w w -me -T ps "$file" | ps2pdf - > "$base".pdf ;;
-	*\.mm) groff -Gktes -b -w w -mm -mpic -T ps "$file" | ps2pdf - > "$base".pdf ;;
-	*\.tex) textype "$file" ;;
-	*\.org) Ifinstalled pandoc && pandocorg "$file" "$base" && exit ;;
-	*\.md) Ifinstalled pandoc && pandoccmd "$file" "$base" && exit ;;
-	*config.h) make && sudo make install ;;
-	*\.c) compilec ;;
-	*\.h) compilec ;;
-	*\.r) R -f "$file" ;;
-	*\.java) javac "$file" && echo "${base##*/}" | xargs java ;;
-	*\.js) node "$file" ;;
-	*\.py) python "$file" ;;
-	*\.tcl) tclsh "$file" ;;
-	*\.docx | *\.doc)
-		Ifinstalled libreoffice && lowriter --convert-to pdf "$file" && exit
-		Ifinstalled pandoc && pandoccmd "$file" "$base" && exit
-		;;
-	*\.dot | *\.gv) dot -Tsvg "$file" | convert svg:- "$base".eps ;;
-	*\.go) go run "$file" ;;
-	*\.vim*) vint "$file" ;;
-	*\.sent) setsid sent "$file" 2> /dev/null & ;;
-	*\.html) refreshbrowser ;;
-	*\.rkt) racket "$file" ;;
-	*\.apl ) apl -f "$file" ;;
-	*\.fnl ) echo "fennel --compile "$file" > "$base".lua"
-		fennel --compile "$file" > "$base".lua;;
-	*) chmod +x "$file" && sed 1q "$file" | grep "^#!/" | sed "s/^#!//" | xargs -r -I % "$file" ;;
+*\.ms | *\.groff) preconv "$file" | groff -Tpdf -ktesp -ms >"$base".pdf ;;
+# *\.ms | *\.groff)
+# 	cat "$file"|
+# 		${neatroff_prefix}/soin/soin |
+# 		${neatroff_prefix}/troff/tbl/tbl |
+# 		${neatroff_prefix}/troff/pic/pic |
+# 		${neatroff_prefix}/neateqn/eqn |
+# 		${neatroff_prefix}/neatroff/roff -men -mpost -mkeep -mfp |
+# 		${neatroff_prefix}/neatpost/pdf > "$base".pdf &&
+# 		killall -s SIGHUP mupdf;;
+*\.sh) bash "$file" ;;
+*\.ps) ps2pdf "$file" ;;
+*\.mom) pdfroff -pktes -b -wall -mom -mpdfmark "$file" >"$base".pdf ;;
+*\.present) groff -p -e -t -mm -mpresent "$file" | presentps -l | ps2pdf - >"$base".pdf ;;
+*\.me) groff -Gktes -b -w w -me -T ps "$file" | ps2pdf - >"$base".pdf ;;
+*\.mm) groff -Gktes -b -w w -mm -mpic -T ps "$file" | ps2pdf - >"$base".pdf ;;
+*\.tex) textype "$file" ;;
+*\.org) Ifinstalled pandoc && pandocorg "$file" "$base" && exit ;;
+*\.md) Ifinstalled pandoc && pandoccmd "$file" "$base" && exit ;;
+*config.h) make && sudo make install ;;
+*\.hs) runghc "$file" ;;
+*\.c) compilec ;;
+*\.cpp)
+    g++ -std=c++20 \
+        -fconcepts-diagnostics-depth=2 \
+        -Wpedantic -Wall -Wconversion -Wextra \
+        -Wcast-align -Wcast-qual -Wctor-dtor-privacy \
+        -Wdisabled-optimization -Wformat=2 -Winit-self \
+        -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs \
+        -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls \
+        -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-null-sentinel \
+        -Wstrict-overflow=5 -Wswitch-default -Wundef -Werror \
+        -fsanitize=undefined -fsanitize=address \
+        -o "${base##*/}" "$file" && ./"${base##*/}"
+    ;;
+*\.h) compilec ;;
+*\.r) R -f "$file" ;;
+*\.java) javac "$file" && java "${base##*/}" ;;
+*\.js) node "$file" ;;
+*\.py) python "$file" ;;
+*\.tcl) tclsh "$file" ;;
+*\.docx | *\.doc)
+    Ifinstalled libreoffice && lowriter --convert-to pdf "$file" && exit
+    Ifinstalled pandoc && pandoccmd "$file" "$base" && exit
+    ;;
+*\.dot | *\.gv) dot -Tsvg "$file" | convert svg:- "$base".eps ;;
+*\.go) go run "$file" ;;
+*\.rs) rustc -o "${base##*/}" "$file" && ./"${base##*/}" ;;
+*\.vim*) vint "$file" ;;
+*\.sent) setsid sent "$file" 2>/dev/null & ;;
+*\.html) refreshbrowser ;;
+*\.rkt) racket "$file" ;;
+*\.apl) apl -f "$file" ;;
+*\.fnl)
+    echo "fennel --compile "$file" > "$base".lua"
+    fennel --compile "$file" >"$base".lua
+    ;;
+*) chmod +x "$file" && sed 1q "$file" | grep "^#!/" | sed "s/^#!//" | xargs -r -I % "$file" ;;
 esac
 # vim:ft=sh

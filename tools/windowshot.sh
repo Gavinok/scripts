@@ -30,6 +30,7 @@ _end()
 {
 	note
 	xdg-open "${SCREENSHOTNAME}"
+	echo "${SCREENSHOTNAME}"
 	exit 0
 }
 

@@ -23,7 +23,7 @@
 xsetwacom --set "Wacom Intuos BT S Pad pad" Button 1 "key PgDn"
 xsetwacom --set "Wacom Intuos BT S Pad pad" Button 2 "key PgUp"
 # xsetwacom --set "Wacom Intuos BT S Pad pad" Button 1 "key +super z -super"
-sleep 2 && xset r rate 200 50
 
-killall kmonad
-kmonad ~/.config/kmonad.kbd
+sudo killall kmonad
+sudo kmonad ~/.config/kmonad.kbd
+sleep 6 && xset r rate 200 50

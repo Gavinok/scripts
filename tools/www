@@ -11,8 +11,8 @@
 OS="$(uname -o)" # this is for use with termux
 if [ "${OS}" = 'Android' ]; then
     [ -z "$1" ] && {
-	xdg-open "https://duckduckgo.com"
-	exit
+        xdg-open "https://duckduckgo.com"
+        exit
     }
     xdg-open "$1"
     exit
@@ -27,38 +27,41 @@ notify-send "$1"
 }
 
 case "$1" in
-    *\.mkv | *\.webm | *\.mp4 | *\.gif | *hooktube.com* | *v.redd.it* | *view_video*)
-	exec mpv --really-quiet --force-window=immediate "$1" >/dev/null 2>&1
-	notify-send "Playing Video"
-	;;
-    *\.png | *\.jpg | *\.jpe | *\.jpeg)
-	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" &&
-	    exec xdg-open "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
-	;;
-    *\.ps)
-	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && ps2pdf "/tmp/$(echo "$1" | sed "s/.*\///")" &&
-	    exec "${READER}" "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
-	;;
-    *\.pdf)
-	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && exec "${READER}" "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
-	;;
-    *\.mp3 | *\.m4a | *\.ogg | *\.flac | *\.opus | *\.mp3?source | *soundcloud*)
-	exec "${TERMINAL}" -n "mp3" -e mpv --video=no "$1" >/dev/null 2>&1
-	;;
-    *\.diff | *\.m[msd] | *\.tr | *\.txt | *\.[ch] | *\.cpp | *\.hs | *\.py | *\.sh | *raw*)
-	if  ! echo "$1"  | grep "github\.com" ; then
-	    curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && exec xdg-open "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
-	else
-	    exec "${TRUEBROWSER}" "$1" >/dev/null 2>&1
-	fi
-	;;
-    *\.torrent|*\.magnet)
-	exec transadd "$1"
-	;;
-    *youtube.com/watch* | *youtube.com/playlist*|*youtu.be*) #limit the video quality
-	exec ytplay "$1"
-	;;
-    *)
-	exec "${TRUEBROWSER}" "$1" >/dev/null 2>&1
-	;;
+*\.mkv | *\.webm | *\.mp4 | *\.gif | *hooktube.com* | *v.redd.it* | *view_video*)
+    exec mpv --really-quiet --force-window=immediate "$1" >/dev/null 2>&1
+    notify-send "Playing Video"
+    ;;
+*\.png | *\.jpg | *\.jpe | *\.jpeg)
+    curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" &&
+        exec xdg-open "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
+    ;;
+*\.ps)
+    curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && ps2pdf "/tmp/$(echo "$1" | sed "s/.*\///")" &&
+        exec "${READER}" "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
+    ;;
+*\.pdf)
+    curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && exec "${READER}" "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
+    ;;
+*\.mp3 | *\.m4a | *\.ogg | *\.flac | *\.opus | *\.mp3?source | *soundcloud*)
+    exec "${TERMINAL}" -n "mp3" -e mpv --video=no "$1" >/dev/null 2>&1
+    ;;
+*\.diff | *\.m[msd] | *\.tr | *\.txt | *\.[ch] | *\.cpp | *\.hs | *\.py | *\.sh | *raw*)
+    if ! echo "$1" | grep "github\.com"; then
+        curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && exec xdg-open "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1
+    else
+        exec "${TRUEBROWSER}" "$1" >/dev/null 2>&1
+    fi
+    ;;
+*\.torrent | *\.magnet)
+    exec transadd "$1"
+    ;;
+mailto*)
+    exec emacs "$1"
+    ;;
+*youtube.com/watch* | *youtube.com/playlist* | *youtu.be*) #limit the video quality
+    exec mpv "$1"
+    ;;
+*)
+    exec "${TRUEBROWSER}" "$1" >/dev/null 2>&1
+    ;;
 esac

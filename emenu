@@ -1,10 +1,9 @@
-#!/bin/sh
+#!/bin/dash
 PROMPT="PROMPT"
 while getopts ':p:' c
 do
   case $c in
       p) PROMPT="$OPTARG" ;;
-      
   esac
 done
 
@@ -14,7 +13,7 @@ do
     options="$options \"$line\""
 done
 
-result=$(emacsclient -e "(completing-read \"$PROMPT \" '($options))" 2> /dev/null)
+result=$(emacsclient -e "(emenu \"$PROMPT \" '($options))" 2> /dev/null)
 [ -z "$result" ] && exit 1 # if empty exit
 
 printf "%s" "$result" | sed 's/"$//; s/^"//'
