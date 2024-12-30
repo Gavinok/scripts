@@ -2,14 +2,13 @@
 dock_monitor
 scheme=$(cat ~/.config/colorschemes/current)
 # if [ "$scheme" = "dark" ];then
-picom --experimental-backends &
+picom &
 flashfocus &
 # fi
 # unclutter &
 clipmenud &
-
-#          LATITUDE:LONGITUDE
-redshift -t 3400:3200 -l 60:-135 &
+#            DAY:NIGHT  LAT:LON
+redshift -t 6500:2500 -l 60:-135 &
 # pulsemixer --set-volume 50 &
 xbacklight -set 30 &
 autosuspend.sh &
@@ -24,12 +23,15 @@ if [ -e /usr/lib/kdeconnectd ]; then
     setsid /usr/lib/kdeconnectd &
 fi
 
+statwe &
+blueman-applet &
+dbus-update-activation-environment &
 # startlemon.sh  | lemonbar -f "monospace" -f "Symbols Nerd Font-10" &
 # xbindkeys &
 remaps 2>/dev/null &
-setsid syncthing --no-browser &
+# setsid syncthing --no-browser &
 device=$(uname -n)
-xinput disable "Elan Touchpad"
+# xinput disable "Elan Touchpad"
 [ "$device" = "sp4" ] && exit
 # psave.sh &
 # covid19.sh &
