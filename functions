@@ -114,4 +114,15 @@ pokeemacs() {
     pkill -SIGUSR2 emacs
 }
 
+getDockerHost() {
+  (
+    if [[ $(uname) == "Linux" ]] ; then
+      dockerHostAddress=$(docker run --rm --net=host eclipse/che-ip)
+    else
+      dockerHostAddress=host.docker.internal
+    fi
+    echo ${DOCKERHOST:-${APPLICATION_URL:-${dockerHostAddress}}}
+  )
+}
+
 #vim:ft=sh
