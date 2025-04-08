@@ -25,7 +25,7 @@ _if_monitor_connected() {
 	    xrandr --output "$intern" --primary --auto --output "$left" --left-of "$intern" --auto --output "$right" --right-of "$intern" --auto
 	elif [ "$(echo ${monitors} | wc -l)" = "1" ]; then
 	    echo left is $left and internal is $intern
-	    xrandr --output "$intern" --primary --auto --output "$left"  --auto --right-of "$intern"
+	    xrandr --output "$intern" --primary --auto --output "$left"  --auto --left-of "$intern"
 	fi
 }
 
