@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Customize this path to your org files directory
-ORG_DIR="$HOME/Documents/org"
+ORG_DIR="$HOME/.local/Dropbox/Documents/org"
 DEBOUNCE_SECONDS=10
 LAST_RUN=0
 
