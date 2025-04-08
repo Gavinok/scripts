@@ -3,9 +3,9 @@
 # Gives a dmenu prompt to search DuckDuckGo.
 # Without input, will open DuckDuckGo.com.
 # Anything else, it search it.h
-
 [ -z "$LAUNCHER" ] && LAUNCHER="dmenu -l 5 -i -p "
 [ -z "${DISPLAY}" ] && LAUNCHER="fzf --prompt "
+[ "${XDG_SESSION_TYPE}" = "wayland" ] && LAUNCHER="wmenu -l 5 -i -p "
 
 localBROWSER="$BROWSER "
 [ -n "$*" ] && localBROWSER="$*"

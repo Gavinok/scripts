@@ -7,6 +7,7 @@ flashfocus &
 # fi
 # unclutter &
 clipmenud &
+# sleep 2 && wl-paste --watch cliphist store &
 #            DAY:NIGHT  LAT:LON
 redshift -t 6500:2500 -l 60:-135 &
 # pulsemixer --set-volume 50 &

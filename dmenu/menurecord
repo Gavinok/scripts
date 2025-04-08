@@ -20,16 +20,16 @@
 mkdir -p "${VIDEODIR}"
 RECORDINGFILE=""
 
-updateicon() { \
-	echo "$1" > ~/.recordingicon
+updateicon() {
+	echo "$1" >~/.cache/recordingicon
 	pkill -RTMIN+9 i3blocks
 }
 
 killrecording() {
-	recpid="$(cat ~/.recordingpid)"
+	recpid="$(cat ~/.cache/recordingpid)"
 	# kill with SIGTERM, allowing finishing touches.
 	kill -15 "$recpid"
-	rm -f ~/.recordingpid
+	rm -f ~/.cache/recordingpid
 	updateicon ""
 	pkill -RTMIN+9 i3blocks
 	sleep 3
@@ -37,206 +37,222 @@ killrecording() {
 	kill -9 "$recpid"
 	GIFFILE="$VIDEODIR/screencast-$(date '+%y%m%d-%H%M-%S').gif"
 	# special handling of gifs since we need to convert them
-	[ -f ~/.recordinggif ] &&
- 	    convert -set delay 10 -layers Optimize "$(cat ~/.recordingfile)" "$GIFFILE" &&
-	    rm -f ~/.recordinggif &&
-	    xdg-open "$GIFFILE" &&
-	    exit
-	[ -f ~/.recordingfile ] && playrecording
+	[ -f ~/.cache/recordinggif ] &&
+		convert -set delay 10 -layers Optimize "$(cat ~/.cache/recordingfile)" "$GIFFILE" &&
+		rm -f ~/.cache/recordinggif &&
+		xdg-open "$GIFFILE" &&
+		exit
+	[ -f ~/.cache/recordingfile ] && playrecording
 	exit
 }
 
-stream() { \
+stream() {
 	twitchkey=$(pass twitchkey)
 	if [ "$twitchkey" = "" ]; then
 		notify-send "ERROR: no twitch key found"
 		exit 1
 	fi
 	ffmpeg \
-	-y -loglevel warning \
-	-f x11grab \
-	-framerate 30 \
-	-s 1280x800 \
-	-i :0.0 \
-	-f alsa -i default \
-	-r 15 \
-	-c:v libx264 -b:v 2M -maxrate 2M -bufsize 500K \
-	-preset ultrafast -tune zerolatency \
-	-c:a aac -pix_fmt yuv420p -f flv\
-	rtmp://live-sea.twitch.tv/app/"$twitchkey"  &
-	echo $! > ~/.recordingpid
+		-y -loglevel warning \
+		-f x11grab \
+		-framerate 30 \
+		-s 1280x800 \
+		-i :0.0 \
+		-f alsa -i default \
+		-r 15 \
+		-c:v libx264 -b:v 2M -maxrate 2M -bufsize 500K \
+		-preset ultrafast -tune zerolatency \
+		-c:a aac -pix_fmt yuv420p -f flv rtmp://live-sea.twitch.tv/app/"$twitchkey" &
+	echo $! >~/.cache/recordingpid
 	updateicon "⏺️🎙️"
 	notify-send "Dont forget to enlarge terminal text"
 }
-screencastgif () { \
-		   RECORDINGFILE="/tmp/screencast-$(date '+%y%m%d-%H%M-%S').webm"
-		   ffmpeg -f x11grab \
-			  -show_region 1 \
-			  $(slop | sed -e 's/+/ /g' | awk '{ print "-video_size " $1 " -framerate 15 " " -i :0.0+" $2 "," $3 }') \
-			  -vf format=yuv420p \
-			  "$RECORDINGFILE" &
-		   echo $! > ~/.recordingpid
-		   echo 1 > ~/.recordinggif
-		   echo "$RECORDINGFILE" > ~/.recordingfile
-		   notify-send "Recording gif"
+screencastgif() {
+	RECORDINGFILE="/tmp/screencast-$(date '+%y%m%d-%H%M-%S').webm"
+	ffmpeg -f x11grab \
+		-show_region 1 \
+		$(slop | sed -e 's/+/ /g' | awk '{ print "-video_size " $1 " -framerate 15 " " -i :0.0+" $2 "," $3 }') \
+		-vf format=yuv420p \
+		"$RECORDINGFILE" &
+	echo $! >~/.cache/recordingpid
+	echo 1 >~/.cache/recordinggif
+	echo "$RECORDINGFILE" >~/.cache/recordingfile
+	notify-send "Recording gif"
 }
-screencastpulse() { \
+screencastregion() {
 	RECORDINGFILE="$VIDEODIR/screencast-$(date '+%y%m%d-%H%M-%S').webm"
 	ffmpeg -y \
-	-f x11grab \
-	-framerate 30 \
-	-s 1280x800 \
-	-i :0.0 \
-        -f pulse -i default \
-	-r 30 \
-	-c:v libvpx -crf 0 -preset ultrafast -c:a flac \
-	"$RECORDINGFILE" &
-	echo $! > ~/.recordingpid
-	echo "$RECORDINGFILE" > ~/.recordingfile
+		-f x11grab \
+		-show_region 1 \
+		$(slop | sed -e 's/+/ /g' | awk '{ print "-video_size " $1 " -framerate 15 " " -i :0.0+" $2 "," $3 }') \
+		-framerate 30 \
+		-s 1280x800 \
+		-i :0.0 \
+		-f pulse -i default \
+		-r 30 \
+		-c:v libvpx -crf 0 -preset ultrafast -c:a flac \
+		"$RECORDINGFILE" &
+	echo $! >~/.cache/recordingpid
+	echo "$RECORDINGFILE" >~/.cache/recordingfile
 	updateicon "⏺️🎙️"
 	notify-send "Dont forget to enlarge terminal text"
 }
 
-screencastpulseMKV() { \
+screencastpulse() {
+	RECORDINGFILE="$VIDEODIR/screencast-$(date '+%y%m%d-%H%M-%S').webm"
+	ffmpeg -y \
+		-f x11grab \
+		-framerate 30 \
+		-s 1280x800 \
+		-i :0.0 \
+		-f pulse -i default \
+		-r 30 \
+		-c:v libvpx -crf 0 -preset ultrafast -c:a flac \
+		"$RECORDINGFILE" &
+	echo $! >~/.cache/recordingpid
+	echo "$RECORDINGFILE" >~/.cache/recordingfile
+	updateicon "⏺️🎙️"
+	notify-send "Dont forget to enlarge terminal text"
+}
+
+screencastpulseMKV() {
 	RECORDINGFILE="$VIDEODIR/screencast-$(date '+%y%m%d-%H%M-%S').mkv"
 	ffmpeg -y \
-	-f x11grab \
-	-framerate 30 \
-	-s 1280x800 \
-	-i :0.0 \
-	# -f fbdev -i /dev/fb0 \
-	-f pulse -i default \
-	-r 30 \
-	-c:v libx264rgb -crf 0 -preset ultrafast -c:a flac \
-	 "$RECORDINGFILE" &
-	echo $! > ~/.recordingpid
-	echo "$RECORDINGFILE" > ~/.recordingfile
+		-f x11grab \
+		-framerate 30 \
+		-s 1280x800 \
+		-i :0.0 \
+		\
+		-f pulse -i default \
+		-r 30 \
+		-c:v libx264rgb -crf 0 -preset ultrafast -c:a flac \
+		"$RECORDINGFILE" & # -f fbdev -i /dev/fb0 \
+	echo $! >~/.cache/recordingpid
+	echo "$RECORDINGFILE" >~/.cache/recordingfile
 	updateicon "⏺️🎙️"
 	notify-send "Dont forget to enlarge terminal text"
 }
 
-webcampulse() { \
+webcampulse() {
 	RECORDINGFILE="$VIDEODIR/webcam-$(date '+%y%m%d-%H%M-%S').mkv"
 	WEBCAM=/dev/video0
 	ffmpeg -y \
-	-f v4l2 \
-	-framerate 30 \
-	-video_size 1920x1080 \
-	-input_format mjpeg \
-	-i $WEBCAM \
-	-f alsa -i default \
-	-r 30 \
-	-c:a flac \
-	-c copy \
-	"$RECORDINGFILE" &
+		-f v4l2 \
+		-framerate 30 \
+		-video_size 1920x1080 \
+		-input_format mjpeg \
+		-i $WEBCAM \
+		-f alsa -i default \
+		-r 30 \
+		-c:a flac \
+		-c copy \
+		"$RECORDINGFILE" &
 	v4l2-ctl -d $WEBCAM -c focus_auto=0
-	echo $! > ~/.recordingpid
-	echo "$RECORDINGFILE" > ~/.recordingfile
+	echo $! >~/.cache/recordingpid
+	echo "$RECORDINGFILE" >~/.cache/recordingfile
 	updateicon "⏺️🎙️"
 	notify-send "Dont forget to enlarge terminal text"
 }
 
-screencastalsa() { \
+screencastalsa() {
 	ffmpeg -y \
-	-f x11grab \
-	-s $(xdpyinfo | grep dimensions | awk '{print $2;}') \
-	-i :0.0 \
-	-thread_queue_size 1024 \
-	-f alsa -ar 44100 -i hw:1 \
-	-c:v libx264 -r 30 -c:a flac \
-	"$VIDEODIR/screencast-$(date '+%y%m%d-%H%M-%S').mkv" &
-	echo $! > ~/.recordingpid
+		-f x11grab \
+		-s $(xdpyinfo | grep dimensions | awk '{print $2;}') \
+		-i :0.0 \
+		-thread_queue_size 1024 \
+		-f alsa -ar 44100 -i hw:1 \
+		-c:v libx264 -r 30 -c:a flac \
+		"$VIDEODIR/screencast-$(date '+%y%m%d-%H%M-%S').mkv" &
+	echo $! >~/.cache/recordingpid
 	updateicon "⏺️"
 }
 
-
-
-video() { \
-	  RECORDINGFILE="$VIDEODIR/video-$(date '+%y%m%d-%H%M-%S').webm"
-	  ffmpeg \
-	      -f x11grab \
-	      -framerate 30 \
-	      -s $(xdpyinfo | grep dimensions | awk '{print $2;}') \
-	      -i :0.0 \
-	      -deadline realtime \
-	      -b 50000000 \
-	      -minrate 20000000 \
-	      -maxrate 400000000 \
-	      -c:v vp8 \
-	      "$RECORDINGFILE" &
-	  echo $! > ~/.recordingpid
-	  echo "$RECORDINGFILE" > ~/.recordingfile
-	  updateicon "⏺️"
-}
-
-videomkv() { \
+video() {
+	RECORDINGFILE="$VIDEODIR/video-$(date '+%y%m%d-%H%M-%S').webm"
 	ffmpeg \
-	-f x11grab \
-	-s $(xdpyinfo | grep dimensions | awk '{print $2;}') \
-	-i :0.0 \
-	-c:v libx264 -qp 0 -r 30 \
-	"$VIDEODIR/video-$(date '+%y%m%d-%H%M-%S').mkv" &
-	echo $! > ~/.recordingpid
+		-f x11grab \
+		-framerate 30 \
+		-s $(xdpyinfo | grep dimensions | awk '{print $2;}') \
+		-i :0.0 \
+		-deadline realtime \
+		-b 50000000 \
+		-minrate 20000000 \
+		-maxrate 400000000 \
+		-c:v vp8 \
+		"$RECORDINGFILE" &
+	echo $! >~/.cache/recordingpid
+	echo "$RECORDINGFILE" >~/.cache/recordingfile
 	updateicon "⏺️"
 }
 
-audiopulse() { \
+videomkv() {
+	ffmpeg \
+		-f x11grab \
+		-s $(xdpyinfo | grep dimensions | awk '{print $2;}') \
+		-i :0.0 \
+		-c:v libx264 -qp 0 -r 30 \
+		"$VIDEODIR/video-$(date '+%y%m%d-%H%M-%S').mkv" &
+	echo $! >~/.cache/recordingpid
+	updateicon "⏺️"
+}
+
+audiopulse() {
 	RECORDINGFILE="$VIDEODIR/audio-$(date '+%y%m%d-%H%M-%S').flac"
 	ffmpeg \
-	-f alsa -i default \
-	-c:a flac \
-	"$RECORDINGFILE" &
-	echo $! > ~/.recordingpid
-	echo "$RECORDINGFILE" > ~/.recordingfile
+		-f alsa -i default \
+		-c:a flac \
+		"$RECORDINGFILE" &
+	echo $! >~/.cache/recordingpid
+	echo "$RECORDINGFILE" >~/.cache/recordingfile
 	updateicon "🎙️"
 }
 
-audioalsa() { \
+audioalsa() {
 	ffmpeg -y \
-	-f alsa -ar 44100 -i hw:1 \
-	"$VIDEODIR/audio-$(date '+%y%m%d-%H%M-%S').flac" &
-	echo $! > ~/.recordingpid
+		-f alsa -ar 44100 -i hw:1 \
+		"$VIDEODIR/audio-$(date '+%y%m%d-%H%M-%S').flac" &
+	echo $! >~/.cache/recordingpid
 	updateicon "🎙️"
 }
 
-askrecording() { \
-	choice=$(printf "screencast\\nstream\\nwebcam\\nvideo\\ngif\\naudio" | $LAUNCHER "Select recording style:")
+askrecording() {
+	choice=$(printf "screencast\\nregion\\nstream\\nwebcam\\nvideo\\ngif\\naudio" | $LAUNCHER "Select recording style:")
 	case "$choice" in
-		screencast) screencastpulse;;
-		gif) screencastgif;;
-		webcam) webcampulse;;
-		stream) stream;;
-		audio) audiopulse;;
-		video) video;;
+	screencast) screencastpulse ;;
+	region) screencastregion ;;
+	gif) screencastgif ;;
+	webcam) webcampulse ;;
+	stream) stream ;;
+	audio) audiopulse ;;
+	video) video ;;
 	esac
 }
 
-playrecording() { \
-	RECORDINGFILE="$(cat ~/.recordingfile)"
-	rm -f ~/.recordingpid
+playrecording() {
+	RECORDINGFILE="$(cat ~/.cache/recordingfile)"
+	rm -f ~/.cache/recordingpid
 	xdg-open "$RECORDINGFILE"
 	asktodelete
 }
 
-asktodelete() { \
+asktodelete() {
 	response=$(printf "No\\nYes" | $LAUNCHER "Would you like to delete this recording? ") &&
-	[ "$response" = "Yes" ] && rm -f "$RECORDINGFILE" && notify-send "Deleted $RECORDINGFILE"
+		[ "$response" = "Yes" ] && rm -f "$RECORDINGFILE" && notify-send "Deleted $RECORDINGFILE"
 }
 
-asktoend() { \
+asktoend() {
 	response=$(printf "No\\nYes" | $LAUNCHER "Recording still active. End recording?") &&
-	[ "$response" = "Yes" ] && killrecording
+		[ "$response" = "Yes" ] && killrecording
 }
-
 
 case "$1" in
-	screencast) screencastpulse;;
-	webcam) webcampulse;;
-	stream) stream;;
-	gif) screencastgif;;
-	audio) audiopulse;;
-	video) video;;
-	kill) killrecording;;
-	*) ([ -f ~/.recordingpid ] && asktoend && exit) || askrecording;;
+screencast) screencastpulse ;;
+webcam) webcampulse ;;
+stream) stream ;;
+gif) screencastgif ;;
+audio) audiopulse ;;
+video) video ;;
+kill) killrecording ;;
+*) ([ -f ~/.cache/recordingpid ] && asktoend && exit) || askrecording ;;
 esac
 #vim:ft=sh
