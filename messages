@@ -1,0 +1,3 @@
+#!/bin/sh
+
+brave --app-id=hpfldicfbfomlpcikngkocigghgafkph --app-url=https://messages.google.com/web

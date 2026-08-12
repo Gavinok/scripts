@@ -1,0 +1,2 @@
+#!/bin/bash
+brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,VaapiIgnoreDriverChecks,Vulkan,DefaultANGLEVulkan --use-gl=angle --use-angle=vulkan  --app-id=nbdbokbkmendlibhmflijafcndifgeeh --app-url=https://chat.developer.gov.bc.ca

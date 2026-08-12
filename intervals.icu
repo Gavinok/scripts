@@ -1,0 +1,2 @@
+#!/bin/bash
+brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,VaapiIgnoreDriverChecks,Vulkan,DefaultANGLEVulkan --use-gl=angle --use-angle=vulkan --app-id=meneleeidhlbjidgalbpoecldhbjomch --app-url=intervals.icu

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+export SHELL=rc
+export TERM=dumb
+export PAGER=nobs
+
+export NODE_NO_READLINE=1
+
+# Start fontserv if it's not already running
+pgrep -x fontsrv || setsid fontsrv &
+
+acme -a -f /mnt/font/PragmataProMono-Regular/12a/font $1

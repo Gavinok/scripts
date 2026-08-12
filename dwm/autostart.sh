@@ -2,8 +2,8 @@
 dock_monitor
 scheme=$(cat ~/.config/colorschemes/current)
 # if [ "$scheme" = "dark" ];then
-picom &
-flashfocus &
+# picom &
+# flashfocus &
 # fi
 # unclutter &
 clipmenud &

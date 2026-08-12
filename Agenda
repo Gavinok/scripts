@@ -1,0 +1,21 @@
+#!/usr/bin/env rc
+
+emacsclient --eval '(setq org-agenda-custom-commands
+ `(("n" "Agenda and all TODOs" ((agenda "")
+   (alltodo ""))
+    nil
+   ("~/agenda.txt"))))' --eval '(defun save-agenda-view (&optional arg)
+  (interactive "P")
+  (org-agenda arg "n")
+  (org-store-agenda-views))' --eval '(save-agenda-view)' 2> /dev/null
+
+cat $home/agenda.txt | 9p write acme/new/body
+last=`{9p ls acme | sort -g | tail -n 1}
+echo 'name Agenda' | 9p write acme/$last/ctl
+echo -n 'clean' | 9p write acme/$last/ctl
+# store an address
+echo -n '0,0' | 9p write acme/$last/addr
+# move the dot to this the address 0,0
+echo -n 'dot=addr' | 9p write acme/$last/ctl
+# move the dot to this the address 0,0
+echo -n 'show' | 9p write acme/$last/ctl

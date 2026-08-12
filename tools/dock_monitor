@@ -33,7 +33,7 @@ _if_disconnected() {
 	xrandr | grep "$monitor disconnected" &&
 		xrandr --output "$monitor" --off --output "$intern" --auto
 }
-_if_monitor_connected
+# _if_monitor_connected
 
 _if_disconnected
 

@@ -1,0 +1,18 @@
+[Unit]
+Description=ytdl-web — tailnet music grabber
+# tailscaled runs as a system service; wait for the network to be usable.
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=%h/.scripts/ytdl-web/app.py
+# Tailscale may not have an IP yet at login; preflight exits non-zero, so retry.
+Restart=on-failure
+RestartSec=10
+# Give up only if it fails constantly for a few minutes.
+StartLimitBurst=20
+StartLimitIntervalSec=300
+
+[Install]
+WantedBy=default.target

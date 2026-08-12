@@ -1,0 +1,2 @@
+#!/bin/dash
+brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,VaapiIgnoreDriverChecks,Vulkan,DefaultANGLEVulkan --use-gl=angle --use-angle=vulkan --app-id=dnfpoenibinnbbckgbhendmlljoobcfg --app-url=https://excalidraw.com/

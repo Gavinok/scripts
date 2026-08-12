@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# This script requires xdotool.
+# You can install it with:
+# sudo apt-get install xdotool
+# or
+# sudo pacman -S xdotool
+# etc.
+
+# Get the geometry of the focused window.
+read -r window_x window_y < <(xdotool getactivewindow getwindowgeometry --shell | grep -E 'X=|Y=' | cut -d= -f2 | tr '\n' ' ')
+
+# Get the list of connected monitors and their geometries from xrandr.
+while read -r name status primary geometry rest; do
+	if [[ "$status" == "connected" ]]; then
+		# from "1920x1080+0+1080" get "1920 1080 0 1080"
+		read -r width height x_offset y_offset < <(echo "$geometry" | sed -e 's/x/ /' -e 's/+/ /')
+
+		# Check if the focused window is within this monitor's bounds.
+		if ((window_x >= x_offset && window_x < x_offset + width && window_y >= y_offset && window_y < y_offset + height)); then
+			echo "$name"
+			exit 0
+		fi
+	fi
+done < <(xrandr)
+
+exit 1

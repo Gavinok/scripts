@@ -17,6 +17,11 @@
 [ -z "$VIDEODIR" ] && VIDEODIR="${HOME}/Videos/clips"
 [ -z "$LAUNCHER" ] && LAUNCHER="dmenu -l 5 -i -p "
 
+getdim() {
+	monitor=$(activemonitor)
+	xrandr | awk '/'"$monitor"'/ { split($4, a, "+"); print a[1] }'
+}
+
 mkdir -p "${VIDEODIR}"
 RECORDINGFILE=""
 
@@ -56,7 +61,7 @@ stream() {
 		-y -loglevel warning \
 		-f x11grab \
 		-framerate 30 \
-		-s 1280x800 \
+		-s "$(getdim)" \
 		-i :0.0 \
 		-f alsa -i default \
 		-r 15 \
@@ -82,15 +87,14 @@ screencastgif() {
 screencastregion() {
 	RECORDINGFILE="$VIDEODIR/screencast-$(date '+%y%m%d-%H%M-%S').webm"
 	ffmpeg -y \
+		-use_wallclock_as_timestamps 1 \
 		-f x11grab \
 		-show_region 1 \
-		$(slop | sed -e 's/+/ /g' | awk '{ print "-video_size " $1 " -framerate 15 " " -i :0.0+" $2 "," $3 }') \
-		-framerate 30 \
-		-s 1280x800 \
-		-i :0.0 \
+		$(slop | sed -e 's/+/ /g' | awk '{ print "-video_size " $1 " -framerate 30 " " -i :0.0+" $2 "," $3 }') \
+		-thread_queue_size 1024 \
 		-f pulse -i default \
 		-r 30 \
-		-c:v libvpx -crf 0 -preset ultrafast -c:a flac \
+		-c:v libvpx -crf 4 -b:v 0 -preset ultrafast -c:a libopus \
 		"$RECORDINGFILE" &
 	echo $! >~/.cache/recordingpid
 	echo "$RECORDINGFILE" >~/.cache/recordingfile
@@ -101,13 +105,15 @@ screencastregion() {
 screencastpulse() {
 	RECORDINGFILE="$VIDEODIR/screencast-$(date '+%y%m%d-%H%M-%S').webm"
 	ffmpeg -y \
+		-use_wallclock_as_timestamps 1 \
 		-f x11grab \
 		-framerate 30 \
-		-s 1280x800 \
+		-s "$(getdim)" \
 		-i :0.0 \
+		-thread_queue_size 1024 \
 		-f pulse -i default \
 		-r 30 \
-		-c:v libvpx -crf 0 -preset ultrafast -c:a flac \
+		-c:v libvpx -crf 4 -b:v 0 -preset ultrafast -c:a libopus \
 		"$RECORDINGFILE" &
 	echo $! >~/.cache/recordingpid
 	echo "$RECORDINGFILE" >~/.cache/recordingfile
@@ -120,7 +126,7 @@ screencastpulseMKV() {
 	ffmpeg -y \
 		-f x11grab \
 		-framerate 30 \
-		-s 1280x800 \
+		-s "$(getdim)" \
 		-i :0.0 \
 		\
 		-f pulse -i default \

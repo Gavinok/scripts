@@ -1,0 +1,2 @@
+#!/bin/sh
+brave --enable-features=VaapiVideoDecoder,VaapiVideoEncoder,VaapiIgnoreDriverChecks,Vulkan,DefaultANGLEVulkan --use-gl=angle --use-angle=vulkan --app-id=pjibgclleladliembfgfagdaldikeohf --app-url=https://open.spotify.com/

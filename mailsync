@@ -41,6 +41,8 @@ command -v notify-send >/dev/null || notify 'Note that `libnotify` or `libnotify
 syncandnotify() {
     acc="$(echo "$account" | sed "s/.*\///")"
     mbsync "$acc"
+    # Index after each account syncs; flock serializes concurrent calls
+    flock /tmp/mu-index-lock mu index 2>/dev/null
     new=$(find "$HOME/.local/share/mail/$acc/INBOX/new/" "$HOME/.local/share/mail/$acc/Inbox/new/" "$HOME/.local/share/mail/$acc/inbox/new/" -type f -newer "$HOME/.config/mutt/.mailsynclastrun" 2>/dev/null)
     newcount=$(echo "$new" | sed '/^\s*$/d' | wc -l)
     if [ "$newcount" -gt "0" ]; then
@@ -65,11 +67,11 @@ echo " 🔃" >/tmp/imapsyncicon_"$USER"
 (pkill -RTMIN+12 "${STATUSBAR:?}" >/dev/null 2>&1) 2>/dev/null
 
 # Startup davmail for use with outlook accounts
-if ! pgrep -f davmail.jar >/dev/null; then
-    echo "starting davmail"
-    setsid --fork davmail -notray "$HOME/.davmail.properties" &
-    sleep 5
-fi
+# if ! pgrep -f davmail.jar >/dev/null; then
+#     echo "starting davmail"
+#     setsid --fork davmail -notray "$HOME/.davmail.properties" &
+#     sleep 5
+# fi
 
 # Parallelize multiple accounts
 for account in $accounts; do
@@ -80,7 +82,8 @@ wait
 rm -f /tmp/imapsyncicon_"$USER"
 (pkill -RTMIN+12 "${STATUSBAR:?}" >/dev/null 2>&1) 2>/dev/null
 
-mu index 2>/dev/null
+# mu index 2>/dev/null
+/usr/bin/emacsclient -e '(mu4e-update-index)' 2>/dev/null
 
 # notmuch new 2>/dev/null
 
