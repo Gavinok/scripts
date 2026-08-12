@@ -17,12 +17,15 @@ import argparse
 import html
 import json
 import os
+import re
 import shutil
+import struct
 import subprocess
 import sys
 import threading
 import time
 import uuid
+import zlib
 from collections import OrderedDict
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -315,6 +318,122 @@ def _parse_percent(line: str, fallback: float) -> float:
 
 
 # --------------------------------------------------------------------------
+# pwa assets
+# --------------------------------------------------------------------------
+
+ICON_BG = (0x58, 0xA6, 0xFF)
+ICON_FG = (0x06, 0x10, 0x1F)
+_ICON_CACHE: dict[int, bytes] = {}
+
+
+def icon_png(size: int) -> bytes:
+    """A download-arrow icon drawn per pixel, so the app ships no binary assets.
+
+    Full-bleed background keeps it valid as a `maskable` icon: Android may crop
+    it to a circle or squircle, and only the centred glyph has to survive.
+    """
+    cached = _ICON_CACHE.get(size)
+    if cached is not None:
+        return cached
+
+    raw = bytearray()
+    for y in range(size):
+        raw.append(0)  # PNG per-scanline filter: none
+        fy = y / size
+        for x in range(size):
+            fx = x / size
+            if 0.22 <= fy <= 0.56 and 0.44 <= fx <= 0.56:        # arrow shaft
+                on = True
+            elif 0.52 <= fy <= 0.74:                             # arrow head
+                on = abs(fx - 0.5) <= 0.19 * (0.74 - fy) / 0.22
+            elif 0.79 <= fy <= 0.85 and 0.28 <= fx <= 0.72:      # tray line
+                on = True
+            else:
+                on = False
+            raw.extend(ICON_FG if on else ICON_BG)
+
+    def chunk(tag: bytes, data: bytes) -> bytes:
+        return (struct.pack(">I", len(data)) + tag + data
+                + struct.pack(">I", zlib.crc32(tag + data) & 0xFFFFFFFF))
+
+    png = (b"\x89PNG\r\n\x1a\n"
+           + chunk(b"IHDR", struct.pack(">IIBBBBB", size, size, 8, 2, 0, 0, 0))
+           + chunk(b"IDAT", zlib.compress(bytes(raw), 9))
+           + chunk(b"IEND", b""))
+    _ICON_CACHE[size] = png
+    return png
+
+
+MANIFEST = {
+    "name": "Music Grabber",
+    "short_name": "Grabber",
+    "description": "Download links as tagged MP3s on the tailnet.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#14161a",
+    "theme_color": "#14161a",
+    "icons": [
+        {"src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+        {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"},
+    ],
+    # Puts the app in Android's share sheet: share a link from YouTube, land here.
+    "share_target": {
+        "action": "/share",
+        "method": "GET",
+        "params": {"url": "url", "text": "text", "title": "title"},
+    },
+}
+
+# Offline cache for the shell only. Job state is live data — never cache it, or
+# the UI shows yesterday's downloads.
+SERVICE_WORKER = """\
+const CACHE = 'ytdl-web-v1';
+const SHELL = ['/', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png'];
+const LIVE = ['/jobs', '/submit', '/share', '/healthz'];
+
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+});
+self.addEventListener('activate', e => {
+  e.waitUntil(caches.keys()
+    .then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k))))
+    .then(() => self.clients.claim()));
+});
+self.addEventListener('fetch', e => {
+  const url = new URL(e.request.url);
+  if (e.request.method !== 'GET' || LIVE.includes(url.pathname)) return;
+  e.respondWith(
+    fetch(e.request).then(r => {
+      const copy = r.clone();
+      caches.open(CACHE).then(c => c.put(e.request, copy));
+      return r;
+    }).catch(() => caches.match(e.request).then(r => r || caches.match('/')))
+  );
+});
+"""
+
+_URL_IN_TEXT = re.compile(r"https?://\S+")
+
+
+def url_from_share(params: dict[str, list[str]]) -> str | None:
+    """Pull a URL out of a Web Share payload.
+
+    Android apps are inconsistent: some fill `url`, YouTube stuffs the link at
+    the end of `text` after the video title.
+    """
+    for key in ("url", "text", "title"):
+        for candidate in params.get(key, []):
+            match = _URL_IN_TEXT.search(candidate or "")
+            if match:
+                url = valid_url(match.group(0))
+                if url:
+                    return url
+    return None
+
+
+# --------------------------------------------------------------------------
 # http
 # --------------------------------------------------------------------------
 
@@ -323,7 +442,15 @@ PAGE = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#14161a">
 <title>Music Grabber</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Music Grabber">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
   :root {{ --bg:#14161a; --fg:#e8eaed; --dim:#9aa0a6; --card:#1e2126; --line:#2c3038; --ok:#7ee787; --err:#ff7b72; --accent:#58a6ff; }}
   * {{ box-sizing:border-box; }}
@@ -386,6 +513,15 @@ async function poll(){{
   setTimeout(poll,1500);
 }}
 poll();
+if(new URLSearchParams(location.search).has('share_error')){{
+  flash.textContent='shared item had no usable link';
+  history.replaceState(null,'','/');
+}}
+// Service workers need a secure context: https, or localhost. Over plain
+// tailnet http the page still works, it just isn't installable on Android.
+if('serviceWorker' in navigator && window.isSecureContext){{
+  navigator.serviceWorker.register('/sw.js').catch(()=>{{}});
+}}
 </script></body></html>
 """
 
@@ -394,11 +530,11 @@ class Handler(BaseHTTPRequestHandler):
     server_version = "ytdl-web/1.0"
     protocol_version = "HTTP/1.1"
 
-    def _send(self, code: int, body: bytes, ctype: str) -> None:
+    def _send(self, code: int, body: bytes, ctype: str, cache: str = "no-store") -> None:
         self.send_response(code)
         self.send_header("Content-Type", ctype)
         self.send_header("Content-Length", str(len(body)))
-        self.send_header("Cache-Control", "no-store")
+        self.send_header("Cache-Control", cache)
         self.send_header("X-Content-Type-Options", "nosniff")
         self.end_headers()
         self.wfile.write(body)
@@ -406,8 +542,16 @@ class Handler(BaseHTTPRequestHandler):
     def _json(self, code: int, payload: dict) -> None:
         self._send(code, json.dumps(payload).encode(), "application/json; charset=utf-8")
 
+    ICON_ROUTES = {
+        "/icon-192.png": 192,
+        "/icon-512.png": 512,
+        "/icon-180.png": 180,   # apple-touch-icon
+        "/favicon.ico": 32,     # a PNG under an .ico name; every browser copes
+    }
+
     def do_GET(self) -> None:  # noqa: N802
-        path = urlparse(self.path).path
+        parsed = urlparse(self.path)
+        path = parsed.path
         if path == "/":
             page = PAGE.format(music_dir=html.escape(str(MUSIC_DIR)))
             self._send(HTTPStatus.OK, page.encode(), "text/html; charset=utf-8")
@@ -415,8 +559,33 @@ class Handler(BaseHTTPRequestHandler):
             self._json(HTTPStatus.OK, {"jobs": JOBS.snapshot()})
         elif path == "/healthz":
             self._json(HTTPStatus.OK, {"ok": True})
+        elif path == "/manifest.webmanifest":
+            self._send(HTTPStatus.OK, json.dumps(MANIFEST).encode(),
+                       "application/manifest+json; charset=utf-8", cache="max-age=3600")
+        elif path == "/sw.js":
+            # no-store: the browser must see a new worker to pick up app changes
+            self._send(HTTPStatus.OK, SERVICE_WORKER.encode(),
+                       "text/javascript; charset=utf-8")
+        elif path in self.ICON_ROUTES:
+            self._send(HTTPStatus.OK, icon_png(self.ICON_ROUTES[path]),
+                       "image/png", cache="max-age=604800")
+        elif path == "/share":
+            self._handle_share(parsed.query)
         else:
             self._json(HTTPStatus.NOT_FOUND, {"error": "not found"})
+
+    def _handle_share(self, query: str) -> None:
+        """Web Share Target lands here. Queue the link, then bounce to the UI."""
+        url = url_from_share(parse_qs(query))
+        if url:
+            job = Job(url)
+            JOBS.add(job)
+            threading.Thread(target=run_job, args=(job,), daemon=True).start()
+        self.send_response(HTTPStatus.SEE_OTHER)
+        self.send_header("Location", "/" if url else "/?share_error=1")
+        self.send_header("Content-Length", "0")
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
 
     def do_POST(self) -> None:  # noqa: N802
         if urlparse(self.path).path != "/submit":
