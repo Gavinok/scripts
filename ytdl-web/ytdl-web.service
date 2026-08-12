@@ -3,16 +3,21 @@ Description=ytdl-web — tailnet music grabber
 # tailscaled runs as a system service; wait for the network to be usable.
 After=network-online.target
 Wants=network-online.target
-
-[Service]
-Type=simple
-ExecStart=%h/.scripts/ytdl-web/app.py
-# Tailscale may not have an IP yet at login; preflight exits non-zero, so retry.
-Restart=on-failure
-RestartSec=10
 # Give up only if it fails constantly for a few minutes.
 StartLimitBurst=20
 StartLimitIntervalSec=300
+
+[Service]
+Type=simple
+# Bind loopback and let `tailscale serve` terminate TLS in front of us; a
+# service worker (and so PWA install) needs https, which we can't do ourselves.
+ExecStart=%h/.scripts/ytdl-web/app.py --host 127.0.0.1 --allow-any-host
+# pipx puts yt-dlp in ~/.local/bin, which is not on the unit's default PATH.
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin:/bin
+Environment=PYTHONUNBUFFERED=1
+# Tailscale may not have an IP yet at login; preflight exits non-zero, so retry.
+Restart=on-failure
+RestartSec=10
 
 [Install]
 WantedBy=default.target
