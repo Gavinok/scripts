@@ -102,6 +102,22 @@ def tailscale_dns_name() -> str | None:
     return (data.get("Self") or {}).get("DNSName", "").rstrip(".") or None
 
 
+# YouTube hands the extractor a JavaScript challenge that has to be executed.
+# Order is yt-dlp's own preference: deno sandboxes that untrusted script by
+# default, quickjs is a small engine with little to reach for, and node runs it
+# with full access to the account. Prefer the safest one present.
+JS_RUNTIMES = (("deno", "deno"), ("quickjs", "qjs"), ("bun", "bun"), ("node", "node"))
+
+
+def js_runtime() -> tuple[str, str] | None:
+    """(yt-dlp runtime name, binary path) for the best JS engine installed."""
+    for name, binary in JS_RUNTIMES:
+        path = shutil.which(binary)
+        if path:
+            return name, path
+    return None
+
+
 def tailscale_serve_url(port: int) -> str | None:
     """The https URL `tailscale serve` uses to front this port, if any.
 
@@ -155,10 +171,14 @@ def tailscale_status() -> tuple[bool, str]:
     return True, f"running as {name or 'unknown host'}"
 
 
-def preflight(require_tailscale: bool) -> dict[str, str]:
-    """Verify every external dependency up front. Raises PreflightError."""
+def preflight(require_tailscale: bool) -> tuple[dict[str, str], list[str]]:
+    """Verify every external dependency up front. Raises PreflightError.
+
+    Returns (report, warnings); warnings are degraded-but-usable conditions.
+    """
     report: dict[str, str] = {}
     problems: list[str] = []
+    warns: list[str] = []
 
     for tool, hint in (
         ("yt-dlp", "install with: pipx install yt-dlp   (or: pacman -S yt-dlp)"),
@@ -174,6 +194,18 @@ def preflight(require_tailscale: bool) -> dict[str, str]:
         except (OSError, subprocess.SubprocessError, IndexError):
             version = "unknown"
         report[tool] = f"{path} ({version})"
+
+    # Not fatal: non-YouTube sites still extract fine without a JS engine, and
+    # refusing to start would be the wrong trade. YouTube will lose formats.
+    runtime = js_runtime()
+    if runtime:
+        report["js runtime"] = f"{runtime[1]} (yt-dlp: {runtime[0]})"
+    else:
+        warns.append(
+            "no JavaScript runtime found; YouTube formats will be missing.\n"
+            "      Install one with: apt install quickjs   (or a deno release,\n"
+            "      which sandboxes the untrusted player script)"
+        )
 
     ok, detail = tailscale_status()
     report["tailscale"] = detail
@@ -191,7 +223,7 @@ def preflight(require_tailscale: bool) -> dict[str, str]:
 
     if problems:
         raise PreflightError("\n".join(f"  - {p}" for p in problems))
-    return report
+    return report, warns
 
 
 # --------------------------------------------------------------------------
@@ -261,11 +293,20 @@ def valid_url(raw: str) -> str | None:
 
 
 def build_command(url: str) -> list[str]:
+    runtime = js_runtime()
+    js_args: list[str] = []
+    if runtime:
+        # Without both of these, YouTube signature and n-challenge solving fails
+        # and formats go missing. The solver script is fetched from yt-dlp's own
+        # releases and runs inside the JS engine above.
+        js_args = ["--js-runtimes", runtime[0], "--remote-components", "ejs:github"]
+
     return [
         shutil.which("yt-dlp") or "yt-dlp",
         "--newline",                     # one progress line at a time, parseable
         "--no-colors",
         "--ignore-config",               # ignore ~/.config/yt-dlp so behavior is predictable
+        *js_args,
         "--no-playlist",                 # a URL with &list= means the track, not the album
         "--extract-audio",
         "--audio-format", "mp3",
@@ -676,12 +717,14 @@ def main() -> int:
 
     require_ts = args.bind_tailnet and not args.allow_any_host
     try:
-        report = preflight(require_tailscale=require_ts)
+        report, warns = preflight(require_tailscale=require_ts)
     except PreflightError as exc:
         print("Preflight failed:\n" + str(exc), file=sys.stderr)
         return 1
     for key, value in report.items():
         print(f"  ok  {key}: {value}")
+    for warn in warns:
+        print(f"  warn  {warn}")
     if args.check:
         print("All checks passed.")
         return 0
