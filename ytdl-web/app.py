@@ -1,13 +1,21 @@
 #!/usr/bin/env python3
 """Tailnet-local web UI for downloading URLs as tagged MP3s via yt-dlp.
 
-Binds to this machine's Tailscale IP only, so the page is reachable from any
-device on the tailnet (phone, laptop) and from nowhere else.
+Binds loopback only. Put `tailscale serve` in front of it, which reaches the
+page from any device on the tailnet (phone, laptop) and from nowhere else, and
+supplies the TLS that browsers require before offering to install a PWA:
+
+    tailscale serve --bg --https=8443 http://127.0.0.1:8733
+
+`serve` is tailnet-only. Exposing this to the public internet would need
+`tailscale funnel`, which this app never sets up and which you should not add:
+there is no authentication here, and any caller can make the host fetch
+arbitrary URLs.
 
 Usage:
-    ./app.py                 # bind tailscale IP, port 8733
+    ./app.py                 # bind 127.0.0.1, port 8733
     ./app.py --port 9000
-    ./app.py --host 127.0.0.1 --allow-any-host   # local testing
+    ./app.py --bind-tailnet  # old behavior: plain http on the tailnet IP
     ./app.py --check         # run preflight checks and exit
 """
 
@@ -33,6 +41,10 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 DEFAULT_PORT = 8733
+# Loopback by default: `tailscale serve` fronts this with TLS, and a secure
+# context is what makes the page installable as a PWA. Binding the tailnet IP
+# instead (--bind-tailnet) serves plain http, which browsers refuse to install.
+DEFAULT_HOST = "127.0.0.1"
 MUSIC_DIR = Path(os.environ.get("YTDL_WEB_MUSIC_DIR", Path.home() / "Music"))
 MAX_JOBS_KEPT = 50
 MAX_CONCURRENT = 2
@@ -88,6 +100,37 @@ def tailscale_dns_name() -> str | None:
     if not (data.get("CurrentTailnet") or {}).get("MagicDNSEnabled"):
         return None
     return (data.get("Self") or {}).get("DNSName", "").rstrip(".") or None
+
+
+def tailscale_serve_url(port: int) -> str | None:
+    """The https URL `tailscale serve` uses to front this port, if any.
+
+    Returns None when no mapping points at us, which is the case worth warning
+    about: without TLS in front the page is not installable.
+    """
+    exe = shutil.which("tailscale")
+    if not exe:
+        return None
+    try:
+        proc = _run([exe, "serve", "status", "--json"])
+        if proc.returncode != 0:
+            return None
+        data = json.loads(proc.stdout)
+    except (OSError, subprocess.SubprocessError, json.JSONDecodeError):
+        return None
+
+    targets = {f"http://127.0.0.1:{port}", f"http://localhost:{port}"}
+    ip = tailscale_ip()
+    if ip:
+        targets.add(f"http://{ip}:{port}")
+
+    for hostport, cfg in (data.get("Web") or {}).items():
+        for path, handler in ((cfg or {}).get("Handlers") or {}).items():
+            if (handler or {}).get("Proxy") in targets:
+                host, _, listen = hostport.rpartition(":")
+                base = f"https://{host}" if listen == "443" else f"https://{host}:{listen}"
+                return base + (path if path != "/" else "/")
+    return None
 
 
 def tailscale_status() -> tuple[bool, str]:
@@ -621,14 +664,17 @@ class Handler(BaseHTTPRequestHandler):
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--host", help="bind address (default: this node's Tailscale IP)")
+    ap.add_argument("--host", help=f"bind address (default: {DEFAULT_HOST})")
     ap.add_argument("--port", type=int, default=DEFAULT_PORT)
+    ap.add_argument("--bind-tailnet", action="store_true",
+                    help="bind this node's Tailscale IP instead of loopback; "
+                         "serves plain http, so the page is not installable as a PWA")
     ap.add_argument("--allow-any-host", action="store_true",
                     help="skip the Tailscale requirement (for local testing only)")
     ap.add_argument("--check", action="store_true", help="run preflight checks and exit")
     args = ap.parse_args()
 
-    require_ts = not (args.host or args.allow_any_host)
+    require_ts = args.bind_tailnet and not args.allow_any_host
     try:
         report = preflight(require_tailscale=require_ts)
     except PreflightError as exc:
@@ -641,12 +687,13 @@ def main() -> int:
         return 0
 
     host = args.host
-    if not host:
+    if not host and args.bind_tailnet:
         host = tailscale_ip()
         if not host:
             print("Could not determine Tailscale IPv4 address. Is `tailscale up` done?\n"
                   "Override with --host <addr> --allow-any-host.", file=sys.stderr)
             return 1
+    host = host or DEFAULT_HOST
 
     try:
         httpd = ThreadingHTTPServer((host, args.port), Handler)
@@ -655,13 +702,19 @@ def main() -> int:
         return 1
     httpd.daemon_threads = True
 
-    dns = tailscale_dns_name()
-    print("\nOpen on any tailnet device (plain http — this server has no TLS):")
-    if dns:
-        print(f"  http://{dns}:{args.port}/")
-        short = dns.split(".", 1)[0]
-        print(f"  http://{short}:{args.port}/           (short name, needs MagicDNS search domain)")
-    print(f"  http://{host}:{args.port}/")
+    served = tailscale_serve_url(args.port)
+    if served:
+        print("\nOpen on any tailnet device (https via tailscale serve, installable):")
+        print(f"  {served}")
+    else:
+        dns = tailscale_dns_name()
+        print("\nOpen on any tailnet device (plain http — this server has no TLS,")
+        print("so the page will NOT install as a PWA):")
+        if dns and host != DEFAULT_HOST:
+            print(f"  http://{dns}:{args.port}/")
+        print(f"  http://{host}:{args.port}/")
+        print("\nTo get https, put tailscale serve in front:")
+        print(f"  tailscale serve --bg --https=8443 http://127.0.0.1:{args.port}")
     print(f"\nDownloads land in:  {MUSIC_DIR}")
     # stdout is block-buffered under redirection (systemd journal, log files);
     # flush so the banner is visible before serve_forever blocks.
